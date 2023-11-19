@@ -1,0 +1,45 @@
+.complete-example {
+  height: 540px;
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  .md-fab {
+    margin: 0;
+    position: absolute;
+    bottom: -20px;
+    left: 16px;
+  }
+
+  .md-title {
+    color: #fff;
+  }
+
+  .md-list {
+    overflow: auto;
+  }
+
+  .md-list-action .md-icon {
+    color: rgba(#000, 0.26);
+  }
+
+  .md-avatar-icon .md-icon {
+    color: #fff !important;
+  }
+
+  .md-sidenav .md-list-text-container > :nth-child(2) {
+    color: rgba(#fff, 0.54);
+  }
+
+  .md-account-header {
+    .md-list-item:hover .md-button:hover {
+      background-color: inherit;
+    }
+
+    .md-avatar-list .md-list-item-container:hover {
+      background: none !important;
+    }
+  }
+}
