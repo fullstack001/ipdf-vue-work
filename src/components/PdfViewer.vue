@@ -13,7 +13,9 @@ GlobalWorkerOptions.workerSrc = PDFJSWorker;
 
 export default {
   props: {
-    fileUrl: Text,
+    fileUrl: {
+      required: true,
+    },
   },
   data() {
     return {

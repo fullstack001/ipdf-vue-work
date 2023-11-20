@@ -10,7 +10,10 @@ import Notifications from "@/pages/Notifications.vue";
 
 import PdfEdit from "@/pdf_pages/PdfEdit.vue";
 import AllFeatures from "@/pdf_pages/features/AllFeatures.vue";
-import PdfMerge from "@/pdf_pages/features/PdfMerge";
+import PdfMerge from "@/pdf_pages/features/PdfMerge.vue";
+
+//test
+import Test from '@/pdf_pages/features/Test.vue'
 
 const routes = [
   {
@@ -27,6 +30,12 @@ const routes = [
         path: "pdfmerge",
         component: PdfMerge,
         name: "pdfmerge",
+      },
+
+      {
+        path: "test",
+        component: Test,
+        name: "test",
       },
     ],
   },
