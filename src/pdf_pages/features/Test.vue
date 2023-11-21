@@ -1,40 +1,57 @@
 <template>
   <div>
-    <h2>Drag and Drop Element List</h2>
-    <draggable v-model="elementList" :options="{ animation: 150 }">
-      <div v-for="element in elementList" :key="element.id" class="drag-item">
-        {{ element.name }}
-      </div>
-    </draggable>
+    <label for="file-upload" class="custom-file-upload">
+      {{ buttonText }}
+    </label>
+    <input
+      id="file-upload"
+      type="file"
+      style="display: none"
+      @change="handleFileUpload"
+      ref="fileInput"
+    />
+    <div v-if="selectedFile">
+      <p>Selected file: {{ selectedFile.name }}</p>
+      <!-- Add more logic here to handle file processing or display -->
+    </div>
   </div>
 </template>
 
 <script>
-import draggable from "vuedraggable";
-
 export default {
-  components: {
-    draggable,
-  },
   data() {
     return {
-      elementList: [
-        { id: 1, name: "Element 1" },
-        { id: 2, name: "Element 2" },
-        { id: 3, name: "Element 3" },
-        // Add more elements as needed
-      ],
+      selectedFile: null,
+      buttonText: "Select a file",
     };
+  },
+  methods: {
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.selectedFile = file;
+        // Perform additional actions with the selected file if needed
+        // For example, you can emit an event or send it to the server
+      }
+    },
+    openFilePicker() {
+      // Trigger the file input click event when the custom button is clicked
+      this.$refs.fileInput.click();
+    },
   },
 };
 </script>
 
 <style>
-.drag-item {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 5px;
-  cursor: grab;
+/* Style your custom file upload button */
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 5px;
 }
+
+/* Add additional styling as needed */
 </style>

@@ -21,6 +21,9 @@ import App from "./App";
 // router setup
 import routes from "./routes/routes";
 
+//vuex setup
+import store from "./store";
+
 // Plugins
 import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
@@ -49,8 +52,9 @@ Vue.use(Notifications);
 new Vue({
   el: "#app",
   render: (h) => h(App),
+  store,
   router,
-  data: {
-    Chartist: Chartist,
-  },
+  // data: {
+  //   Chartist: Chartist,
+  // },
 });

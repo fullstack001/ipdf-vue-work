@@ -1,17 +1,7 @@
 <template>
   <div class="main">
+    <div>{{ result }}</div>
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
-      <input
-        type="file"
-        multiple
-        name="file"
-        id="fileInput"
-        class="hidden-input"
-        @change="onChange"
-        ref="file"
-        accept=".pdf"
-      />
-
       <div v-show="files.length <= 0" class="upload-buttons">
         <div class="page-title">Merge PDF files</div>
         <div class="page-description">
@@ -19,9 +9,19 @@
           available.
         </div>
         <div class="upload_btn">
-          <md-button class="uploader__btn md-raised md-danger"
-            >Select PDF files</md-button
-          >
+          <label for="fileInput" class="uploader__btn md-raised md-danger">
+            Select PDF files
+          </label>
+          <input
+            type="file"
+            multiple
+            name="file"
+            id="fileInput"
+            class="hidden-input"
+            @change="onChange"
+            ref="file"
+            accept=".pdf"
+          />
           <VueDropboxPicker
             class="cloud dropbox"
             :api-key="'fvpl8xhvbq877as'"
@@ -54,7 +54,7 @@
               <div
                 class="preview-card"
                 v-for="(file, index) in files"
-                :key="file"
+                :key="file.name"
               >
                 <div class="file__actions">
                   <a
@@ -151,9 +151,13 @@
 
 <script>
 import { PDFDocument } from "pdf-lib";
+import { mapState, mapGetters, mapMutations } from "vuex";
+
 import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
+import store from "@/store/index";
+import * as type from "@/store/types";
 
 export default {
   components: {
@@ -168,7 +172,31 @@ export default {
     };
   },
 
+  computed: {
+    result() {
+      return store.state.result;
+    },
+    // ...mapState({
+    //   count: "count", // Maps 'count' from the store to local computed property 'count'
+    // }),
+  },
+
   methods: {
+    //add merged pdf to vuex
+    setPdfResult(result) {
+      console.log(result);
+      store.dispatch({
+        type: type.SetResult,
+        amount: result,
+      });
+    },
+
+    //click upload button
+    openFilePicker() {
+      // Trigger the file input click event when the custom button is clicked
+      this.$refs.file.click();
+    },
+
     handleDrop(event) {
       event.preventDefault();
       const files = event.dataTransfer.files;
@@ -205,13 +233,12 @@ export default {
     //download from dropbox
     onPickedDropbox(data) {
       this.files = [...this.files, ...data];
-      this.addOrder(data.length);
+      console.log(data);
     },
 
     //file upload
     onChange() {
       this.files = [...this.files, ...this.$refs.file.files];
-      this.addOrder(this.$refs.file.files.length);
     },
     makeName(name) {
       return (
@@ -261,11 +288,9 @@ export default {
 
       const mergedPdfFile = await mergedPdf.save();
 
-      this.download(
-        mergedPdfFile,
-        "pdf-lib_page_copying_example.pdf",
-        "application/pdf"
-      );
+      this.setPdfResult(mergedPdfFile);
+      this.files = [];
+      this.$router.push("/download");
     },
     async readFileAsync(file) {
       return new Promise((resolve, reject) => {
@@ -276,14 +301,6 @@ export default {
         reader.onerror = reject;
         reader.readAsArrayBuffer(file);
       });
-    },
-    //download
-    async download(file, filename, type) {
-      const link = document.getElementById("link");
-      link.download = filename;
-      let binaryData = [];
-      binaryData.push(file);
-      link.href = URL.createObjectURL(new Blob(binaryData, { type: type }));
     },
   },
 };
