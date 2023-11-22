@@ -2,15 +2,18 @@
   <div>
     <md-toolbar md-elevation="0" class="md-transparent nav-par">
       <div class="md-toolbar-row nav-top">
-        <router-link to="/"
-          ><img src="@/assets/img/vue-logo.png" width="40" srcset=""
-        /></router-link>
-        <router-link to="pdfmerge"
-          ><p class="nav-btn"><b>MERGE PDF</b></p></router-link
-        >
-        <router-link to="test"
-          ><p class="nav-btn"><b>SPLIT PDF</b></p></router-link
-        >
+        <router-link to="/">
+          <img src="@/assets/img/vue-logo.png" width="40" srcset=""/>
+        </router-link>
+        <router-link to="pdfmerge">
+          <p class="nav-btn active-link">
+            <b>MERGE PDF</b></p>
+        </router-link>
+        <router-link to="test">
+          <p class="nav-btn">
+            <b>SPLIT PDF</b>
+          </p>
+        </router-link>
         <p class="nav-btn"><b>COMPRESS PDF</b></p>
         <p class="nav-btn"><b>CONVERT PDF</b></p>
         <p class="nav-btn"><b>ALL PDF TOOLS</b></p>
@@ -106,13 +109,24 @@ export default {
   margin-left: 50px;
   font-size: 12px;
   cursor: pointer;
+  color: #495057;
+}
+
+.nav-btn:hover{
+  color: #e5322d;
+}
+
+.download_btn{
+  color: #fff !important;
 }
 
 .md-theme-default a:not(.md-button) {
-  color: #e5322d !important;
+  color: #e5322d ;
 }
 
-.nav-btn:hover {
+.active-link{
   color: #e5322d;
 }
+
+
 </style>

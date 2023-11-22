@@ -1,8 +1,12 @@
 <template>
   <div class="main">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
     <div>{{ result }}</div>
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
-      <div v-show="files.length <= 0" class="upload-buttons">
+      <div v-show="file_objs.length <= 0" class="upload-buttons">
         <div class="page-title">Merge PDF files</div>
         <div class="page-description">
           Combine PDFs in the order you want with the easiest PDF merge
@@ -48,67 +52,102 @@
         </div>
       </div>
       <div class="files-list">
-        <div class="preview-container mt-4" v-if="files.length">
-          <div class="md-layout">
-            <draggable v-model="files" :options="{ animation: 150 }">
-              <div
-                class="preview-card"
-                v-for="(file, index) in files"
-                :key="file.name"
-              >
-                <div class="file__actions">
-                  <a
-                    class="file__btn rotate tooltip--top tooltip"
-                    data-rotate="0"
-                    title="Rotate"
-                    data-title="Rotate"
-                    @click="getRotationDegree(`id${index}`)"
+        <div class="preview-container mt-4" v-if="file_objs.length">
+          <draggable
+            v-model="file_objs"
+            :options="{ animation: 150 }"
+            class="md-layout"
+          >
+            <div
+              class="preview-card md-layout-item"
+              v-for="(file_obj, index) in file_objs"
+              :key="file_obj.file.name + '|' + file_obj.file.title"
+            >
+              <div class="file__actions">
+                <a
+                  class="file__btn rotate tooltip--top tooltip"
+                  data-rotate="0"
+                  title="Rotate"
+                  data-title="Rotate"
+                  @click="setRotationDegree(`id${index}`, index)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="16"
+                    viewBox="0 0 14 16"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="16"
-                      viewBox="0 0 14 16"
-                    >
-                      <path
-                        d="M11.328 6.364l1.24-1.2c.79.98 1.283 2.113 1.433 3.288h-1.775c-.123-.735-.43-1.454-.896-2.088zm.896 3.778H14c-.15 1.175-.633 2.308-1.424 3.288l-1.24-1.2c.457-.634.765-1.344.888-2.088zm-.888 4.497C10.318 15.4 9.13 15.856 7.9 16v-1.716a5.31 5.31 0 0 0 2.162-.871l1.266 1.226zM6.152 2.595V0l4 3.846-4 3.76V4.302c-2.496.406-4.394 2.485-4.394 4.995s1.898 4.59 4.394 4.995V16C2.68 15.586 0 12.746 0 9.297s2.68-6.29 6.152-6.703z"
-                        fill="#47474F"
-                        fill-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </a>
-                  <a
-                    class="file__btn remove tooltip--top tooltip"
-                    title="Remove this file"
-                    data-title="Remove this file"
-                    @click="remove(files.indexOf(file))"
+                    <path
+                      d="M11.328 6.364l1.24-1.2c.79.98 1.283 2.113 1.433 3.288h-1.775c-.123-.735-.43-1.454-.896-2.088zm.896 3.778H14c-.15 1.175-.633 2.308-1.424 3.288l-1.24-1.2c.457-.634.765-1.344.888-2.088zm-.888 4.497C10.318 15.4 9.13 15.856 7.9 16v-1.716a5.31 5.31 0 0 0 2.162-.871l1.266 1.226zM6.152 2.595V0l4 3.846-4 3.76V4.302c-2.496.406-4.394 2.485-4.394 4.995s1.898 4.59 4.394 4.995V16C2.68 15.586 0 12.746 0 9.297s2.68-6.29 6.152-6.703z"
+                      fill="#47474F"
+                      fill-rule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+                <a
+                  class="file__btn remove tooltip--top tooltip"
+                  title="Remove this file"
+                  data-title="Remove this file"
+                  @click="remove(file_objs.indexOf(file))"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                    >
-                      <polygon
-                        fill="#47474F"
-                        fill-rule="evenodd"
-                        points="12 1.208 10.79 0 6 4.792 1.21 0 0 1.208 4.79 6 0 10.792 1.21 12 6 7.208 10.79 12 12 10.792 7.21 6"
-                      ></polygon>
-                    </svg>
-                  </a>
-                </div>
-                <div :id="'id' + index" :style="'id' + index">
-                  <PdfViewer :fileUrl="generateURL(file)" />
-                </div>
-                <span></span>
+                    <polygon
+                      fill="#47474F"
+                      fill-rule="evenodd"
+                      points="12 1.208 10.79 0 6 4.792 1.21 0 0 1.208 4.79 6 0 10.792 1.21 12 6 7.208 10.79 12 12 10.792 7.21 6"
+                    ></polygon>
+                  </svg>
+                </a>
               </div>
-            </draggable>
+              <div :id="'id' + index" :style="'id' + index">
+                <PdfViewer :fileUrl="generateURL(file_obj)" />
+              </div>
+              <span></span>
+            </div>
+          </draggable>
+          <div class="add-more">
+            <div class="uploader__extra">
+              <md-speed-dial :class="topPosition" md-direction="bottom">
+                <md-speed-dial-target class="md-danger addmore-btn">
+                  <md-icon>add</md-icon>
+                </md-speed-dial-target>
+
+                <md-speed-dial-content>
+                  <md-button class="md-icon-button" @click="open_add_local">
+                    <md-icon>computer</md-icon>
+                  </md-button>
+
+                  <md-button class="md-icon-button">
+                    <md-icon>add_to_drive</md-icon>
+                  </md-button>
+
+                  <!-- <VueDropboxPicker
+                    class="md-icon-button"
+                    :api-key="'fvpl8xhvbq877as'"
+                    link-type="direct"
+                    :multiselect="true"
+                    :extensions="['.pdf', '.doc']"
+                    :folderselect="false"
+                    @picked="onPickedDropbox"
+                  > -->
+                  <!-- </VueDropboxPicker> -->
+                  <md-button class="md-icon-button">
+                    <md-icon class="fab fa-dropbox" />
+                  </md-button>
+                </md-speed-dial-content>
+              </md-speed-dial>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-show="files.length > 0">
+    <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
         <div class="tool__sidebar__inactive">
           <svg
@@ -140,9 +179,6 @@
           <button class="option__panel__title" @click="mergePDFs">
             Merge PDF
           </button>
-          <div>
-            <a id="link">Download</a>
-          </div>
         </div>
       </div>
     </div>
@@ -150,7 +186,7 @@
 </template>
 
 <script>
-import { PDFDocument } from "pdf-lib";
+import { PDFDocument, degrees } from "pdf-lib";
 import { mapState, mapGetters, mapMutations } from "vuex";
 
 import PdfViewer from "@/components/PdfViewer.vue";
@@ -169,6 +205,7 @@ export default {
     return {
       isDragging: false,
       files: [],
+      file_objs: [],
     };
   },
 
@@ -191,6 +228,14 @@ export default {
       });
     },
 
+    // //click add from local button
+    // open_add_dropbox() {
+    //   this.$refs.cloud_dropbox.click();
+    // },
+    //click add from local button
+    open_add_local() {
+      this.$refs.file.click();
+    },
     //click upload button
     openFilePicker() {
       // Trigger the file input click event when the custom button is clicked
@@ -205,17 +250,17 @@ export default {
     handleFiles(files) {
       // Process the dropped files
       for (let i = 0; i < files.length; i++) {
-        this.files.push(files[i]);
-        console.log(this.files);
+        this.file_objs.push({ file: files[i], degree: 0 });
+        console.log(this.file_objs);
       }
     },
 
     remove(i) {
-      this.files.splice(i, 1);
+      this.file_objs.splice(i, 1);
     },
 
     //rotate thumbnail
-    getRotationDegree(tagId) {
+    setRotationDegree(tagId, index) {
       const computedStyle = window.getComputedStyle(
         document.getElementById(tagId)
       );
@@ -223,22 +268,36 @@ export default {
 
       // Extract rotation degree from the transform value
       const matrix = new DOMMatrixReadOnly(transformValue);
-      const rotation = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
+      const rotation = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI) + 90;
+      if (rotation == 360) rotation = 0;
+      document.getElementById(tagId).style.transform = `rotate(${rotation}deg)`;
 
-      document.getElementById(tagId).style.transform = `rotate(${
-        rotation + 90
-      }deg)`;
+      //save rotation
+      this.file_objs[index] = {
+        file: this.file_objs[index]["file"],
+        degree: rotation,
+      };
+      console.log(this.file_objs);
     },
 
     //download from dropbox
     onPickedDropbox(data) {
-      this.files = [...this.files, ...data];
-      console.log(data);
+      const add_objs = data.map((item) => {
+        return { file: item, degree: 0 };
+      });
+      this.file_objs = [...this.file_objs, ...add_objs];
+      console.log(this.file_objs);
     },
 
     //file upload
     onChange() {
-      this.files = [...this.files, ...this.$refs.file.files];
+      const data = this.$refs.file.files;
+      var add_objs = [],
+        i = 0;
+      for (i = 0; i < data.length; i++) {
+        add_objs.push({ file: data[i], degree: 0 });
+      }
+      this.file_objs = [...this.file_objs, ...add_objs];
     },
     makeName(name) {
       return (
@@ -248,7 +307,8 @@ export default {
       );
     },
 
-    generateURL(file) {
+    generateURL(file_obj) {
+      const file = file_obj.file;
       if (file.link) {
         return file.link;
       } else if (file.type == "application/pdf") {
@@ -257,39 +317,50 @@ export default {
           URL.revokeObjectURL(fileSrc);
         }, 1000);
         return fileSrc;
-      } else {
-        let fileSrc = URL.createObjectURL(file);
-        setTimeout(() => {
-          URL.revokeObjectURL(fileSrc);
-        }, 1000);
-        return fileSrc;
       }
+      // else {
+      //   let fileSrc = URL.createObjectURL(file);
+      //   setTimeout(() => {
+      //     URL.revokeObjectURL(fileSrc);
+      //   }, 1000);
+      //   return fileSrc;
+      // }
     },
     //mergePDFs
     async mergePDFs() {
       const mergedPdf = await PDFDocument.create();
-      for (let i = 0; i < this.files.length; i++) {
-        const file = this.files[i];
+      for (let i = 0; i < this.file_objs.length; i++) {
+        const file = this.file_objs[i]["file"];
         let pdfBytes = null;
         if (file.link) {
+          //dropdown file
           const response = await fetch(file.link);
           const arrayBuffer = await response.arrayBuffer();
           pdfBytes = new Uint8Array(arrayBuffer);
         } else {
-          pdfBytes = await this.readFileAsync(file);
+          pdfBytes = await this.readFileAsync(file); //local upload
         }
+        //rotate pages
+
         const pdf = await PDFDocument.load(pdfBytes);
         const copiedPages = await mergedPdf.copyPages(
           pdf,
           pdf.getPageIndices()
         );
-        copiedPages.forEach((page) => mergedPdf.addPage(page));
+        if (this.file_objs[i]["degree"] != 0) {
+          copiedPages.forEach((page) => {
+            page.setRotation(degrees(this.file_objs[i]["degree"]));
+            mergedPdf.addPage(page);
+          });
+        } else {
+          copiedPages.forEach((page) => mergedPdf.addPage(page));
+        }
       }
 
       const mergedPdfFile = await mergedPdf.save();
 
       this.setPdfResult(mergedPdfFile);
-      this.files = [];
+      this.file_objs = [];
       this.$router.push("/download");
     },
     async readFileAsync(file) {
@@ -355,13 +426,18 @@ export default {
   cursor: pointer;
 }
 .preview-container {
-  display: flex;
+  position: relative;
   margin-top: 2rem;
+}
+
+.preview_area {
+  display: flex;
 }
 .preview-card {
   cursor: grab;
+  flex: 1 1;
   margin: 4px;
-  width: 200px;
+  max-width: 200px;
   height: 250px;
   display: -ms-flexbox;
   display: flex;
@@ -380,6 +456,7 @@ export default {
   -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
 }
+
 .preview-img {
   width: 140px;
   height: 180px;
@@ -387,6 +464,13 @@ export default {
   border: 1px solid #a2a2a2;
   background-color: #a2a2a2;
 }
+
+.add-more {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .file__actions {
   top: 8px;
   right: 8px;
@@ -529,5 +613,52 @@ export default {
 
 .option__panel__title:hover {
   background-color: #e75651;
+}
+
+#pickfiles {
+  display: block;
+  background-color: #e5322d;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.uploader__extra__btn,
+.md-icon-button {
+  display: block;
+  background-color: #e5322d;
+  width: 35px;
+  height: 35px;
+  margin-top: 5px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: -1;
+  position: relative;
+}
+
+.md-speed-dial-target {
+  display: block;
+  background-color: #e5322d !important;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.addmore-btn .md-button-content {
+  margin-left: -20px !important;
+}
+
+.md-speed-dial-content button {
+  width: 35px;
+  height: 37px;
+  border-radius: 50%;
+  background-color: #e5322d !important;
 }
 </style>

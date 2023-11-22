@@ -61,9 +61,9 @@ export default {
 
         var renderTask = page.render(renderContext);
 
-        renderTask.promise.then(function () {
-          console.log("Page rendered");
-        });
+        // renderTask.promise.then(function () {
+        //   console.log("Page rendered");
+        // });
       });
     },
   },

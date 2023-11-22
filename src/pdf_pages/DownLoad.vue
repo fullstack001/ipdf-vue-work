@@ -1,13 +1,13 @@
 <template>
   <center>
-    <div class="page-title">Merge PDF files</div>
+    <div class="page-title">Download PDF File</div>
     <div class="page-description">
-      Combine PDFs in the order you want with the easiest PDF merge available.
+      PDFs have been merged!
     </div>
     <div class="download_btn">
-      <a id="link" class="download__btn md-raised md-danger"> Download PDF </a>
+      <a id="link" class="download__btn md-raised md-danger"> Download merged PDF </a>
 
-      <a class="dropbox-icon">
+      <!-- <a class="dropbox-icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -19,7 +19,7 @@
             d="M5.3475,0.7035 L0.096,4.125 L3.708,7.03725 L9.018,3.765 L5.3475,0.7035 Z M17.904,4.14 L12.66525,0.7275 L9.01875,3.7725 L14.29875,7.03875 L17.904,4.14 Z M9.01875,10.305 L12.66525,13.35975 L17.904,9.945 L14.2995,7.0395 L9.01875,10.305 Z M0.096,9.9585 L5.3475,13.35975 L9.01875,10.305 L3.70875,7.0455 L0.096,9.9585 Z M9.01875,10.9635 L5.35575,14.0385 L3.786,13.02 L3.786,14.16 L9.01875,17.30475 L14.271,14.15175 L14.271,13.0125 L12.693,14.031 L9.01875,10.9635 Z"
           ></path>
         </svg>
-      </a>
+      </a> -->
     </div>
   </center>
 </template>
@@ -77,4 +77,14 @@ export default {
   order: 1;
   max-width: 60vw;
 }
+
+.download__btn:hover{
+  color: #fff !important;
+  background: #e90b03;
+}
+.download__btn:focus{
+  color: #fff !important;
+  background: #e90b03;
+}
+
 </style>
