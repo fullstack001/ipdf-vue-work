@@ -16,12 +16,14 @@ export default {
     fileUrl: {
       required: true,
     },
+    pageNumber: {
+      default: 1,
+    },
   },
   data() {
     return {
       url: this.fileUrl,
       numPages: 1,
-      pageNumber: 1,
       pdfDocument: null,
       idName: uuidv4(),
     };
@@ -61,9 +63,7 @@ export default {
 
         var renderTask = page.render(renderContext);
 
-        // renderTask.promise.then(function () {
-        //   console.log("Page rendered");
-        // });
+       
       });
     },
   },

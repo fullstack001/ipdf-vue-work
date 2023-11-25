@@ -4,51 +4,73 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <div>{{ result }}</div>
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
-      <div v-show="file_objs.length <= 0" class="upload-buttons">
-        <div class="page-title">Merge PDF files</div>
-        <div class="page-description">
-          Combine PDFs in the order you want with the easiest PDF merge
-          available.
+      <div class="upload_btn_area">
+        <div v-show="!file_objs.length" class="upload-buttons">
+          <div class="page-title">Merge PDF files</div>
+          <div class="page-description">
+            Combine PDFs in the order you want with the easiest PDF merge
+            available.
+          </div>
+          <div class="upload_btn">
+            <label for="fileInput" class="uploader__btn md-raised md-danger">
+              Select PDF files
+            </label>
+            <input
+              type="file"
+              multiple
+              name="file"
+              id="fileInput"
+              class="hidden-input"
+              @change="onChange"
+              ref="file"
+              accept=".pdf"
+            />
+          </div>
         </div>
-        <div class="upload_btn">
-          <label for="fileInput" class="uploader__btn md-raised md-danger">
-            Select PDF files
-          </label>
-          <input
-            type="file"
-            multiple
-            name="file"
-            id="fileInput"
-            class="hidden-input"
-            @change="onChange"
-            ref="file"
-            accept=".pdf"
-          />
+        <div
+          class="add-more"
+          v-bind:style="
+            file_objs.length
+              ? 'position: absolute; top: 50px; right: -30px'
+              : 'position: relative; margin: auto; right: 0; top: 0;'
+          "
+        >
+          <div>
+            <md-button
+              v-show="file_objs.length"
+              class="md-icon-button"
+              @click="open_add_local"
+            >
+              <md-icon>computer</md-icon>
+            </md-button>
+          </div>
+          <div
+            v-bind:style="
+              file_objs.length > 0
+                ? 'display: block;'
+                : 'display: inline-block;'
+            "
+          >
+            <md-button class="md-icon-button" @click="open_add_local">
+              <md-icon>add_to_drive</md-icon>
+            </md-button>
+          </div>
+
           <VueDropboxPicker
             class="cloud dropbox"
-            :api-key="'fvpl8xhvbq877as'"
+            :api-key="'w7vvdh8a5g5av1p'"
             link-type="direct"
             :multiselect="true"
             :extensions="['.pdf', '.doc']"
             :folderselect="false"
+            v-bind:style="
+              file_objs.length > 0
+                ? 'display: block; margin-top: 5px;'
+                : 'display: inline-block;'
+            "
             @picked="onPickedDropbox"
-          >
-            <a class="dropbox-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-              >
-                <path
-                  fill="#FFF"
-                  d="M5.3475,0.7035 L0.096,4.125 L3.708,7.03725 L9.018,3.765 L5.3475,0.7035 Z M17.904,4.14 L12.66525,0.7275 L9.01875,3.7725 L14.29875,7.03875 L17.904,4.14 Z M9.01875,10.305 L12.66525,13.35975 L17.904,9.945 L14.2995,7.0395 L9.01875,10.305 Z M0.096,9.9585 L5.3475,13.35975 L9.01875,10.305 L3.70875,7.0455 L0.096,9.9585 Z M9.01875,10.9635 L5.35575,14.0385 L3.786,13.02 L3.786,14.16 L9.01875,17.30475 L14.271,14.15175 L14.271,13.0125 L12.693,14.031 L9.01875,10.9635 Z"
-                ></path>
-              </svg>
-            </a>
-          </VueDropboxPicker>
+          />
         </div>
       </div>
       <div class="files-list">
@@ -61,7 +83,7 @@
             <div
               class="preview-card md-layout-item"
               v-for="(file_obj, index) in file_objs"
-              :key="file_obj.file.name + '|' + file_obj.file.title"
+              :key="file_obj.file.name"
             >
               <div class="file__actions">
                 <a
@@ -110,39 +132,6 @@
               <span></span>
             </div>
           </draggable>
-          <div class="add-more">
-            <div class="uploader__extra">
-              <md-speed-dial :class="topPosition" md-direction="bottom">
-                <md-speed-dial-target class="md-danger addmore-btn">
-                  <md-icon>add</md-icon>
-                </md-speed-dial-target>
-
-                <md-speed-dial-content>
-                  <md-button class="md-icon-button" @click="open_add_local">
-                    <md-icon>computer</md-icon>
-                  </md-button>
-
-                  <md-button class="md-icon-button">
-                    <md-icon>add_to_drive</md-icon>
-                  </md-button>
-
-                  <!-- <VueDropboxPicker
-                    class="md-icon-button"
-                    :api-key="'fvpl8xhvbq877as'"
-                    link-type="direct"
-                    :multiselect="true"
-                    :extensions="['.pdf', '.doc']"
-                    :folderselect="false"
-                    @picked="onPickedDropbox"
-                  > -->
-                  <!-- </VueDropboxPicker> -->
-                  <md-button class="md-icon-button">
-                    <md-icon class="fab fa-dropbox" />
-                  </md-button>
-                </md-speed-dial-content>
-              </md-speed-dial>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -187,13 +176,13 @@
 
 <script>
 import { PDFDocument, degrees } from "pdf-lib";
-import { mapState, mapGetters, mapMutations } from "vuex";
-
+import PdfService from "@/pdf_pages/services/PdfService";
 import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import store from "@/store/index";
 import * as type from "@/store/types";
+import axios from "axios";
 
 export default {
   components: {
@@ -209,29 +198,15 @@ export default {
     };
   },
 
-  computed: {
-    result() {
-      return store.state.result;
-    },
-    // ...mapState({
-    //   count: "count", // Maps 'count' from the store to local computed property 'count'
-    // }),
-  },
-
   methods: {
     //add merged pdf to vuex
     setPdfResult(result) {
-      console.log(result);
       store.dispatch({
         type: type.SetResult,
         amount: result,
       });
     },
 
-    // //click add from local button
-    // open_add_dropbox() {
-    //   this.$refs.cloud_dropbox.click();
-    // },
     //click add from local button
     open_add_local() {
       this.$refs.file.click();
@@ -289,7 +264,6 @@ export default {
       console.log(this.file_objs);
     },
 
-    //file upload
     onChange() {
       const data = this.$refs.file.files;
       var add_objs = [],
@@ -326,6 +300,17 @@ export default {
       //   return fileSrc;
       // }
     },
+    async readFileAsync(file) {
+      return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.onload = () => {
+          resolve(reader.result);
+        };
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file);
+      });
+    },
+
     //mergePDFs
     async mergePDFs() {
       const mergedPdf = await PDFDocument.create();
@@ -358,20 +343,29 @@ export default {
       }
 
       const mergedPdfFile = await mergedPdf.save();
-
+      //save on vuex
       this.setPdfResult(mergedPdfFile);
+
+      //upload to server
+
+      const formData = new FormData();
+      const blob = new Blob([mergedPdfFile], { type: "application/pdf" });
+
+      formData.append("pdf", blob);
+
+      axios
+        .post("http://127.0.0.1:5000/api/pdf", formData)
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push({
+            name: "download",
+            params: { id: response.data },
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
       this.file_objs = [];
-      this.$router.push("/download");
-    },
-    async readFileAsync(file) {
-      return new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.onload = () => {
-          resolve(reader.result);
-        };
-        reader.onerror = reject;
-        reader.readAsArrayBuffer(file);
-      });
     },
   },
 };
@@ -413,6 +407,10 @@ export default {
   /* background: #f7fafc;
   border: 1px solid #e2e8f0; */
 }
+
+.upload_btn_area {
+  position: relative;
+}
 .hidden-input {
   opacity: 0;
   overflow: hidden;
@@ -437,7 +435,7 @@ export default {
   cursor: grab;
   flex: 1 1;
   margin: 4px;
-  max-width: 200px;
+  max-width: 250px;
   height: 250px;
   display: -ms-flexbox;
   display: flex;
@@ -463,12 +461,6 @@ export default {
   border-radius: 5px;
   border: 1px solid #a2a2a2;
   background-color: #a2a2a2;
-}
-
-.add-more {
-  position: absolute;
-  top: 0;
-  right: 0;
 }
 
 .file__actions {
@@ -556,10 +548,6 @@ export default {
   cursor: move;
 }
 
-.upload-buttons {
-  position: relative;
-}
-
 .upload_btn {
   width: fit-content;
   display: flex;
@@ -574,18 +562,15 @@ export default {
   padding: 0 30px;
 }
 
-.dropbox {
+.add-more {
   width: fit-content;
-  position: absolute;
-  top: 30px;
-  right: -50px;
 }
 
 .dropbox-icon {
   background-color: rgb(229, 50, 45);
   opacity: 1;
   border-radius: 50%;
-  padding: 10px 5px 0px 5px;
+  padding: 10px 10px 5px 10px;
   cursor: pointer;
 }
 
@@ -626,39 +611,18 @@ export default {
   cursor: pointer;
 }
 
-.uploader__extra__btn,
-.md-icon-button {
-  display: block;
-  background-color: #e5322d;
-  width: 35px;
-  height: 35px;
-  margin-top: 5px;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: -1;
-  position: relative;
-}
-
-.md-speed-dial-target {
+.add-more .md-icon-button {
   display: block;
   background-color: #e5322d !important;
   width: 40px;
   height: 40px;
-  margin-bottom: 10px;
-  padding: 10px;
+  margin-bottom: 20px;
+  padding: 8px;
   border-radius: 50%;
   cursor: pointer;
 }
 
-.addmore-btn .md-button-content {
-  margin-left: -20px !important;
-}
-
-.md-speed-dial-content button {
-  width: 35px;
-  height: 37px;
-  border-radius: 50%;
-  background-color: #e5322d !important;
+.add-more .md-icon-button:hover {
+  background-color: #e75651 !important;
 }
 </style>

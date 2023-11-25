@@ -11,6 +11,7 @@ import Notifications from "@/pages/Notifications.vue";
 import PdfEdit from "@/pdf_pages/PdfEdit.vue";
 import AllFeatures from "@/pdf_pages/features/AllFeatures.vue";
 import PdfMerge from "@/pdf_pages/features/PdfMerge.vue";
+import PdfSplit from "@/pdf_pages/features/PdfSplit.vue";
 import Download from "@/pdf_pages/DownLoad.vue";
 
 //test
@@ -28,20 +29,20 @@ const routes = [
         name: "allfeatures",
       },
       {
-        path: "pdfmerge",
+        path: "/pdfmerge",
         component: PdfMerge,
         name: "pdfmerge",
       },
       {
-        path: "download",
+        path: "/download",
         component: Download,
         name: "download",
       },
 
       {
-        path: "test",
-        component: Test,
-        name: "test",
+        path: "/pdfspilt",
+        component: PdfSplit,
+        name: "pdfspilt",
       },
     ],
   },

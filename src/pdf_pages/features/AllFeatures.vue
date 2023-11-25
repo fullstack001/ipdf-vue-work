@@ -100,7 +100,7 @@
 
 <script>
 import FeatureTitle from "./components/FeatureTitle.vue";
-import { feature_names } from "./feature_name.js";
+import { feature_names } from "../services/feature_name";
 
 export default {
   components: {

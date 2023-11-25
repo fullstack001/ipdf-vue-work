@@ -3,13 +3,14 @@
     <md-toolbar md-elevation="0" class="md-transparent nav-par">
       <div class="md-toolbar-row nav-top">
         <router-link to="/">
-          <img src="@/assets/img/vue-logo.png" width="40" srcset=""/>
+          <img src="@/assets/img/vue-logo.png" width="40" srcset="" />
         </router-link>
-        <router-link to="pdfmerge">
+        <router-link to="/pdfmerge">
           <p class="nav-btn active-link">
-            <b>MERGE PDF</b></p>
+            <b>MERGE PDF</b>
+          </p>
         </router-link>
-        <router-link to="test">
+        <router-link to="pdfspilt">
           <p class="nav-btn">
             <b>SPLIT PDF</b>
           </p>
@@ -112,21 +113,19 @@ export default {
   color: #495057;
 }
 
-.nav-btn:hover{
+.nav-btn:hover {
   color: #e5322d;
 }
 
-.download_btn{
+.download_btn {
   color: #fff !important;
 }
 
 .md-theme-default a:not(.md-button) {
-  color: #e5322d ;
-}
-
-.active-link{
   color: #e5322d;
 }
 
-
+.active-link {
+  color: #e5322d;
+}
 </style>

@@ -1,51 +1,151 @@
 <template>
-  <center>
+  <div class="download-page">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
     <div class="page-title">Download PDF File</div>
-    <div class="page-description">
-      PDFs have been merged!
-    </div>
+    <div class="page-description">PDFs have been merged!</div>
     <div class="download_btn">
-      <a id="link" class="download__btn md-raised md-danger"> Download merged PDF </a>
+      <a id="link" class="download__btn md-raised md-danger">
+        Download merged PDF
+      </a>
+      <div class="add-more">
+        <div>
+          <md-dialog-confirm
+            :md-active.sync="active"
+            md-title="Use Google's location service?"
+            md-content="Let Google help apps determine location. <br> This means sending <strong>anonymous</strong> location data to Google, even when no apps are running."
+            md-confirm-text="Agree"
+            md-cancel-text="Disagree"
+            @md-cancel="onCancel"
+            @md-confirm="onConfirm"
+          />
 
-      <!-- <a class="dropbox-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-        >
-          <path
-            fill="#FFF"
-            d="M5.3475,0.7035 L0.096,4.125 L3.708,7.03725 L9.018,3.765 L5.3475,0.7035 Z M17.904,4.14 L12.66525,0.7275 L9.01875,3.7725 L14.29875,7.03875 L17.904,4.14 Z M9.01875,10.305 L12.66525,13.35975 L17.904,9.945 L14.2995,7.0395 L9.01875,10.305 Z M0.096,9.9585 L5.3475,13.35975 L9.01875,10.305 L3.70875,7.0455 L0.096,9.9585 Z M9.01875,10.9635 L5.35575,14.0385 L3.786,13.02 L3.786,14.16 L9.01875,17.30475 L14.271,14.15175 L14.271,13.0125 L12.693,14.031 L9.01875,10.9635 Z"
-          ></path>
-        </svg>
-      </a> -->
+          <md-button class="md-icon-button" @click="active = true">
+            <md-icon>delete</md-icon>
+          </md-button>
+          <md-button class="md-icon-button" @click="open_add_local">
+            <md-icon>add_to_drive</md-icon>
+          </md-button>
+        </div>
+        <div>
+          <VueDropboxPicker
+            class="cloud dropbox"
+            :api-key="'w7vvdh8a5g5av1p'"
+            link-type="direct"
+            :multiselect="true"
+            :extensions="['.pdf', '.doc']"
+            :folderselect="false"
+            :uploadFiles="uploadToDropboxFiles"
+            :buttonType="'saver'"
+          />
+          <md-button class="md-icon-button" @click="open_add_local">
+            <md-icon>link</md-icon>
+          </md-button>
+        </div>
+      </div>
     </div>
-  </center>
+
+    <!-- delete notification -->
+    <md-dialog-alert
+      :md-active.sync="show_noti"
+      md-content="PDF file  has been deleted!"
+      md-confirm-text="Cool!"
+    />
+  </div>
 </template>
 <script>
 import store from "@/store/index";
-
+import axios from "axios";
+import VueDropboxPicker from "@/components/DropboxPicker.vue";
+import Dropbox from "dropbox";
 export default {
+  components: {
+    VueDropboxPicker,
+  },
+  props: {
+    message: String,
+    icon: String,
+    verticalAlign: {
+      type: String,
+      default: "top",
+    },
+    horizontalAlign: {
+      type: String,
+      default: "center",
+    },
+    type: {
+      type: String,
+      default: "info",
+    },
+    timeout: {
+      type: Number,
+      default: 1200,
+    },
+    timestamp: {
+      type: Date,
+      default: () => new Date(),
+    },
+  },
+  data: () => ({
+    uploadToDropboxFiles: [],
+    active: false,
+    show_noti: false,
+  }),
   computed: {
     result() {
       return store.state.result;
     },
   },
+  created() {
+    console.log(this.$route.params.id);
+    const fileUrl = `http://127.0.0.1:5000/uploads/${this.$route.params.id}`; // Replace with your server file URL
+
+    const response = axios.get(fileUrl, {
+      responseType: "blob", // Set response type as Blob
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+
+    this.uploadToDropboxFiles = [url];
+  },
   mounted() {
-    console.log(this.result);
     const link = document.getElementById("link");
-    link.download = "pdf-lib_page_copying_example.pdf";
+    link.download = "merged_pdf.pdf";
     let binaryData = [];
     binaryData.push(this.result);
     link.href = URL.createObjectURL(
       new Blob(binaryData, { type: "application/pdf" })
     );
   },
+  methods: {
+    async onConfirm() {
+      await axios
+        .post("http://127.0.0.1:5000/api/pdf/delete", {
+          file: this.$route.params.id,
+        })
+        .then((res) => {
+          this.show_noti = true;
+          setTimeout(() => {
+            this.$router.push("/");
+          }, 2000);
+        })
+        .catch((err) => console.log(err));
+    },
+    onCancel() {
+      console.log("Cancel");
+    },
+    open_add_local() {},
+  },
 };
 </script>
 
 <style>
+.download-page {
+  text-align: center;
+}
+
 .download__btn {
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -78,13 +178,52 @@ export default {
   max-width: 60vw;
 }
 
-.download__btn:hover{
+.download__btn:hover {
   color: #fff !important;
   background: #e90b03;
 }
-.download__btn:focus{
+.download__btn:focus {
   color: #fff !important;
   background: #e90b03;
 }
 
+.download_btn {
+  color: #fff !important;
+  position: relative;
+  width: fit-content;
+  margin: auto;
+}
+
+.add-more {
+  width: fit-content;
+  position: absolute;
+  top: -5px;
+  right: -100px;
+}
+
+.add-more div {
+  display: flex;
+}
+
+.add-more div .md-icon-button {
+  display: block;
+  background-color: #e5322d !important;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: 0;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.add-more .md-icon-button:hover {
+  background-color: #e75651 !important;
+}
+
+.dropbox-icon {
+  height: 40px;
+  margin-right: 5px;
+}
 </style>
