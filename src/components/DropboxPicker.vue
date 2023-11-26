@@ -167,15 +167,15 @@ export default {
         // },
         success: function () {
           // Handle successful save
-          console.log('File saved to Dropbox successfully');
+          console.log("File saved to Dropbox successfully");
         },
         cancel: function () {
           // Handle cancelation of the save
-          console.log('Save to Dropbox canceled');
+          console.log("Save to Dropbox canceled");
         },
         error: function (errorMessage) {
           // Handle error during save
-          console.error('Error saving to Dropbox:', errorMessage);
+          console.error("Error saving to Dropbox:", errorMessage);
         },
       };
       // if (this.extensions.length) {

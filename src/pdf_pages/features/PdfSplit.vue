@@ -64,22 +64,25 @@
               <p>Range{{ page.id }}</p>
               <div class="split_card" v-if="page.range[0] == page.range[1]">
                 <div>
-                  <PdfViewer :fileUrl="generateURL(file)" />
+                  <PdfViewer
+                    :fileUrl="generateURL(file)"
+                    :pageNumber="page.range[0] * 1"
+                  />
                 </div>
-                <span>{{ page.range[0] }}</span>
+                <span>{{ page.range[1] }}</span>
               </div>
               <div class="split_card" v-else>
                 <div>
                   <PdfViewer
                     :fileUrl="generateURL(file)"
-                    :pageNumber="page.range[0]"
+                    :pageNumber="page.range[0] * 1"
                   />
                 </div>
                 <span>{{ page.range[0] }}</span>
                 <div>
                   <PdfViewer
                     :fileUrl="generateURL(file)"
-                    :pageNumber="page.range[1]"
+                    :pageNumber="page.range[1] * 1"
                   />
                 </div>
                 <span>{{ page.range[1] }}</span>
@@ -96,7 +99,11 @@
         <div>
           <md-tabs class="md-primary" md-alignment="centered">
             <md-tab id="tab-home" md-label="Split by range" :exact="true">
-              <SpiltRange :rangeArray="pages" />
+              <SpiltRange
+                :rangeArray="pages"
+                :maxNumber="pageCount"
+                @rangeChange="changeRange"
+              />
             </md-tab>
             <md-tab id="Extract pages" md-label="Extract pages">
               <SplitExtra />
@@ -147,12 +154,16 @@ export default {
     onChange() {
       this.file = this.$refs.file.files[0];
       this.get_pages(this.$refs.file.files[0]);
+      console.log(this.file);
     },
 
     //download from dropbox
     onPickedDropbox(data) {
       this.file = data;
       this.get_pages(data);
+    },
+    changeRange(data) {
+      this.pages = data;
     },
     open_add_driver() {
       console.log("google driver");
@@ -171,8 +182,15 @@ export default {
 
     handleDrop(event) {
       event.preventDefault();
-      const files = event.dataTransfer.files;
-      this.handleFiles(files);
+      const file = event.dataTransfer.files[0];
+      if (file) {
+        this.handleFiles(file);
+      }
+      console.log(this.pages);
+    },
+    handleFiles(file) {
+      // Process the dropped files
+      this.file = file;
     },
 
     generateURL(file) {
@@ -512,11 +530,6 @@ export default {
   background-color: #e75651 !important;
 }
 
-
-@media (max-width: 1280px) .range__container {
-  margin: 4px;
-  padding: 4px;
-}
 .range__container {
   margin: 12px;
   padding: 12px;

@@ -1,11 +1,8 @@
 <template>
-  
-    <md-content class="">
-      <a href="">
-        <img
-          :src="require(`@/assets/feature_img/${item.item.file}`)" 
-        />        
-        <div>
+  <md-content class="">
+    <a href="">
+      <img :src="require(`@/assets/feature_img/${item.item.file}`)" />
+      <div>
         <h3>
           {{ item.item.title }}
         </h3>
@@ -13,45 +10,39 @@
           {{ item.item.description }}
         </p>
       </div>
-      </a>
-      
-      
-    </md-content>
- 
+    </a>
+  </md-content>
 </template>
 
 <script>
 export default {
   name: "feature-title",
-  props:{
-    item: Object
+  props: {
+    item: Object,
   },
-  data(){
-    return{
-     
-    }
-  }
+  data() {
+    return {};
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  .md-content{
-    padding: 24px;
-  }
+.md-content {
+  padding: 24px;
+}
 
-  a h3{
-    font-size: 20px;
-    font-weight: 500;
-    color: #33333b;
-  }
+a h3 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #33333b;
+}
 
-  a p{
-    color: #33333b;
-  }
+a p {
+  color: #33333b;
+}
 
-  img{
-    width: 42px;
-    height: 42px;
-  }
-
+img {
+  width: 42px;
+  height: 42px;
+}
 </style>

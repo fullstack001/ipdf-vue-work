@@ -58,7 +58,7 @@
           The PDF software trusted by millions of users
         </div>
 
-        <div class="trusted_teext">
+        <div class="trusted_text">
           iLovePDF is your number one web app for editing PDF with ease. Enjoy
           all the tools you need to work efficiently with your digital documents
           while keeping your data safe and secure.
@@ -229,7 +229,7 @@ h4 {
   margin-bottom: 30px;
 }
 
-.trusted_teext {
+.trusted_text {
   margin-top: 16px;
   text-align: center;
   font-weight: 400;

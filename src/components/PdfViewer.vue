@@ -26,7 +26,15 @@ export default {
       numPages: 1,
       pdfDocument: null,
       idName: uuidv4(),
+      num: this.pageNumber,
     };
+  },
+  watch: {
+    pageNumber(newValue) {
+      this.num = newValue;
+      this.url = this.fileUrl;
+      this.getPdfDocument();
+    },
   },
 
   mounted() {
@@ -39,7 +47,7 @@ export default {
         (pdf) => {
           this.numPages = pdf.numPages;
           this.pdfDocument = pdf;
-          this.getPage(this.pageNumber);
+          this.getPage(this.num);
         },
         (reason) => {
           console.error(reason);
@@ -47,8 +55,8 @@ export default {
       );
     },
 
-    getPage(pageNumer) {
-      this.pdfDocument.getPage(pageNumer).then((page) => {
+    getPage(num) {
+      this.pdfDocument.getPage(num).then((page) => {
         var viewport = page.getViewport({ scale: 1.5 });
 
         var canvas = document.getElementById(this.idName);
@@ -60,10 +68,7 @@ export default {
           canvasContext: context,
           viewport: viewport,
         };
-
         var renderTask = page.render(renderContext);
-
-       
       });
     },
   },
