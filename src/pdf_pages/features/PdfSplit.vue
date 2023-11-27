@@ -61,7 +61,12 @@
             class="md-layout"
           >
             <div class="range__container" v-for="page in pages" :key="page.id">
-              <p>Range{{ page.id }}</p>
+              <div v-show="extractEdit && showFlag(page.id)">
+                <md-badge class="md-primary" md-position="top" md-content="*" />
+              </div>
+              <div v-show="!extractEdit">
+                <p>Range{{ page.id }}</p>
+              </div>
               <div class="split_card" v-if="page.range[0] == page.range[1]">
                 <div>
                   <PdfViewer
@@ -98,21 +103,30 @@
         <h4>Split</h4>
         <div>
           <md-tabs class="md-primary" md-alignment="centered">
-            <md-tab id="tab-home" md-label="Split by range" :exact="true">
+            <md-tab
+              id="tab-home"
+              md-label="Split by range"
+              :exact="true"
+              @click="rangeSplit"
+            >
               <SpiltRange
                 :rangeArray="pages"
                 :maxNumber="pageCount"
                 @rangeChange="changeRange"
               />
             </md-tab>
-            <md-tab id="Extract pages" md-label="Extract pages">
-              <SplitExtra />
+            <md-tab
+              id="Extract pages"
+              md-label="Extract pages"
+              @click="extractSplit"
+            >
+              <SplitExtra :maxNum="pageCount" @extractChange="setExtract" />
             </md-tab>
           </md-tabs>
         </div>
 
         <div class="option__panel option__panel--active" id="merge-options">
-          <button class="option__panel__title" @click="mergePDFs">
+          <button class="option__panel__title" @click="splitPDF">
             Split PDF
           </button>
         </div>
@@ -146,6 +160,8 @@ export default {
       file: null,
       pageCount: 0,
       pages: [],
+      extractEdit: false,
+      extractPages: [],
     };
   },
 
@@ -154,7 +170,6 @@ export default {
     onChange() {
       this.file = this.$refs.file.files[0];
       this.get_pages(this.$refs.file.files[0]);
-      console.log(this.file);
     },
 
     //download from dropbox
@@ -168,7 +183,6 @@ export default {
     open_add_driver() {
       console.log("google driver");
     },
-
     get_pages(file) {
       const reader = new FileReader();
       reader.readAsBinaryString(file);
@@ -176,7 +190,9 @@ export default {
         const count = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
         this.pageCount = count;
         this.pages = [{ id: 1, range: [1, count] }];
-        console.log(this.pages);
+        for (let i = 1; i <= count; i++) {
+          this.extractPages.push([i, i]);
+        }
       };
     },
 
@@ -191,6 +207,49 @@ export default {
     handleFiles(file) {
       // Process the dropped files
       this.file = file;
+    },
+
+    setExtract(newExtract) {
+      this.extractPages = newExtract;
+    },
+
+    //extract split
+    extractSplit() {
+      this.extractEdit = true;
+      this.pages = [];
+      for (let i = 1; i <= this.pageCount; i++) {
+        this.pages.push({ id: i, range: [i, i] });
+      }
+    },
+    //split as range
+    rangeSplit() {
+      if (this.extractEdit == true) {
+        this.pages = [{ id: 1, range: [1, this.pageCount] }];
+        this.extractPages = [];
+      }
+      this.extractEdit = false;
+    },
+    showFlag(page) {
+      if (!this.extractPages.length) {
+        return false;
+      } else {
+        let budgePages = [];
+        for (let i = 0; i < this.extractPages.length; i++) {
+          let item = this.extractPages[i];
+          if (typeof item == "number") {
+            budgePages.push(item);
+          } else {
+            for (let j = item[0]; j <= item[1]; j++) {
+              budgePages.push(j);
+            }
+          }
+        }
+        if (budgePages.indexOf(page) < 0) {
+          return false;
+        } else {
+          return true;
+        }
+      }
     },
 
     generateURL(file) {
@@ -213,6 +272,17 @@ export default {
         reader.onerror = reject;
         reader.readAsArrayBuffer(file);
       });
+    },
+    splitPDF() {
+      let planPages = [];
+      if (this.extractEdit) {
+        planPages = this.extractPages;
+      } else {
+        planPages = this.pages.map((page) => {
+          return page.range;
+        });
+      }
+      console.log(planPages);
     },
 
     //mergePDFs

@@ -126,14 +126,14 @@ export default {
     addRange() {
       this.disArray.push({
         id: this.maxId + 1,
-        range: [this.maxNumber, this.maxNumber],
+        range: [this.maxNumber * 1, this.maxNumber * 1],
       });
       this.maxId++;
       this.$emit("rangeChange", this.disArray);
     },
     customRangeEdit() {
       this.custom_show = true;
-      this.disArray = [{ id: 1, range: [1, this.maxNumber] }];
+      this.disArray = [{ id: 1, range: [1, this.maxNumber * 1] }];
       this.$emit("rangeChange", this.disArray);
     },
     fixedRangeEdit() {
@@ -148,11 +148,11 @@ export default {
       this.fixed_range = this.fixed_range * 1;
       let i;
       let j = 1;
-      for (i = 1; i <= this.maxNumber; i = i + this.fixed_range) {
+      for (i = 1; i <= this.maxNumber; i = i + this.fixed_range * 1) {
         let from = i;
         let to =
-          i + this.fixed_range - 1 < this.maxNumber
-            ? i + this.fixed_range - 1
+          i + this.fixed_range * 1 - 1 < this.maxNumber
+            ? i + this.fixed_range * 1 - 1
             : this.maxNumber;
         this.disArray.push({ id: j, range: [from, to] });
         j++;
