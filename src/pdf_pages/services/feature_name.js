@@ -16,8 +16,7 @@ export const feature_names = [
   {
     name: "compress_pdf",
     title: "Compress PDF",
-    description:
-      "Reduce file size while optimizing for maximal PDF quality",
+    description: "Reduce file size while optimizing for maximal PDF quality",
     file: "compress_pdf.svg",
   },
   {
@@ -86,8 +85,7 @@ export const feature_names = [
   {
     name: "sign_pdf",
     title: "Sign PDF",
-    description:
-      "Sign yourself or request electronic signatures from others.",
+    description: "Sign yourself or request electronic signatures from others.",
     file: "sign_pdf.svg",
   },
   {

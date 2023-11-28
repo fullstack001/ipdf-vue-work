@@ -100,14 +100,18 @@
 
     <div v-show="pages.length">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h4>Split</h4>
-        <div>
-          <md-tabs class="md-primary" md-alignment="centered">
+        <h3>Split</h3>
+        <div class="tab-area">
+          <md-tabs md-alignment="centered">
             <md-tab
               id="tab-home"
+              md-icon="picture_as_pdf"
               md-label="Split by range"
               :exact="true"
               @click="rangeSplit"
+              v-bind:class="extractEdit ? 'active_tab' : ''"
+              :md-template-data="{ badge: 1 }"
+              md-active-tab
             >
               <SpiltRange
                 :rangeArray="pages"
@@ -117,8 +121,10 @@
             </md-tab>
             <md-tab
               id="Extract pages"
-              md-label="Extract pages"
+              md-icon="account_tree"
+              md-label="Extract Pages"
               @click="extractSplit"
+              v-bind:class="extractEdit ? '' : 'active_tab'"
             >
               <SplitExtra :maxNum="pageCount" @extractChange="setExtract" />
             </md-tab>
@@ -142,6 +148,9 @@ import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import SplitExtra from "@/components/SplitExtra.vue";
 import SpiltRange from "@/components/SpiltRange.vue";
+import JSZip from "jszip";
+import JSZipUtils from "jszip-utils";
+import { saveAs } from "file-saver";
 import store from "@/store/index";
 import * as type from "@/store/types";
 import axios from "axios";
@@ -273,73 +282,85 @@ export default {
         reader.readAsArrayBuffer(file);
       });
     },
+
     splitPDF() {
       let planPages = [];
       if (this.extractEdit) {
         planPages = this.extractPages;
       } else {
         planPages = this.pages.map((page) => {
-          return page.range;
+          return [page.range[0] * 1, page.range[1] * 1];
         });
       }
-      console.log(planPages);
+      //split PDF
+      this.splitingPDF(planPages);
     },
 
-    //mergePDFs
-    async mergePDFs() {
-      const mergedPdf = await PDFDocument.create();
-      for (let i = 0; i < this.origin_files.length; i++) {
-        const file = this.origin_files[i]["file"];
+    async splitingPDF(planPages) {
+      let splited_temp = planPages.map(async (planPage, index) => {
+        const mergedPdf = await PDFDocument.create();
+        const file = this.file;
         let pdfBytes = null;
+
         if (file.link) {
           //dropdown file
           const response = await fetch(file.link);
           const arrayBuffer = await response.arrayBuffer();
           pdfBytes = new Uint8Array(arrayBuffer);
         } else {
-          pdfBytes = await this.readFileAsync(file); //local upload
+          //local upload
+          pdfBytes = await this.readFileAsync(file);
         }
-        //rotate pages
 
         const pdf = await PDFDocument.load(pdfBytes);
         const copiedPages = await mergedPdf.copyPages(
           pdf,
           pdf.getPageIndices()
         );
-        if (this.file_objs[i]["degree"] != 0) {
-          copiedPages.forEach((page) => {
-            page.setRotation(degrees(this.origin_files[i]["degree"]));
-            mergedPdf.addPage(page);
-          });
+
+        if (planPage[0] == planPage[1]) {
+          mergedPdf.addPage(copiedPages[planPage[0] - 1]);
         } else {
-          copiedPages.forEach((page) => mergedPdf.addPage(page));
+          for (let i = planPage[0] - 1; i < planPage[1]; i++) {
+            mergedPdf.addPage(copiedPages[i]);
+          }
         }
-      }
+        return mergedPdf.save();
+      });
 
-      const mergedPdfFile = await mergedPdf.save();
-      //save on vuex
-      this.setPdfResult(mergedPdfFile);
+      // this.compressed_pdf(urls);
+      this.generateZip(splited_temp);
+    },
 
-      //upload to server
+    //create Zip file for download
 
-      const formData = new FormData();
-      const blob = new Blob([mergedPdfFile], { type: "application/pdf" });
+    async generateZip(pdfFiles) {
+      const zip = new JSZip();
+      // const pdfFiles = ["file1.pdf", "file2.pdf", "file3.pdf"]; // Replace these with your file names or paths
 
-      formData.append("pdf", blob);
+      const promises = pdfFiles.map(async (data, i) => {
+        // // Fetch the PDF file from the server
+        // const response = await fetch(file);
+        // const data = await response.blob();
 
-      axios
-        .post("http://127.0.0.1:5000/api/pdf", formData)
-        .then((response) => {
-          console.log(response.data);
-          this.$router.push({
-            name: "download",
-            params: { id: response.data },
-          });
-        })
-        .catch((e) => {
-          console.log(e);
+        // Add the PDF file to the ZIP
+        zip.file(`splited_pdf${i}.pdf`, data);
+      });
+
+      Promise.all(promises).then(() => {
+        zip.generateAsync({ type: "blob" }).then((content) => {
+          // Create a URL for the ZIP blob
+          const url = window.URL.createObjectURL(content);
+
+          // Create a link and trigger the download
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "pdfden.zip";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
         });
-      this.origin_files = [];
+      });
     },
   },
 };

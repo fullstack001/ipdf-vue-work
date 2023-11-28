@@ -3,7 +3,7 @@ import http from "@/http-common";
 class PdfService {
   uploadMerged(data) {
     return http.post("/pdf", data);
-  } 
+  }
 
   deleteAll() {
     return http.delete("/tutorials");

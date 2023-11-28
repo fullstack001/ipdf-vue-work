@@ -117,8 +117,10 @@ export default {
 
   methods: {
     remove(i) {
-      this.disArray.splice(i, 1);
-      this.$emit("rangeChange", this.disArray);
+      if (this.disArray.length > 1) {
+        this.disArray.splice(i, 1);
+        this.$emit("rangeChange", this.disArray);
+      }
     },
     range_change() {
       this.$emit("rangeChange", this.disArray);
@@ -126,14 +128,14 @@ export default {
     addRange() {
       this.disArray.push({
         id: this.maxId + 1,
-        range: [this.maxNumber * 1, this.maxNumber * 1],
+        range: [this.maxNumber, this.maxNumber],
       });
       this.maxId++;
       this.$emit("rangeChange", this.disArray);
     },
     customRangeEdit() {
       this.custom_show = true;
-      this.disArray = [{ id: 1, range: [1, this.maxNumber * 1] }];
+      this.disArray = [{ id: 1, range: [1, this.maxNumber] }];
       this.$emit("rangeChange", this.disArray);
     },
     fixedRangeEdit() {
