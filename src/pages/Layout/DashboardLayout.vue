@@ -35,6 +35,7 @@
         <md-icon>notifications</md-icon>
         <p>Notifications</p>
       </sidebar-link>
+     
     </side-bar>
 
     <div class="main-panel">

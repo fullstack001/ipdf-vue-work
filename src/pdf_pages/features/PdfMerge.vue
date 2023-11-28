@@ -359,7 +359,13 @@ export default {
           console.log(response.data);
           this.$router.push({
             name: "download",
-            params: { id: response.data },
+            params: {
+              id: response.data,
+              button_title: "Download Merged PDF",
+              dis_text: "PDF has been merged!",
+              down_name: "merged.pdf",
+              file_type: "application/pdf",
+            },
           });
         })
         .catch((e) => {
@@ -371,7 +377,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main {
   display: flex;
   flex-grow: 1;
@@ -564,6 +570,15 @@ export default {
 
 .add-more {
   width: fit-content;
+}
+
+.dropbox {
+  background-color: rgb(229, 50, 45) !important;
+  height: 40px;
+  width: 40px;
+  padding: 11px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .dropbox-icon {

@@ -1,3 +1,5 @@
+
+
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
@@ -34,7 +36,7 @@ const routes = [
         name: "pdfmerge",
       },
       {
-        path: "/download",
+        path: "/download/:id",
         component: Download,
         name: "download",
       },
@@ -92,5 +94,6 @@ const routes = [
     ],
   },
 ];
+
 
 export default routes;

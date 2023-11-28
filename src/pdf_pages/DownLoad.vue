@@ -5,10 +5,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
     <div class="page-title">Download PDF File</div>
-    <div class="page-description">PDFs have been merged!</div>
+    <div class="page-description">{{ $route.params.dis_text }}</div>
     <div class="download_btn">
-      <a id="link" class="download__btn md-raised md-danger">
-        Download merged PDF
+      <a
+        id="link"
+        class="download__btn md-raised md-danger"
+        @click="complete_download"
+      >
+        {{ $route.params.button_title }}
       </a>
       <div class="add-more">
         <div>
@@ -40,7 +44,7 @@
             :uploadFiles="uploadToDropboxFiles"
             :buttonType="'saver'"
           />
-          <md-button class="md-icon-button" @click="open_add_local">
+          <md-button class="md-icon-button" @click="showDialog = true">
             <md-icon>link</md-icon>
           </md-button>
         </div>
@@ -53,13 +57,63 @@
       md-content="PDF file  has been deleted!"
       md-confirm-text="Cool!"
     />
+
+    <div>
+      <md-dialog :md-active.sync="showDialog">
+        <md-dialog-title>Preferences</md-dialog-title>
+        <md-dialog-content>
+          <div class="form__group form__group--btn form__group--btn-lg">
+            <div class="input--icon input--world">
+              <input
+                id="dlink"
+                type="text"
+                class="input"
+                :value="download_urls"
+                onclick="this.select();"
+                readonly="true"
+              />
+            </div>
+            <button class="btn" id="autoCopy">
+              <svg
+                aria-hidden="true"
+                width="12"
+                height="12"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  fill="currentColor"
+                  d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
+                  class=""
+                ></path>
+              </svg>
+              Copy
+            </button>
+          </div>
+          <qr-code :text="download_urls" :size="250" error-level="H"></qr-code>
+          <!-- <QrcodeVue :value="download_url" :size="600" level="H" /> -->
+        </md-dialog-content>
+
+        <md-dialog-actions>
+          <md-button class="md-primary" @click="showDialog = false"
+            >Close</md-button
+          >
+        </md-dialog-actions>
+      </md-dialog>
+    </div>
   </div>
 </template>
 <script>
+import Vue from "vue";
 import store from "@/store/index";
 import axios from "axios";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import Dropbox from "dropbox";
+import QrcodeVue from "qrcode.vue";
+import VueQRCodeComponent from "vue-qrcode-component";
+Vue.component("qr-code", VueQRCodeComponent);
+
 export default {
   components: {
     VueDropboxPicker,
@@ -92,31 +146,47 @@ export default {
     uploadToDropboxFiles: [],
     active: false,
     show_noti: false,
+    showDialog: false,
+    download_urls: "",
   }),
   computed: {
     result() {
       return store.state.result;
     },
   },
-  created() {
-    console.log(this.$route.params.id);
-    const fileUrl = `http://127.0.0.1:5000/uploads/${this.$route.params.id}`; // Replace with your server file URL
+  async created() {
+    this.download_urls = `http://127.0.0.1${this.$route.path}`;
+    if (!this.result) {
+      try {
+        const downloadURL = `http://127.0.0.1:5000/api/pdf/download/${this.$route.params.id}`;
+        console.log(this.$route.params);
+        const name = "pdfden." + this.$route.params.id.split(".")[1];
 
-    const response = axios.get(fileUrl, {
-      responseType: "blob", // Set response type as Blob
-    });
-
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-
-    this.uploadToDropboxFiles = [url];
+        // Make a GET request to the server endpoint to download the file
+        const response = await axios.get(downloadURL, { responseType: "blob" });
+        console.log(response);
+        // Create a link and trigger the download
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", name);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        this.$router.push("/");
+      } catch (error) {
+        console.error("Error downloading file:", error);
+        // Handle error
+      }
+    }
   },
   mounted() {
     const link = document.getElementById("link");
-    link.download = "merged_pdf.pdf";
+    link.download = this.$route.params.down_name;
     let binaryData = [];
     binaryData.push(this.result);
     link.href = URL.createObjectURL(
-      new Blob(binaryData, { type: "application/pdf" })
+      new Blob(binaryData, { type: this.$route.params.file_type })
     );
   },
   methods: {
@@ -137,6 +207,11 @@ export default {
       console.log("Cancel");
     },
     open_add_local() {},
+    complete_download() {
+      setTimeout(() => {
+        this.$router.push("/");
+      }, 1000);
+    },
   },
 };
 </script>
@@ -225,5 +300,8 @@ export default {
 .dropbox-icon {
   height: 40px;
   margin-right: 5px;
+}
+.md-dialog /deep/.md-dialog-container {
+  max-width: 768px;
 }
 </style>

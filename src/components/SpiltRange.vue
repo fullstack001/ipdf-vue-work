@@ -1,10 +1,17 @@
 <template>
   <div>
-    <h5>Range mode:</h5>
-    <md-button class="md-raised md-danger" @click="customRangeEdit"
-      >Custom ranges</md-button
+    <h3>Range mode:</h3>
+    <md-button
+      class="md-raised range_btn"
+      v-bind:class="custom_show ? 'active_btn' : ''"
+      @click="customRangeEdit"
     >
-    <md-button class="md-raised md-success" @click="fixedRangeEdit"
+      Custom ranges
+    </md-button>
+    <md-button
+      class="md-raised range_btn"
+      @click="fixedRangeEdit"
+      v-bind:class="custom_show ? '' : 'active_btn'"
       >Fixed ranges</md-button
     >
     <div v-show="custom_show">
@@ -17,7 +24,7 @@
       >
         <div v-for="range in disArray" :key="range.id">
           <div class="viewport">
-            <md-toolbar :md-elevation="1">
+            <md-toolbar class="md-transparent" :md-elevation="1">
               <span class="md-title">
                 Range{{ range.id }}
                 <a
@@ -41,7 +48,7 @@
             </md-toolbar>
             <md-list class="md-double-line">
               <md-list-item>
-                <div class="md-list-item-text" style="display: inline-block">
+                <div class="md-list-item-text" style="display: contents">
                   <md-field>
                     <label> From Page</label>
                     <md-input
@@ -69,14 +76,14 @@
           </div>
         </div>
       </draggable>
-      <md-button class="md-dense md-primary" @click="addRange"
+      <md-button class="md-dense add_range_btn" @click="addRange"
         >+ Add Range</md-button
       >
     </div>
     <div v-show="!custom_show">
       <div>
         Split into page ranges of
-        <md-field>
+        <md-field style="padding: 0 20px">
           <md-input
             v-model="fixed_range"
             type="number"
@@ -107,6 +114,7 @@ export default {
       number: 5,
       disArray: [],
       maxId: 1,
+      active: true,
     };
   },
   watch: {
@@ -128,14 +136,15 @@ export default {
     addRange() {
       this.disArray.push({
         id: this.maxId + 1,
-        range: [this.maxNumber, this.maxNumber],
+        range: [this.maxNumber * 1, this.maxNumber * 1],
       });
       this.maxId++;
       this.$emit("rangeChange", this.disArray);
     },
     customRangeEdit() {
+      this.active = true;
       this.custom_show = true;
-      this.disArray = [{ id: 1, range: [1, this.maxNumber] }];
+      this.disArray = [{ id: 1, range: [1, this.maxNumber * 1] }];
       this.$emit("rangeChange", this.disArray);
     },
     fixedRangeEdit() {
@@ -147,6 +156,9 @@ export default {
     },
     setFixedRange() {
       this.disArray = [];
+      if (!this.fixed_range || this.fixed_range < 1) {
+        this.fixed_range = 1;
+      }
       this.fixed_range = this.fixed_range * 1;
       let i;
       let j = 1;
@@ -164,3 +176,58 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h3 {
+  text-align: left;
+  padding-left: 20px;
+  font-weight: 400;
+}
+
+.range_btn,
+.range_btn:hover,
+.range_btn:focus {
+  padding: 5px 0px;
+  font-size: 14px;
+  margin: 10px 10px;
+  background-color: #f5f5fa !important;
+  border-radius: 10px;
+  color: #85858e !important;
+  font-weight: 500;
+}
+
+.active_btn {
+  background-color: #f5f5fa !important;
+  border: solid 2px #e75651;
+  color: #e75651 !important;
+}
+
+.remove {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+.md-toolbar:hover {
+  background-color: #d2d2dd !important;
+}
+
+.md-field label {
+  font-size: 14px !important;
+}
+
+.add_range_btn {
+  background-color: #f5f5fa !important;
+  border: solid 2px #e75651;
+  border-radius: 5px;
+  padding: 5px 0px;
+  color: #e75651 !important;
+}
+
+.add_range_btn:hover,
+.add_range_btn:focus,
+.add_range_btn:active {
+  background-color: #d2d2dd !important;
+  color: #e75651 !important;
+}
+</style>

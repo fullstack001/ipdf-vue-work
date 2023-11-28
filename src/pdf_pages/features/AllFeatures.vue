@@ -163,7 +163,7 @@ h4 {
 
 .tools {
   display: -ms-flexbox;
-  display: flex;
+  display: block;
   -ms-flex-align: center;
   align-items: center;
   -ms-flex-pack: center;

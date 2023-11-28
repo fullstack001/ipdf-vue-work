@@ -36,14 +36,14 @@
               : 'position: relative; margin: auto; right: 0; top: 0;'
           "
         >
-          <div v-bind:style="'display: block;'">
-            <md-button class="md-icon-button" @click="open_add_driver">
+          <div v-bind:style="'display: inline-block;'">
+            <button class="social_btn" @click="open_add_driver">
               <md-icon>add_to_drive</md-icon>
-            </md-button>
+            </button>
           </div>
 
           <VueDropboxPicker
-            class="cloud dropbox"
+            class="cloud dropbox inline-block"
             :api-key="'w7vvdh8a5g5av1p'"
             link-type="direct"
             :multiselect="false"
@@ -68,29 +68,35 @@
                 <p>Range{{ page.id }}</p>
               </div>
               <div class="split_card" v-if="page.range[0] == page.range[1]">
-                <div>
-                  <PdfViewer
-                    :fileUrl="generateURL(file)"
-                    :pageNumber="page.range[0] * 1"
-                  />
+                <div class="split_card_body">
+                  <div>
+                    <PdfViewer
+                      :fileUrl="generateURL(file)"
+                      :pageNumber="page.range[0] * 1"
+                    />
+                  </div>
+                  <div class="page_number">{{ page.range[1] }}</div>
                 </div>
-                <span>{{ page.range[1] }}</span>
               </div>
               <div class="split_card" v-else>
-                <div>
-                  <PdfViewer
-                    :fileUrl="generateURL(file)"
-                    :pageNumber="page.range[0] * 1"
-                  />
+                <div class="split_card_body">
+                  <div>
+                    <PdfViewer
+                      :fileUrl="generateURL(file)"
+                      :pageNumber="page.range[0] * 1"
+                    />
+                  </div>
+                  <div class="page_number">{{ page.range[0] }}</div>
                 </div>
-                <span>{{ page.range[0] }}</span>
-                <div>
-                  <PdfViewer
-                    :fileUrl="generateURL(file)"
-                    :pageNumber="page.range[1] * 1"
-                  />
+                <div class="split_card_body">
+                  <div>
+                    <PdfViewer
+                      :fileUrl="generateURL(file)"
+                      :pageNumber="page.range[1] * 1"
+                    />
+                  </div>
+                  <div class="page_number">{{ page.range[1] }}</div>
                 </div>
-                <span>{{ page.range[1] }}</span>
               </div>
             </div>
           </draggable>
@@ -149,7 +155,6 @@ import draggable from "vuedraggable";
 import SplitExtra from "@/components/SplitExtra.vue";
 import SpiltRange from "@/components/SpiltRange.vue";
 import JSZip from "jszip";
-import JSZipUtils from "jszip-utils";
 import { saveAs } from "file-saver";
 import store from "@/store/index";
 import * as type from "@/store/types";
@@ -175,6 +180,14 @@ export default {
   },
 
   methods: {
+    //add merged pdf to vuex
+    setPdfResult(result) {
+      store.dispatch({
+        type: type.SetResult,
+        amount: result,
+      });
+    },
+
     //file from local
     onChange() {
       this.file = this.$refs.file.files[0];
@@ -209,13 +222,8 @@ export default {
       event.preventDefault();
       const file = event.dataTransfer.files[0];
       if (file) {
-        this.handleFiles(file);
+        this.file = file;
       }
-      console.log(this.pages);
-    },
-    handleFiles(file) {
-      // Process the dropped files
-      this.file = file;
     },
 
     setExtract(newExtract) {
@@ -349,16 +357,41 @@ export default {
 
       Promise.all(promises).then(() => {
         zip.generateAsync({ type: "blob" }).then((content) => {
-          // Create a URL for the ZIP blob
-          const url = window.URL.createObjectURL(content);
+          //save on vuex
+          this.setPdfResult(content);
+
+          //upload zip file to server
+          const formData = new FormData();
+          const blob = new Blob([content], { type: "application/pdf" });
+
+          formData.append("file", blob);
+
+          axios
+            .post("http://127.0.0.1:5000/api/pdf/splited_upload", formData)
+            .then((response) => {
+              console.log(response.data);
+              this.$router.push({
+                name: "download",
+                params: {
+                  id: response.data,
+                  button_title: "Download split PDF",
+                  dis_text: "PDF has been split!",
+                  down_name: "splited_pdf.zip",
+                  file_type: "application/zip",
+                },
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
 
           // Create a link and trigger the download
-          const link = document.createElement("a");
-          link.href = url;
-          link.download = "pdfden.zip";
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+          // const link = document.createElement("a");
+          // link.href = url;
+          // link.download = "pdfden.zip";
+          // document.body.appendChild(link);
+          // link.click();
+          // document.body.removeChild(link);
         });
       });
     },
@@ -531,6 +564,10 @@ export default {
   position: relative;
 }
 
+#sidebar {
+  max-width: 400px !important;
+}
+
 .tool__sidebar {
   height: 100vh;
   background-color: #fff;
@@ -559,14 +596,24 @@ export default {
 
 .add-more {
   width: fit-content;
+  display: flex;
 }
 
-.dropbox-icon {
-  background-color: rgb(229, 50, 45);
-  opacity: 1;
+.add-more div {
+  display: inline-block;
+}
+
+.dropbox {
+  background-color: rgb(229, 50, 45) !important;
+  height: 40px;
+  width: 40px;
+  padding: 11px;
   border-radius: 50%;
-  padding: 10px 10px 5px 10px;
   cursor: pointer;
+}
+
+.dropbox:hover {
+  background-color: #e75651 !important;
 }
 
 .option__panel__content {
@@ -615,9 +662,25 @@ export default {
   padding: 8px;
   border-radius: 50%;
   cursor: pointer;
+  border: none;
+  color: #fff;
+}
+.social_btn {
+  display: block;
+  background-color: #e5322d !important;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  margin-right: 10px;
 }
 
-.add-more .md-icon-button:hover {
+.add-more .md-icon-button:hover,
+.social_btn:hover {
   background-color: #e75651 !important;
 }
 
@@ -627,11 +690,58 @@ export default {
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
   display: -ms-flexbox;
-  display: flex;
+  display: block;
   -ms-flex-align: center;
   align-items: center;
   position: relative;
   overflow: hidden;
   border: 1px dashed #707078;
+}
+
+.split_card {
+  display: inline-flex;
+}
+
+.page_number {
+  display: block;
+  margin-top: 10px;
+}
+
+.split_card_body {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+h3 {
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+
+.social_btn i {
+  color: #fff !important;
+}
+
+.md-button-content,
+.md-button-content i {
+  color: #fff !important;
+}
+
+.badge {
+  width: 19px;
+  height: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: red;
+  border-radius: 100%;
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  font-family: "Roboto Mono", monospace;
 }
 </style>
