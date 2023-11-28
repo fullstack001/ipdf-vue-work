@@ -191,4 +191,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.dropbox-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e5322d;
+    padding: 11px;
+    cursor: pointer;
+}
+</style>

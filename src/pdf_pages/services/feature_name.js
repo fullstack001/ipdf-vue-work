@@ -7,7 +7,7 @@ export const feature_names = [
     file: "merge_pdf.svg",
   },
   {
-    name: "pdfsplit",
+    name: "pdfspilt",
     title: "Split PDF",
     description:
       "Separate one page or a whole set for easy conversion into independent PDF files",

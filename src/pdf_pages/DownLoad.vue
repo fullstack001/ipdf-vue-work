@@ -60,7 +60,7 @@
 
     <div>
       <md-dialog :md-active.sync="showDialog">
-        <md-dialog-title>Preferences</md-dialog-title>
+        <md-dialog-title>Copy & Send download link</md-dialog-title>
         <md-dialog-content>
           <div class="form__group form__group--btn form__group--btn-lg">
             <div class="input--icon input--world">
@@ -71,9 +71,10 @@
                 :value="download_urls"
                 onclick="this.select();"
                 readonly="true"
+                ref="linkInput"
               />
             </div>
-            <button class="btn" id="autoCopy">
+            <button class="btn" id="autoCopy" @click="copyLink">
               <svg
                 aria-hidden="true"
                 width="12"
@@ -91,12 +92,13 @@
               Copy
             </button>
           </div>
+          <div class="dialog_description">Instantly download to your phone</div>
           <qr-code :text="download_urls" :size="250" error-level="H"></qr-code>
           <!-- <QrcodeVue :value="download_url" :size="600" level="H" /> -->
         </md-dialog-content>
 
         <md-dialog-actions>
-          <md-button class="md-primary" @click="showDialog = false"
+          <md-button class="md-raised md-danger" @click="showDialog = false"
             >Close</md-button
           >
         </md-dialog-actions>
@@ -155,15 +157,18 @@ export default {
     },
   },
   async created() {
-    this.download_urls = `http://127.0.0.1${this.$route.path}`;
+    this.download_urls = window.location.origin + this.$route.path;
+    console.log(this.download_urls);
     if (!this.result) {
       try {
-        const downloadURL = `http://127.0.0.1:5000/api/pdf/download/${this.$route.params.id}`;
+        const downloadURL = `/pdf/download/${this.$route.params.id}`;
         console.log(this.$route.params);
         const name = "pdfden." + this.$route.params.id.split(".")[1];
 
         // Make a GET request to the server endpoint to download the file
-        const response = await axios.get(downloadURL, { responseType: "blob" });
+        const response = await this.$axios.get(downloadURL, {
+          responseType: "blob",
+        });
         console.log(response);
         // Create a link and trigger the download
         const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -191,8 +196,8 @@ export default {
   },
   methods: {
     async onConfirm() {
-      await axios
-        .post("http://127.0.0.1:5000/api/pdf/delete", {
+      await this.$axios
+        .post("/pdf/delete", {
           file: this.$route.params.id,
         })
         .then((res) => {
@@ -211,6 +216,20 @@ export default {
       setTimeout(() => {
         this.$router.push("/");
       }, 1000);
+    },
+    copyLink() {
+      // Select the text in the input field
+      const inputField = this.$refs.linkInput;
+      inputField.select();
+
+      try {
+        // Attempt to copy the selected text to the clipboard
+        document.execCommand("copy");
+        alert("Link copied to clipboard!");
+      } catch (err) {
+        // If unable to copy, handle the error
+        alert("Failed to copy link to clipboard");
+      }
     },
   },
 };
@@ -303,5 +322,44 @@ export default {
 }
 .md-dialog /deep/.md-dialog-container {
   max-width: 768px;
+}
+
+.page-title {
+  margin-top: 50px;
+  font-weight: 600;
+  font-size: 42px;
+  line-height: 52px;
+  color: #33333b;
+  text-align: center;
+}
+
+.page-description {
+  max-width: 800px;
+  margin: 8px auto 0;
+  line-height: 32px;
+  font-size: 22px;
+  font-weight: 400;
+  color: #47474f;
+}
+
+.md-dialog-container {
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.form__group {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#dlink {
+  padding: 5px;
+}
+
+.dialog_description {
+  font-size: 18x;
+  font-weight: 500;
+  text-align: center;
+  margin: 20px 0px;
 }
 </style>

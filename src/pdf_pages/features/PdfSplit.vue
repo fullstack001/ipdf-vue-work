@@ -366,8 +366,8 @@ export default {
 
           formData.append("file", blob);
 
-          axios
-            .post("http://127.0.0.1:5000/api/pdf/splited_upload", formData)
+          this.$axios
+            .post("/pdf/splited_upload", formData)
             .then((response) => {
               console.log(response.data);
               this.$router.push({
@@ -586,6 +586,7 @@ export default {
   text-align: center;
   margin: auto;
   position: relative;
+  cursor: pointer;
 }
 
 .upload_btn .md-button-content {
@@ -603,18 +604,18 @@ export default {
   display: inline-block;
 }
 
-.dropbox {
+/* .dropbox {
   background-color: rgb(229, 50, 45) !important;
   height: 40px;
   width: 40px;
   padding: 11px;
   border-radius: 50%;
   cursor: pointer;
-}
-
+} */
+/* 
 .dropbox:hover {
   background-color: #e75651 !important;
-}
+} */
 
 .option__panel__content {
   margin: 10px;

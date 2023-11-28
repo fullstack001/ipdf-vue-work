@@ -9,6 +9,7 @@ export default {};
 <style>
   .tab-area .md-tabs-navigation{
     box-shadow: none;
+    padding: 10px;
   }
 
   .tab-area .md-button-content{
@@ -25,6 +26,10 @@ export default {};
     font-size: 50px !important;
     width: 50px !important;
     height: 50px !important;
+  }
+
+  .md-tabs-navigation .md-active{
+    border: solid 1px #e5322d;    
   }
 
 

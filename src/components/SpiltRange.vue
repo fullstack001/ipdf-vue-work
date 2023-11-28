@@ -93,7 +93,7 @@
           ></md-input>
         </md-field>
       </div>
-      <div>
+      <div class="description">
         This PDF will be split into files of {{ fixed_range }}.
         {{ disArray.length }}PDFs will be created
       </div>
@@ -229,5 +229,20 @@ h3 {
 .add_range_btn:active {
   background-color: #d2d2dd !important;
   color: #e75651 !important;
+}
+
+.description{
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  background-position: 16px;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  text-align: left;
+  color: #161616;
+  padding: 24px;
+  background-color: #def2ff;
+  margin: 10px 20px;
 }
 </style>

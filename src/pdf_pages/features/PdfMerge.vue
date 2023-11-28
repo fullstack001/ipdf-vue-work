@@ -353,8 +353,8 @@ export default {
 
       formData.append("pdf", blob);
 
-      axios
-        .post("http://127.0.0.1:5000/api/pdf", formData)
+      this.$axios
+        .post("/pdf", formData)
         .then((response) => {
           console.log(response.data);
           this.$router.push({
@@ -560,6 +560,7 @@ export default {
   text-align: center;
   margin: auto;
   position: relative;
+  cursor: pointer;
 }
 
 .upload_btn .md-button-content {
@@ -570,15 +571,6 @@ export default {
 
 .add-more {
   width: fit-content;
-}
-
-.dropbox {
-  background-color: rgb(229, 50, 45) !important;
-  height: 40px;
-  width: 40px;
-  padding: 11px;
-  border-radius: 50%;
-  cursor: pointer;
 }
 
 .dropbox-icon {

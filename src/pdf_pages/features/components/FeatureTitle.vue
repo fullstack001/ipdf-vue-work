@@ -1,6 +1,6 @@
 <template>
   <md-content class="">
-    <a href="">
+    <a href="" @click="redirect(item.item.name)">
       <img :src="require(`@/assets/feature_img/${item.item.file}`)" />
       <div>
         <h3>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+
 export default {
   name: "feature-title",
   props: {
@@ -23,6 +24,13 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    redirect(link){
+      this.$router.push({
+            name: link,              
+      });
+    }
+  }
 };
 </script>
 
