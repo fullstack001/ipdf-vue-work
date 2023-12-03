@@ -1,9 +1,5 @@
 <template>
   <div class="main">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
@@ -127,7 +123,7 @@
                 </a>
               </div>
               <div :id="'id' + index" :style="'id' + index">
-                <PdfViewer :fileUrl="generateURL(file_obj)" />
+                <PdfViewer :fileUrl="getURL(file_obj)" />
               </div>
               <span></span>
             </div>
@@ -176,13 +172,13 @@
 
 <script>
 import { PDFDocument, degrees } from "pdf-lib";
-import PdfService from "@/pdf_pages/services/PdfService";
 import PdfViewer from "@/components/PdfViewer.vue";
+import CryptoJS from "crypto-js";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import store from "@/store/index";
 import * as type from "@/store/types";
-import axios from "axios";
+import generateURL from "@/pdf_pages/services/generateURL";
 
 export default {
   components: {
@@ -196,6 +192,15 @@ export default {
       files: [],
       file_objs: [],
     };
+  },
+  mounted() {
+    if (this.$route.params.file) {
+      console.log(this.$route.params.file);
+      this.file_objs = this.$route.params.file.map((file) => {
+        return { file: file, degree: 0 };
+      });
+      console.log(this.file_objs);
+    }
   },
 
   methods: {
@@ -226,7 +231,6 @@ export default {
       // Process the dropped files
       for (let i = 0; i < files.length; i++) {
         this.file_objs.push({ file: files[i], degree: 0 });
-        console.log(this.file_objs);
       }
     },
 
@@ -252,7 +256,6 @@ export default {
         file: this.file_objs[index]["file"],
         degree: rotation,
       };
-      console.log(this.file_objs);
     },
 
     //download from dropbox
@@ -261,7 +264,6 @@ export default {
         return { file: item, degree: 0 };
       });
       this.file_objs = [...this.file_objs, ...add_objs];
-      console.log(this.file_objs);
     },
 
     onChange() {
@@ -280,25 +282,9 @@ export default {
         name.split(".")[name.split(".").length - 1]
       );
     },
-
-    generateURL(file_obj) {
-      const file = file_obj.file;
-      if (file.link) {
-        return file.link;
-      } else if (file.type == "application/pdf") {
-        let fileSrc = URL.createObjectURL(file);
-        setTimeout(() => {
-          URL.revokeObjectURL(fileSrc);
-        }, 1000);
-        return fileSrc;
-      }
-      // else {
-      //   let fileSrc = URL.createObjectURL(file);
-      //   setTimeout(() => {
-      //     URL.revokeObjectURL(fileSrc);
-      //   }, 1000);
-      //   return fileSrc;
-      // }
+    getURL(file_obj) {
+      const fileSrc = generateURL(file_obj.file);
+      return fileSrc;
     },
     async readFileAsync(file) {
       return new Promise((resolve, reject) => {
@@ -313,6 +299,7 @@ export default {
 
     //mergePDFs
     async mergePDFs() {
+      this.$isLoading(true); // show loading screen
       const mergedPdf = await PDFDocument.create();
       for (let i = 0; i < this.file_objs.length; i++) {
         const file = this.file_objs[i]["file"];
@@ -354,24 +341,38 @@ export default {
       formData.append("pdf", blob);
 
       this.$axios
-        .post("/pdf", formData)
+        .post("/pdf/pdf_upload", formData)
         .then((response) => {
-          console.log(response.data);
+          const obj = {
+            id: response.data,
+            button_title: "Download Merged PDF",
+            dis_text: "PDF has been merged!",
+            down_name: "merged_pdf.pdf",
+            file_type: "application/pdf",
+            before: "pdfmerge",
+          };
+          // Your secret message
+          const message = JSON.stringify(obj);
+
+          // Your secret key (should be kept private)
+          const secretKey = "mySecretKey123";
+
+          // Encrypt the message using AES encryption with the secret key
+          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+          console.log(encrypted);
           this.$router.push({
             name: "download",
             params: {
-              id: response.data,
-              button_title: "Download Merged PDF",
-              dis_text: "PDF has been merged!",
-              down_name: "merged.pdf",
-              file_type: "application/pdf",
+              param: encrypted,
             },
           });
         })
         .catch((e) => {
           console.log(e);
+        })
+        .finally(() => {
+          this.$isLoading(false); // hide loading screen
         });
-      this.file_objs = [];
     },
   },
 };

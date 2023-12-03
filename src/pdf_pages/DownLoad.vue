@@ -5,14 +5,23 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
     <div class="page-title">Download PDF File</div>
-    <div class="page-description">{{ $route.params.dis_text }}</div>
+    <div class="page-description">{{ dis_text }}</div>
     <div class="download_btn">
+      <a class="md-icon-button back-btn" @click="back_page">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16">
+          <path
+            d="M6.533 15.065L.438 8.968c-.116-.116-.208-.255-.27-.4a1.27 1.27 0 0 1 .009-.971c.066-.155.16-.296.277-.415l6.21-6.21A1.27 1.27 0 0 1 8.461.947c.49.49.485 1.295-.017 1.797l-4.02 4.02 10.47-.097a1.24 1.24 0 0 1 1.258 1.258 1.3 1.3 0 0 1-1.282 1.282L4.4 9.305l3.947 3.947c.49.492.485 1.295-.017 1.797s-1.306.508-1.797.017z"
+            fill="#fff"
+            fill-rule="nonzero"
+          ></path>
+        </svg>
+      </a>
       <a
         id="link"
         class="download__btn md-raised md-danger"
         @click="complete_download"
       >
-        {{ $route.params.button_title }}
+        {{ button_title }}
       </a>
       <div class="add-more">
         <div>
@@ -48,6 +57,14 @@
             <md-icon>link</md-icon>
           </md-button>
         </div>
+      </div>
+      <div>
+        <md-button class="md-icon-button" @click="go_merge">
+          <img :src="require(`@/assets/feature_img/merge_pdf.svg`)" />
+        </md-button>
+        <md-button class="md-icon-button" @click="go_split">
+          <img :src="require(`@/assets/feature_img/split_pdf.svg`)" />
+        </md-button>
       </div>
     </div>
 
@@ -94,7 +111,6 @@
           </div>
           <div class="dialog_description">Instantly download to your phone</div>
           <qr-code :text="download_urls" :size="250" error-level="H"></qr-code>
-          <!-- <QrcodeVue :value="download_url" :size="600" level="H" /> -->
         </md-dialog-content>
 
         <md-dialog-actions>
@@ -109,10 +125,10 @@
 <script>
 import Vue from "vue";
 import store from "@/store/index";
-import axios from "axios";
+import CryptoJS from "crypto-js";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
+import JSZip from "jszip";
 import Dropbox from "dropbox";
-import QrcodeVue from "qrcode.vue";
 import VueQRCodeComponent from "vue-qrcode-component";
 Vue.component("qr-code", VueQRCodeComponent);
 
@@ -150,6 +166,15 @@ export default {
     show_noti: false,
     showDialog: false,
     download_urls: "",
+    id: "",
+    button_title: "",
+    dis_text: "",
+    down_name: "",
+    file_type: "",
+    downloadURL: "",
+    before: "",
+    url: null,
+    files: [],
   }),
   computed: {
     result() {
@@ -157,48 +182,91 @@ export default {
     },
   },
   async created() {
+    console.log(234);
     this.download_urls = window.location.origin + this.$route.path;
-    console.log(this.download_urls);
-    if (!this.result) {
-      try {
-        const downloadURL = `/pdf/download/${this.$route.params.id}`;
-        console.log(this.$route.params);
-        const name = "pdfden." + this.$route.params.id.split(".")[1];
+    // Your secret key (should be kept private)
+    const secretKey = "mySecretKey123";
 
-        // Make a GET request to the server endpoint to download the file
-        const response = await this.$axios.get(downloadURL, {
-          responseType: "blob",
-        });
-        console.log(response);
-        // Create a link and trigger the download
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", name);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        this.$router.push("/");
-      } catch (error) {
-        console.error("Error downloading file:", error);
-        // Handle error
-      }
-    }
+    // Decrypt the encrypted message using the same secret key
+    const decrypted = CryptoJS.AES.decrypt(
+      this.$route.params.param,
+      secretKey
+    ).toString(CryptoJS.enc.Utf8);
+    const paramObj = JSON.parse(decrypted);
+    this.id = paramObj.id;
+    this.button_title = paramObj.button_title;
+    this.dis_text = paramObj.dis_text;
+    this.down_name = paramObj.down_name;
+    this.file_type = paramObj.file_type;
+    this.before = paramObj.before;
+    this.downloadURL = `/pdf/download/${this.id}`;
   },
-  mounted() {
+  async mounted() {
+    // Make a GET request to the server endpoint to download the file
+    const response = await this.$axios.get(this.downloadURL, {
+      responseType: "blob",
+    });
+    // Create a link and trigger the download
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    this.url = url;
     const link = document.getElementById("link");
-    link.download = this.$route.params.down_name;
+    link.download = this.down_name;
     let binaryData = [];
     binaryData.push(this.result);
-    link.href = URL.createObjectURL(
-      new Blob(binaryData, { type: this.$route.params.file_type })
-    );
+    link.href = url;
+    if (this.file_type == "application/pdf") {
+      this.files = [
+        {
+          name: "newPdf.pdf",
+          link: this.url,
+        },
+      ];
+    } else {
+      const zipFile = response.data;
+      const zip = new JSZip();
+
+      zip
+        .loadAsync(zipFile)
+        .then((contents) => {
+          const pdfFiles = [];
+          contents.forEach((relativePath, zipEntry) => {
+            if (!zipEntry.dir && zipEntry.name.toLowerCase().endsWith(".pdf")) {
+              pdfFiles.push(zipEntry);
+            }
+          });
+
+          const promises = pdfFiles.map((zipEntry) => {
+            return zipEntry.async("blob").then((blob) => ({
+              name: zipEntry.name,
+              link: URL.createObjectURL(blob),
+            }));
+          });
+
+          Promise.all(promises)
+            .then((extractedPDFs) => {
+              this.files = extractedPDFs;
+            })
+            .catch((error) => {
+              console.error(
+                "Error occurred while extracting PDF files:",
+                error
+              );
+            });
+        })
+        .catch((error) => {
+          console.error("Error occurred while reading ZIP file:", error);
+        });
+    }
   },
   methods: {
+    back_page() {
+      console.log(this.before);
+      this.$router.push(`/${this.before}`);
+    },
     async onConfirm() {
       await this.$axios
         .post("/pdf/delete", {
-          file: this.$route.params.id,
+          file: this.id,
         })
         .then((res) => {
           this.show_noti = true;
@@ -230,6 +298,31 @@ export default {
         // If unable to copy, handle the error
         alert("Failed to copy link to clipboard");
       }
+    },
+    go_merge() {
+      this.$router.push({
+        name: "pdfmerge",
+        params: {
+          file: this.files,
+        },
+      });
+    },
+    go_split() {
+      if (this.file_type == "application/pdf") {
+        this.$router.push({
+          name: "pdfsplit",
+          params: {
+            file: this.files,
+          },
+        });
+      }
+    },
+    generateFileUrl(content) {
+      // Create a Blob from the file content
+      const blob = new Blob([content], { type: "application/pdf" }); // Adjust type as needed
+
+      // Generate a URL representing the file content
+      return URL.createObjectURL(blob);
     },
   },
 };
@@ -361,5 +454,21 @@ export default {
   font-weight: 500;
   text-align: center;
   margin: 20px 0px;
+}
+.downloader__extra__btn {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #fff;
+  -webkit-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+  cursor: pointer;
+  background: #e5322d;
+  margin: 6px 6px 8px;
+  pointer-events: none;
 }
 </style>

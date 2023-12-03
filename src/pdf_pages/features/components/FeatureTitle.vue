@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
 export default {
   name: "feature-title",
   props: {
@@ -25,12 +24,12 @@ export default {
     return {};
   },
   methods: {
-    redirect(link){
+    redirect(link) {
       this.$router.push({
-            name: link,              
+        name: link,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

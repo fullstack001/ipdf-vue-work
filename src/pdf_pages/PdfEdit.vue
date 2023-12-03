@@ -10,12 +10,16 @@
             <b>MERGE PDF</b>
           </p>
         </router-link>
-        <router-link to="/pdfspilt">
+        <router-link to="/pdfsplit">
           <p class="nav-btn">
             <b>SPLIT PDF</b>
           </p>
         </router-link>
-        <p class="nav-btn"><b>COMPRESS PDF</b></p>
+        <router-link to="/pdfcompress">
+          <p class="nav-btn">
+            <b>COMPRESS PDF</b>
+          </p>
+        </router-link>
         <p class="nav-btn"><b>CONVERT PDF</b></p>
         <p class="nav-btn"><b>ALL PDF TOOLS</b></p>
 

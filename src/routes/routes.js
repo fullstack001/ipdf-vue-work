@@ -1,5 +1,3 @@
-
-
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
@@ -14,6 +12,7 @@ import PdfEdit from "@/pdf_pages/PdfEdit.vue";
 import AllFeatures from "@/pdf_pages/features/AllFeatures.vue";
 import PdfMerge from "@/pdf_pages/features/PdfMerge.vue";
 import PdfSplit from "@/pdf_pages/features/PdfSplit.vue";
+import PdfCompress from "@/pdf_pages/features/PdfCompress.vue";
 import Download from "@/pdf_pages/DownLoad.vue";
 
 //test
@@ -36,15 +35,20 @@ const routes = [
         name: "pdfmerge",
       },
       {
-        path: "/download/:id",
+        path: "/download/:param",
         component: Download,
         name: "download",
       },
 
       {
-        path: "/pdfspilt",
+        path: "/pdfsplit",
         component: PdfSplit,
-        name: "pdfspilt",
+        name: "pdfsplit",
+      },
+      {
+        path: "/pdfcompress",
+        component: PdfCompress,
+        name: "pdfcompress",
       },
     ],
   },
@@ -94,6 +98,5 @@ const routes = [
     ],
   },
 ];
-
 
 export default routes;

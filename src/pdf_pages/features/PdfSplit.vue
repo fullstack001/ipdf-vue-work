@@ -1,10 +1,5 @@
 <template>
   <div class="main">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
-
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!pages.length" class="upload-buttons">
@@ -68,7 +63,10 @@
                 <p>Range{{ page.id }}</p>
               </div>
               <div class="split_card" v-if="page.range[0] == page.range[1]">
-                <div class="split_card_body">
+                <div
+                  class="split_card_body"
+                  @click="click_extract_pages(page.range[0])"
+                >
                   <div>
                     <PdfViewer
                       :fileUrl="generateURL(file)"
@@ -122,6 +120,7 @@
               <SpiltRange
                 :rangeArray="pages"
                 :maxNumber="pageCount"
+                @set_check="set_checkBox"
                 @rangeChange="changeRange"
               />
             </md-tab>
@@ -130,14 +129,26 @@
               md-icon="account_tree"
               md-label="Extract Pages"
               @click="extractSplit"
+              :set_disAll="pdf_click"
               v-bind:class="extractEdit ? '' : 'active_tab'"
             >
-              <SplitExtra :maxNum="pageCount" @extractChange="setExtract" />
+              <SplitExtra
+                @set_check="set_checkBox"
+                :set_disAll="pdf_click"
+                :maxNum="pageCount"
+                :extractpage="extractPages"
+                @extractChange="setExtract"
+              />
             </md-tab>
           </md-tabs>
         </div>
 
         <div class="option__panel option__panel--active" id="merge-options">
+          <div v-if="show_checkBox">
+            <md-checkbox v-model="merge_selected" value="true"
+              >Merge all ranges in one PDF file.</md-checkbox
+            >
+          </div>
           <button class="option__panel__title" @click="splitPDF">
             Split PDF
           </button>
@@ -146,19 +157,20 @@
     </div>
   </div>
 </template>
-
 <script>
-import { PDFDocument, degrees } from "pdf-lib";
+import { PDFDocument } from "pdf-lib";
 import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
+import CryptoJS from "crypto-js";
 import SplitExtra from "@/components/SplitExtra.vue";
 import SpiltRange from "@/components/SpiltRange.vue";
 import JSZip from "jszip";
-import { saveAs } from "file-saver";
 import store from "@/store/index";
 import * as type from "@/store/types";
-import axios from "axios";
+import { GlobalWorkerOptions, getDocument } from "pdfjs-dist/legacy/build/pdf";
+import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
+GlobalWorkerOptions.workerSrc = PDFJSWorker;
 
 export default {
   components: {
@@ -176,10 +188,37 @@ export default {
       pages: [],
       extractEdit: false,
       extractPages: [],
+      pdf_click: false,
+      merge_selected: false,
+      show_checkBox: true,
     };
+  },
+  mounted() {
+    if (this.$route.params.file) {
+      console.log(this.$route.params.file);
+      this.file = this.$route.params.file[0];
+      // Load the PDF document from the buffer
+      getDocument(this.file.link).promise.then(
+        (pdf) => {
+          let numPages = pdf.numPages;
+          this.pageCount = numPages;
+          this.pages = [{ id: 1, range: [1, numPages] }];
+          for (let i = 1; i <= numPages; i++) {
+            this.extractPages.push([i, i]);
+          }
+        },
+        (reason) => {
+          console.error(reason);
+        }
+      );
+    }
   },
 
   methods: {
+    set_checkBox(flag) {
+      this.show_checkBox = flag;
+      this.merge_selected = false;
+    },
     //add merged pdf to vuex
     setPdfResult(result) {
       store.dispatch({
@@ -196,8 +235,8 @@ export default {
 
     //download from dropbox
     onPickedDropbox(data) {
-      this.file = data;
-      this.get_pages(data);
+      this.file = data[0];
+      this.get_pages(data[0]);
     },
     changeRange(data) {
       this.pages = data;
@@ -206,16 +245,26 @@ export default {
       console.log("google driver");
     },
     get_pages(file) {
-      const reader = new FileReader();
-      reader.readAsBinaryString(file);
-      reader.onloadend = () => {
-        const count = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
-        this.pageCount = count;
-        this.pages = [{ id: 1, range: [1, count] }];
-        for (let i = 1; i <= count; i++) {
-          this.extractPages.push([i, i]);
+      console.log(file);
+      let url = "";
+      if (file.link) {
+        url = file.link;
+      } else {
+        url = URL.createObjectURL(file);
+      }
+      getDocument(url).promise.then(
+        (pdf) => {
+          let numPages = pdf.numPages;
+          this.pageCount = numPages;
+          this.pages = [{ id: 1, range: [1, numPages] }];
+          for (let i = 1; i <= numPages; i++) {
+            this.extractPages.push([i, i]);
+          }
+        },
+        (reason) => {
+          console.error(reason);
         }
-      };
+      );
     },
 
     handleDrop(event) {
@@ -228,6 +277,53 @@ export default {
 
     setExtract(newExtract) {
       this.extractPages = newExtract;
+    },
+    click_extract_pages(page) {
+      let temp = [];
+      if (this.extractEdit) {
+        if (!this.extractPages.length) {
+          this.extractPages.push([page, page]);
+          console.log(this.extractPages);
+        } else {
+          for (let i = 0; i < this.extractPages.length; i++) {
+            let item = this.extractPages[i];
+            for (let j = item[0]; j <= item[1]; j++) {
+              if (temp.indexOf(j) < 0) {
+                temp.push(j);
+              }
+            }
+          }
+
+          if (temp.indexOf(page) >= 0) {
+            temp.splice(temp.indexOf(page), 1);
+          } else {
+            temp.push(page);
+          }
+          temp = [...temp].sort((a, b) => a - b);
+          this.extractPages = this.groupConsecutiveNumbers(temp);
+          console.log(this.extractPages);
+        }
+      }
+    },
+    groupConsecutiveNumbers(arr) {
+      const result = [];
+      let start = arr[0];
+      let end = arr[0];
+
+      for (let i = 1; i < arr.length; i++) {
+        if (arr[i] - arr[i - 1] === 1) {
+          end = arr[i];
+        } else {
+          result.push([start, end]);
+          start = arr[i];
+          end = arr[i];
+        }
+      }
+
+      // Push the last range after loop completion
+      result.push([start, end]);
+
+      return result;
     },
 
     //extract split
@@ -253,10 +349,8 @@ export default {
         let budgePages = [];
         for (let i = 0; i < this.extractPages.length; i++) {
           let item = this.extractPages[i];
-          if (typeof item == "number") {
-            budgePages.push(item);
-          } else {
-            for (let j = item[0]; j <= item[1]; j++) {
+          for (let j = item[0]; j <= item[1]; j++) {
+            if (budgePages.indexOf(j) < 0) {
               budgePages.push(j);
             }
           }
@@ -292,6 +386,8 @@ export default {
     },
 
     splitPDF() {
+      this.$isLoading(true); // show loading screen
+      console.log(this.extractPages, this.extractEdit, this.pages);
       let planPages = [];
       if (this.extractEdit) {
         planPages = this.extractPages;
@@ -300,16 +396,17 @@ export default {
           return [page.range[0] * 1, page.range[1] * 1];
         });
       }
+      console.log(planPages);
       //split PDF
       this.splitingPDF(planPages);
     },
 
     async splitingPDF(planPages) {
-      let splited_temp = planPages.map(async (planPage, index) => {
+      let splited_temp = [];
+      if (this.merge_selected || planPages.length == 1) {
         const mergedPdf = await PDFDocument.create();
         const file = this.file;
         let pdfBytes = null;
-
         if (file.link) {
           //dropdown file
           const response = await fetch(file.link);
@@ -325,32 +422,107 @@ export default {
           pdf,
           pdf.getPageIndices()
         );
-
-        if (planPage[0] == planPage[1]) {
-          mergedPdf.addPage(copiedPages[planPage[0] - 1]);
-        } else {
-          for (let i = planPage[0] - 1; i < planPage[1]; i++) {
-            mergedPdf.addPage(copiedPages[i]);
+        planPages.forEach((planpage) => {
+          if (planpage[0] == planpage[1]) {
+            mergedPdf.addPage(copiedPages[planpage[0] - 1]);
+          } else {
+            let number = [];
+            for (let i = planpage[0]; i <= planpage[1]; i++) {
+              number.push(i);
+            }
+            number.forEach((page) => {
+              mergedPdf.addPage(copiedPages[page - 1]);
+            });
           }
-        }
-        return mergedPdf.save();
-      });
+        });
+        let temp = await mergedPdf.save();
+        splited_temp.push(temp);
+      } else {
+        splited_temp = planPages.map(async (planPage, index) => {
+          const mergedPdf = await PDFDocument.create();
+          const file = this.file;
+          let pdfBytes = null;
 
-      // this.compressed_pdf(urls);
-      this.generateZip(splited_temp);
+          if (file.link) {
+            //dropdown file
+            const response = await fetch(file.link);
+            const arrayBuffer = await response.arrayBuffer();
+            pdfBytes = new Uint8Array(arrayBuffer);
+          } else {
+            //local upload
+            pdfBytes = await this.readFileAsync(file);
+          }
+
+          const pdf = await PDFDocument.load(pdfBytes);
+          const copiedPages = await mergedPdf.copyPages(
+            pdf,
+            pdf.getPageIndices()
+          );
+
+          if (planPage[0] == planPage[1]) {
+            mergedPdf.addPage(copiedPages[planPage[0] - 1]);
+          } else {
+            for (let i = planPage[0] - 1; i < planPage[1]; i++) {
+              mergedPdf.addPage(copiedPages[i]);
+            }
+          }
+          return mergedPdf.save();
+        });
+      }
+      if (splited_temp.length == 1) {
+        this.uploadPdf(splited_temp);
+      } else {
+        this.generateZip(splited_temp);
+      }
+    },
+
+    uploadPdf(pdfFile) {
+      console.log(pdfFile);
+      const formData = new FormData();
+      const blob = new Blob(pdfFile, { type: "application/pdf" });
+
+      formData.append("pdf", blob);
+
+      this.$axios
+        .post("/pdf/pdf_upload", formData)
+        .then((response) => {
+          const obj = {
+            id: response.data,
+            button_title: "Download Spilted PDF",
+            dis_text: "PDF has been Splited!",
+            down_name: "splited_pdf.pdf",
+            file_type: "application/pdf",
+            before: "pdfsplit",
+          };
+          // Your secret message
+          const message = JSON.stringify(obj);
+
+          // Your secret key (should be kept private)
+          const secretKey = "mySecretKey123";
+
+          // Encrypt the message using AES encryption with the secret key
+          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+          console.log(encrypted);
+          this.$router.push({
+            name: "download",
+            params: {
+              param: encrypted,
+            },
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .finally(() => {
+          this.$isLoading(false); // hide loading screen
+        });
     },
 
     //create Zip file for download
-
     async generateZip(pdfFiles) {
       const zip = new JSZip();
-      // const pdfFiles = ["file1.pdf", "file2.pdf", "file3.pdf"]; // Replace these with your file names or paths
 
       const promises = pdfFiles.map(async (data, i) => {
-        // // Fetch the PDF file from the server
-        // const response = await fetch(file);
-        // const data = await response.blob();
-
         // Add the PDF file to the ZIP
         zip.file(`splited_pdf${i}.pdf`, data);
       });
@@ -362,36 +534,46 @@ export default {
 
           //upload zip file to server
           const formData = new FormData();
-          const blob = new Blob([content], { type: "application/pdf" });
+          const blob = new Blob([content], { type: "application/zip" });
 
           formData.append("file", blob);
 
           this.$axios
-            .post("/pdf/splited_upload", formData)
+            .post("/pdf/zip_upload", formData)
             .then((response) => {
-              console.log(response.data);
+              const obj = {
+                id: response.data,
+                button_title: "Download split PDF",
+                dis_text: "PDF has been split!",
+                down_name: "splited_pdf.zip",
+                file_type: "application/zip",
+                before: "pdfsplit",
+              };
+              // Your secret message
+              const message = JSON.stringify(obj);
+
+              // Your secret key (should be kept private)
+              const secretKey = "mySecretKey123";
+
+              // Encrypt the message using AES encryption with the secret key
+              const encrypted = CryptoJS.AES.encrypt(
+                message,
+                secretKey
+              ).toString();
+
               this.$router.push({
                 name: "download",
                 params: {
-                  id: response.data,
-                  button_title: "Download split PDF",
-                  dis_text: "PDF has been split!",
-                  down_name: "splited_pdf.zip",
-                  file_type: "application/zip",
+                  param: encrypted,
                 },
               });
             })
             .catch((e) => {
               console.log(e);
+            })
+            .finally(() => {
+              this.$isLoading(false); // hide loading screen
             });
-
-          // Create a link and trigger the download
-          // const link = document.createElement("a");
-          // link.href = url;
-          // link.download = "pdfden.zip";
-          // document.body.appendChild(link);
-          // link.click();
-          // document.body.removeChild(link);
         });
       });
     },

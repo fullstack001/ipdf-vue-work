@@ -34,9 +34,8 @@
   </div>
 </template>
 <script>
-
 export default {
-  props: ["maxNum"],
+  props: ["maxNum", "extractpage"],
   data() {
     return {
       selectPages: "",
@@ -44,14 +43,35 @@ export default {
     };
   },
   watch: {
-    maxNum(newValue) {
-      console.log(newValue);
+    extractpage(newValue) {
+      if (newValue.length == this.maxNum) {
+        this.disAll = true;
+        this.$emit("set_check", false);
+      } else {
+        this.disAll = false;
+        this.$emit("set_check", true);
+      }
+      let temp = "";
+      for (let i = 0; i < newValue.length; i++) {
+        if (temp.length > 0) {
+          temp = temp + ",";
+        }
+        let item = newValue[i];
+        if (item[0] == item[1]) {
+          temp = temp + item[0];
+        } else {
+          temp = temp + item[0] + "-" + item[1];
+        }
+      }
+      this.selectPages = temp;
+      console.log(this.selectPages);
     },
   },
   methods: {
     selPage() {
       this.disAll = false;
       this.$emit("extractChange", []);
+      this.$emit("set_check", true);
     },
     selAll() {
       this.disAll = true;
@@ -60,31 +80,35 @@ export default {
         extractArray.push([i, i]);
       }
       this.$emit("extractChange", extractArray);
+      this.$emit("set_check", false);
     },
     setExtract() {
-      const string = this.selectPages.replace(/\s/g, "");
-      const originArray = string.split(",");
-      let temp = [];
-      for (let i = 0; i < originArray.length; i++) {
-        if (Number(originArray[i])) {
-          if (Number(originArray[i]) > this.maxNum) continue;
-          temp.push([Number(originArray[i]), Number(originArray[i])]);
-        } else {
-          let item = originArray[i].split("-");
-          let from = Number(item[0]);
-          let to = Number(item[1]);
-          if (
-            from &&
-            to &&
-            to > from &&
-            from < this.maxNum &&
-            to < this.maxNum
-          ) {
-            temp.push([from, to]);
+      let last_letter = this.selectPages[this.selectPages.length - 1];
+      if (last_letter != "-" && last_letter != ",") {
+        const string = this.selectPages.replace(/\s/g, "");
+        const originArray = string.split(",");
+        let temp = [];
+        for (let i = 0; i < originArray.length; i++) {
+          if (Number(originArray[i])) {
+            if (Number(originArray[i]) > this.maxNum) continue;
+            temp.push([Number(originArray[i]), Number(originArray[i])]);
+          } else {
+            let item = originArray[i].split("-");
+            let from = Number(item[0]);
+            let to = Number(item[1]);
+            if (
+              from &&
+              to &&
+              to > from &&
+              from < this.maxNum &&
+              to <= this.maxNum
+            ) {
+              temp.push([from, to]);
+            }
           }
         }
+        this.$emit("extractChange", temp);
       }
-      this.$emit("extractChange", temp);
     },
   },
 };

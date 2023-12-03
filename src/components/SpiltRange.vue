@@ -142,12 +142,14 @@ export default {
       this.$emit("rangeChange", this.disArray);
     },
     customRangeEdit() {
+      this.$emit("set_check", true);
       this.active = true;
       this.custom_show = true;
       this.disArray = [{ id: 1, range: [1, this.maxNumber * 1] }];
       this.$emit("rangeChange", this.disArray);
     },
     fixedRangeEdit() {
+      this.$emit("set_check", false);
       this.custom_show = false;
       this.disArray = [];
       for (let i = 1; i <= this.maxNumber; i++) {
@@ -231,7 +233,7 @@ h3 {
   color: #e75651 !important;
 }
 
-.description{
+.description {
   line-height: 20px;
   font-size: 14px;
   font-weight: 400;
