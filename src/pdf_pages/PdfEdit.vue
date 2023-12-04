@@ -1,22 +1,29 @@
 <template>
   <div>
-    <md-toolbar md-elevation="0" class="md-transparent nav-par">
+    <md-toolbar
+      md-elevation="0"
+      class="md-transparent nav-par"
+      v-if="$route.path != '/login'"
+    >
       <div class="md-toolbar-row nav-top">
         <router-link to="/">
           <img src="@/assets/img/vue-logo.png" width="160" srcset="" />
         </router-link>
         <router-link to="/pdfmerge">
-          <p class="nav-btn active-link">
+          <p class="nav-btn" :class="{ 'active-link': isActive('/pdfmerge') }">
             <b>MERGE PDF</b>
           </p>
         </router-link>
         <router-link to="/pdfsplit">
-          <p class="nav-btn">
+          <p class="nav-btn" :class="{ 'active-link': isActive('/pdfsplit') }">
             <b>SPLIT PDF</b>
           </p>
         </router-link>
         <router-link to="/pdfcompress">
-          <p class="nav-btn">
+          <p
+            class="nav-btn"
+            :class="{ 'active-link': isActive('/pdfcompress') }"
+          >
             <b>COMPRESS PDF</b>
           </p>
         </router-link>
@@ -91,6 +98,9 @@ export default {
   methods: {
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+    },
+    isActive(route) {
+      return this.$route.path === route;
     },
   },
 };

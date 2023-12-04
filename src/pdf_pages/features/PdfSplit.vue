@@ -732,6 +732,7 @@ export default {
   -ms-flex-order: 1;
   order: 1;
   max-width: 60vw;
+  cursor: pointer;
 }
 .sidebar-active .tool__sidebar {
   -ms-flex-preferred-size: 440px;
@@ -785,19 +786,6 @@ export default {
 .add-more div {
   display: inline-block;
 }
-
-/* .dropbox {
-  background-color: rgb(229, 50, 45) !important;
-  height: 40px;
-  width: 40px;
-  padding: 11px;
-  border-radius: 50%;
-  cursor: pointer;
-} */
-/* 
-.dropbox:hover {
-  background-color: #e75651 !important;
-} */
 
 .option__panel__content {
   margin: 10px;

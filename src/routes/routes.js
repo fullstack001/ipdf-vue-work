@@ -14,6 +14,7 @@ import PdfMerge from "@/pdf_pages/features/PdfMerge.vue";
 import PdfSplit from "@/pdf_pages/features/PdfSplit.vue";
 import PdfCompress from "@/pdf_pages/features/PdfCompress.vue";
 import Download from "@/pdf_pages/DownLoad.vue";
+import Login from "@/pdf_pages/Login.vue";
 
 //test
 import Test from "@/pdf_pages/features/Test.vue";
@@ -22,8 +23,13 @@ const routes = [
   {
     path: "/",
     component: PdfEdit,
-    redirect: "/allfeatures",
+    redirect: "/login",
     children: [
+      {
+        path: "login",
+        component: Login,
+        name: "login",
+      },
       {
         path: "allfeatures",
         component: AllFeatures,

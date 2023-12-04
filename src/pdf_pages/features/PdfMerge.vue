@@ -529,6 +529,7 @@ export default {
   -ms-flex-order: 1;
   order: 1;
   max-width: 60vw;
+  cursor: pointer;
 }
 .sidebar-active .tool__sidebar {
   -ms-flex-preferred-size: 440px;

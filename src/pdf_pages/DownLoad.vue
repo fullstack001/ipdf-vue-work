@@ -16,11 +16,7 @@
           ></path>
         </svg>
       </a>
-      <a
-        id="link"
-        class="download__btn md-raised md-danger"
-        @click="complete_download"
-      >
+      <a id="link" class="download__btn md-raised md-danger">
         {{ button_title }}
       </a>
       <div class="add-more">
@@ -37,9 +33,11 @@
 
           <md-button class="md-icon-button" @click="active = true">
             <md-icon>delete</md-icon>
+            <md-tooltip md-direction="top">Delete it now</md-tooltip>
           </md-button>
           <md-button class="md-icon-button" @click="open_add_local">
             <md-icon>add_to_drive</md-icon>
+            <md-tooltip md-direction="top">Save to Google Driver</md-tooltip>
           </md-button>
         </div>
         <div>
@@ -53,18 +51,26 @@
             :uploadFiles="uploadToDropboxFiles"
             :buttonType="'saver'"
           />
-          <md-button class="md-icon-button" @click="showDialog = true">
+          <md-button
+            class="md-icon-button download-more"
+            @click="showDialog = true"
+          >
             <md-icon>link</md-icon>
+            <md-tooltip md-direction="bottom"
+              >Share file link or QRcode</md-tooltip
+            >
           </md-button>
         </div>
       </div>
-      <div>
-        <md-button class="md-icon-button" @click="go_merge">
+      <div class="extra-work">
+        <button class="download-more" @click="go_merge">
           <img :src="require(`@/assets/feature_img/merge_pdf.svg`)" />
-        </md-button>
-        <md-button class="md-icon-button" @click="go_split">
+          <md-tooltip md-direction="bottom">Continue to Merge PDF</md-tooltip>
+        </button>
+        <button class="download-more" @click="go_split">
           <img :src="require(`@/assets/feature_img/split_pdf.svg`)" />
-        </md-button>
+          <md-tooltip md-direction="bottom">Continue to Split PDF</md-tooltip>
+        </button>
       </div>
     </div>
 
@@ -280,11 +286,6 @@ export default {
       console.log("Cancel");
     },
     open_add_local() {},
-    complete_download() {
-      setTimeout(() => {
-        this.$router.push("/");
-      }, 1000);
-    },
     copyLink() {
       // Select the text in the input field
       const inputField = this.$refs.linkInput;
@@ -470,5 +471,30 @@ export default {
   background: #e5322d;
   margin: 6px 6px 8px;
   pointer-events: none;
+}
+
+.back-btn {
+  background-color: #47474f;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.extra-work {
+  position: absolute;
+  right: 0;
+}
+
+.download-more {
+  background-color: #fff !important;
+  color: #fff !important;
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: none;
+  padding: 10px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.14);
+  cursor: pointer;
 }
 </style>

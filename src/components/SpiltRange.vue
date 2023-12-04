@@ -49,27 +49,27 @@
             <md-list class="md-double-line">
               <md-list-item>
                 <div class="md-list-item-text" style="display: contents">
-                  <md-field>
+                  <div class="range-area">
                     <label> From Page</label>
-                    <md-input
+                    <input
                       type="number"
                       :max="range.range[1]"
                       :min="1"
                       v-model="range.range[0]"
                       @input="range_change"
-                    ></md-input>
-                  </md-field>
+                    />
+                  </div>
 
-                  <md-field>
-                    <label>To page</label>
-                    <md-input
+                  <div class="range-area">
+                    <label>To</label>
+                    <input
                       type="number"
                       :max="maxNumber"
                       :min="range.range[0]"
                       v-model="range.range[1]"
                       @input="range_change"
-                    ></md-input>
-                  </md-field>
+                    />
+                  </div>
                 </div>
               </md-list-item>
             </md-list>
@@ -246,5 +246,30 @@ h3 {
   padding: 24px;
   background-color: #def2ff;
   margin: 10px 20px;
+}
+
+.range-area {
+  display: flex;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-radius: 4px;
+  padding-left: 8px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #707078;
+}
+
+.range-area label {
+  padding: 10px 0px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.range-area input {
+  border: 1px solid #707078;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  padding-left: 5px;
 }
 </style>

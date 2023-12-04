@@ -38,6 +38,9 @@
               @click="open_add_local"
             >
               <md-icon>computer</md-icon>
+              <md-tooltip md-direction="bottom"
+                >Upload from local area</md-tooltip
+              >
             </md-button>
           </div>
           <div
@@ -49,6 +52,9 @@
           >
             <md-button class="md-icon-button" @click="open_add_local">
               <md-icon>add_to_drive</md-icon>
+              <md-tooltip md-direction="bottom"
+                >Download from Google Driver</md-tooltip
+              >
             </md-button>
           </div>
 
@@ -81,26 +87,6 @@
               :key="file_obj.file.name"
             >
               <div class="file__actions">
-                <!-- <a
-                  class="file__btn rotate tooltip--top tooltip"
-                  data-rotate="0"
-                  title="Rotate"
-                  data-title="Rotate"
-                  @click="setRotationDegree(`id${index}`, index)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="16"
-                    viewBox="0 0 14 16"
-                  >
-                    <path
-                      d="M11.328 6.364l1.24-1.2c.79.98 1.283 2.113 1.433 3.288h-1.775c-.123-.735-.43-1.454-.896-2.088zm.896 3.778H14c-.15 1.175-.633 2.308-1.424 3.288l-1.24-1.2c.457-.634.765-1.344.888-2.088zm-.888 4.497C10.318 15.4 9.13 15.856 7.9 16v-1.716a5.31 5.31 0 0 0 2.162-.871l1.266 1.226zM6.152 2.595V0l4 3.846-4 3.76V4.302c-2.496.406-4.394 2.485-4.394 4.995s1.898 4.59 4.394 4.995V16C2.68 15.586 0 12.746 0 9.297s2.68-6.29 6.152-6.703z"
-                      fill="#47474F"
-                      fill-rule="evenodd"
-                    ></path>
-                  </svg>
-                </a> -->
                 <a
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
@@ -135,36 +121,40 @@
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
         <h3 class="text-center">Compression level</h3>
         <div class="tool__sidebar__inactive">
-          <md-radio v-model="radio" value="high"
+          <md-radio v-model="radio" value="50"
             >EXTREME COMPRESSION
             <small>(Less quality, high compression)</small></md-radio
           >
-          <md-radio v-model="radio" value="midium" class="md-primary"
+          <md-radio v-model="radio" value="100"
             >RECOMMENDED COMPRESSION
             <small>(Good quality, good compression)</small></md-radio
           >
-          <md-radio v-model="radio" value="less" class="md-Success"
+          <md-radio v-model="radio" value="150"
             >LESS COMPRESSION
             <small>(High quality, less compression)</small></md-radio
           >
         </div>
         <div class="option__panel option__panel--active" id="merge-options">
           <button class="option__panel__title" @click="expressPDFs">
-            Merge PDF
+            Compress PDF
           </button>
         </div>
       </div>
     </div>
+    <md-dialog-alert
+      :md-active.sync="second"
+      md-title="Select Level!"
+      md-content="Your have to select level and compress the PDF"
+    />
   </div>
 </template>
 
 <script>
-import { PDFDocument, degrees } from "pdf-lib";
 import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
+import CryptoJS from "crypto-js";
 import store from "@/store/index";
-import JSZip from "jszip";
 import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
 
@@ -179,7 +169,8 @@ export default {
       isDragging: false,
       files: [],
       file_objs: [],
-      radio: "accent",
+      radio: null,
+      second: false,
     };
   },
 
@@ -280,75 +271,55 @@ export default {
 
     //expressPDFs
     async expressPDFs() {
-      this.$isLoading(true); // show loading screen
-      let compressed_temp = this.file_objs.map(async (file_obj) => {
-        const file = file_obj.file;
-        const mergedPdf = await PDFDocument.create();
-        let pdfBytes = null;
-        if (file.link) {
-          const response = await fetch(file.link);
-          const arrayBuffer = await response.arrayBuffer();
-          pdfBytes = new Uint8Array(arrayBuffer);
-        } else {
-          pdfBytes = await this.readFileAsync(file); //local upload
+      if (this.radio) {
+        this.$isLoading(true); // show loading screen
+        const formData = new FormData();
+        for (let i = 0; i < this.file_objs.length; i++) {
+          formData.append("files", this.file_objs[i].file);
         }
+        formData.append("level", this.radio);
+        this.$axios
+          .post("/pdf/pdf_compress", formData)
+          .then((response) => {
+            // Handle response from server
+            const type = response.data.split(".")[1];
+            console.log(type);
+            const obj = {
+              id: response.data,
+              button_title: "Download Compressed PDF",
+              dis_text: "PDF has been compressed!",
+              down_name: `pdfdenCompressed.${type}`,
+              file_type: `application/${type}`,
+              before: "pdfcompress",
+            };
+            // Your secret message
+            const message = JSON.stringify(obj);
 
-        const pdfDoc = await PDFDocument.load(pdfBytes);
+            // Your secret key (should be kept private)
+            const secretKey = "mySecretKey123";
 
-        const compressedPdfBytes = await pdfDoc.save({
-          useObjectStreams: true,
-        });
+            // Encrypt the message using AES encryption with the secret key
+            const encrypted = CryptoJS.AES.encrypt(
+              message,
+              secretKey
+            ).toString();
 
-        return compressedPdfBytes;
-      });
-      console.log(compressed_temp);
-      this.generateZip(compressed_temp);
-    },
-
-    //create Zip file for download
-
-    async generateZip(pdfFiles) {
-      const zip = new JSZip();
-
-      const promises = pdfFiles.map(async (data, i) => {
-        // Add the PDF file to the ZIP
-        zip.file(`compressed_pdf${i}.pdf`, data);
-      });
-
-      Promise.all(promises).then(() => {
-        zip.generateAsync({ type: "blob" }).then((content) => {
-          //save on vuex
-          this.setPdfResult(content);
-
-          //upload zip file to server
-          const formData = new FormData();
-          const blob = new Blob([content], { type: "application/zip" });
-
-          formData.append("file", blob);
-
-          this.$axios
-            .post("/pdf/splited_upload", formData)
-            .then((response) => {
-              console.log(response.data);
-              this.$router.push({
-                name: "download",
-                params: {
-                  id: response.data,
-                  button_title: "Download compress PDF",
-                  dis_text: "PDF has been compressed!",
-                  down_name: "compressed_pdf.zip",
-                  file_type: "application/zip",
-                },
-              });
-            })
-            .catch((e) => {
-              console.log(e);
-            })
-            .finally(() => {
-              this.$isLoading(false); // hide loading screen
+            this.$router.push({
+              name: "download",
+              params: {
+                param: encrypted,
+              },
             });
-        });
-      });
+          })
+          .catch((error) => {
+            console.error("Error uploading files:", error);
+          })
+          .finally(() => {
+            this.$isLoading(false); // hide loading screen
+          });
+      } else {
+        this.second = true;
+      }
     },
   },
 };
