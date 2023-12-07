@@ -111,9 +111,9 @@ export default {
   },
   methods: {
     dropboxIconClicked() {
+      console.log(2342342342);
       let options = {
         success: async (files) => {
-          console.log(files);
           let attachments = [];
           for (let i = 0; i < files.length; i++) {
             let attachment = {};

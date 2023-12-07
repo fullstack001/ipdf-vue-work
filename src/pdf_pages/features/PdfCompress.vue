@@ -121,18 +121,34 @@
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
         <h3 class="text-center">Compression level</h3>
         <div class="tool__sidebar__inactive">
-          <md-radio v-model="radio" value="50"
+          <md-radio
+            v-model="radio"
+            value="50"
+            class="split_option"
+            :class="radio == 50 ? 'md-checked' : ''"
             >EXTREME COMPRESSION
-            <small>(Less quality, high compression)</small></md-radio
-          >
-          <md-radio v-model="radio" value="100"
+            <p><small>(Less quality, high compression)</small></p>
+          </md-radio>
+          <md-radio
+            v-model="radio"
+            value="100"
+            class="split_option"
+            :class="radio == 100 ? 'md-checked' : ''"
             >RECOMMENDED COMPRESSION
-            <small>(Good quality, good compression)</small></md-radio
-          >
-          <md-radio v-model="radio" value="150"
+            <p>
+              <small>(Good quality, good compression)</small>
+            </p>
+          </md-radio>
+          <md-radio
+            v-model="radio"
+            value="150"
+            class="split_option"
+            :class="radio == 150 ? 'md-checked' : ''"
             >LESS COMPRESSION
-            <small>(High quality, less compression)</small></md-radio
-          >
+            <p>
+              <small>(High quality, less compression)</small>
+            </p>
+          </md-radio>
         </div>
         <div class="option__panel option__panel--active" id="merge-options">
           <button class="option__panel__title" @click="expressPDFs">
@@ -169,7 +185,7 @@ export default {
       isDragging: false,
       files: [],
       file_objs: [],
-      radio: null,
+      radio: 100,
       second: false,
     };
   },
@@ -273,9 +289,11 @@ export default {
     async expressPDFs() {
       if (this.radio) {
         this.$isLoading(true); // show loading screen
+        let originSize = 0;
         const formData = new FormData();
         for (let i = 0; i < this.file_objs.length; i++) {
           formData.append("files", this.file_objs[i].file);
+          originSize = originSize + this.file_objs[i].file.size;
         }
         formData.append("level", this.radio);
         this.$axios
@@ -285,12 +303,14 @@ export default {
             const type = response.data.split(".")[1];
             console.log(type);
             const obj = {
-              id: response.data,
+              id: response.data.file,
               button_title: "Download Compressed PDF",
               dis_text: "PDF has been compressed!",
               down_name: `pdfdenCompressed.${type}`,
               file_type: `application/${type}`,
               before: "pdfcompress",
+              originSize: originSize / 1024,
+              resultSize: response.data.reSize,
             };
             // Your secret message
             const message = JSON.stringify(obj);
@@ -585,5 +605,24 @@ export default {
 
 .add-more .md-icon-button:hover {
   background-color: #e75651 !important;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+.tool__sidebar__inactive {
+  min-width: 400px;
+  padding: 10px;
+}
+
+.split_option {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.md-radio-label {
+  font-weight: 500 !important;
 }
 </style>

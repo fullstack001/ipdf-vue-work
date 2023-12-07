@@ -18,6 +18,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./App";
 import loading from "vuejs-loading-screen";
+import Donut from "vue-css-donut-chart";
+import "vue-css-donut-chart/dist/vcdonut.css";
 
 // router setup
 import routes from "./routes/routes";
@@ -52,6 +54,7 @@ Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
 Vue.use(axios);
+Vue.use(Donut);
 Vue.use(loading, {
   size: 5,
   icon_color: "white",

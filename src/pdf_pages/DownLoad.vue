@@ -23,10 +23,10 @@
         <div>
           <md-dialog-confirm
             :md-active.sync="active"
-            md-title="Use Google's location service?"
-            md-content="Let Google help apps determine location. <br> This means sending <strong>anonymous</strong> location data to Google, even when no apps are running."
-            md-confirm-text="Agree"
-            md-cancel-text="Disagree"
+            md-title="File available time"
+            md-content="All your files will be automatically deleted after 2 hour"
+            md-confirm-text="Delet it now"
+            md-cancel-text="Cancel"
             @md-cancel="onCancel"
             @md-confirm="onConfirm"
           />
@@ -73,7 +73,7 @@
         </button>
       </div>
     </div>
-
+    <!-- <Chart /> -->
     <!-- delete notification -->
     <md-dialog-alert
       :md-active.sync="show_noti"
@@ -126,6 +126,7 @@
         </md-dialog-actions>
       </md-dialog>
     </div>
+    <Chart :resultSize="5000" v-show="before == 'pdfcompress'" />
   </div>
 </template>
 <script>
@@ -136,11 +137,13 @@ import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import JSZip from "jszip";
 import Dropbox from "dropbox";
 import VueQRCodeComponent from "vue-qrcode-component";
+import Chart from "@/components/Chart.vue"; // Replace with the correct path
 Vue.component("qr-code", VueQRCodeComponent);
 
 export default {
   components: {
     VueDropboxPicker,
+    Chart,
   },
   props: {
     message: String,
@@ -277,7 +280,7 @@ export default {
         .then((res) => {
           this.show_noti = true;
           setTimeout(() => {
-            this.$router.push("/");
+            this.$router.push("/deleted");
           }, 2000);
         })
         .catch((err) => console.log(err));

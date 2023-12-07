@@ -32,41 +32,74 @@
               : 'position: relative; margin: auto; right: 0; top: 0;'
           "
         >
-          <div>
-            <md-button
-              v-show="file_objs.length"
-              class="md-icon-button"
-              @click="open_add_local"
-            >
+          <div class="md-primary" md-content="4" v-if="file_objs.length">
+            <button class="md-icon-button" @click="open_add_local">
               <md-icon>computer</md-icon>
-            </md-button>
+            </button>
           </div>
-          <div
+          <GDriveSelector
             v-bind:style="
-              file_objs.length > 0
-                ? 'display: block;'
-                : 'display: inline-block;'
+              file_objs.length ? 'display: block;' : 'display: inline-block;'
             "
-          >
-            <md-button class="md-icon-button" @click="open_add_local">
-              <md-icon>add_to_drive</md-icon>
-            </md-button>
-          </div>
+            @picked="onPickedGoogleDriver"
+          />
 
           <VueDropboxPicker
             class="cloud dropbox"
             :api-key="'w7vvdh8a5g5av1p'"
             link-type="direct"
+            :buttonType="'chooser'"
             :multiselect="true"
             :extensions="['.pdf', '.doc']"
             :folderselect="false"
             v-bind:style="
-              file_objs.length > 0
-                ? 'display: block; margin-top: 5px;'
-                : 'display: inline-block;'
+              file_objs.length ? 'margin-top: 5px;' : 'display: inline-block;'
             "
             @picked="onPickedDropbox"
           />
+          <a
+            id="orderByName"
+            data-order="asc"
+            href="javascript:;"
+            title="Order files by name"
+            data-title="Order files by name"
+            style="display: flex"
+            v-if="file_objs.length > 1"
+            @click="sort_pdf"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="22"
+              fill="#383E45"
+              fill-rule="evenodd"
+              v-show="sorted"
+            >
+              <path
+                d="M2.947 15.297V.23c0-.067.026-.123.077-.166S3.14 0 3.22 0h1.635c.08 0 .145.022.196.065s.077.1.077.166v15.066h2.5a.39.39 0 0 1 .261.087.28.28 0 0 1 .102.222c0 .077-.038.154-.114.23l-3.62 3.076a.42.42 0 0 1-.261.087c-.09 0-.178-.03-.26-.087L.11 15.828c-.113-.103-.14-.215-.08-.338.06-.13.174-.193.34-.193h2.575z"
+                fill-rule="nonzero"
+              ></path>
+              <path
+                d="M11.222 20.2l2.94-7.52c.194-.496.555-.67 1.1-.67h.54c.513 0 .97.12 1.22.804l2.746 7.386c.083.214.222.603.222.845 0 .536-.485.965-1.068.965-.5 0-.86-.174-1.026-.603l-.582-1.6h-3.66l-.596 1.6c-.153.43-.47.603-1.012.603-.624 0-1.054-.375-1.054-.965 0-.24.14-.63.222-.845zm5.602-1.93l-1.3-3.874h-.028L14.15 18.27h2.663zM11.346 8l4.75-6.083h-3.66c-.602 0-1.088-.333-1.088-.958S11.832 0 12.434 0h5.53c.538 0 .973.25.973 1.042 0 .278-.102.583-.294.82l-4.826 6.222h4.096c.602 0 1.088.333 1.088.958s-.486.958-1.088.958h-5.696C11.448 10 11 9.722 11 8.875c0-.36.154-.625.346-.875z"
+              ></path>
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="22"
+              fill="#383E45"
+              fill-rule="evenodd"
+              v-show="!sorted"
+            >
+              <path
+                d="M2.947 15.297V.23c0-.066.026-.122.077-.165S3.14 0 3.22 0h1.634c.08 0 .146.022.196.065s.077.1.077.166v15.066h.33 2.18c.106 0 .193.03.26.087a.28.28 0 0 1 .102.222c0 .077-.038.154-.114.23l-3.62 3.076c-.075.058-.162.087-.26.087a.46.46 0 0 1-.261-.087L.1 15.828c-.112-.103-.14-.216-.078-.328.06-.14.174-.203.34-.203h2.575z"
+                fill-rule="nonzero"
+              ></path>
+              <path
+                d="M11.212 8.083L14.016.66c.185-.5.53-.66 1.058-.66h.516c.5 0 .926.12 1.164.794l2.62 7.3c.08.212.212.595.212.833 0 .53-.463.952-1.02.952-.476 0-.82-.172-.98-.595l-.556-1.587h-3.5l-.57 1.587c-.146.423-.45.595-.966.595C11.41 9.87 11 9.5 11 8.917c0-.238.132-.622.212-.833zm5.344-1.905l-1.23-3.823H15.3l-1.283 3.823h2.54zm-5.2 13.442l4.908-5.794h-3.783c-.622 0-1.124-.317-1.124-.913S11.86 12 12.482 12h5.715c.556 0 1.005.238 1.005.992a1.21 1.21 0 0 1-.304.78L13.9 19.7h4.233c.622 0 1.124.317 1.124.913s-.503.913-1.124.913h-5.887c-.794 0-1.257-.265-1.257-1.072 0-.344.16-.595.357-.833z"
+              ></path>
+            </svg>
+          </a>
         </div>
       </div>
       <div class="files-list">
@@ -125,7 +158,11 @@
               <div :id="'id' + index" :style="'id' + index">
                 <PdfViewer :fileUrl="getURL(file_obj)" />
               </div>
-              <span></span>
+              <span>{{ file_obj.file.name }}</span>
+              <md-tooltip md-direction="top"
+                >{{ (file_obj.file.size / 1024).toFixed(2) }} KByte
+                {{ file_obj.page }}pages
+              </md-tooltip>
             </div>
           </draggable>
         </div>
@@ -175,22 +212,26 @@ import { PDFDocument, degrees } from "pdf-lib";
 import PdfViewer from "@/components/PdfViewer.vue";
 import CryptoJS from "crypto-js";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
+import GDriveSelector from "@/components/GDriveSelector.vue";
 import draggable from "vuedraggable";
 import store from "@/store/index";
 import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
+import getPageNumber from "@/pdf_pages/services/getPageNumber";
 
 export default {
   components: {
     PdfViewer,
     VueDropboxPicker,
     draggable,
+    GDriveSelector,
   },
   data() {
     return {
       isDragging: false,
       files: [],
       file_objs: [],
+      sorted: false,
     };
   },
   mounted() {
@@ -259,28 +300,29 @@ export default {
     },
 
     //download from dropbox
-    onPickedDropbox(data) {
+    async onPickedDropbox(data) {
+      for (let i = 0; i < data.length; i++) {
+        let pageNum = await getPageNumber(data[i]);
+        this.file_objs.push({ file: data[i], degree: 0, page: pageNum });
+      }
+      console.log(this.file_objs);
+    },
+    onPickedGoogleDriver(data) {
       const add_objs = data.map((item) => {
         return { file: item, degree: 0 };
       });
       this.file_objs = [...this.file_objs, ...add_objs];
     },
-
-    onChange() {
+    async onChange() {
       const data = this.$refs.file.files;
       var add_objs = [],
         i = 0;
       for (i = 0; i < data.length; i++) {
-        add_objs.push({ file: data[i], degree: 0 });
+        let pageNum = await getPageNumber(data[i]);
+        add_objs.push({ file: data[i], degree: 0, page: pageNum });
       }
       this.file_objs = [...this.file_objs, ...add_objs];
-    },
-    makeName(name) {
-      return (
-        name.split(".")[0].substring(0, 3) +
-        "..." +
-        name.split(".")[name.split(".").length - 1]
-      );
+      console.log(this.file_objs);
     },
     getURL(file_obj) {
       const fileSrc = generateURL(file_obj.file);
@@ -295,6 +337,30 @@ export default {
         reader.onerror = reject;
         reader.readAsArrayBuffer(file);
       });
+    },
+
+    //sort pdf files
+    sort_pdf() {
+      if (!this.sorted) {
+        let temp = this.file_objs;
+        temp = temp.sort((a, b) => {
+          const nameA = a.file.name.toLowerCase();
+          const nameB = b.file.name.toLowerCase();
+          console.log(nameA, nameB, nameA > nameB);
+
+          if (nameA < nameB) {
+            return -1;
+          } else if (nameA > nameB) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        console.log(temp);
+      } else {
+        this.file_objs.reverse();
+      }
+      this.sorted = !this.sorted;
     },
 
     //mergePDFs
@@ -574,6 +640,9 @@ export default {
 .add-more {
   width: fit-content;
 }
+/* .dropbox {
+  width: 40px;
+} */
 
 .dropbox-icon {
   background-color: rgb(229, 50, 45);

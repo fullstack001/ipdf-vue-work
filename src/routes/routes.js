@@ -15,6 +15,7 @@ import PdfSplit from "@/pdf_pages/features/PdfSplit.vue";
 import PdfCompress from "@/pdf_pages/features/PdfCompress.vue";
 import Download from "@/pdf_pages/DownLoad.vue";
 import Login from "@/pdf_pages/Login.vue";
+import Deleted from "@/pdf_pages/Deleted.vue";
 
 //test
 import Test from "@/pdf_pages/features/Test.vue";
@@ -55,6 +56,12 @@ const routes = [
         path: "/pdfcompress",
         component: PdfCompress,
         name: "pdfcompress",
+      },
+      ,
+      {
+        path: "/deleted",
+        component: Deleted,
+        name: "deleted",
       },
     ],
   },
