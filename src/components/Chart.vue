@@ -1,17 +1,22 @@
 <template>
-  <radial-progress-bar
-    :diameter="250"
-    :completed-steps="completedSteps"
-    :total-steps="totalSteps"
-    :startColor="'blue'"
-    :stopColor="'red'"
-    :innerStrokeColor="'white'"
-    :stroke-width="20"
-    :inner-stroke-width="20"
-  >
-    <p>Total steps: {{ totalSteps }}</p>
-    <p>Completed steps: {{ completedSteps }}</p>
-  </radial-progress-bar>
+  <div>
+    <radial-progress-bar
+      :diameter="200"
+      :completed-steps="completedSteps"
+      :total-steps="totalSteps"
+      :startColor="'red'"
+      :stopColor="'red'"
+      :innerStrokeColor="'white'"
+      :stroke-width="20"
+      :inner-stroke-width="20"
+    >
+      <h2>
+        <b>{{ ((resultSize / originSize) * 100).toFixed(0) }}%</b>
+      </h2>
+    </radial-progress-bar>
+    <p>Origin Size: {{ originSize }}KByte</p>
+    <p>Result Size: {{ resultSize }}Byte</p>
+  </div>
 </template>
 
 <script>
@@ -21,7 +26,7 @@ export default {
   components: {
     RadialProgressBar,
   },
-  props: ["resultSize"],
+  props: ["resultSize", "originSize"],
   data() {
     return {
       completedSteps: 0,

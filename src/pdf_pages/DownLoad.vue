@@ -24,14 +24,15 @@
           <md-dialog-confirm
             :md-active.sync="active"
             md-title="File available time"
-            md-content="All your files will be automatically deleted after 2 hour"
+            :md-content="`<div><p>All your files will be automatically deleted after 2 hour</p>
+              <div>${hours}</div><div>${minutes}</div><div>${seconds}</div></div>`"
             md-confirm-text="Delet it now"
             md-cancel-text="Cancel"
             @md-cancel="onCancel"
             @md-confirm="onConfirm"
           />
 
-          <md-button class="md-icon-button" @click="active = true">
+          <md-button class="md-icon-button" @click="calc_del_time">
             <md-icon>delete</md-icon>
             <md-tooltip md-direction="top">Delete it now</md-tooltip>
           </md-button>
@@ -73,8 +74,6 @@
         </button>
       </div>
     </div>
-    <!-- <Chart /> -->
-    <!-- delete notification -->
     <md-dialog-alert
       :md-active.sync="show_noti"
       md-content="PDF file  has been deleted!"
@@ -126,7 +125,11 @@
         </md-dialog-actions>
       </md-dialog>
     </div>
-    <Chart :resultSize="5000" v-show="before == 'pdfcompress'" />
+    <Chart
+      :resultSize="reSize"
+      :originSize="originSize"
+      v-show="before == 'pdfcompress'"
+    />
   </div>
 </template>
 <script>
@@ -184,6 +187,11 @@ export default {
     before: "",
     url: null,
     files: [],
+    originSize: 1,
+    reSize: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   }),
   computed: {
     result() {
@@ -208,6 +216,8 @@ export default {
     this.down_name = paramObj.down_name;
     this.file_type = paramObj.file_type;
     this.before = paramObj.before;
+    this.originSize = paramObj.originSize;
+    this.reSize = paramObj.resultSize;
     this.downloadURL = `/pdf/download/${this.id}`;
   },
   async mounted() {
@@ -215,6 +225,7 @@ export default {
     const response = await this.$axios.get(this.downloadURL, {
       responseType: "blob",
     });
+    console.log(response.data);
     // Create a link and trigger the download
     const url = window.URL.createObjectURL(new Blob([response.data]));
     this.url = url;
@@ -271,6 +282,25 @@ export default {
     back_page() {
       console.log(this.before);
       this.$router.push(`/${this.before}`);
+    },
+    async calc_del_time() {
+      await this.$axios
+        .get(`/pdf/time/${this.id}`)
+        .then((res) => {
+          const twoHoursAfter = Date.parse(res.data) + 2 * 3600 * 1000;
+          setInterval(() => {
+            const remainigTime = Math.floor(
+              (twoHoursAfter - Date.now()) / 1000
+            );
+            this.hours = Math.floor(remainigTime / (60 * 60));
+            this.minutes = Math.floor((remainigTime % (60 * 60)) / 60);
+            this.seconds = remainigTime % 60;
+          }, 1000);
+          this.active = true;
+        })
+        .catch((err) => {
+          this.$router.push("/deleted");
+        });
     },
     async onConfirm() {
       await this.$axios

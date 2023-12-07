@@ -6,7 +6,11 @@
 
 <script>
 import "pdfjs-dist/web/pdf_viewer.css";
-import { GlobalWorkerOptions, getDocument } from "pdfjs-dist/legacy/build/pdf";
+import {
+  GlobalWorkerOptions,
+  getDocument,
+  pdfjsLib,
+} from "pdfjs-dist/legacy/build/pdf";
 import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 import { v4 as uuidv4 } from "uuid";
 GlobalWorkerOptions.workerSrc = PDFJSWorker;
@@ -43,7 +47,10 @@ export default {
 
   methods: {
     async getPdfDocument() {
-      getDocument(this.url).promise.then(
+      getDocument({
+        url: this.url,
+        disableNativeImageDecoder: false,
+      }).promise.then(
         (pdf) => {
           this.numPages = pdf.numPages;
           this.pdfDocument = pdf;

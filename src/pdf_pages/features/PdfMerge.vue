@@ -240,7 +240,6 @@ export default {
       this.file_objs = this.$route.params.file.map((file) => {
         return { file: file, degree: 0 };
       });
-      console.log(this.file_objs);
     }
   },
 
@@ -307,11 +306,12 @@ export default {
       }
       console.log(this.file_objs);
     },
-    onPickedGoogleDriver(data) {
-      const add_objs = data.map((item) => {
-        return { file: item, degree: 0 };
-      });
-      this.file_objs = [...this.file_objs, ...add_objs];
+    async onPickedGoogleDriver(data) {
+      for (let i = 0; i < data.length; i++) {
+        let pageNum = await getPageNumber(data[i]);
+        this.file_objs.push({ file: data[i], degree: 0, page: pageNum });
+      }
+      console.log(this.file_objs);
     },
     async onChange() {
       const data = this.$refs.file.files;
@@ -403,6 +403,7 @@ export default {
 
       const formData = new FormData();
       const blob = new Blob([mergedPdfFile], { type: "application/pdf" });
+      console.log(blob);
 
       formData.append("pdf", blob);
 
@@ -425,7 +426,6 @@ export default {
 
           // Encrypt the message using AES encryption with the secret key
           const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
-          console.log(encrypted);
           this.$router.push({
             name: "download",
             params: {

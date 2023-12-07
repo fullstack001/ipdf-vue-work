@@ -300,7 +300,7 @@ export default {
           .post("/pdf/pdf_compress", formData)
           .then((response) => {
             // Handle response from server
-            const type = response.data.split(".")[1];
+            const type = response.data.file.split(".")[1];
             console.log(type);
             const obj = {
               id: response.data.file,
@@ -309,8 +309,8 @@ export default {
               down_name: `pdfdenCompressed.${type}`,
               file_type: `application/${type}`,
               before: "pdfcompress",
-              originSize: originSize / 1024,
-              resultSize: response.data.reSize,
+              originSize: (originSize / 1024).toFixed(2),
+              resultSize: response.data.reSize.toFixed(2),
             };
             // Your secret message
             const message = JSON.stringify(obj);

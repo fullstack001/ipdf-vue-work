@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Attachment",
   data() {
@@ -36,7 +38,6 @@ export default {
     gDrive1.setAttribute("type", "text/javascript");
     gDrive1.setAttribute("src", "https://apis.google.com/js/platform.js");
     document.head.appendChild(gDrive1);
-    console.log("Gdrive:", gDrive);
   },
   methods: {
     // function called on click of drive icon
@@ -56,6 +57,7 @@ export default {
           this.pickerApiLoaded = true;
           this.createPicker();
         });
+      gapi.load("client:auth2", { callback: this.onAuthApiLoad });
     },
 
     handleAuthResult(authResult) {
@@ -89,31 +91,118 @@ export default {
         console.log("error !!!");
       }
     },
+    onAuthApiLoad() {
+      // Initialize the Google API client
+      gapi.client
+        .init({
+          apiKey: "AIzaSyDNmRpOk4dHkpk2c8TZLC5ZGOCWxVUfZbU",
+          discoveryDocs: [
+            "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
+          ],
+        })
+        .then(() => {
+          // Handle authentication and other setup if needed
+        });
+    },
 
     async pickerCallback(data) {
       var url = "nothing";
       var name = "nothing";
       if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
         var doc = data[google.picker.Response.DOCUMENTS][0];
-        console.log(data);
         url = doc[google.picker.Document.URL];
         name = doc.name;
         let docs = data.docs;
         var param = { fileId: doc.id, oAuthToken: this.oauthToken, name: name };
         let attachments = [];
         for (let i = 0; i < docs.length; i++) {
-          console.log(docs[i]);
           let attachment = {};
           attachment.name = docs[i].name;
           attachment.size = docs[i].sizeBytes;
-          attachment.link = docs[i].url;
-          attachments.push(attachment);
+          attachment.id = docs[i].id;
+          this.getFileContentFromGoogleDrive(docs[i].id).then((url) => {
+            attachment.link = url;
+            console.log(attachment);
+            attachments.push(attachment);
+            if (attachments.length == docs.length) {
+              this.tempAttachments = [...attachments];
+              console.log(this.tempAttachments);
+              this.$emit("picked", this.tempAttachments);
+            }
+          });
         }
-        this.tempAttachments = [...attachments];
-        console.log(this.tempAttachments);
-        this.$emit("picked", this.tempAttachments);
       }
     },
+
+    getFileContentFromGoogleDrive(fileId) {
+      return new Promise((resolve, reject) => {
+        const url = gapi.client.drive.files
+          .get({
+            fileId: fileId,
+            alt: "media",
+          })
+          .then(
+            (response) => {
+              const fileContent = response.body;
+
+              // Convert file content to Blob
+              const blob = new Blob([fileContent], { type: "application/pdf" });
+
+              // Use the Blob as needed
+              console.log("Blob Object:", blob);
+
+              // Example: Create a URL for the Blob and use it to open a new window
+              const blobUrl = URL.createObjectURL(blob);
+              window.open(blobUrl, "_blank");
+              resolve(blobUrl);
+            },
+            (error) => {
+              console.error("Error getting file content:", error);
+            }
+          );
+      });
+    },
+    // Implement this function in your Vue.js component
+    // async getFileContentFromGoogleDrive(fileId) {
+    //   try {
+    //     // Make a request to the Google Drive API to get file content
+    //     const response = await gapi.client.drive.files.get({
+    //       fileId: fileId,
+    //       alt: "media",
+    //     });
+
+    //     const fileContent = response.body;
+
+    //     // Convert file content to base64
+    //     const base64String = await this.arrayBufferToBase64(fileContent);
+
+    //     // Use the base64 string as needed
+    //     console.log("Base64 Content:", base64String);
+    //     const blob = base64ToBlob(base64String, "application/pdf");
+    //     const url = URL.createObjectURL(blob);
+    //     return url;
+    //     // return `data:application/pdf;base64,${base64String}`;
+    //   } catch (error) {
+    //     console.error("Error getting file content from Google Drive:", error);
+    //   }
+    // },
+    // arrayBufferToBase64(buffer) {
+    //   return new Promise((resolve, reject) => {
+    //     const blob = new Blob([buffer], { type: "application/pdf" });
+
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => {
+    //       const base64String = reader.result.split(",")[1];
+    //       resolve(base64String);
+    //     };
+
+    //     reader.onerror = (error) => {
+    //       reject(error);
+    //     };
+
+    //     reader.readAsDataURL(blob);
+    //   });
+    // },
   },
 };
 </script>
