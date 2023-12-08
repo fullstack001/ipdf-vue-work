@@ -29,14 +29,17 @@ export default {};
 }
 
 .md-tabs-navigation .md-active {
-  border: solid 1px #e5322d;
+  border: solid 1px #f0742e;
 }
 
 .md-button.md-primary {
-  background-color: #e5322d !important;
+  background-color: #f0742e !important;
 }
 
 .picker-dialog-frame {
   min-height: 600px;
+}
+.md-stepper .md-steppers.md-vertical .md-stepper-header {
+  background-color: #fff !important;
 }
 </style>

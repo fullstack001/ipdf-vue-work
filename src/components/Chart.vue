@@ -3,19 +3,20 @@
     <radial-progress-bar
       :diameter="200"
       :completed-steps="completedSteps"
-      :total-steps="totalSteps"
+      :total-steps="originSize"
       :startColor="'red'"
       :stopColor="'red'"
       :innerStrokeColor="'white'"
       :stroke-width="20"
       :inner-stroke-width="20"
+      style="margin: auto"
     >
       <h2>
-        <b>{{ ((resultSize / originSize) * 100).toFixed(0) }}%</b>
+        <b>{{ rate }}%</b>
       </h2>
     </radial-progress-bar>
-    <p>Origin Size: {{ originSize }}KByte</p>
-    <p>Result Size: {{ resultSize }}Byte</p>
+    <p>Origin Size: {{ originSize }} KByte</p>
+    <p>Result Size: {{ resultSize }} KByte</p>
   </div>
 </template>
 
@@ -30,7 +31,7 @@ export default {
   data() {
     return {
       completedSteps: 0,
-      totalSteps: 10000,
+      rate: 0,
     };
   },
   created() {
@@ -39,15 +40,15 @@ export default {
 
   methods: {
     setStep() {
-      console.log(234234);
       let i = 0;
-      const intervalId = setInterval(() => {
-        i = i + 50;
-        this.completedSteps = i;
-        if (i >= 5000) {
+      let intervalId = setInterval(() => {
+        this.completedSteps = this.completedSteps + 30;
+        this.rate = ((this.completedSteps / this.originSize) * 100).toFixed(0);
+        i = i + 15;
+        if (this.completedSteps >= this.resultSize) {
           clearInterval(intervalId);
         }
-      }, 2);
+      }, 3);
     },
   },
 };

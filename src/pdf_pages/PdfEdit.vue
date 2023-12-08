@@ -33,29 +33,16 @@
         <div class="md-toolbar-section-end">
           <div class="md-collapse">
             <md-list>
-              <md-list-item>
-                <i md-size="big" class="material-icons">dashboard</i>
-                <p class="hidden-lg hidden-md">Dashboard</p>
-              </md-list-item>
               <li class="md-list-item">
                 <div class="md-list-item-content">
-                  <drop-down>
-                    <md-button
-                      slot="title"
-                      class="md-button md-just-icon md-simple"
-                      data-toggle="dropdown"
-                    >
-                      <md-icon dm-size="large">person</md-icon>
-                      <p class="hidden-lg hidden-md">Profile</p>
-                    </md-button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Mike John responded to your email</a></li>
-                      <li><a href="#">You have 5 new tasks</a></li>
-                      <li><a href="#">You're now friend with Andrew</a></li>
-                      <li><a href="#">Another Notification</a></li>
-                      <li><a href="#">Another One</a></li>
-                    </ul>
-                  </drop-down>
+                  <md-button class="md-button md-just-icon md-simple login-btn">
+                    Login
+                  </md-button>
+                </div>
+              </li>
+              <li class="md-list-item">
+                <div class="md-list-item-content">
+                  <button class="signup-btn">SIGN UP</button>
                 </div>
               </li>
               <li class="md-list-item">
@@ -69,13 +56,6 @@
                       <md-icon dm-size="large">menu</md-icon>
                       <p class="hidden-lg hidden-md">Notifications</p>
                     </md-button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Mike John responded to your email</a></li>
-                      <li><a href="#">You have 5 new tasks</a></li>
-                      <li><a href="#">You're now friend with Andrew</a></li>
-                      <li><a href="#">Another Notification</a></li>
-                      <li><a href="#">Another One</a></li>
-                    </ul>
                   </drop-down>
                 </div>
               </li>
@@ -85,6 +65,31 @@
       </div>
     </md-toolbar>
     <edit-content></edit-content>
+    <div class="footer">
+      <div class="block__container">
+        <div class="footer-links">
+          <div class="footer-link">
+            <router-link to="/"> About </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/"> Merge Pdf </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/"> Split Pdf </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/"> Compress Pdf </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/"> Convert Pdf </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/"> Blog </router-link>
+          </div>
+        </div>
+        <div class="copyright">© Copyright PdfDen. All rights reserved.</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -127,8 +132,14 @@ export default {
   color: #495057;
 }
 
+.nav-btn b {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid #ff7c03;
+}
+
 .nav-btn:hover {
-  color: #e5322d;
+  color: #ff7c03;
 }
 
 .download_btn {
@@ -136,10 +147,62 @@ export default {
 }
 
 .md-theme-default a:not(.md-button) {
-  color: #e5322d;
+  color: #ff7c03;
 }
 
 .active-link {
-  color: #e5322d;
+  color: #ff7c03;
+}
+
+.block__container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 91%;
+}
+
+.footer-links {
+  display: inline-flex;
+  margin: 10px 0;
+}
+
+.footer-link {
+  margin: 0px 20px 0 0px;
+}
+
+.footer-link a {
+  color: #000 !important;
+}
+.copyright {
+  padding-bottom: 20px;
+}
+
+.login-btn,
+.signup-btn {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.signup-btn {
+  border-radius: 8px !important;
+  background: #ff7c03 !important;
+  padding: 10px 15px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+@media (min-width: 992px) {
+  .block__container {
+    max-width: 84%;
+  }
+}
+
+@media (min-width: 1366px) {
+  .block__container {
+    max-width: 84%;
+  }
 }
 </style>

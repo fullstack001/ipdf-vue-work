@@ -1,5 +1,10 @@
 <template>
-  <div class="main">
+  <div
+    class="main"
+    :style="
+      file_objs.length ? 'display: flex' : 'display: inline-block; width: 100%;'
+    "
+  >
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
@@ -7,71 +12,67 @@
           <div class="page-description">
             Reduce file size while optimizing for maximal PDF quality.
           </div>
-          <div class="upload_btn">
-            <label for="fileInput" class="uploader__btn md-raised md-danger">
-              Select PDF files
-            </label>
-            <input
-              type="file"
-              multiple
-              name="file"
-              id="fileInput"
-              class="hidden-input"
-              @change="onChange"
-              ref="file"
-              accept=".pdf"
-            />
-          </div>
-        </div>
-        <div
-          class="add-more"
-          v-bind:style="
-            file_objs.length
-              ? 'position: absolute; top: 50px; right: -30px'
-              : 'position: relative; margin: auto; right: 0; top: 0;'
-          "
-        >
-          <div>
-            <md-button
-              v-show="file_objs.length"
-              class="md-icon-button"
-              @click="open_add_local"
-            >
-              <md-icon>computer</md-icon>
-              <md-tooltip md-direction="bottom"
-                >Upload from local area</md-tooltip
+          <div class="drop-area">
+            <div class="drop-img">
+              <img src="@/assets/img/drop-img.svg" alt="" />
+            </div>
+            <div class="upload_btn">
+              <label for="fileInput" class="uploader__btn md-raised md-danger">
+                Select PDF files
+              </label>
+              <input
+                type="file"
+                multiple
+                name="file"
+                id="fileInput"
+                class="hidden-input"
+                @change="onChange"
+                ref="file"
+                accept=".pdf"
+              />
+              <div
+                class="add-more"
+                v-bind:style="'position: absolute; margin: auto; right: -50px; top: -15px;'"
               >
-            </md-button>
-          </div>
-          <div
-            v-bind:style="
-              file_objs.length > 0
-                ? 'display: block;'
-                : 'display: inline-block;'
-            "
-          >
-            <md-button class="md-icon-button" @click="open_add_local">
-              <md-icon>add_to_drive</md-icon>
-              <md-tooltip md-direction="bottom"
-                >Download from Google Driver</md-tooltip
-              >
-            </md-button>
-          </div>
+                <div>
+                  <md-button
+                    v-show="file_objs.length"
+                    class="md-icon-button"
+                    @click="open_add_local"
+                  >
+                    <md-icon>computer</md-icon>
+                    <md-tooltip md-direction="bottom"
+                      >Upload from local area</md-tooltip
+                    >
+                  </md-button>
+                </div>
+                <div v-bind:style="'display: block;'">
+                  <md-button class="md-icon-button" @click="open_add_local">
+                    <md-icon>add_to_drive</md-icon>
+                    <md-tooltip md-direction="bottom"
+                      >Download from Google Driver</md-tooltip
+                    >
+                  </md-button>
+                </div>
 
-          <VueDropboxPicker
-            class="cloud dropbox"
-            :api-key="'w7vvdh8a5g5av1p'"
-            link-type="direct"
-            :multiselect="true"
-            :extensions="['.pdf', '.doc']"
-            :folderselect="false"
-            v-bind:style="
-              file_objs.length > 0
-                ? 'display: block; margin-top: 5px;'
-                : 'display: inline-block;'
-            "
-            @picked="onPickedDropbox"
-          />
+                <VueDropboxPicker
+                  class="cloud dropbox"
+                  :api-key="'w7vvdh8a5g5av1p'"
+                  link-type="direct"
+                  :multiselect="true"
+                  :extensions="['.pdf', '.doc']"
+                  :folderselect="false"
+                  v-bind:style="
+                    file_objs.length > 0
+                      ? 'display: block; margin-top: 5px;'
+                      : 'display: inline-block;'
+                  "
+                  @picked="onPickedDropbox"
+                />
+              </div>
+            </div>
+            <div>Or Drop PDFs Here</div>
+          </div>
         </div>
       </div>
       <div class="files-list">
@@ -113,6 +114,56 @@
               <span></span>
             </div>
           </draggable>
+          <div
+            class="add-more"
+            v-bind:style="
+              file_objs.length
+                ? 'position: absolute; top: 50px; right: -30px'
+                : 'position: relative; margin: auto; right: 0; top: 0;'
+            "
+          >
+            <div>
+              <md-button
+                v-show="file_objs.length"
+                class="md-icon-button"
+                @click="open_add_local"
+              >
+                <md-icon>computer</md-icon>
+                <md-tooltip md-direction="bottom"
+                  >Upload from local area</md-tooltip
+                >
+              </md-button>
+            </div>
+            <div
+              v-bind:style="
+                file_objs.length > 0
+                  ? 'display: block;'
+                  : 'display: inline-block;'
+              "
+            >
+              <md-button class="md-icon-button" @click="open_add_local">
+                <md-icon>add_to_drive</md-icon>
+                <md-tooltip md-direction="bottom"
+                  >Download from Google Driver</md-tooltip
+                >
+              </md-button>
+            </div>
+
+            <VueDropboxPicker
+              class="cloud dropbox"
+              :api-key="'w7vvdh8a5g5av1p'"
+              link-type="direct"
+              :multiselect="true"
+              :extensions="['.pdf', '.doc']"
+              :folderselect="false"
+              v-bind:style="
+                file_objs.length > 0
+                  ? 'display: block; margin-top: 5px;'
+                  : 'display: inline-block;'
+              "
+              @picked="onPickedDropbox"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -353,7 +404,6 @@ export default {
 
 <style scoped>
 .main {
-  display: flex;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
@@ -386,6 +436,20 @@ export default {
   padding: 4rem;
   /* background: #f7fafc;
   border: 1px solid #e2e8f0; */
+}
+.drop-area {
+  border-radius: 8px;
+  border: 1px dotted #ff7c03;
+  width: 50%;
+  margin: auto;
+  padding: 50px 0;
+  margin-top: 20px;
+}
+
+.drop-img {
+  width: 40px;
+  margin: auto;
+  margin-bottom: 30px;
 }
 
 .upload_btn_area {
@@ -473,6 +537,7 @@ export default {
 }
 .downloader__btn,
 .uploader__btn {
+  cursor: pointer;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -ms-flex-align: center;
@@ -486,7 +551,7 @@ export default {
   padding: 24px 48px;
   font-weight: 500;
   font-size: 24px;
-  background: #e5322d;
+  background: #ff7c03;
   line-height: 28px;
   vertical-align: middle;
   color: #fff !important;
@@ -548,7 +613,7 @@ export default {
 }
 
 .dropbox-icon {
-  background-color: rgb(229, 50, 45);
+  background-color: #ff7c03;
   opacity: 1;
   border-radius: 50%;
   padding: 10px 10px 5px 10px;
@@ -569,7 +634,7 @@ export default {
   min-height: 48px;
   padding: 8px 12px;
   color: #fff;
-  background-color: #e5322d;
+  background-color: #ff7c03;
   padding: 15px 40px;
   border-radius: 10px;
   font-weight: 600;
@@ -578,12 +643,12 @@ export default {
 }
 
 .option__panel__title:hover {
-  background-color: #e75651;
+  background-color: #ff7c03;
 }
 
 #pickfiles {
   display: block;
-  background-color: #e5322d;
+  background-color: #ff7c03;
   width: 40px;
   height: 40px;
   margin-bottom: 10px;
@@ -594,7 +659,7 @@ export default {
 
 .add-more .md-icon-button {
   display: block;
-  background-color: #e5322d !important;
+  background-color: #ff7c03 !important;
   width: 40px;
   height: 40px;
   margin-bottom: 20px;
@@ -604,7 +669,7 @@ export default {
 }
 
 .add-more .md-icon-button:hover {
-  background-color: #e75651 !important;
+  background-color: #ff7c03 !important;
 }
 
 h3 {

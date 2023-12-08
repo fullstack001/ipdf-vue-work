@@ -1,7 +1,9 @@
 <template>
   <md-content class="">
     <a href="" @click="redirect(item.item.name)">
-      <img :src="require(`@/assets/feature_img/${item.item.file}`)" />
+      <div>
+        <img :src="require(`@/assets/feature_img/${item.item.file}`)" />
+      </div>
       <div>
         <h3>
           {{ item.item.title }}
@@ -36,6 +38,7 @@ export default {
 <style lang="scss" scoped>
 .md-content {
   padding: 24px;
+  text-align: center;
 }
 
 a h3 {
@@ -51,5 +54,6 @@ a p {
 img {
   width: 42px;
   height: 42px;
+  margin: auto;
 }
 </style>

@@ -88,4 +88,8 @@ export default {
   width: 145px;
   height: 180px;
 }
+
+.pageContainer canvas {
+  height: 180px !important;
+}
 </style>

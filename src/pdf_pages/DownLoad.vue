@@ -24,8 +24,13 @@
           <md-dialog-confirm
             :md-active.sync="active"
             md-title="File available time"
-            :md-content="`<div><p>All your files will be automatically deleted after 2 hour</p>
-              <div>${hours}</div><div>${minutes}</div><div>${seconds}</div></div>`"
+            :md-content="`<div><div>All your files will be automatically deleted after 2 hour</div>
+              <div class='timer'>
+                <div class='timer-item'><div class='timer-count'> ${hours} </div> <div class='timer-label'>Hours</div></div>
+                <div class='timer-item'><div class='timer-count'>${minutes}</div> <div class='timer-label'>Minutes</div></div>
+                <div class='timer-item'><div class='timer-count'>${seconds}</div> <div class='timer-label'>Seconds</div></div>
+              </div>
+            </div>`"
             md-confirm-text="Delet it now"
             md-cancel-text="Cancel"
             @md-cancel="onCancel"
@@ -42,18 +47,17 @@
           </md-button>
         </div>
         <div>
-          <!-- <VueDropboxPicker
+          <VueDropboxPicker
             class="cloud dropbox"
             :api-key="'w7vvdh8a5g5av1p'"
             link-type="direct"
             :multiselect="true"
             :extensions="['.pdf', '.doc']"
             :folderselect="false"
-            :uploadFiles="uploadToDropboxFiles"
+            :uploadFiles="[id]"
             :buttonType="'saver'"
-            @click="upload_dropbox"
-          /> -->
-          <md-button
+          />
+          <!-- <md-button
             class="md-icon-button download-more"
             @click="upload_dropbox"
           >
@@ -61,7 +65,7 @@
             <md-tooltip md-direction="bottom"
               >Share file link or QRcode</md-tooltip
             >
-          </md-button>
+          </md-button> -->
           <md-button
             class="md-icon-button download-more"
             @click="showDialog = true"
@@ -135,11 +139,13 @@
         </md-dialog-actions>
       </md-dialog>
     </div>
-    <Chart
-      :resultSize="reSize"
-      :originSize="originSize"
-      v-show="before == 'pdfcompress'"
-    />
+    <div class="chart_area">
+      <Chart
+        :resultSize="Number(reSize)"
+        :originSize="Number(originSize)"
+        v-show="before == 'pdfcompress'"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -155,7 +161,7 @@ Vue.component("qr-code", VueQRCodeComponent);
 
 export default {
   components: {
-    // VueDropboxPicker,
+    VueDropboxPicker,
     Chart,
   },
   props: {
@@ -400,7 +406,7 @@ export default {
   padding: 24px 48px;
   font-weight: 500;
   font-size: 24px;
-  background: #e5322d;
+  background: #ff7c03;
   line-height: 28px;
   vertical-align: middle;
   color: #fff !important;
@@ -420,11 +426,11 @@ export default {
 
 .download__btn:hover {
   color: #fff !important;
-  background: #e90b03;
+  background: #ff7c03;
 }
 .download__btn:focus {
   color: #fff !important;
-  background: #e90b03;
+  background: #ff7c03;
 }
 
 .download_btn {
@@ -447,7 +453,7 @@ export default {
 
 .add-more div .md-icon-button {
   display: block;
-  background-color: #e5322d !important;
+  background-color: #ff7c03 !important;
   width: 40px;
   height: 40px;
   padding: 8px;
@@ -459,7 +465,7 @@ export default {
 }
 
 .add-more .md-icon-button:hover {
-  background-color: #e75651 !important;
+  background-color: #ff7c03 !important;
 }
 
 .dropbox-icon {
@@ -491,6 +497,7 @@ export default {
 .md-dialog-container {
   padding: 30px;
   border-radius: 5px;
+  text-align: center;
 }
 
 .form__group {
@@ -520,7 +527,7 @@ export default {
   -o-transition: all 0.1s linear;
   transition: all 0.1s linear;
   cursor: pointer;
-  background: #e5322d;
+  background: #ff7c03;
   margin: 6px 6px 8px;
   pointer-events: none;
 }
@@ -548,5 +555,28 @@ export default {
   padding: 10px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.14);
   cursor: pointer;
+}
+
+.timer {
+  display: inline-flex;
+  text-align: center;
+}
+
+.timer-item {
+  margin: 20px 40px;
+}
+
+.timer-count {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.timer-label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.chart_area {
+  text-align: center;
 }
 </style>

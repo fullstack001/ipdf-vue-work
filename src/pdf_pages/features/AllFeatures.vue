@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="pattern-bg"></div>
     <div class="tools">
       <!-- section 1 -->
       <h2>Every tool you need to work with PDFs in one place</h2>
       <h4>
         Every tool you need to use PDFs, at your fingertips. All are 100% FREE
-        and easy to use! Merge, <br />split, compress, convert, rotate, unlock
-        and watermask PDFs with just a few clicks
+        and easy to use! Merge, <br />
+        split, compress, convert, rotate, unlock and watermark PDFs with just a
+        few clicks.
       </h4>
       <div class="tools_container">
         <div v-for="(item, index) in features" :key="index" class="tools__item">
@@ -19,60 +19,52 @@
 
     <div class="solution">
       <div class="block__container">
-        <div class="solution-header">Looking for another solution?</div>
+        <div class="solution-header">Latest news from our company</div>
         <div class="md-layout">
           <div class="md-layout-item">
-            <div class="md-layout-item-title">iLovePDF Desktop</div>
-            <div class="md-layout-item-content">
-              Download the <a href=""> iLovePDF Desktop App </a> to work with
-              your favorite PDF tools on your Mac or Windows PC. Get a
-              lightweight PDF app that helps you process heavy PDF tasks offline
-              in seconds.
-            </div>
-          </div>
-          <div class="md-layout-item">
-            <div class="md-layout-item-title">iLovePDF Mobile</div>
-            <div class="md-layout-item-content">
-              Get the <a href=""> iLovePDF Desktop App </a> App to manage
-              documents remotely or on the move. Turn your Android or iPhone
-              device into a PDF Editor & Scanner to annotate, sign, and share
-              documents with ease.
-            </div>
-          </div>
-          <div class="md-layout-item">
-            <div class="md-layout-item-title">iLoveIMG</div>
-            <div class="md-layout-item-content">
-              <a href=""> iLoveIMG </a> is the web app that helps you modify
-              images in bulk for free. Crop, resize, compress, convert, and
-              more. All the tools you need to enhance your images in just a few
-              clicks.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            <md-card>
+              <md-card-media>
+                <img src="@/assets/img/solution1.png" alt="People" />
+              </md-card-media>
 
-    <div class="trusted">
-      <div class="block__container">
-        <div class="trusted-header">
-          The PDF software trusted by millions of users
-        </div>
-
-        <div class="trusted_text">
-          iLovePDF is your number one web app for editing PDF with ease. Enjoy
-          all the tools you need to work efficiently with your digital documents
-          while keeping your data safe and secure.
-        </div>
-
-        <div class="md-layout">
-          <div class="md-layout-item">
-            <img src="@/assets/img/pdf-association-logo.svg" alt="" />
+              <md-card-header>
+                <div class="md-title">Lorem Ipsum is simply dummy</div>
+                <div class="md-subhead">
+                  Lorem Ipsum is simply dummy text of the printing and typeing
+                  indremm has ..
+                </div>
+              </md-card-header>
+            </md-card>
           </div>
           <div class="md-layout-item">
-            <img src="@/assets/img/iso-logo.svg" alt="" />
+            <md-card>
+              <md-card-media>
+                <img src="@/assets/img/solution2.png" alt="People" />
+              </md-card-media>
+
+              <md-card-header>
+                <div class="md-title">Lorem Ipsum is simply dummy</div>
+                <div class="md-subhead">
+                  Lorem Ipsum is simply dummy text of the printing and typeing
+                  indremm has ..
+                </div>
+              </md-card-header>
+            </md-card>
           </div>
           <div class="md-layout-item">
-            <img src="@/assets/img/ssl-encrypted-logo.svg" alt="" />
+            <md-card>
+              <md-card-media>
+                <img src="@/assets/img/solution3.png" alt="People" />
+              </md-card-media>
+
+              <md-card-header>
+                <div class="md-title">Lorem Ipsum is simply dummy</div>
+                <div class="md-subhead">
+                  Lorem Ipsum is simply dummy text of the printing and typeing
+                  indremm has ..
+                </div>
+              </md-card-header>
+            </md-card>
           </div>
         </div>
       </div>
@@ -82,16 +74,36 @@
       <div class="block__container">
         <div class="md-layout">
           <div class="md-layout-item">
-            <div class="premium_title">Get more with Premium</div>
+            <div class="premium_title">Register For Free Account</div>
             <div class="premium_text">
-              Complete projects faster with batch file processing, convert
-              scanned documents with OCR and e-sign your business agreements.
+              <div>
+                <span>
+                  <img src="@/assets/img/right-arrow.png" alt="" />
+                </span>
+                <span> Extended File Life </span>
+              </div>
+              <div>
+                <span>
+                  <img src="@/assets/img/right-arrow.png" alt="" />
+                </span>
+                <span> Priority Download Access </span>
+              </div>
+              <div>
+                <span>
+                  <img src="@/assets/img/right-arrow.png" alt="" />
+                </span>
+                <span> All your files in one place</span>
+              </div>
             </div>
             <div>
-              <a href="" class="btn premium_btn"> Get Premium </a>
+              <a href="" class="btn premium_btn"> Get Free Account </a>
             </div>
           </div>
-          <div class="md-layout-item"></div>
+          <div class="md-layout-item">
+            <div class="free-img">
+              <img src="@/assets/img/free.png" alt="" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -130,7 +142,7 @@ export default {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 0;
   position: fixed;
   top: 0;
   background-position: center center;
@@ -145,7 +157,8 @@ export default {
 
 h2 {
   font-weight: 600;
-  margin-top: 60px;
+  padding-top: 60px;
+  margin-top: 0 !important;
 }
 
 h4 {
@@ -173,6 +186,9 @@ h4 {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 0 68px 42px;
+  background-position: center center;
+  background-size: 100% auto;
+  background-image: url("../../assets/img/background.svg");
 }
 
 .tools_container {
@@ -211,7 +227,7 @@ h4 {
 
 .solution {
   background-color: #fff;
-  padding: 96px 0 124px;
+  padding: 40px 0 30px;
   z-index: 1;
   position: relative;
 }
@@ -252,26 +268,39 @@ h4 {
   position: relative;
   background: #47474f;
   color: #f5f5fa;
-  padding: 64px 0 230px;
+  padding: 64px 0 320px;
   z-index: 1;
+  background-position: center center;
+  background-size: 100% auto;
+  background-image: url("../../assets/img/bottom.png");
 }
 
 .premium .premium_title {
   font-weight: 600;
   font-size: 42px;
   line-height: 52px;
+  padding-bottom: 20px;
 }
 
 .premium_text {
   line-height: 32px;
   font-size: 22px;
   font-weight: 400;
+  padding-bottom: 15px;
+}
+
+.premium_text div {
+  padding: 5px 0;
 }
 
 .premium_btn {
   margin-top: 20px;
-  color: #33333b !important;
-  background-color: #ffc233;
+  color: #fff !important;
+  background-color: #263238;
+}
+
+.free-img img {
+  max-width: 400px;
 }
 
 .btn {
@@ -314,7 +343,7 @@ h4 {
   line-height: 52px;
   color: #33333b;
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 25px;
 }
 
 .solution .md-layout-item {
@@ -335,6 +364,14 @@ h4 {
   font-weight: 400;
 }
 
+.md-card-media {
+  padding: 15px;
+}
+
+.md-card-header {
+  background-color: #fff !important;
+  margin-bottom: 15px !important;
+}
 @media (min-width: 992px) {
   .block__container {
     max-width: 84%;
@@ -354,8 +391,8 @@ h4 {
     flex-grow: 0;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    -ms-flex-preferred-size: calc(20% - 4px);
-    flex-basis: calc(20% - 4px);
+    -ms-flex-preferred-size: calc(25% - 4px);
+    flex-basis: calc(25% - 4px);
   }
 }
 

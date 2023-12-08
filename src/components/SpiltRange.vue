@@ -200,8 +200,8 @@ h3 {
 
 .active_btn {
   background-color: #f5f5fa !important;
-  border: solid 2px #e75651;
-  color: #e75651 !important;
+  border: solid 2px #ff7c03;
+  color: #ff7c03 !important;
 }
 
 .remove {
@@ -220,10 +220,10 @@ h3 {
 
 .add_range_btn {
   background-color: #f5f5fa !important;
-  border: solid 2px #e75651;
+  border: solid 2px #ff7c03;
   border-radius: 5px;
   padding: 5px 0px;
-  color: #e75651 !important;
+  color: #ff7c03 !important;
 }
 
 .add_range_btn:hover,

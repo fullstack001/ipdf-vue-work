@@ -1,5 +1,8 @@
 <template>
-  <div class="main">
+  <div
+    class="main"
+    :style="file_objs.length ? 'display: flex' : 'display: inline-block'"
+  >
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
@@ -8,107 +11,306 @@
             Combine PDFs in the order you want with the easiest PDF merge
             available.
           </div>
-          <div class="upload_btn">
-            <label for="fileInput" class="uploader__btn md-raised md-danger">
-              Select PDF files
-            </label>
-            <input
-              type="file"
-              multiple
-              name="file"
-              id="fileInput"
-              class="hidden-input"
-              @change="onChange"
-              ref="file"
-              accept=".pdf"
-            />
-          </div>
-        </div>
-        <div
-          class="add-more"
-          v-bind:style="
-            file_objs.length
-              ? 'position: absolute; top: 50px; right: -30px'
-              : 'position: relative; margin: auto; right: 0; top: 0;'
-          "
-        >
-          <div class="md-primary" md-content="4" v-if="file_objs.length">
-            <button class="md-icon-button" @click="open_add_local">
-              <md-icon>computer</md-icon>
-            </button>
-          </div>
-          <!-- <GDrivePicker
-            v-bind:style="
-              file_objs.length ? 'display: block;' : 'display: inline-block;'
-            "
-            @picked="onPickedGoogleDriver"
-          /> -->
-          <!-- <GDriveSelector
-            v-bind:style="
-              file_objs.length ? 'display: block;' : 'display: inline-block;'
-            "
-            @picked="onPickedGoogleDriver"
-          /> -->
+          <div class="drop-area">
+            <div class="drop-img">
+              <img src="@/assets/img/drop-img.svg" alt="" />
+            </div>
+            <div class="upload_btn">
+              <label for="fileInput" class="uploader__btn md-raised">
+                Select PDF files
+              </label>
+              <input
+                type="file"
+                multiple
+                name="file"
+                id="fileInput"
+                class="hidden-input"
+                @change="onChange"
+                ref="file"
+                accept=".pdf"
+              />
+              <div class="add-more">
+                <div class="md-primary" md-content="4" v-if="file_objs.length">
+                  <button class="local-upload" @click="open_add_local">
+                    <md-icon>computer</md-icon>
+                  </button>
+                </div>
+                <GDrivePicker
+                  v-bind:style="
+                    file_objs.length
+                      ? 'display: block;'
+                      : 'display: inline-block;'
+                  "
+                  @picked="onPickedGoogleDriver"
+                />
 
-          <VueDropboxPicker
-            class="cloud dropbox"
-            :api-key="'w7vvdh8a5g5av1p'"
-            link-type="direct"
-            :buttonType="'chooser'"
-            :multiselect="true"
-            :extensions="['.pdf', '.doc']"
-            :folderselect="false"
-            v-bind:style="
-              file_objs.length ? 'margin-top: 5px;' : 'display: inline-block;'
-            "
-            @picked="onPickedDropbox"
-          />
-          <a
-            id="orderByName"
-            data-order="asc"
-            href="javascript:;"
-            title="Order files by name"
-            data-title="Order files by name"
-            style="display: flex"
-            v-if="file_objs.length > 1"
-            @click="sort_pdf"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="22"
-              fill="#383E45"
-              fill-rule="evenodd"
-              v-show="sorted"
-            >
-              <path
-                d="M2.947 15.297V.23c0-.067.026-.123.077-.166S3.14 0 3.22 0h1.635c.08 0 .145.022.196.065s.077.1.077.166v15.066h2.5a.39.39 0 0 1 .261.087.28.28 0 0 1 .102.222c0 .077-.038.154-.114.23l-3.62 3.076a.42.42 0 0 1-.261.087c-.09 0-.178-.03-.26-.087L.11 15.828c-.113-.103-.14-.215-.08-.338.06-.13.174-.193.34-.193h2.575z"
-                fill-rule="nonzero"
-              ></path>
-              <path
-                d="M11.222 20.2l2.94-7.52c.194-.496.555-.67 1.1-.67h.54c.513 0 .97.12 1.22.804l2.746 7.386c.083.214.222.603.222.845 0 .536-.485.965-1.068.965-.5 0-.86-.174-1.026-.603l-.582-1.6h-3.66l-.596 1.6c-.153.43-.47.603-1.012.603-.624 0-1.054-.375-1.054-.965 0-.24.14-.63.222-.845zm5.602-1.93l-1.3-3.874h-.028L14.15 18.27h2.663zM11.346 8l4.75-6.083h-3.66c-.602 0-1.088-.333-1.088-.958S11.832 0 12.434 0h5.53c.538 0 .973.25.973 1.042 0 .278-.102.583-.294.82l-4.826 6.222h4.096c.602 0 1.088.333 1.088.958s-.486.958-1.088.958h-5.696C11.448 10 11 9.722 11 8.875c0-.36.154-.625.346-.875z"
-              ></path>
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="22"
-              fill="#383E45"
-              fill-rule="evenodd"
-              v-show="!sorted"
-            >
-              <path
-                d="M2.947 15.297V.23c0-.066.026-.122.077-.165S3.14 0 3.22 0h1.634c.08 0 .146.022.196.065s.077.1.077.166v15.066h.33 2.18c.106 0 .193.03.26.087a.28.28 0 0 1 .102.222c0 .077-.038.154-.114.23l-3.62 3.076c-.075.058-.162.087-.26.087a.46.46 0 0 1-.261-.087L.1 15.828c-.112-.103-.14-.216-.078-.328.06-.14.174-.203.34-.203h2.575z"
-                fill-rule="nonzero"
-              ></path>
-              <path
-                d="M11.212 8.083L14.016.66c.185-.5.53-.66 1.058-.66h.516c.5 0 .926.12 1.164.794l2.62 7.3c.08.212.212.595.212.833 0 .53-.463.952-1.02.952-.476 0-.82-.172-.98-.595l-.556-1.587h-3.5l-.57 1.587c-.146.423-.45.595-.966.595C11.41 9.87 11 9.5 11 8.917c0-.238.132-.622.212-.833zm5.344-1.905l-1.23-3.823H15.3l-1.283 3.823h2.54zm-5.2 13.442l4.908-5.794h-3.783c-.622 0-1.124-.317-1.124-.913S11.86 12 12.482 12h5.715c.556 0 1.005.238 1.005.992a1.21 1.21 0 0 1-.304.78L13.9 19.7h4.233c.622 0 1.124.317 1.124.913s-.503.913-1.124.913h-5.887c-.794 0-1.257-.265-1.257-1.072 0-.344.16-.595.357-.833z"
-              ></path>
-            </svg>
-          </a>
+                <VueDropboxPicker
+                  class="cloud dropbox"
+                  :api-key="'w7vvdh8a5g5av1p'"
+                  link-type="direct"
+                  :buttonType="'chooser'"
+                  :multiselect="true"
+                  :extensions="['.pdf', '.doc']"
+                  :folderselect="false"
+                  v-bind:style="
+                    file_objs.length
+                      ? 'margin-top: 5px;'
+                      : 'display: inline-block;'
+                  "
+                  @picked="onPickedDropbox"
+                />
+              </div>
+            </div>
+            <div>Or Drop PDFs Here</div>
+          </div>
+          <div class="merge-descriptions">
+            <div class="block__container">
+              <div class="description-areas">
+                <div class="description-title">How to combine PDF files</div>
+                <div class="description-sub-title">
+                  Follow these easy steps to combine PDF documents into one
+                  file:
+                </div>
+              </div>
+            </div>
+            <div class="premium">
+              <div class="block__container">
+                <div class="md-layout">
+                  <div class="md-layout-item">
+                    <div class="premium-list">
+                      <div class="premium-img">
+                        <img src="@/assets/img/icons/round1.png" alt="" />
+                      </div>
+                      <div class="premium-text">
+                        Click the Select a file button above, or drag and drop
+                        files into the drop zone.
+                      </div>
+                    </div>
+                    <div class="premium-list">
+                      <div class="premium-img">
+                        <img src="@/assets/img/icons/round2.png" alt="" />
+                      </div>
+                      <div class="premium-text">
+                        Select the files you want to merge using the Acrobat PDF
+                        combiner tool.
+                      </div>
+                    </div>
+                    <div class="premium-list">
+                      <div class="premium-img">
+                        <img src="@/assets/img/icons/round3.png" alt="" />
+                      </div>
+                      <div class="premium-text">
+                        Reorder the files if needed.
+                      </div>
+                    </div>
+                    <div class="premium-list">
+                      <div class="premium-img">
+                        <img src="@/assets/img/icons/round4.png" alt="" />
+                      </div>
+                      <div class="premium-text">Click Merge files.</div>
+                    </div>
+                    <div class="premium-list">
+                      <div class="premium-img">
+                        <img src="@/assets/img/icons/round5.png" alt="" />
+                      </div>
+                      <div class="premium-text">
+                        Sign in to download or share the merged file. You can
+                        organize the pages too.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="md-layout-item">
+                    <div class="free-img">
+                      <img src="@/assets/img/merge-combine.svg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="try-sesction">
+              <div class="block__container">
+                <div class="description-title">Try our PDF merger tool</div>
+                <div class="md-layout">
+                  <div class="md-layout-item try-items">
+                    <div class="try-img">
+                      <img src="@/assets/img/icons/combine-pdfs.svg" alt="" />
+                    </div>
+                    <div class="try-title">Combine PDFs into one file</div>
+                    <div class="try-description">
+                      It's quick and easy to merge PDF files into a single
+                      document with the Adobe Acrobat online tool. Just add
+                      files, merge them, and you're done.
+                    </div>
+                  </div>
+                  <div class="md-layout-item try-items">
+                    <div class="try-img">
+                      <img src="@/assets/img/icons/merge-into-one.svg" alt="" />
+                    </div>
+                    <div class="try-title">Simplify with a combined PDF</div>
+                    <div class="try-description">
+                      Merging multiple files into one PDF lets you store and
+                      review them more easily. You can also share files with
+                      others more efficiently by emailing a link to a single,
+                      merged PDF file.
+                    </div>
+                  </div>
+                  <div class="md-layout-item try-items">
+                    <div class="try-img">
+                      <img src="@/assets/img/icons/organize-pdf.svg" alt="" />
+                    </div>
+                    <div class="try-title">Organize your online PDF</div>
+                    <div class="try-description">
+                      After you combine PDF files, simply sign in to organize
+                      individual pages. You can move, add, delete, or rotate PDF
+                      pages as needed until you've created the perfect document.
+                    </div>
+                  </div>
+                </div>
+                <div class="md-layout">
+                  <div class="md-layout-item try-items">
+                    <div class="try-img">
+                      <img
+                        src="@/assets/img/icons/download-and-share.svg"
+                        alt=""
+                      />
+                    </div>
+                    <div class="try-title">Download your file or share it</div>
+                    <div class="try-description">
+                      You can download the merged PDF file with a click or by
+                      signing in. You can also share your new file with a friend
+                      or colleague when you sign in.
+                    </div>
+                  </div>
+                  <div class="md-layout-item try-items">
+                    <div class="try-img">
+                      <img
+                        src="@/assets/img/icons/work-in-any-browser.svg"
+                        alt=""
+                      />
+                    </div>
+                    <div class="try-title">Work in any web browser</div>
+                    <div class="try-description">
+                      Use our PDF merger online tool in any web browser, such as
+                      Microsoft Edge or Google Chrome. It also works on Mac,
+                      Windows, and Linux operating systems.
+                    </div>
+                  </div>
+                  <div class="md-layout-item try-items">
+                    <div class="try-img">
+                      <img src="@/assets/img/icons/best-pdf.svg" alt="" />
+                    </div>
+                    <div class="try-title">Use the best PDF combiner</div>
+                    <div class="try-description">
+                      Adobe invented the PDF file format, making our PDF tools
+                      highly trusted. Use our PDF combiner to merge files and
+                      keep your work moving from anywhere.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="solution">
+              <div class="block__container">
+                <div class="solution-header">
+                  <div class="description-title">Merge PDF Blog Articles</div>
+                </div>
+                <div class="md-layout">
+                  <div class="md-layout-item">
+                    <md-card>
+                      <md-card-media>
+                        <img src="@/assets/img/merge1.png" alt="People" />
+                      </md-card-media>
+
+                      <md-card-header>
+                        <div class="md-title">Lorem Ipsum is simply dummy</div>
+                        <div class="md-subhead">
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typeing indremm has ..
+                        </div>
+                      </md-card-header>
+                    </md-card>
+                  </div>
+                  <div class="md-layout-item">
+                    <md-card>
+                      <md-card-media>
+                        <img src="@/assets/img/merge2.png" alt="People" />
+                      </md-card-media>
+
+                      <md-card-header>
+                        <div class="md-title">Lorem Ipsum is simply dummy</div>
+                        <div class="md-subhead">
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typeing indremm has ..
+                        </div>
+                      </md-card-header>
+                    </md-card>
+                  </div>
+                  <div class="md-layout-item">
+                    <md-card>
+                      <md-card-media>
+                        <img src="@/assets/img/merge3.png" alt="People" />
+                      </md-card-media>
+
+                      <md-card-header>
+                        <div class="md-title">Lorem Ipsum is simply dummy</div>
+                        <div class="md-subhead">
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typeing indremm has ..
+                        </div>
+                      </md-card-header>
+                    </md-card>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="faq-section">
+              <div class="block__container">
+                <div class="description-title">Questions? We have answers.</div>
+                <faq
+                  v-for="(faqItem, index) in faqItems"
+                  :key="index"
+                  :faq="faqItem"
+                >
+                </faq>
+              </div>
+            </div>
+
+            <div class="rate-secttion">
+              <div class="block__container">
+                <div class="description-title">Questions? We have answers.</div>
+                <div class="rate-star">
+                  <span class="material-icons">star</span>
+                  <span class="material-icons">star</span>
+                  <span class="material-icons">star</span>
+                  <span class="material-icons">star</span>
+                  <span class="material-icons">star_outline</span>
+                </div>
+                <div class="rate-reviews">
+                  <span class="rate-score"> 4.8/5 - </span>
+                  <span class="rate-votes"> 254956 votes </span>
+                </div>
+              </div>
+            </div>
+            <div class="online-section">
+              <div class="block__container">
+                <div class="description-title">
+                  Try these Acrobat online tools
+                </div>
+                <div class="tools_container">
+                  <div
+                    v-for="(item, index) in online_names"
+                    :key="index"
+                    class="tools__item"
+                  >
+                    <feature-title :item="{ item }"> </feature-title>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="files-list">
+      <div class="files-list" style="position: relative">
         <div class="preview-container mt-4" v-if="file_objs.length">
           <draggable
             v-model="file_objs"
@@ -161,16 +363,88 @@
                   </svg>
                 </a>
               </div>
-              <div :id="'id' + index" :style="'id' + index">
+              <div :id="'id' + index" :style="'id' + index" class="preview_img">
                 <PdfViewer :fileUrl="getURL(file_obj)" />
               </div>
-              <span>{{ file_obj.file.name }}</span>
+              <div class="prew_title">{{ file_obj.file.name }}</div>
               <md-tooltip md-direction="top"
                 >{{ (file_obj.file.size / 1024).toFixed(2) }} KByte
                 {{ file_obj.page }}pages
               </md-tooltip>
             </div>
           </draggable>
+        </div>
+        <div class="add-more" v-show="file_objs.length" style="right: 0">
+          <div class="add-more-area">
+            <div class="md-primary" md-content="4" v-if="file_objs.length">
+              <md-button class="md-icon-button" @click="open_add_local">
+                <md-icon>computer</md-icon>
+              </md-button>
+            </div>
+            <GDrivePicker
+              v-bind:style="
+                file_objs.length ? 'display: block;' : 'display: inline-block;'
+              "
+              @picked="onPickedGoogleDriver"
+            />
+
+            <VueDropboxPicker
+              class="cloud dropbox"
+              :api-key="'w7vvdh8a5g5av1p'"
+              link-type="direct"
+              :buttonType="'chooser'"
+              :multiselect="true"
+              :extensions="['.pdf', '.doc']"
+              :folderselect="false"
+              v-bind:style="
+                file_objs.length ? 'margin-top: 5px;' : 'display: inline-block;'
+              "
+              @picked="onPickedDropbox"
+            />
+            <a
+              id="orderByName"
+              data-order="asc"
+              href="javascript:;"
+              title="Order files by name"
+              data-title="Order files by name"
+              style="display: flex"
+              v-if="file_objs.length > 1"
+              @click="sort_pdf"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="22"
+                fill="#383E45"
+                fill-rule="evenodd"
+                v-show="sorted"
+              >
+                <path
+                  d="M2.947 15.297V.23c0-.067.026-.123.077-.166S3.14 0 3.22 0h1.635c.08 0 .145.022.196.065s.077.1.077.166v15.066h2.5a.39.39 0 0 1 .261.087.28.28 0 0 1 .102.222c0 .077-.038.154-.114.23l-3.62 3.076a.42.42 0 0 1-.261.087c-.09 0-.178-.03-.26-.087L.11 15.828c-.113-.103-.14-.215-.08-.338.06-.13.174-.193.34-.193h2.575z"
+                  fill-rule="nonzero"
+                ></path>
+                <path
+                  d="M11.222 20.2l2.94-7.52c.194-.496.555-.67 1.1-.67h.54c.513 0 .97.12 1.22.804l2.746 7.386c.083.214.222.603.222.845 0 .536-.485.965-1.068.965-.5 0-.86-.174-1.026-.603l-.582-1.6h-3.66l-.596 1.6c-.153.43-.47.603-1.012.603-.624 0-1.054-.375-1.054-.965 0-.24.14-.63.222-.845zm5.602-1.93l-1.3-3.874h-.028L14.15 18.27h2.663zM11.346 8l4.75-6.083h-3.66c-.602 0-1.088-.333-1.088-.958S11.832 0 12.434 0h5.53c.538 0 .973.25.973 1.042 0 .278-.102.583-.294.82l-4.826 6.222h4.096c.602 0 1.088.333 1.088.958s-.486.958-1.088.958h-5.696C11.448 10 11 9.722 11 8.875c0-.36.154-.625.346-.875z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="22"
+                fill="#383E45"
+                fill-rule="evenodd"
+                v-show="!sorted"
+              >
+                <path
+                  d="M2.947 15.297V.23c0-.066.026-.122.077-.165S3.14 0 3.22 0h1.634c.08 0 .146.022.196.065s.077.1.077.166v15.066h.33 2.18c.106 0 .193.03.26.087a.28.28 0 0 1 .102.222c0 .077-.038.154-.114.23l-3.62 3.076c-.075.058-.162.087-.26.087a.46.46 0 0 1-.261-.087L.1 15.828c-.112-.103-.14-.216-.078-.328.06-.14.174-.203.34-.203h2.575z"
+                  fill-rule="nonzero"
+                ></path>
+                <path
+                  d="M11.212 8.083L14.016.66c.185-.5.53-.66 1.058-.66h.516c.5 0 .926.12 1.164.794l2.62 7.3c.08.212.212.595.212.833 0 .53-.463.952-1.02.952-.476 0-.82-.172-.98-.595l-.556-1.587h-3.5l-.57 1.587c-.146.423-.45.595-.966.595C11.41 9.87 11 9.5 11 8.917c0-.238.132-.622.212-.833zm5.344-1.905l-1.23-3.823H15.3l-1.283 3.823h2.54zm-5.2 13.442l4.908-5.794h-3.783c-.622 0-1.124-.317-1.124-.913S11.86 12 12.482 12h5.715c.556 0 1.005.238 1.005.992a1.21 1.21 0 0 1-.304.78L13.9 19.7h4.233c.622 0 1.124.317 1.124.913s-.503.913-1.124.913h-5.887c-.794 0-1.257-.265-1.257-1.072 0-.344.16-.595.357-.833z"
+                ></path>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -224,15 +498,20 @@ import store from "@/store/index";
 import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
 import getPageNumber from "@/pdf_pages/services/getPageNumber";
-// import GDrivePicker from "@/components/GDrivePicker.vue";
+import faq from "@/components/Faq.vue";
+import FeatureTitle from "./components/FeatureTitle.vue";
+import { online_names } from "../services/online_name";
+import GDrivePicker from "@/components/GDrivePicker.vue";
 
 export default {
   components: {
     PdfViewer,
     VueDropboxPicker,
     draggable,
+    faq,
+    FeatureTitle,
     // GDriveSelector,
-    // GDrivePicker,
+    GDrivePicker,
   },
   data() {
     return {
@@ -240,6 +519,21 @@ export default {
       files: [],
       file_objs: [],
       sorted: false,
+      online_names: online_names,
+      faqItems: [
+        {
+          q: "In what order will my merged PDF files appear?",
+          a: "Once you add the files you'd like to combine, you can drag and drop them into your preferred order. The top file in your list will appear first in the merged PDF file.",
+        },
+        {
+          q: "How many pages can I include in a merged PDF?",
+          a: "Once you add the files you'd like to combine, you can drag and drop them into your preferred order. The top file in your list will appear first in the merged PDF file.",
+        },
+        {
+          q: "Can I delete and reorder pages after I merge files?",
+          a: "Once you add the files you'd like to combine, you can drag and drop them into your preferred order. The top file in your list will appear first in the merged PDF file.",
+        },
+      ],
     };
   },
   mounted() {
@@ -454,7 +748,6 @@ export default {
 
 <style scoped>
 .main {
-  display: flex;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
@@ -481,12 +774,8 @@ export default {
 
 .dropzone-container {
   width: 100%;
-  height: 100vh;
-}
-.dropzone-container {
-  padding: 4rem;
-  /* background: #f7fafc;
-  border: 1px solid #e2e8f0; */
+  min-height: 100vh;
+  /* padding: 4rem; */
 }
 
 .upload_btn_area {
@@ -507,6 +796,7 @@ export default {
 .preview-container {
   position: relative;
   margin-top: 2rem;
+  padding-left: 20px;
 }
 
 .preview_area {
@@ -516,26 +806,19 @@ export default {
   cursor: grab;
   flex: 1 1;
   margin: 4px;
-  max-width: 250px;
-  height: 250px;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-line-pack: distribute;
-  align-content: space-around;
-  -ms-flex-pack: center;
-  justify-content: center;
+  max-width: 200px;
+  min-height: 230px;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0);
   background: #fdfdfd;
   border-radius: 8px;
   -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+  padding-bottom: 10px;
 }
-
+.preview_img {
+  margin-top: 30px;
+}
 .preview-img {
   width: 140px;
   height: 180px;
@@ -574,6 +857,7 @@ export default {
 }
 .downloader__btn,
 .uploader__btn {
+  cursor: pointer;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -ms-flex-align: center;
@@ -587,7 +871,7 @@ export default {
   padding: 24px 48px;
   font-weight: 500;
   font-size: 24px;
-  background: #e5322d;
+  background: #ff7c03;
   line-height: 28px;
   vertical-align: middle;
   color: #fff !important;
@@ -630,6 +914,21 @@ export default {
   cursor: move;
 }
 
+.drop-area {
+  border-radius: 8px;
+  border: 1px dotted #ff7c03;
+  width: 50%;
+  margin: auto;
+  padding: 50px 0;
+  margin-top: 20px;
+}
+
+.drop-img {
+  width: 40px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
 .upload_btn {
   width: fit-content;
   display: flex;
@@ -647,13 +946,22 @@ export default {
 
 .add-more {
   width: fit-content;
+  position: absolute;
+  margin: auto;
+  right: -50px;
+  top: 12px;
+}
+
+.add-more-area {
+  position: relative;
+  display: block;
 }
 /* .dropbox {
   width: 40px;
 } */
 
 .dropbox-icon {
-  background-color: rgb(229, 50, 45);
+  background-color: #f0742e;
   opacity: 1;
   border-radius: 50%;
   padding: 10px 10px 5px 10px;
@@ -674,21 +982,21 @@ export default {
   min-height: 48px;
   padding: 8px 12px;
   color: #fff;
-  background-color: #e5322d;
+  border-radius: 8px;
+  border: 2px solid #ff7c03;
+  background: linear-gradient(180deg, #ff7c03 0%, #ff4f03 100%);
   padding: 15px 40px;
-  border-radius: 10px;
   font-weight: 600;
-  border: none;
   cursor: pointer;
 }
 
 .option__panel__title:hover {
-  background-color: #e75651;
+  background-color: #e76d26;
 }
 
 #pickfiles {
   display: block;
-  background-color: #e5322d;
+  background-color: #f0742e;
   width: 40px;
   height: 40px;
   margin-bottom: 10px;
@@ -699,7 +1007,7 @@ export default {
 
 .add-more .md-icon-button {
   display: block;
-  background-color: #e5322d !important;
+  background-color: #f0742e !important;
   width: 40px;
   height: 40px;
   margin-bottom: 20px;
@@ -709,6 +1017,198 @@ export default {
 }
 
 .add-more .md-icon-button:hover {
-  background-color: #e75651 !important;
+  background-color: #f0742e !important;
+}
+
+.merge-descriptions {
+  text-align: left;
+  margin-top: 50px;
+  background-color: #fafafa;
+  padding: 50px 0 0 0;
+}
+
+.description-title {
+  color: #575757;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  padding: 10px 0;
+}
+.description-title {
+  color: #575757;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  padding: 10px 0;
+}
+
+.premium {
+  padding-bottom: 50px;
+}
+
+.premium-list {
+  display: flex;
+  margin: 10px 0px;
+}
+
+.premium-img img {
+  width: 25px;
+}
+
+.premium-text {
+  padding: 0 10px;
+}
+
+.free-img {
+  text-align: center;
+}
+
+.free-img img {
+  max-width: 200px;
+}
+
+.try-sesction {
+  padding: 50px 0;
+  background-color: #fff;
+}
+
+.try-items {
+  margin: 15px 0;
+}
+
+.try-title {
+  color: #575757;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  padding: 10px 0;
+}
+
+.md-card-media {
+  padding: 15px;
+}
+
+.md-card-header {
+  background-color: #fff !important;
+  margin-bottom: 15px !important;
+}
+
+.faq-section {
+  padding: 50px 0;
+  background-color: #fff;
+}
+
+.rate-secttion {
+  padding: 50px 0;
+  background-color: #fafafa;
+  text-align: center;
+}
+
+.rate-star {
+  padding: 20px 0;
+}
+
+.rate-star span {
+  color: #ff7c03;
+}
+
+.rate-score {
+  color: #ff7c03;
+  font-size: 18px;
+}
+
+.rate-star span {
+  cursor: pointer;
+}
+
+.rate-votes {
+  font-size: 18px;
+}
+
+.online-section {
+  padding: 50px 0;
+  text-align: center;
+  background-position: center center;
+  background-size: 100% auto;
+  background-image: url("../../assets/img/online-tools.png");
+}
+
+.tools_container {
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  position: relative;
+  margin-top: 30px;
+}
+
+#orderByName {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 9px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.tools__item {
+  background: #fff;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -ms-flex-preferred-size: calc(25% - 4px);
+  flex-basis: calc(25% - 4px);
+  border: 1px solid #f5f5fa;
+  margin: 2px;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: background-color 0.4s ease-out,
+    -webkit-box-shadow 0.4s ease-out;
+  transition: background-color 0.4s ease-out, -webkit-box-shadow 0.4s ease-out;
+  -o-transition: box-shadow 0.4s ease-out, background-color 0.4s ease-out;
+  transition: box-shadow 0.4s ease-out, background-color 0.4s ease-out;
+  transition: box-shadow 0.4s ease-out, background-color 0.4s ease-out,
+    -webkit-box-shadow 0.4s ease-out;
+  z-index: 1;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.prew_title {
+  word-wrap: break-word;
+}
+
+@media (max-width: 960px) {
+  .tools__item {
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -ms-flex-preferred-size: calc(33.333% - 4px);
+    flex-basis: calc(33.333% - 4px);
+  }
+}
+@media (max-width: 640px) {
+  .tools__item {
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -ms-flex-preferred-size: calc(50% - 4px);
+    flex-basis: calc(50% - 4px);
+  }
+}
+@media (max-width: 440px) {
+  .tools__item {
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -ms-flex-preferred-size: calc(100% - 4px);
+    flex-basis: calc(100% - 4px);
+  }
 }
 </style>

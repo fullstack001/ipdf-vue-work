@@ -1,5 +1,8 @@
 <template>
-  <div class="main">
+  <div
+    class="main"
+    :style="file ? 'display: flex;' : 'display: inline-block;  width: 100%;'"
+  >
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!pages.length" class="upload-buttons">
@@ -8,44 +11,43 @@
             Separate one page or a whole set for easy conversion into
             independent PDF files.
           </div>
-          <div class="upload_btn">
-            <label for="fileInput" class="uploader__btn md-raised md-danger">
-              Select PDF files
-            </label>
-            <input
-              type="file"
-              name="file"
-              id="fileInput"
-              class="hidden-input"
-              @change="onChange"
-              ref="file"
-              accept=".pdf"
-            />
-          </div>
-        </div>
-        <div
-          class="add-more"
-          v-bind:style="
-            pages.length
-              ? 'display:none'
-              : 'position: relative; margin: auto; right: 0; top: 0;'
-          "
-        >
-          <div v-bind:style="'display: inline-block;'">
-            <button class="social_btn" @click="open_add_driver">
-              <md-icon>add_to_drive</md-icon>
-            </button>
-          </div>
+          <div class="drop-area">
+            <div class="drop-img">
+              <img src="@/assets/img/drop-img.svg" alt="" />
+            </div>
+            <div class="upload_btn">
+              <label for="fileInput" class="uploader__btn md-raised md-danger">
+                Select PDF files
+              </label>
+              <input
+                type="file"
+                name="file"
+                id="fileInput"
+                class="hidden-input"
+                @change="onChange"
+                ref="file"
+                accept=".pdf"
+              />
+              <div class="add-more">
+                <div>
+                  <button class="social_btn" @click="open_add_driver">
+                    <md-icon>add_to_drive</md-icon>
+                  </button>
+                </div>
 
-          <VueDropboxPicker
-            class="cloud dropbox inline-block"
-            :api-key="'w7vvdh8a5g5av1p'"
-            link-type="direct"
-            :multiselect="false"
-            :extensions="['.pdf', '.doc']"
-            :folderselect="false"
-            @picked="onPickedDropbox"
-          />
+                <VueDropboxPicker
+                  class="cloud dropbox"
+                  :api-key="'w7vvdh8a5g5av1p'"
+                  link-type="direct"
+                  :multiselect="false"
+                  :extensions="['.pdf', '.doc']"
+                  :folderselect="false"
+                  @picked="onPickedDropbox"
+                />
+              </div>
+            </div>
+            <div>Or Drop PDFs Here</div>
+          </div>
         </div>
       </div>
       <div class="files-list">
@@ -583,7 +585,6 @@ export default {
 
 <style scoped>
 .main {
-  display: flex;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
@@ -616,6 +617,21 @@ export default {
   padding: 4rem;
   /* background: #f7fafc;
   border: 1px solid #e2e8f0; */
+}
+
+.drop-area {
+  border-radius: 8px;
+  border: 1px dotted #ff7c03;
+  width: 50%;
+  margin: auto;
+  padding: 50px 0;
+  margin-top: 20px;
+}
+
+.drop-img {
+  width: 40px;
+  margin: auto;
+  margin-bottom: 30px;
 }
 
 .upload_btn_area {
@@ -703,6 +719,7 @@ export default {
 }
 .downloader__btn,
 .uploader__btn {
+  cursor: pointer;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -ms-flex-align: center;
@@ -716,7 +733,7 @@ export default {
   padding: 24px 48px;
   font-weight: 500;
   font-size: 24px;
-  background: #e5322d;
+  background: #f0742e;
   line-height: 28px;
   vertical-align: middle;
   color: #fff !important;
@@ -752,7 +769,6 @@ export default {
 }
 
 .tool__sidebar {
-  height: 100vh;
   background-color: #fff;
 }
 
@@ -780,11 +796,10 @@ export default {
 
 .add-more {
   width: fit-content;
-  display: flex;
-}
-
-.add-more div {
-  display: inline-block;
+  position: absolute;
+  margin: auto;
+  right: -60px;
+  top: -10px;
 }
 
 .option__panel__content {
@@ -801,7 +816,7 @@ export default {
   min-height: 48px;
   padding: 8px 12px;
   color: #fff;
-  background-color: #e5322d;
+  background-color: #ff7c03;
   padding: 15px 40px;
   border-radius: 10px;
   font-weight: 600;
@@ -815,7 +830,7 @@ export default {
 
 #pickfiles {
   display: block;
-  background-color: #e5322d;
+  background-color: #ff7c03;
   width: 40px;
   height: 40px;
   margin-bottom: 10px;
@@ -826,7 +841,7 @@ export default {
 
 .add-more .md-icon-button {
   display: block;
-  background-color: #e5322d !important;
+  background-color: #ff7c03 !important;
   width: 40px;
   height: 40px;
   margin-bottom: 20px;
@@ -838,7 +853,7 @@ export default {
 }
 .social_btn {
   display: block;
-  background-color: #e5322d !important;
+  background-color: #f0742e !important;
   width: 40px;
   height: 40px;
   margin-bottom: 20px;
@@ -852,7 +867,7 @@ export default {
 
 .add-more .md-icon-button:hover,
 .social_btn:hover {
-  background-color: #e75651 !important;
+  background-color: #dd6825 !important;
 }
 
 .range__container {
@@ -906,7 +921,7 @@ h3 {
   position: absolute;
   top: 2px;
   right: 2px;
-  background: red;
+  background: #ff7c03;
   border-radius: 100%;
   color: #fff;
   font-size: 10px;
@@ -914,5 +929,9 @@ h3 {
   font-weight: 600;
   letter-spacing: -0.05em;
   font-family: "Roboto Mono", monospace;
+}
+
+#merge-options {
+  padding-bottom: 30px;
 }
 </style>
