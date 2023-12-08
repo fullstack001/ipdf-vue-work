@@ -120,6 +120,7 @@ export default {
           attachment.name = docs[i].name;
           attachment.size = docs[i].sizeBytes;
           attachment.id = docs[i].id;
+          console.log(docs[0].id);
           this.getFileContentFromGoogleDrive(docs[i].id).then((url) => {
             attachment.link = url;
             console.log(attachment);
@@ -133,6 +134,28 @@ export default {
         }
       }
     },
+    // getFileContentFromGoogleDrive(fileId) {
+    //   return new Promise((resolve, reject) => {
+    //     console.log(fileId);
+    //     const apiKey = "AIzaSyDNmRpOk4dHkpk2c8TZLC5ZGOCWxVUfZbU"; // Replace with your actual API key
+
+    //     axios
+    //       .get(
+    //         `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${apiKey}`,
+    //         { responseType: "arraybuffer" }
+    //       )
+    //       .then((response) => {
+    //         const pdfArrayBuffer = response.data;
+    //         console.log("PDF Array Buffer:", pdfArrayBuffer);
+    //         resolve(pdfArrayBuffer);
+    //       })
+    //       .catch((error) => {
+    //         reject("Error fetching PDF:", error);
+    //       });
+
+    //     // Now you can use pdfArrayBuffer as needed (e.g., display or save the PDF)
+    //   });
+    // },
 
     getFileContentFromGoogleDrive(fileId) {
       return new Promise((resolve, reject) => {

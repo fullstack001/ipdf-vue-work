@@ -37,12 +37,18 @@
               <md-icon>computer</md-icon>
             </button>
           </div>
-          <GDriveSelector
+          <!-- <GDrivePicker
             v-bind:style="
               file_objs.length ? 'display: block;' : 'display: inline-block;'
             "
             @picked="onPickedGoogleDriver"
-          />
+          /> -->
+          <!-- <GDriveSelector
+            v-bind:style="
+              file_objs.length ? 'display: block;' : 'display: inline-block;'
+            "
+            @picked="onPickedGoogleDriver"
+          /> -->
 
           <VueDropboxPicker
             class="cloud dropbox"
@@ -212,19 +218,21 @@ import { PDFDocument, degrees } from "pdf-lib";
 import PdfViewer from "@/components/PdfViewer.vue";
 import CryptoJS from "crypto-js";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
-import GDriveSelector from "@/components/GDriveSelector.vue";
+// import GDriveSelector from "@/components/GDriveSelector.vue";
 import draggable from "vuedraggable";
 import store from "@/store/index";
 import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
 import getPageNumber from "@/pdf_pages/services/getPageNumber";
+// import GDrivePicker from "@/components/GDrivePicker.vue";
 
 export default {
   components: {
     PdfViewer,
     VueDropboxPicker,
     draggable,
-    GDriveSelector,
+    // GDriveSelector,
+    // GDrivePicker,
   },
   data() {
     return {

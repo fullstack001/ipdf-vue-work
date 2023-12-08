@@ -42,7 +42,7 @@
           </md-button>
         </div>
         <div>
-          <VueDropboxPicker
+          <!-- <VueDropboxPicker
             class="cloud dropbox"
             :api-key="'w7vvdh8a5g5av1p'"
             link-type="direct"
@@ -51,7 +51,17 @@
             :folderselect="false"
             :uploadFiles="uploadToDropboxFiles"
             :buttonType="'saver'"
-          />
+            @click="upload_dropbox"
+          /> -->
+          <md-button
+            class="md-icon-button download-more"
+            @click="upload_dropbox"
+          >
+            <md-icon>link</md-icon>
+            <md-tooltip md-direction="bottom"
+              >Share file link or QRcode</md-tooltip
+            >
+          </md-button>
           <md-button
             class="md-icon-button download-more"
             @click="showDialog = true"
@@ -145,7 +155,7 @@ Vue.component("qr-code", VueQRCodeComponent);
 
 export default {
   components: {
-    VueDropboxPicker,
+    // VueDropboxPicker,
     Chart,
   },
   props: {
@@ -279,6 +289,15 @@ export default {
     }
   },
   methods: {
+    upload_dropbox() {
+      console.log(234);
+      this.$axios
+        .post("/pdf/upload_dropbox", { fileName: this.id })
+        .then((res) => console.log(res.data))
+        .catch((err) => {
+          alert("Fail");
+        });
+    },
     back_page() {
       console.log(this.before);
       this.$router.push(`/${this.before}`);

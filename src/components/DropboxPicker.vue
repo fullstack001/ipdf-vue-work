@@ -147,47 +147,46 @@ export default {
       window.Dropbox.choose(options);
     },
     dropboxSaverIconClicked() {
-      console.log(this.uploadFiles);
-      let options = {
-        files: [
-          {
-            url: this.uploadFiles[0],
-            filename: "merged_pdf.pdf",
-          },
-        ],
-        // success: function () {
-        //   this.$emit("saved");
-        // },
-        // cancel: function () {
-        //   this.$emit("cancel");
-        // },
-        // progress: function (progress) {
-        //   this.$emit("progress", { progress: progress });
-        // },
-        // error: function (errorMessage) {
-        //   this.$emit("error", { errorMessage: errorMessage });
-        // },
-        success: function () {
-          // Handle successful save
-          console.log("File saved to Dropbox successfully");
-        },
-        cancel: function () {
-          // Handle cancelation of the save
-          console.log("Save to Dropbox canceled");
-        },
-        error: function (errorMessage) {
-          // Handle error during save
-          console.error("Error saving to Dropbox:", errorMessage);
-        },
-      };
-      // if (this.extensions.length) {
-      //   options.extensions = this.extensions;
-      // }
-
-      // if (this.sizeLimit) {
-      //   options.sizeLimit = this.sizeLimit;
-      // }
-      window.Dropbox.save(options);
+      // console.log(this.uploadFiles);
+      // let options = {
+      //   files: [
+      //     {
+      //       url: this.uploadFiles[0],
+      //       filename: "merged_pdf.pdf",
+      //     },
+      //   ],
+      //   // success: function () {
+      //   //   this.$emit("saved");
+      //   // },
+      //   // cancel: function () {
+      //   //   this.$emit("cancel");
+      //   // },
+      //   // progress: function (progress) {
+      //   //   this.$emit("progress", { progress: progress });
+      //   // },
+      //   // error: function (errorMessage) {
+      //   //   this.$emit("error", { errorMessage: errorMessage });
+      //   // },
+      //   success: function () {
+      //     // Handle successful save
+      //     console.log("File saved to Dropbox successfully");
+      //   },
+      //   cancel: function () {
+      //     // Handle cancelation of the save
+      //     console.log("Save to Dropbox canceled");
+      //   },
+      //   error: function (errorMessage) {
+      //     // Handle error during save
+      //     console.error("Error saving to Dropbox:", errorMessage);
+      //   },
+      // };
+      // // if (this.extensions.length) {
+      // //   options.extensions = this.extensions;
+      // // }
+      // // if (this.sizeLimit) {
+      // //   options.sizeLimit = this.sizeLimit;
+      // // }
+      // window.Dropbox.save(options);
     },
   },
 };
