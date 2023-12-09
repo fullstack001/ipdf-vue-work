@@ -151,7 +151,8 @@ export default {
       let options = {
         files: [
           {
-            url: `https://api.pdfden.com/${this.uploadFiles[0]}`,
+            // url: `https://api.pdfden.com/uploads/${this.uploadFiles[0]}`,
+            url: `http://127.0.0.1:5000/uploads/${this.uploadFiles[0]}`,
             filename: "merged_pdf.pdf",
           },
         ],

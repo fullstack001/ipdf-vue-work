@@ -26,9 +26,15 @@
             md-title="File available time"
             :md-content="`<div><div>All your files will be automatically deleted after 2 hour</div>
               <div class='timer'>
-                <div class='timer-item'><div class='timer-count'> ${hours} </div> <div class='timer-label'>Hours</div></div>
-                <div class='timer-item'><div class='timer-count'>${minutes}</div> <div class='timer-label'>Minutes</div></div>
-                <div class='timer-item'><div class='timer-count'>${seconds}</div> <div class='timer-label'>Seconds</div></div>
+                <div class='timer-item'><div class='timer-count'> ${
+                  hours != 0 ? hours : ''
+                } </div> <div class='timer-label'>Hours</div></div>
+                <div class='timer-item'><div class='timer-count'>${
+                  minutes != 0 ? minutes : ''
+                }</div> <div class='timer-label'>Minutes</div></div>
+                <div class='timer-item'><div class='timer-count'>${
+                  seconds != 0 ? seconds : ''
+                }</div> <div class='timer-label'>Seconds</div></div>
               </div>
             </div>`"
             md-confirm-text="Delet it now"
@@ -57,15 +63,6 @@
             :uploadFiles="[id]"
             :buttonType="'saver'"
           />
-          <!-- <md-button
-            class="md-icon-button download-more"
-            @click="upload_dropbox"
-          >
-            <md-icon>link</md-icon>
-            <md-tooltip md-direction="bottom"
-              >Share file link or QRcode</md-tooltip
-            >
-          </md-button> -->
           <md-button
             class="md-icon-button download-more"
             @click="showDialog = true"
@@ -154,7 +151,6 @@ import store from "@/store/index";
 import CryptoJS from "crypto-js";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import JSZip from "jszip";
-import Dropbox from "dropbox";
 import VueQRCodeComponent from "vue-qrcode-component";
 import Chart from "@/components/Chart.vue"; // Replace with the correct path
 Vue.component("qr-code", VueQRCodeComponent);
@@ -238,61 +234,70 @@ export default {
   },
   async mounted() {
     // Make a GET request to the server endpoint to download the file
-    const response = await this.$axios.get(this.downloadURL, {
-      responseType: "blob",
-    });
-    console.log(response.data);
-    // Create a link and trigger the download
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    this.url = url;
-    const link = document.getElementById("link");
-    link.download = this.down_name;
-    let binaryData = [];
-    binaryData.push(this.result);
-    link.href = url;
-    if (this.file_type == "application/pdf") {
-      this.files = [
-        {
-          name: "newPdf.pdf",
-          link: this.url,
-        },
-      ];
-    } else {
-      const zipFile = response.data;
-      const zip = new JSZip();
+    this.$axios
+      .get(this.downloadURL, {
+        responseType: "blob",
+      })
+      .then((response) => {
+        console.log(response.data);
+        // Create a link and trigger the download
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        this.url = url;
+        const link = document.getElementById("link");
+        link.download = this.down_name;
+        let binaryData = [];
+        binaryData.push(this.result);
+        link.href = url;
+        if (this.file_type == "application/pdf") {
+          this.files = [
+            {
+              name: "newPdf.pdf",
+              link: this.url,
+            },
+          ];
+        } else {
+          const zipFile = response.data;
+          const zip = new JSZip();
 
-      zip
-        .loadAsync(zipFile)
-        .then((contents) => {
-          const pdfFiles = [];
-          contents.forEach((relativePath, zipEntry) => {
-            if (!zipEntry.dir && zipEntry.name.toLowerCase().endsWith(".pdf")) {
-              pdfFiles.push(zipEntry);
-            }
-          });
+          zip
+            .loadAsync(zipFile)
+            .then((contents) => {
+              const pdfFiles = [];
+              contents.forEach((relativePath, zipEntry) => {
+                if (
+                  !zipEntry.dir &&
+                  zipEntry.name.toLowerCase().endsWith(".pdf")
+                ) {
+                  pdfFiles.push(zipEntry);
+                }
+              });
 
-          const promises = pdfFiles.map((zipEntry) => {
-            return zipEntry.async("blob").then((blob) => ({
-              name: zipEntry.name,
-              link: URL.createObjectURL(blob),
-            }));
-          });
+              const promises = pdfFiles.map((zipEntry) => {
+                return zipEntry.async("blob").then((blob) => ({
+                  name: zipEntry.name,
+                  link: URL.createObjectURL(blob),
+                }));
+              });
 
-          Promise.all(promises)
-            .then((extractedPDFs) => {
-              this.files = extractedPDFs;
+              Promise.all(promises)
+                .then((extractedPDFs) => {
+                  this.files = extractedPDFs;
+                })
+                .catch((error) => {
+                  console.error(
+                    "Error occurred while extracting PDF files:",
+                    error
+                  );
+                });
             })
             .catch((error) => {
-              console.error(
-                "Error occurred while extracting PDF files:",
-                error
-              );
+              console.error("Error occurred while reading ZIP file:", error);
             });
-        })
-        .catch((error) => {
-          console.error("Error occurred while reading ZIP file:", error);
-        });
-    }
+        }
+      })
+      .catch((err) => {
+        this.$router.push("/deleted");
+      });
   },
   methods: {
     upload_dropbox() {
@@ -329,14 +334,9 @@ export default {
     },
     async onConfirm() {
       await this.$axios
-        .post("/pdf/delete", {
-          file: this.id,
-        })
+        .get(`/pdf/delete/${this.id}`)
         .then((res) => {
-          this.show_noti = true;
-          setTimeout(() => {
-            this.$router.push("/deleted");
-          }, 2000);
+          this.$router.push("/deleted");
         })
         .catch((err) => console.log(err));
     },
