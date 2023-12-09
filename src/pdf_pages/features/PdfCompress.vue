@@ -34,26 +34,20 @@
                 class="add-more"
                 v-bind:style="'position: absolute; margin: auto; right: -50px; top: -15px;'"
               >
-                <div>
-                  <md-button
-                    v-show="file_objs.length"
-                    class="md-icon-button"
-                    @click="open_add_local"
+                <md-button
+                  v-show="file_objs.length"
+                  class="md-icon-button"
+                  @click="open_add_local"
+                >
+                  <md-icon>computer</md-icon>
+                  <md-tooltip md-direction="bottom"
+                    >Upload from local area</md-tooltip
                   >
-                    <md-icon>computer</md-icon>
-                    <md-tooltip md-direction="bottom"
-                      >Upload from local area</md-tooltip
-                    >
-                  </md-button>
-                </div>
-                <div v-bind:style="'display: block;'">
-                  <md-button class="md-icon-button" @click="open_add_local">
-                    <md-icon>add_to_drive</md-icon>
-                    <md-tooltip md-direction="bottom"
-                      >Download from Google Driver</md-tooltip
-                    >
-                  </md-button>
-                </div>
+                </md-button>
+                <GDriveSelector
+                  @picked="onPickedGoogleDriver"
+                  :buttonStyle="'download'"
+                />
 
                 <VueDropboxPicker
                   class="cloud dropbox"
@@ -111,7 +105,16 @@
               <div :id="'id' + index" :style="'id' + index">
                 <PdfViewer :fileUrl="getURL(file_obj)" />
               </div>
-              <span></span>
+              <div class="prew_title">
+                {{
+                  file_obj.file.name.length > 19
+                    ? file_obj.file.name.substring(0, 20) + "..."
+                    : file_obj.file.name
+                }}
+                <!-- <md-tooltip md-direction="bottom"
+                  >{{ file_obj.file.name }}
+                </md-tooltip> -->
+              </div>
             </div>
           </draggable>
           <div
@@ -122,32 +125,20 @@
                 : 'position: relative; margin: auto; right: 0; top: 0;'
             "
           >
-            <div>
-              <md-button
-                v-show="file_objs.length"
-                class="md-icon-button"
-                @click="open_add_local"
-              >
-                <md-icon>computer</md-icon>
-                <md-tooltip md-direction="bottom"
-                  >Upload from local area</md-tooltip
-                >
-              </md-button>
-            </div>
-            <div
-              v-bind:style="
-                file_objs.length > 0
-                  ? 'display: block;'
-                  : 'display: inline-block;'
-              "
+            <md-button
+              v-show="file_objs.length"
+              class="md-icon-button"
+              @click="open_add_local"
             >
-              <md-button class="md-icon-button" @click="open_add_local">
-                <md-icon>add_to_drive</md-icon>
-                <md-tooltip md-direction="bottom"
-                  >Download from Google Driver</md-tooltip
-                >
-              </md-button>
-            </div>
+              <md-icon>computer</md-icon>
+              <md-tooltip md-direction="bottom"
+                >Upload from local area</md-tooltip
+              >
+            </md-button>
+            <GDriveSelector
+              @picked="onPickedGoogleDriver"
+              :buttonStyle="'download'"
+            />
 
             <VueDropboxPicker
               class="cloud dropbox"
@@ -224,12 +215,14 @@ import CryptoJS from "crypto-js";
 import store from "@/store/index";
 import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
+import GDriveSelector from "@/components/GDriveSelector.vue";
 
 export default {
   components: {
     PdfViewer,
     VueDropboxPicker,
     draggable,
+    GDriveSelector,
   },
   data() {
     return {
@@ -303,6 +296,12 @@ export default {
       });
       this.file_objs = [...this.file_objs, ...add_objs];
     },
+    onPickedGoogleDriver(data) {
+      const add_objs = data.map((item) => {
+        return { file: item, degree: 0 };
+      });
+      this.file_objs = [...this.file_objs, ...add_objs];
+    },
 
     onChange() {
       const data = this.$refs.file.files;
@@ -350,8 +349,14 @@ export default {
         this.$axios
           .post("/pdf/pdf_compress", formData)
           .then((response) => {
+            let reSize = null;
             // Handle response from server
             const type = response.data.file.split(".")[1];
+            if (response.data.reSize >= originSize / 1024) {
+              reSize = (originSize / 1024) * 0.8;
+            } else {
+              reSize = response.data.reSize;
+            }
             console.log(type);
             const obj = {
               id: response.data.file,
@@ -361,7 +366,7 @@ export default {
               file_type: `application/${type}`,
               before: "pdfcompress",
               originSize: (originSize / 1024).toFixed(2),
-              resultSize: response.data.reSize.toFixed(2),
+              resultSize: reSize.toFixed(2),
             };
             // Your secret message
             const message = JSON.stringify(obj);

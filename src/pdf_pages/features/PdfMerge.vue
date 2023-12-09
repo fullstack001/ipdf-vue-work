@@ -35,13 +35,9 @@
                     <md-icon>computer</md-icon>
                   </button>
                 </div>
-                <GDrivePicker
-                  v-bind:style="
-                    file_objs.length
-                      ? 'display: block;'
-                      : 'display: inline-block;'
-                  "
+                <GDriveSelector
                   @picked="onPickedGoogleDriver"
+                  :buttonStyle="'download'"
                 />
 
                 <VueDropboxPicker
@@ -365,12 +361,21 @@
               </div>
               <div :id="'id' + index" :style="'id' + index" class="preview_img">
                 <PdfViewer :fileUrl="getURL(file_obj)" />
+                <md-tooltip md-direction="top"
+                  >{{ (file_obj.file.size / 1024).toFixed(2) }} KByte
+                  {{ file_obj.page }}pages
+                </md-tooltip>
               </div>
-              <div class="prew_title">{{ file_obj.file.name }}</div>
-              <md-tooltip md-direction="top"
-                >{{ (file_obj.file.size / 1024).toFixed(2) }} KByte
-                {{ file_obj.page }}pages
-              </md-tooltip>
+              <div class="prew_title">
+                {{
+                  file_obj.file.name.length > 19
+                    ? file_obj.file.name.substring(0, 20) + "..."
+                    : file_obj.file.name
+                }}
+                <!-- <md-tooltip md-direction="bottom"
+                  >{{ file_obj.file.name }}
+                </md-tooltip> -->
+              </div>
             </div>
           </draggable>
         </div>
@@ -379,15 +384,15 @@
             <div class="md-primary" md-content="4" v-if="file_objs.length">
               <md-button class="md-icon-button" @click="open_add_local">
                 <md-icon>computer</md-icon>
+                <md-tooltip md-direction="right">Upload from Local </md-tooltip>
               </md-button>
             </div>
-            <GDrivePicker
-              v-bind:style="
-                file_objs.length ? 'display: block;' : 'display: inline-block;'
-              "
+            <GDriveSelector
               @picked="onPickedGoogleDriver"
-            />
-
+              :buttonStyle="'download'"
+            >
+              <md-tooltip md-direction="top"> </md-tooltip>
+            </GDriveSelector>
             <VueDropboxPicker
               class="cloud dropbox"
               :api-key="'w7vvdh8a5g5av1p'"
@@ -492,7 +497,7 @@ import { PDFDocument, degrees } from "pdf-lib";
 import PdfViewer from "@/components/PdfViewer.vue";
 import CryptoJS from "crypto-js";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
-// import GDriveSelector from "@/components/GDriveSelector.vue";
+import GDriveSelector from "@/components/GDriveSelector.vue";
 import draggable from "vuedraggable";
 import store from "@/store/index";
 import * as type from "@/store/types";
@@ -501,7 +506,6 @@ import getPageNumber from "@/pdf_pages/services/getPageNumber";
 import faq from "@/components/Faq.vue";
 import FeatureTitle from "./components/FeatureTitle.vue";
 import { online_names } from "../services/online_name";
-import GDrivePicker from "@/components/GDrivePicker.vue";
 
 export default {
   components: {
@@ -510,8 +514,8 @@ export default {
     draggable,
     faq,
     FeatureTitle,
-    // GDriveSelector,
-    GDrivePicker,
+    GDriveSelector,
+    // GDrivePicker,
   },
   data() {
     return {

@@ -24,7 +24,6 @@ export default {
   methods: {
     async driveIconClicked() {
       await gapi.load("auth2", () => {
-        console.log("Auth2 Loaded");
         gapi.auth2.authorize(
           {
             client_id: this.clientId,
@@ -40,10 +39,11 @@ export default {
       });
     },
     handleAuthResult(authResult) {
-      console.log("Handle Auth result", authResult);
       if (authResult && !authResult.error) {
         this.oauthToken = authResult.access_token;
         this.createPicker();
+      } else {
+        console.log("error:", authResult);
       }
     },
     createPicker() {

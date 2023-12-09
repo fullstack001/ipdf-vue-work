@@ -19,7 +19,7 @@
           ></path>
         </svg>
       </a>
-      <md-tooltip md-direction="bottom">Download from dropbox</md-tooltip>
+      <md-tooltip md-direction="right">Download from dropbox</md-tooltip>
     </div>
     <div
       v-if="scriptLoaded && dropboxChooserIsSupported && buttonType == 'saver'"

@@ -27,13 +27,13 @@
             :md-content="`<div><div>All your files will be automatically deleted after 2 hour</div>
               <div class='timer'>
                 <div class='timer-item'><div class='timer-count'> ${
-                  hours != 0 ? hours : ''
+                  hours != null ? hours : ''
                 } </div> <div class='timer-label'>Hours</div></div>
                 <div class='timer-item'><div class='timer-count'>${
-                  minutes != 0 ? minutes : ''
+                  minutes != null ? minutes : ''
                 }</div> <div class='timer-label'>Minutes</div></div>
                 <div class='timer-item'><div class='timer-count'>${
-                  seconds != 0 ? seconds : ''
+                  seconds != null ? seconds : ''
                 }</div> <div class='timer-label'>Seconds</div></div>
               </div>
             </div>`"
@@ -201,9 +201,9 @@ export default {
     files: [],
     originSize: 1,
     reSize: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
+    hours: null,
+    minutes: null,
+    seconds: null,
   }),
   computed: {
     result() {

@@ -29,11 +29,10 @@
                 accept=".pdf"
               />
               <div class="add-more">
-                <div>
-                  <button class="social_btn" @click="open_add_driver">
-                    <md-icon>add_to_drive</md-icon>
-                  </button>
-                </div>
+                <GDriveSelector
+                  @picked="onPickedGoogleDriver"
+                  :buttonStyle="'download'"
+                />
 
                 <VueDropboxPicker
                   class="cloud dropbox"
@@ -173,6 +172,7 @@ import * as type from "@/store/types";
 import { GlobalWorkerOptions, getDocument } from "pdfjs-dist/legacy/build/pdf";
 import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 GlobalWorkerOptions.workerSrc = PDFJSWorker;
+import GDriveSelector from "@/components/GDriveSelector.vue";
 
 export default {
   components: {
@@ -181,6 +181,7 @@ export default {
     draggable,
     SplitExtra,
     SpiltRange,
+    GDriveSelector,
   },
   data() {
     return {
@@ -233,6 +234,10 @@ export default {
     onChange() {
       this.file = this.$refs.file.files[0];
       this.get_pages(this.$refs.file.files[0]);
+    },
+    onPickedGoogleDriver(data) {
+      this.file = data[0];
+      this.get_pages(data[0]);
     },
 
     //download from dropbox
