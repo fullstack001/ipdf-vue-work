@@ -2,11 +2,10 @@
   <div class="file-selector">
     <md-button class="md-icon-button" @click="driveIconClicked()">
       <md-icon>add_to_drive</md-icon>
-      <md-tooltip md-direction="right" v-show="buttonStyle == 'download'"
-        >Download from Google Driver</md-tooltip
-      >
-
-      <md-tooltip md-direction="top" v-show="tooltip == 'upload'"
+      <md-tooltip md-direction="right" v-show="buttonStyle == 'download'">
+        Download from Google Driver
+      </md-tooltip>
+      <md-tooltip md-direction="top" v-show="buttonStyle == 'upload'"
         >Upload to Google Driver</md-tooltip
       >
     </md-button>
@@ -14,9 +13,10 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Attachment",
-  props: ["buttonStyle"],
+  props: ["buttonStyle", "file"],
   data() {
     return {
       isSignedIn: false,
@@ -57,7 +57,9 @@ export default {
     handleAuthResult(authResult) {
       if (authResult && !authResult.error) {
         this.oauthToken = authResult.access_token;
-        this.createPicker();
+        this.buttonStyle == "download"
+          ? this.createPicker()
+          : this.processFiles(this.file);
       } else {
         console.log("error:", authResult);
       }
@@ -85,7 +87,6 @@ export default {
 
     async pickerCallback(data) {
       if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
-        var doc = data[google.picker.Response.DOCUMENTS][0];
         let docs = data.docs;
         let attachments = [];
         for (let i = 0; i < docs.length; i++) {
@@ -122,6 +123,41 @@ export default {
         };
         xhr.send();
       });
+    },
+    processFiles(files) {
+      console.log(files);
+      const formData = new FormData();
+      formData.append("file", files.file);
+      formData.append(
+        "metadata",
+        new Blob(
+          [
+            JSON.stringify({
+              name: files.name,
+            }),
+          ],
+          { type: "application/pdf" }
+        )
+      );
+
+      formData.append("name", files.name);
+      // formData.append("parents", this.currentFolder.folderId);
+
+      axios
+        .post("https://www.googleapis.com/upload/drive/v3/files", formData, {
+          headers: {
+            Authorization: `Bearer ${this.oauthToken}`,
+            "Content-Type": "multipart/related; boundary=my-custom-boundary",
+            // Set the file name in the Content-Disposition header
+            "Content-Disposition": `file; filename="${files.name}"`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

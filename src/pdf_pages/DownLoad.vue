@@ -47,10 +47,10 @@
             <md-icon>delete</md-icon>
             <md-tooltip md-direction="top">Delete it now</md-tooltip>
           </md-button>
-          <md-button class="md-icon-button" @click="open_add_local">
-            <md-icon>add_to_drive</md-icon>
-            <md-tooltip md-direction="top">Save to Google Driver</md-tooltip>
-          </md-button>
+          <GDriveSelector
+            :buttonStyle="'upload'"
+            :file="{ file: gDriveFile, name: down_name }"
+          />
         </div>
         <div>
           <VueDropboxPicker
@@ -153,11 +153,13 @@ import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import JSZip from "jszip";
 import VueQRCodeComponent from "vue-qrcode-component";
 import Chart from "@/components/Chart.vue"; // Replace with the correct path
+import GDriveSelector from "@/components/GDriveSelector.vue";
 Vue.component("qr-code", VueQRCodeComponent);
 
 export default {
   components: {
     VueDropboxPicker,
+    GDriveSelector,
     Chart,
   },
   props: {
@@ -194,6 +196,7 @@ export default {
     button_title: "",
     dis_text: "",
     down_name: "",
+    gDriveFile: "",
     file_type: "",
     downloadURL: "",
     before: "",
@@ -240,6 +243,7 @@ export default {
       })
       .then((response) => {
         console.log(response.data);
+        this.gDriveFile = response.data;
         // Create a link and trigger the download
         const url = window.URL.createObjectURL(new Blob([response.data]));
         this.url = url;
