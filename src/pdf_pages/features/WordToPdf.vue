@@ -2,15 +2,15 @@
   <div
     class="main"
     :style="
-      file_objs.length ? 'display: flex' : 'display: inline-block; width: 100%;'
+      files.length > 0 ? 'display: flex' : 'display: inline-block; width: 100%;'
     "
   >
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
-        <div v-show="!file_objs.length" class="upload-buttons">
-          <div class="page-title">Compress PDF file</div>
+        <div v-show="!files.length" class="upload-buttons">
+          <div class="page-title">Convert WORD to PDF</div>
           <div class="page-description">
-            Reduce file size while optimizing for maximal PDF quality.
+            Make DOC and DOCX file easy to ready by converting them to PDF.
           </div>
           <div class="drop-area">
             <div class="drop-img">
@@ -18,7 +18,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
-                Select PDF files
+                Select WORD files
               </label>
               <input
                 type="file"
@@ -28,14 +28,14 @@
                 class="hidden-input"
                 @change="onChange"
                 ref="file"
-                accept=".pdf"
+                accept=".doc, .docx"
               />
               <div
                 class="add-more"
                 v-bind:style="'position: absolute; margin: auto; right: -50px; top: -5px;'"
               >
                 <md-button
-                  v-show="file_objs.length"
+                  v-show="files.length"
                   class="md-icon-button"
                   @click="open_add_local"
                 >
@@ -51,13 +51,12 @@
 
                 <VueDropboxPicker
                   class="cloud dropbox"
-                  :api-key="'w7vvdh8a5g5av1p'"
                   link-type="direct"
                   :multiselect="true"
-                  :extensions="['.pdf', '.doc']"
+                  :extensions="['.docx', '.doc']"
                   :folderselect="false"
                   v-bind:style="
-                    file_objs.length > 0
+                    files.length > 0
                       ? 'display: block; margin-top: 5px;'
                       : 'display: inline-block;'
                   "
@@ -65,28 +64,28 @@
                 />
               </div>
             </div>
-            <div>Or Drop PDFs Here</div>
+            <div>Or Drop WORD documents Here</div>
           </div>
         </div>
       </div>
       <div class="files-list">
-        <div class="preview-container mt-4" v-if="file_objs.length">
+        <div class="preview-container mt-4" v-if="files.length">
           <draggable
-            v-model="file_objs"
+            v-model="files"
             :options="{ animation: 150 }"
             class="md-layout"
           >
             <div
               class="preview-card md-layout-item"
-              v-for="(file_obj, index) in file_objs"
-              :key="file_obj.file.name"
+              v-for="(file, index) in files"
+              :key="file.name"
             >
               <div class="file__actions">
                 <a
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
                   data-title="Remove this file"
-                  @click="remove(file_objs.indexOf(file))"
+                  @click="remove(files.indexOf(file))"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -103,30 +102,27 @@
                 </a>
               </div>
               <div :id="'id' + index" :style="'id' + index">
-                <PdfViewer :fileUrl="getURL(file_obj)" />
+                <WordThumbnail :fileUrl="getURL(file)" />
               </div>
               <div class="prew_title">
                 {{
-                  file_obj.file.name.length > 19
-                    ? file_obj.file.name.substring(0, 20) + "..."
-                    : file_obj.file.name
+                  file.name.length > 19
+                    ? file.name.substring(0, 20) + "..."
+                    : file.name
                 }}
-                <!-- <md-tooltip md-direction="bottom"
-                  >{{ file_obj.file.name }}
-                </md-tooltip> -->
               </div>
             </div>
           </draggable>
           <div
             class="add-more"
             v-bind:style="
-              file_objs.length
+              files.length
                 ? 'position: absolute; top: 50px; right: -30px'
                 : 'position: relative; margin: auto; right: 0; top: 0;'
             "
           >
             <md-button
-              v-show="file_objs.length"
+              v-show="files.length"
               class="md-icon-button"
               @click="open_add_local"
             >
@@ -142,13 +138,12 @@
 
             <VueDropboxPicker
               class="cloud dropbox"
-              :api-key="'w7vvdh8a5g5av1p'"
               link-type="direct"
               :multiselect="true"
               :extensions="['.pdf', '.doc']"
               :folderselect="false"
               v-bind:style="
-                file_objs.length > 0
+                files.length > 0
                   ? 'display: block; margin-top: 5px;'
                   : 'display: inline-block;'
               "
@@ -159,67 +154,30 @@
       </div>
     </div>
 
-    <div v-show="file_objs.length > 0">
+    <div v-show="files.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3 class="text-center">Compression level</h3>
-        <div class="tool__sidebar__inactive">
-          <md-radio
-            v-model="radio"
-            value="50"
-            class="split_option"
-            :class="radio == 50 ? 'md-checked' : ''"
-            >EXTREME COMPRESSION
-            <p><small>(Less quality, high compression)</small></p>
-          </md-radio>
-          <md-radio
-            v-model="radio"
-            value="100"
-            class="split_option"
-            :class="radio == 100 ? 'md-checked' : ''"
-            >RECOMMENDED COMPRESSION
-            <p>
-              <small>(Good quality, good compression)</small>
-            </p>
-          </md-radio>
-          <md-radio
-            v-model="radio"
-            value="150"
-            class="split_option"
-            :class="radio == 150 ? 'md-checked' : ''"
-            >LESS COMPRESSION
-            <p>
-              <small>(High quality, less compression)</small>
-            </p>
-          </md-radio>
-        </div>
+        <h3 class="text-center">Word to PDF</h3>
         <div class="option__panel option__panel--active" id="merge-options">
-          <button class="option__panel__title" @click="expressPDFs">
-            Compress PDF
+          <button class="option__panel__title" @click="convert">
+            Convert to PDF
           </button>
         </div>
       </div>
     </div>
-    <md-dialog-alert
-      :md-active.sync="second"
-      md-title="Select Level!"
-      md-content="Your have to select level and compress the PDF"
-    />
   </div>
 </template>
 
 <script>
-import PdfViewer from "@/components/PdfViewer.vue";
+import WordThumbnail from "@/components/WordThumbnail.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import CryptoJS from "crypto-js";
-import store from "@/store/index";
-import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 
 export default {
   components: {
-    PdfViewer,
+    WordThumbnail,
     VueDropboxPicker,
     draggable,
     GDriveSelector,
@@ -235,14 +193,6 @@ export default {
   },
 
   methods: {
-    //add merged pdf to vuex
-    setPdfResult(result) {
-      store.dispatch({
-        type: type.SetResult,
-        amount: result,
-      });
-    },
-
     //click add from local button
     open_add_local() {
       this.$refs.file.click();
@@ -266,27 +216,7 @@ export default {
     },
 
     remove(i) {
-      this.file_objs.splice(i, 1);
-    },
-
-    //rotate thumbnail
-    setRotationDegree(tagId, index) {
-      const computedStyle = window.getComputedStyle(
-        document.getElementById(tagId)
-      );
-      const transformValue = computedStyle.getPropertyValue("transform");
-
-      // Extract rotation degree from the transform value
-      const matrix = new DOMMatrixReadOnly(transformValue);
-      const rotation = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI) + 90;
-      if (rotation == 360) rotation = 0;
-      document.getElementById(tagId).style.transform = `rotate(${rotation}deg)`;
-
-      //save rotation
-      this.file_objs[index] = {
-        file: this.file_objs[index]["file"],
-        degree: rotation,
-      };
+      this.files.splice(i, 1);
     },
 
     //download from dropbox
@@ -305,23 +235,13 @@ export default {
 
     onChange() {
       const data = this.$refs.file.files;
-      var add_objs = [],
-        i = 0;
-      for (i = 0; i < data.length; i++) {
-        add_objs.push({ file: data[i], degree: 0 });
+      for (let i = 0; i < data.length; i++) {
+        this.files.push(data[i]);
       }
-      this.file_objs = [...this.file_objs, ...add_objs];
+      console.log(this.files);
     },
-    makeName(name) {
-      return (
-        name.split(".")[0].substring(0, 3) +
-        "..." +
-        name.split(".")[name.split(".").length - 1]
-      );
-    },
-
-    getURL(file_obj) {
-      const fileSrc = generateURL(file_obj.file);
+    getURL(file) {
+      const fileSrc = generateURL(file);
       return fileSrc;
     },
     async readFileAsync(file) {
@@ -336,7 +256,7 @@ export default {
     },
 
     //expressPDFs
-    async expressPDFs() {
+    async convert() {
       if (this.radio) {
         this.$isLoading(true); // show loading screen
         let originSize = 0;

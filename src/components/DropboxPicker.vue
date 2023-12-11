@@ -27,10 +27,6 @@
 <script>
 export default {
   props: {
-    apiKey: {
-      type: String,
-      required: true,
-    },
     linkType: {
       type: String,
       default: "preview",
@@ -65,6 +61,8 @@ export default {
     },
   },
   data: () => ({
+    // apiKey: "w7vvdh8a5g5av1p",
+    apiKey: "Your-App",
     scriptLoaded: true,
     dropboxChooserIsSupported: true,
   }),

@@ -42,7 +42,6 @@
 
                 <VueDropboxPicker
                   class="cloud dropbox"
-                  :api-key="'w7vvdh8a5g5av1p'"
                   link-type="direct"
                   :buttonType="'chooser'"
                   :multiselect="true"
@@ -395,7 +394,6 @@
             </GDriveSelector>
             <VueDropboxPicker
               class="cloud dropbox"
-              :api-key="'w7vvdh8a5g5av1p'"
               link-type="direct"
               :buttonType="'chooser'"
               :multiselect="true"

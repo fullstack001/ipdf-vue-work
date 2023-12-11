@@ -36,7 +36,6 @@
 
                 <VueDropboxPicker
                   class="cloud dropbox"
-                  :api-key="'w7vvdh8a5g5av1p'"
                   link-type="direct"
                   :multiselect="false"
                   :extensions="['.pdf', '.doc']"

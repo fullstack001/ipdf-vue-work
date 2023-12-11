@@ -22,9 +22,11 @@ export default {
       isSignedIn: false,
       googleUserProfile: {},
       pickerApiLoaded: false,
-      developerKey: "AIzaSyDNmRpOk4dHkpk2c8TZLC5ZGOCWxVUfZbU",
-      clientId:
-        "555210504768-28vlqb2lqnjnhq1ch9d1c5fo9f9smuun.apps.googleusercontent.com",
+      developerKey: "Your-Develop-Key",
+      clientId: "Your-Deveop-Key",
+      // developerKey: "AIzaSyDNmRpOk4dHkpk2c8TZLC5ZGOCWxVUfZbU",
+      // clientId:
+      //   "555210504768-28vlqb2lqnjnhq1ch9d1c5fo9f9smuun.apps.googleusercontent.com",
       scope: "https://www.googleapis.com/auth/drive",
       oauthToken: null,
       selectedFile: null,
@@ -72,7 +74,7 @@ export default {
         view.setMimeTypes("application/pdf");
         var picker = new google.picker.PickerBuilder()
           .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
-          .setDeveloperKey("AIzaSyDNmRpOk4dHkpk2c8TZLC5ZGOCWxVUfZbU")
+          .setDeveloperKey(this.developerKey)
           .setOAuthToken(this.oauthToken)
           .addView(view)
           // .addView(new google.picker.DocsUploadView())
