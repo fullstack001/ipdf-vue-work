@@ -83,6 +83,11 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+}
 .pageContainer {
   margin: auto;
   width: 145px;

@@ -392,6 +392,11 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+}
 .download-page {
   text-align: center;
 }

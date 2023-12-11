@@ -17,8 +17,8 @@
 export default {
   data() {
     return {
-      username: "pdfden",
-      password: "akHsh2o2#",
+      username: "",
+      password: "",
       confirmUsername: "pdfden",
       confirmPass: "akHsh2o2#",
     };

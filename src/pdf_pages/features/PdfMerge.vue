@@ -751,6 +751,11 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+}
 .main {
   flex-grow: 1;
   align-items: center;
@@ -928,7 +933,7 @@ export default {
 }
 
 .drop-img {
-  width: 40px;
+  width: 96px;
   margin: auto;
   margin-bottom: 30px;
 }
@@ -953,7 +958,7 @@ export default {
   position: absolute;
   margin: auto;
   right: -50px;
-  top: 12px;
+  top: -5px;
 }
 
 .add-more-area {

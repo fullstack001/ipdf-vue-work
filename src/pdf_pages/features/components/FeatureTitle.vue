@@ -36,6 +36,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+}
 .md-content {
   padding: 24px;
   text-align: center;

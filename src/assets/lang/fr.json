@@ -41,17 +41,17 @@
       "description": "Réduire la taille des fichiers tout en optimisant la qualité des PDF",
       "file": "compress_pdf.svg"
     },
-    "pdf_word": {
-      "name": "pdf_word",
-      "title": "PDF vers Word",
-      "description": "Convertissez facilement vos fichiers PDF en documents DOC et DOCX faciles à éditer. Le document WORD converti est presque 100% exact.The converted WORD document is almost 100% accurate.",
-      "file": "pdf_word.svg"
-    },
     "word_pdf": {
       "name": "word_pdf",
       "title": "Word vers PDF",
       "description": "Rendez les fichiers DOC et DOCX faciles à lire en les convertissant en PDF.",
       "file": "word_pdf.svg"
+    },
+    "pdf_word": {
+      "name": "pdf_word",
+      "title": "PDF vers Word",
+      "description": "Convertissez facilement vos fichiers PDF en documents DOC et DOCX faciles à éditer. Le document WORD converti est presque 100% exact.The converted WORD document is almost 100% accurate.",
+      "file": "pdf_word.svg"
     },
     "sign": {
       "name": "sign_pdf",

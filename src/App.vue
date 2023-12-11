@@ -22,6 +22,11 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+}
 .tab-area .md-tabs-navigation {
   box-shadow: none;
   padding: 10px;

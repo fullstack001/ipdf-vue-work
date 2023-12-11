@@ -40,17 +40,17 @@
       "description": "PDFの品質を最大限に最適化しながらファイルサイズを縮小",
       "file": "compress_pdf.svg"
     },
-    "pdf_word": {
-      "name": "pdf_word",
-      "title": "PDFからWordへ",
-      "description": "PDFファイルを編集しやすいDOCやDOCX文書に簡単に変換できます。変換されたWORD文書はほぼ100％正確です。",
-      "file": "pdf_word.svg"
-    },
     "word_pdf": {
       "name": "word_pdf",
       "title": "WordからPDFへ",
       "description": "DOCやDOCXファイルをPDFに変換して読みやすくします。",
       "file": "word_pdf.svg"
+    },
+    "pdf_word": {
+      "name": "pdf_word",
+      "title": "PDFからWordへ",
+      "description": "PDFファイルを編集しやすいDOCやDOCX文書に簡単に変換できます。変換されたWORD文書はほぼ100％正確です。",
+      "file": "pdf_word.svg"
     },
     "sign": {
       "name": "sign_pdf",

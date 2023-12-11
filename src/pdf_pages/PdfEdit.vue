@@ -27,7 +27,7 @@
             <b>{{ $t("features.compress.title") }}</b>
           </p>
         </router-link>
-        <router-link to="/test">
+        <router-link to="to=/wordtopdf">
           <p class="nav-btn">
             <b>{{ $t("other_features.convert_pdf.title") }}</b>
           </p>
@@ -121,6 +121,11 @@ export default {
 </script>
 
 <style lang="css">
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+}
 .nav-top {
   background: #fff;
   width: 100%;

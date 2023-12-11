@@ -135,6 +135,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+}
+
+h2::first-letter {
+  text-transform: uppercase;
+}
 .md-layout-item {
   height: 40px;
 
@@ -214,10 +229,9 @@ h4 {
   flex-grow: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  -ms-flex-preferred-size: calc(16.666% - 4px);
-  flex-basis: calc(16.666% - 4px);
+  -ms-flex-preferred-size: calc(25% - 30px);
+  flex-basis: calc(25% - 30px);
   border: 1px solid #f5f5fa;
-  margin: 2px;
   position: relative;
   overflow: hidden;
   -webkit-transition: background-color 0.4s ease-out,
@@ -231,6 +245,9 @@ h4 {
   border-radius: 4px;
   -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 30px;
 }
 
 .solution {
@@ -399,8 +416,11 @@ h4 {
     flex-grow: 0;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    -ms-flex-preferred-size: calc(25% - 4px);
-    flex-basis: calc(25% - 4px);
+    -ms-flex-preferred-size: calc(25% - 30px);
+    flex-basis: calc(25% - 30px);
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 30px;
   }
 }
 
@@ -415,8 +435,11 @@ h4 {
     flex-grow: 0;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    -ms-flex-preferred-size: calc(25% - 4px);
-    flex-basis: calc(25% - 4px);
+    -ms-flex-preferred-size: calc(25% - 30px);
+    flex-basis: calc(25% - 30px);
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 30px;
   }
 }
 
@@ -426,8 +449,11 @@ h4 {
     flex-grow: 0;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    -ms-flex-preferred-size: calc(33.333% - 4px);
-    flex-basis: calc(33.333% - 4px);
+    -ms-flex-preferred-size: calc(33.333% - 30px);
+    flex-basis: calc(33.333% - 30px);
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 30px;
   }
 }
 
@@ -437,8 +463,11 @@ h4 {
     flex-grow: 0;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    -ms-flex-preferred-size: calc(50% - 4px);
-    flex-basis: calc(50% - 4px);
+    -ms-flex-preferred-size: calc(50% - 30px);
+    flex-basis: calc(50% - 30px);
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 30px;
   }
 
   .solution-header {
@@ -455,8 +484,9 @@ h4 {
     flex-grow: 0;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    -ms-flex-preferred-size: calc(100% - 4px);
-    flex-basis: calc(100% - 4px);
+    -ms-flex-preferred-size: calc(100% - 30px);
+    flex-basis: calc(100% - 30px);
+    margin-top: 30px;
   }
 }
 </style>

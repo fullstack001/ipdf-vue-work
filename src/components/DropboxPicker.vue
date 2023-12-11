@@ -137,8 +137,8 @@ export default {
       let options = {
         files: [
           {
-            // url: `https://api.pdfden.com/uploads/${this.uploadFiles[0]}`,
-            url: `http://127.0.0.1:5000/uploads/${this.uploadFiles[0]}`,
+            url: `https://api.pdfden.com/uploads/${this.uploadFiles[0]}`,
+            // url: `http://127.0.0.1:5000/uploads/${this.uploadFiles[0]}`,
             filename: "merged_pdf.pdf",
           },
         ],
@@ -168,6 +168,11 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+}
 .dropbox-icon {
   width: 40px;
   height: 40px;
