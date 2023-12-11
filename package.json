@@ -35,6 +35,7 @@
     "vue-qrcode-component": "^2.1.1",
     "vue-radial-progress": "^0.3.2",
     "vue-router": "3.5.2",
+    "vue-select": "^3.20.2",
     "vue-social-sharing": "3.0.9",
     "vue-tab-component": "^1.6.4",
     "vue-tabs-component": "^1.5.0",

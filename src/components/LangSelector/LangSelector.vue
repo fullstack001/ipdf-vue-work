@@ -1,12 +1,12 @@
 <template>
   <div class="langSelector">
-    <img
+    <!-- <img
       src="@/assets/img/globe16.png"
       srcset="@/assets/img/globe16.png"
       alt="language selector icon"
       class="langSelector__img"
-    />
-    <a
+    /> -->
+    <!-- <a
       v-for="(lang, index) in supportedLanguages"
       v-bind:class="
         'langSelector__link' + [activeLanguage === index ? ' active' : '']
@@ -14,7 +14,29 @@
       v-bind:key="index"
       @click="selectLanguage(index)"
       >{{ lang }}</a
-    >
+    > -->
+    <div>
+      <label for="mySelect"
+        ><img
+          src="@/assets/img/globe16.png"
+          srcset="@/assets/img/globe16.png"
+          alt="language selector icon"
+          class="langSelector__img"
+      /></label>
+      <select
+        v-model="selectedOption"
+        @change="handleSelectChange"
+        class="langSelector__select"
+      >
+        <option
+          v-for="(lang, index) in supportedLanguages"
+          :key="index"
+          :value="index"
+        >
+          {{ lang }}
+        </option>
+      </select>
+    </div>
   </div>
 </template>
 
@@ -29,9 +51,15 @@ export default {
       defaultLanguage: "en",
       activeLanguage: this.$i18n.locale,
       supportedLanguages: languages,
+      selectedOption: this.$i18n.locale,
     };
   },
   methods: {
+    handleSelectChange(event) {
+      // Get the selected value
+      const selectedValue = event.target.value;
+      this.selectLanguage(selectedValue);
+    },
     selectLanguage: function (lang) {
       // if selected language doesn't exist, fallback to default
       let langSelected = this.isLanguageAvailable(lang)

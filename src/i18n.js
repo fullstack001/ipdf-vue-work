@@ -13,7 +13,7 @@ const i18n = new VueI18n({
 export const languages = {
   en: "English",
   fr: "Français",
-  ja: "Japanese",
+  ja: "日本語",
   //"es": "Español",
   //"gr": "Deutsche",
   // "ru": "Pусский"
