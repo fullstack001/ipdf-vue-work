@@ -13,6 +13,13 @@ module.exports = {
         endOfLine: "auto",
       },
     ],
+    // // eslint-disable-next-line
+    // "vue/multi-word-component-names": [
+    //   "error",
+    //   {
+    //     ignores: [],
+    //   },
+    // ],
   },
   parserOptions: {
     parser: "babel-eslint",

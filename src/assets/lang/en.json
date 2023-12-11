@@ -1,0 +1,78 @@
+{
+  "page_titles": {
+    "landing": {
+      "title1": "Every tool you need to work with PDFs in one place",
+      "text1": "Every tool you need to use PDFs, at your fingertips. All are 100% FREE and esay to use! Merge, Split, Compress, Convert, Rotate, Unlock and watermark PDFs with just a few clicks",
+      "section1": {
+        "title": "Latest news from our company",
+        "title1": "Lerem Ipsum is simply dummy",
+        "text1": "Lerem Ipsum is simply dummy text of the printing and typing indremm has",
+        "title2": "Lorem Ipsum is simply dummy",
+        "text2": "Lerem Ipsum is simply dummy text of the printing and typing indremm has",
+        "title3": "Lerem Ipsum is simply dummy",
+        "text3": "Lerem Ipsum is simply dummy text of the printing and typing indremm has"
+      },
+      "section2": {
+        "title": "Register For Free Account",
+        "item1": "Extended File Life",
+        "item2": "Priority Download Access",
+        "item3": "All your files in one place",
+        "button": "Get Free Account"
+      }
+    }
+  },
+  "features": {
+    "merge": {
+      "name": "pdfmerge",
+      "title": "Merge PDF",
+      "description": "Combine PDFs in the order you want with the easiest PDF merger available",
+      "file": "merge_pdf.svg"
+    },
+    "split": {
+      "name": "pdfsplit",
+      "title": "Split PDF",
+      "description": "Separate one page or a whole set for easy conversion into independent PDF files",
+      "file": "split_pdf.svg"
+    },
+    "compress": {
+      "name": "pdfcompress",
+      "title": "Compress PDF",
+      "description": "Reduce file size while optimizing for maximal PDF quality",
+      "file": "compress_pdf.svg"
+    },
+    "pdf_word": {
+      "name": "pdf_word",
+      "title": "PDF to Word",
+      "description": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",
+      "file": "pdf_word.svg"
+    },
+    "word_pdf": {
+      "name": "word_pdf",
+      "title": "Word to PDF",
+      "description": "Make DOC and DOCX files easy to read by converting them to PDF.",
+      "file": "word_pdf.svg"
+    },
+    "sign": {
+      "name": "sign_pdf",
+      "title": "Sign PDF",
+      "description": "Sign yourself or request electronic signatures from others.",
+      "file": "sign_pdf.svg"
+    },
+    "edit": {
+      "name": "edit_pdf",
+      "title": "Edit PDF",
+      "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
+      "file": "edit_pdf.svg"
+    },
+    "rotate": {
+      "name": "rotate_pdf",
+      "title": "Rotate PDF",
+      "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
+      "file": "rotate_pdf.svg"
+    }
+  },
+  "other_features": {
+    "convert_pdf": { "title": "CONVERT PDF" },
+    "all_pdf_tools": { "title": "ALL PDF TOOLS" }
+  }
+}

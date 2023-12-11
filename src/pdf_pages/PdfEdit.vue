@@ -11,12 +11,12 @@
         </router-link>
         <router-link to="/pdfmerge">
           <p class="nav-btn" :class="{ 'active-link': isActive('/pdfmerge') }">
-            <b>MERGE PDF</b>
+            <b>{{ $t("features.merge.title") }}</b>
           </p>
         </router-link>
         <router-link to="/pdfsplit">
           <p class="nav-btn" :class="{ 'active-link': isActive('/pdfsplit') }">
-            <b>SPLIT PDF</b>
+            <b>{{ $t("features.split.title") }}</b>
           </p>
         </router-link>
         <router-link to="/pdfcompress">
@@ -24,11 +24,17 @@
             class="nav-btn"
             :class="{ 'active-link': isActive('/pdfcompress') }"
           >
-            <b>COMPRESS PDF</b>
+            <b>{{ $t("features.compress.title") }}</b>
           </p>
         </router-link>
-        <p class="nav-btn"><b>CONVERT PDF</b></p>
-        <p class="nav-btn"><b>ALL PDF TOOLS</b></p>
+        <router-link to="/test">
+          <p class="nav-btn">
+            <b>{{ $t("other_features.convert_pdf.title") }}</b>
+          </p>
+        </router-link>
+        <p class="nav-btn">
+          <b>{{ $t("other_features.all_pdf_tools.title") }}</b>
+        </p>
 
         <div class="md-toolbar-section-end">
           <div class="md-collapse">
@@ -67,6 +73,7 @@
     <edit-content></edit-content>
     <div class="footer">
       <div class="block__container">
+        <LangSelector />
         <div class="footer-links">
           <div class="footer-link">
             <router-link to="/"> About </router-link>
@@ -95,9 +102,11 @@
 
 <script>
 import EditContent from "./EditContent.vue";
+import LangSelector from "@/components/LangSelector/LangSelector.vue";
 export default {
   components: {
     EditContent,
+    LangSelector,
   },
 
   methods: {

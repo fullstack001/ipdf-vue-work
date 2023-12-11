@@ -75,7 +75,7 @@ export default {
           .setDeveloperKey("AIzaSyDNmRpOk4dHkpk2c8TZLC5ZGOCWxVUfZbU")
           .setOAuthToken(this.oauthToken)
           .addView(view)
-          .addView(new google.picker.DocsUploadView())
+          // .addView(new google.picker.DocsUploadView())
           .setCallback(this.pickerCallback)
           .build();
 

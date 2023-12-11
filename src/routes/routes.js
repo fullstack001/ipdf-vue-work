@@ -63,6 +63,11 @@ const routes = [
         component: Deleted,
         name: "deleted",
       },
+      {
+        path: "/test",
+        component: Test,
+        name: "test",
+      },
     ],
   },
   {

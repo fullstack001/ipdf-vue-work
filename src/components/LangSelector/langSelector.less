@@ -1,0 +1,35 @@
+.langSelector {
+    display: inline-block;
+    font-size: .875rem;
+    margin-left: 1rem;
+
+    &__img {
+        vertical-align: middle;
+        margin-right: 0.5rem;
+    }
+
+    &__link {
+        padding: 0.3rem 0.6rem;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        user-select: none;
+        color: #E9901C;
+        text-decoration: none;
+        cursor: pointer;
+
+        &.active {
+            color: brown;
+            background-color: #e8e8e8;
+        }
+
+        @media (max-width: 45rem) {
+            font-size: 0.85em;
+        }
+    }
+
+    @media (max-width: 45rem) {
+        display: block;
+        margin: 1rem 0 0 0;
+    }
+}

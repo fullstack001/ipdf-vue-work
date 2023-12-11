@@ -21,6 +21,8 @@ import loading from "vuejs-loading-screen";
 import Donut from "vue-css-donut-chart";
 import "vue-css-donut-chart/dist/vcdonut.css";
 
+import i18n from "./i18n";
+
 // router setup
 import routes from "./routes/routes";
 
@@ -55,6 +57,9 @@ Vue.use(GlobalDirectives);
 Vue.use(Notifications);
 Vue.use(axios);
 Vue.use(Donut);
+
+Vue.config.productionTip = false;
+
 Vue.use(loading, {
   size: 5,
   icon_color: "white",
@@ -66,6 +71,7 @@ new Vue({
   render: (h) => h(App),
   store,
   router,
+  i18n,
   // data: {
   //   Chartist: Chartist,
   // },
