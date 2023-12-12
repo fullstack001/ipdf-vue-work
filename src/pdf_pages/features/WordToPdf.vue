@@ -40,9 +40,9 @@
                   @click="open_add_local"
                 >
                   <md-icon>computer</md-icon>
-                  <md-tooltip md-direction="bottom"
-                    >Upload from local area</md-tooltip
-                  >
+                  <md-tooltip md-direction="bottom">{{
+                    $t("toolTip.upload_local")
+                  }}</md-tooltip>
                 </md-button>
                 <GDriveSelector
                   @picked="onPickedGoogleDriver"
@@ -102,7 +102,12 @@
                 </a>
               </div>
               <div :id="'id' + index" :style="'id' + index">
-                <WordThumbnail :fileUrl="getURL(file)" />
+                <img
+                  src="@/assets/img/word.png"
+                  srcset="@/assets/img/word.png"
+                  alt="language selector icon"
+                  class="word_preview_img"
+                />
               </div>
               <div class="prew_title">
                 {{
@@ -127,9 +132,9 @@
               @click="open_add_local"
             >
               <md-icon>computer</md-icon>
-              <md-tooltip md-direction="bottom"
-                >Upload from local area</md-tooltip
-              >
+              <md-tooltip md-direction="bottom">{{
+                $t("toolTip.upload_local")
+              }}</md-tooltip>
             </md-button>
             <GDriveSelector
               @picked="onPickedGoogleDriver"
@@ -158,7 +163,7 @@
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
         <h3 class="text-center">Word to PDF</h3>
         <div class="option__panel option__panel--active" id="merge-options">
-          <button class="option__panel__title" @click="convert">
+          <button class="option__panel__title" @click="convertToPdf">
             Convert to PDF
           </button>
         </div>
@@ -168,16 +173,15 @@
 </template>
 
 <script>
-import WordThumbnail from "@/components/WordThumbnail.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import CryptoJS from "crypto-js";
-import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
+import mammoth from "mammoth";
+import html2canvas from "html2canvas";
 
 export default {
   components: {
-    WordThumbnail,
     VueDropboxPicker,
     draggable,
     GDriveSelector,
@@ -240,82 +244,44 @@ export default {
       }
       console.log(this.files);
     },
-    getURL(file) {
-      const fileSrc = generateURL(file);
-      return fileSrc;
-    },
-    async readFileAsync(file) {
-      return new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.onload = () => {
-          resolve(reader.result);
-        };
-        reader.onerror = reject;
-        reader.readAsArrayBuffer(file);
-      });
-    },
-
-    //expressPDFs
-    async convert() {
-      if (this.radio) {
-        this.$isLoading(true); // show loading screen
-        let originSize = 0;
-        const formData = new FormData();
-        for (let i = 0; i < this.file_objs.length; i++) {
-          formData.append("files", this.file_objs[i].file);
-          originSize = originSize + this.file_objs[i].file.size;
-        }
-        formData.append("level", this.radio);
-        this.$axios
-          .post("/pdf/pdf_compress", formData)
-          .then((response) => {
-            let reSize = null;
-            // Handle response from server
-            const type = response.data.file.split(".")[1];
-            if (response.data.reSize >= originSize / 1024) {
-              reSize = (originSize / 1024) * 0.8;
-            } else {
-              reSize = response.data.reSize;
-            }
-            console.log(type);
-            const obj = {
-              id: response.data.file,
-              button_title: "Download Compressed PDF",
-              dis_text: "PDF has been compressed!",
-              down_name: `pdfdenCompressed.${type}`,
-              file_type: `application/${type}`,
-              before: "pdfcompress",
-              originSize: (originSize / 1024).toFixed(2),
-              resultSize: reSize.toFixed(2),
-            };
-            // Your secret message
-            const message = JSON.stringify(obj);
-
-            // Your secret key (should be kept private)
-            const secretKey = "mySecretKey123";
-
-            // Encrypt the message using AES encryption with the secret key
-            const encrypted = CryptoJS.AES.encrypt(
-              message,
-              secretKey
-            ).toString();
-
-            this.$router.push({
-              name: "download",
-              params: {
-                param: encrypted,
-              },
-            });
-          })
-          .catch((error) => {
-            console.error("Error uploading files:", error);
-          })
-          .finally(() => {
-            this.$isLoading(false); // hide loading screen
-          });
-      } else {
-        this.second = true;
+    async convertToPdf() {
+      this.$isLoading(true); // show loading screen
+      const formData = new FormData();
+      for (let i = 0; i < this.files.length; i++) {
+        formData.append("files", this.files[i]);
       }
+      this.$axios
+        .post("/pdf/wordtopdf", formData)
+        .then((response) => {
+          const type = response.data.split(".")[1];
+          const obj = {
+            id: response.data,
+            button_title: "Download Converted PDF",
+            dis_text: "Word has been Converted!",
+            down_name: `pdfden_converted.${type}`,
+            file_type: `application/${type}`,
+            before: "wordtopdf",
+          };
+          // Your secret message
+          const message = JSON.stringify(obj);
+
+          // Your secret key (should be kept private)
+          const secretKey = "mySecretKey123";
+
+          // Encrypt the message using AES encryption with the secret key
+          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+
+          this.$router.push({
+            name: "download",
+            params: {
+              param: encrypted,
+            },
+          });
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          this.$isLoading(false); // hide loading screen
+        });
     },
   },
 };
@@ -465,7 +431,9 @@ body {
   -ms-flex-pack: center;
   justify-content: center;
 }
-.downloader__btn,
+.word_preview_img {
+  width: 130px;
+}
 .uploader__btn {
   cursor: pointer;
   display: -ms-inline-flexbox;

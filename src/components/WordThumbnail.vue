@@ -1,7 +1,7 @@
 <!-- WordDocumentViewer.vue -->
 <template>
   <div>
-    <div class="thumbnail" ref="thumbnail"></div>
+    <div class="thumbnail" ref="thumbnail0"></div>
     <div class="content" v-html="0"></div>
   </div>
 </template>

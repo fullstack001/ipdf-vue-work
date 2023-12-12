@@ -3,17 +3,18 @@
     <md-button class="md-icon-button" @click="driveIconClicked()">
       <md-icon>add_to_drive</md-icon>
       <md-tooltip md-direction="right" v-show="buttonStyle == 'download'">
-        Download from Google Driver
+        {{ $t("toolTip.sel_google") }}
       </md-tooltip>
-      <md-tooltip md-direction="top" v-show="buttonStyle == 'upload'"
-        >Upload to Google Driver</md-tooltip
-      >
+      <md-tooltip md-direction="top" v-show="buttonStyle == 'upload'">{{
+        $t("toolTip.save_google")
+      }}</md-tooltip>
     </md-button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { gDrive_clientId, gDrive_dev_key } from "./key_env";
 export default {
   name: "Attachment",
   props: ["buttonStyle", "file"],
@@ -22,11 +23,8 @@ export default {
       isSignedIn: false,
       googleUserProfile: {},
       pickerApiLoaded: false,
-      developerKey: "Your-Develop-Key",
-      clientId: "Your-Deveop-Key",
-      // developerKey: "AIzaSyDNmRpOk4dHkpk2c8TZLC5ZGOCWxVUfZbU",
-      // clientId:
-      //   "555210504768-28vlqb2lqnjnhq1ch9d1c5fo9f9smuun.apps.googleusercontent.com",
+      developerKey: gDrive_dev_key,
+      clientId: gDrive_clientId,
       scope: "https://www.googleapis.com/auth/drive",
       oauthToken: null,
       selectedFile: null,

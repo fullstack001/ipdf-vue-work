@@ -1,25 +1,24 @@
 {
-  "page_titles":{
-    "landing":{
-      "title1":"Tous les outils dont vous avez besoin pour travailler avec des PDF en un seul endroit",
-      "text1":"Tous les outils dont vous avez besoin pour utiliser les PDF sont à portée de main. Tous sont 100% GRATUITS et faciles à utiliser ! Fusionnez, divisez, comprimez, convertissez, faites pivoter, déverrouillez et apposez un filigrane sur les PDF en quelques clics.",
-      "section1":
-        {"title"  :"Dernières nouvelles de notre entreprise",
-         "title1" :"Lerem Opsum est tout simplement idiote",
-         "text1"  :"Lerem Ipsum est simplement un texte factice de l'imprimerie et de la dactylographie indremm a",
-         "title2" :"Lerem Opsum est tout simplement idiote",
-         "text2"  :"Lerem Ipsum est simplement un texte factice de l'imprimerie et de la dactylographie indremm a",
-         "title3" :"Lerem Opsum est tout simplement idiote",
-         "text3"  :"Lerem Ipsum est simplement un texte factice de l'imprimerie et de la dactylographie indremm a"
-        },
-      "section2":
-        {
-          "title" : "S'inscrire à un compte gratuit",
-          "item1" : "Durée de vie prolongée des fichiers",
-          "item2" : "Accès prioritaire au téléchargement",
-          "item3" : "Tous vos fichiers en un seul endroit",
-          "button": "Obtenir un compte gratuit"
-        }
+  "page_titles": {
+    "landing": {
+      "title1": "Tous les outils dont vous avez besoin pour travailler avec des PDF en un seul endroit",
+      "text1": "Tous les outils dont vous avez besoin pour utiliser les PDF sont à portée de main. Tous sont 100% GRATUITS et faciles à utiliser ! Fusionnez, divisez, comprimez, convertissez, faites pivoter, déverrouillez et apposez un filigrane sur les PDF en quelques clics.",
+      "section1": {
+        "title": "Dernières nouvelles de notre entreprise",
+        "title1": "Lerem Opsum est tout simplement idiote",
+        "text1": "Lerem Ipsum est simplement un texte factice de l'imprimerie et de la dactylographie indremm a",
+        "title2": "Lerem Opsum est tout simplement idiote",
+        "text2": "Lerem Ipsum est simplement un texte factice de l'imprimerie et de la dactylographie indremm a",
+        "title3": "Lerem Opsum est tout simplement idiote",
+        "text3": "Lerem Ipsum est simplement un texte factice de l'imprimerie et de la dactylographie indremm a"
+      },
+      "section2": {
+        "title": "S'inscrire à un compte gratuit",
+        "item1": "Durée de vie prolongée des fichiers",
+        "item2": "Accès prioritaire au téléchargement",
+        "item3": "Tous vos fichiers en un seul endroit",
+        "button": "Obtenir un compte gratuit"
+      }
     }
   },
   "features": {
@@ -75,5 +74,13 @@
   "other_features": {
     "convert_pdf": { "title": "CONVERTIR PDF" },
     "all_pdf_tools": { "title": "TOUS LES OUTILS PDF" }
+  },
+  "toolTip": {
+    "sel_google": "Sélectionner un PDF à partir de Google",
+    "sel_dropBox": "Sélectionner un PDF à partir de Dropbox",
+    "upload_local": "Télécharger depuis l'ordinateur",
+    "save_dropBox": "Enregistrer dans Dropbox",
+    "save_google": "Enregistrer dans Google Drive",
+    "link": "Partager le lien du fichier ou scanner QR"
   }
 }

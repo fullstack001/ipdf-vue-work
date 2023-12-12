@@ -27,7 +27,7 @@
             <b>{{ $t("features.compress.title") }}</b>
           </p>
         </router-link>
-        <router-link to="to=/wordtopdf">
+        <router-link to="wordtopdf">
           <p class="nav-btn">
             <b>{{ $t("other_features.convert_pdf.title") }}</b>
           </p>

@@ -74,5 +74,13 @@
   "other_features": {
     "convert_pdf": { "title": "PDF変換" },
     "all_pdf_tools": { "title": "すべてのPDFツール" }
+  },
+  "toolTip": {
+    "sel_google": "GoogleからPDFを選択",
+    "sel_dropBox": "DropboxからPDFを選択",
+    "upload_local": "パソコンからアップロード",
+    "save_dropBox": "Dropboxに保存",
+    "save_google": "Google Driveに保存",
+    "link": "ファイルリンクの共有またはQRスキャン"
   }
 }

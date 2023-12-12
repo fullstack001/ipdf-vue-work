@@ -1,20 +1,5 @@
 <template>
   <div class="langSelector">
-    <!-- <img
-      src="@/assets/img/globe16.png"
-      srcset="@/assets/img/globe16.png"
-      alt="language selector icon"
-      class="langSelector__img"
-    /> -->
-    <!-- <a
-      v-for="(lang, index) in supportedLanguages"
-      v-bind:class="
-        'langSelector__link' + [activeLanguage === index ? ' active' : '']
-      "
-      v-bind:key="index"
-      @click="selectLanguage(index)"
-      >{{ lang }}</a
-    > -->
     <div>
       <label for="mySelect"
         ><img

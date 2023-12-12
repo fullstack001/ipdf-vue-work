@@ -360,10 +360,6 @@
               </div>
               <div :id="'id' + index" :style="'id' + index" class="preview_img">
                 <PdfViewer :fileUrl="getURL(file_obj)" />
-                <md-tooltip md-direction="top"
-                  >{{ (file_obj.file.size / 1024).toFixed(2) }} KByte
-                  {{ file_obj.page }}pages
-                </md-tooltip>
               </div>
               <div class="prew_title">
                 {{
@@ -371,20 +367,30 @@
                     ? file_obj.file.name.substring(0, 20) + "..."
                     : file_obj.file.name
                 }}
-                <!-- <md-tooltip md-direction="bottom"
-                  >{{ file_obj.file.name }}
-                </md-tooltip> -->
               </div>
+              <md-tooltip md-direction="top"
+                >{{ (file_obj.file.size / 1024).toFixed(2) }} KByte
+                {{ file_obj.page }}pages
+              </md-tooltip>
             </div>
           </draggable>
         </div>
         <div class="add-more" v-show="file_objs.length" style="right: 0">
           <div class="add-more-area">
-            <div class="md-primary" md-content="4" v-if="file_objs.length">
+            <div
+              class="badge-container md-primary"
+              md-content="4"
+              v-if="file_objs.length"
+            >
               <md-button class="md-icon-button" @click="open_add_local">
                 <md-icon>computer</md-icon>
-                <md-tooltip md-direction="right">Upload from Local </md-tooltip>
+                <md-tooltip md-direction="right"
+                  >{{ $t("toolTip.upload_local") }}
+                </md-tooltip>
               </md-button>
+              <div class="badge">
+                {{ file_objs.length }}
+              </div>
             </div>
             <GDriveSelector
               @picked="onPickedGoogleDriver"
@@ -454,7 +460,8 @@
 
     <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <div class="tool__sidebar__inactive">
+        <h3>MergePDF</h3>
+        <!-- <div class="tool__sidebar__inactive">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="75"
@@ -468,20 +475,28 @@
             ></path>
           </svg>
           <p>Please add a file to activate options</p>
-        </div>
+        </div> -->
         <div class="option__panel option__panel--active" id="merge-options">
           <div class="option__panel__content">
-            <div class="info drag" style="display: none">
+            <div
+              class="info drag"
+              style="display: none"
+              v-show="file_objs.length == 1"
+            >
               To change the order of your PDFs, drag and drop the files as you
               want.
             </div>
-            <div class="info multiple">
+            <div class="info multiple" v-show="file_objs.length > 1">
               Please, select more PDF files by clicking again on ’Select PDF
               files’. <br />Select multiple files by mantaining pressed ’Ctrl’
             </div>
             <div class="multiple hidden">Please, select more PDF files</div>
           </div>
-          <button class="option__panel__title" @click="mergePDFs">
+          <button
+            class="option__panel__title"
+            @click="mergePDFs"
+            :disabled="file_objs.length == 1"
+          >
             Merge PDF
           </button>
         </div>
@@ -981,6 +996,7 @@ body {
   padding: 10px;
   border-radius: 5px;
   font-size: 13px;
+  margin-bottom: 130px;
 }
 
 .option__panel__title {
@@ -1187,7 +1203,23 @@ body {
 .prew_title {
   word-wrap: break-word;
 }
-
+.badge-container {
+  position: relative;
+}
+h3 {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.badge[data-v-3a2b3612] {
+  position: absolute;
+  top: -10px;
+  right: 33px;
+  background-color: rgb(10, 10, 10);
+  color: white;
+  border-radius: 100%;
+  padding: 1px 8px;
+  font-size: 10px;
+}
 @media (max-width: 960px) {
   .tools__item {
     -ms-flex-positive: 0;

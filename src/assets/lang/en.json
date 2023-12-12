@@ -74,5 +74,13 @@
   "other_features": {
     "convert_pdf": { "title": "CONVERT PDF" },
     "all_pdf_tools": { "title": "ALL PDF TOOLS" }
+  },
+  "toolTip":{
+    "sel_google":"Select PDF from Google Drive",
+    "sel_dropBox":"Select PDF from Dropbox",
+    "upload_local":"Upload from Computer",
+    "save_dropBox":"Save to Dropbox",
+    "save_google":"Save to Google Drive",
+    "link":"Share File Link or Scan QR"
   }
 }

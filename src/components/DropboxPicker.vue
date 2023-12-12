@@ -15,16 +15,17 @@
         </svg>
       </a>
       <md-tooltip md-direction="right" v-show="buttonType == 'chooser'">
-        Download from dropbox
+        {{ $t("toolTip.sel_dropBox") }}
       </md-tooltip>
       <md-tooltip md-direction="bottom" v-show="buttonType == 'saver'">
-        Save to dropbox
+        {{ $t("toolTip.save_dropBox") }}
       </md-tooltip>
     </div>
   </div>
 </template>
 
 <script>
+import { dropBox_apiKey } from "./key_env";
 export default {
   props: {
     linkType: {
@@ -61,8 +62,7 @@ export default {
     },
   },
   data: () => ({
-    // apiKey: "w7vvdh8a5g5av1p",
-    apiKey: "Your-App",
+    apiKey: dropBox_apiKey,
     scriptLoaded: true,
     dropboxChooserIsSupported: true,
   }),

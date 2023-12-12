@@ -40,9 +40,9 @@
                   @click="open_add_local"
                 >
                   <md-icon>computer</md-icon>
-                  <md-tooltip md-direction="bottom"
-                    >Upload from local area</md-tooltip
-                  >
+                  <md-tooltip md-direction="bottom">{{
+                    $t("toolTip.upload_local")
+                  }}</md-tooltip>
                 </md-button>
                 <GDriveSelector
                   @picked="onPickedGoogleDriver"
@@ -130,9 +130,9 @@
               @click="open_add_local"
             >
               <md-icon>computer</md-icon>
-              <md-tooltip md-direction="bottom"
-                >Upload from local area</md-tooltip
-              >
+              <md-tooltip md-direction="bottom">{{
+                $t("toolTip.upload_local")
+              }}</md-tooltip>
             </md-button>
             <GDriveSelector
               @picked="onPickedGoogleDriver"
