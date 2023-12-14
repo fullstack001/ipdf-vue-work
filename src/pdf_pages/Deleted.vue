@@ -26,10 +26,10 @@ export default {
   methods: {
     back_page() {
       console.log(this.before);
-      this.$router.push(`/allfeatures`);
+      this.$router.push(`/`);
     },
     go_home() {
-      this.$router.push(`/allfeatures`);
+      this.$router.push(`/`);
     },
   },
 };
@@ -59,7 +59,7 @@ body {
   padding: 24px 48px;
   font-weight: 500;
   font-size: 24px;
-  background: #e5322d;
+  background: #ff7c03;
   line-height: 28px;
   vertical-align: middle;
   color: #fff !important;
@@ -79,12 +79,12 @@ body {
 
 .deleted__btn:hover {
   color: #fff !important;
-  background: #e90b03;
+  background: #ff7c03;
   cursor: pointer;
 }
 .deleted__btn:focus {
   color: #fff !important;
-  background: #e90b03;
+  background: #ff7c03;
 }
 
 .deleted_btn {

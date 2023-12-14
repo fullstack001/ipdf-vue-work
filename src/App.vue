@@ -1,22 +1,33 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <div v-if="isLoading">Loading...</div>
+    <div v-else>
+      <Nav />
+      <router-view></router-view>
+      <Footer />
+    </div>
+  </div>
 </template>
 
 <script>
+import Nav from "@/view/Nav.vue";
+import Footer from "@/view/Footer.vue";
+import EventBus from "@/EventBus";
+
 export default {
   name: "app",
+  components: {
+    Nav,
+    Footer,
+  },
   data() {
     return {
-      defaultLanguage: "en",
+      isLoading: true,
     };
   },
-  beforeMount() {
-    // get locale on page load
-    // eslint-disable-next-line
-            let lang = !!localStorage.getItem("lang")? localStorage.getItem("lang"): this.defaultLanguage;
-
-    this.$i18n.locale = lang;
-    this.$i18n.setLocaleMessage(lang, require(`@languages/${lang}.json`));
+  mounted() {
+    EventBus.$on("i18n-load-start", () => (this.isLoading = true));
+    EventBus.$on("i18n-load-complete", () => (this.isLoading = false));
   },
 };
 </script>

@@ -26,6 +26,10 @@
             <md-card>
               <md-card-media>
                 <img src="@/assets/img/solution1.png" alt="People" />
+                <div class="card-tip">
+                  <div class="card-tip-date">10</div>
+                  <div class="card-tip-month">NOV</div>
+                </div>
               </md-card-media>
 
               <md-card-header>
@@ -42,6 +46,10 @@
             <md-card>
               <md-card-media>
                 <img src="@/assets/img/solution2.png" alt="People" />
+                <div class="card-tip">
+                  <div class="card-tip-date">10</div>
+                  <div class="card-tip-month">NOV</div>
+                </div>
               </md-card-media>
 
               <md-card-header>
@@ -58,6 +66,10 @@
             <md-card>
               <md-card-media>
                 <img src="@/assets/img/solution3.png" alt="People" />
+                <div class="card-tip">
+                  <div class="card-tip-date">10</div>
+                  <div class="card-tip-month">NOV</div>
+                </div>
               </md-card-media>
 
               <md-card-header>
@@ -145,10 +157,17 @@ h4,
 h5,
 h6 {
   font-family: "Montserrat", sans-serif;
+  color: #575757;
 }
 
 h2::first-letter {
   text-transform: uppercase;
+}
+
+h2 {
+  font-size: 39px !important;
+  color: #575757;
+  font-weight: 800;
 }
 .md-layout-item {
   height: 40px;
@@ -396,6 +415,32 @@ h4 {
 .md-card-header {
   background-color: #fff !important;
   margin-bottom: 15px !important;
+}
+
+.card-tip {
+  position: absolute;
+  background-color: #ff7c03;
+  border-radius: 0px 8px 8px 0px;
+  bottom: 15px;
+  color: #fff;
+  padding: 5px 5px;
+  font-weight: 500;
+}
+
+.card-tip-date {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.md-card-header {
+  box-shadow: none !important;
+}
+
+.md-card-header .md-title {
+  font-weight: 600;
+  color: #575757;
+  font-size: 20px;
 }
 @media (min-width: 992px) {
   .block__container {

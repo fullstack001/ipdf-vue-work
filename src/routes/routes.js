@@ -1,3 +1,6 @@
+import Vue from "vue";
+import VueRouter from "vue-router";
+
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
@@ -8,65 +11,85 @@ import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Notifications from "@/pages/Notifications.vue";
 
-import PdfEdit from "@/pdf_pages/PdfEdit.vue";
-import AllFeatures from "@/pdf_pages/features/AllFeatures.vue";
-import PdfMerge from "@/pdf_pages/features/PdfMerge.vue";
-import PdfSplit from "@/pdf_pages/features/PdfSplit.vue";
-import PdfCompress from "@/pdf_pages/features/PdfCompress.vue";
-import WordToPdf from "@/pdf_pages/features/WordToPdf.vue";
-import Download from "@/pdf_pages/DownLoad.vue";
-import Login from "@/pdf_pages/Login.vue";
-import Deleted from "@/pdf_pages/Deleted.vue";
+import Root from "./Root";
+import i18n, { loadLocaleMessagesAsync } from "@/i18n";
+import {
+  setDocumentDirectionPerLocale,
+  setDocumentLang,
+} from "@/util/i18n/document";
 
-//test
-import Test from "@/pdf_pages/features/Test.vue";
+// import PdfEdit from "@/pdf_pages/PdfEdit2.vue";
+import AllFeatures from "@/pdf_pages/features/AllFeatures.vue";
+
+Vue.use(VueRouter);
+
+const { locale } = i18n;
+console.log(locale);
 
 const routes = [
   {
     path: "/",
-    component: PdfEdit,
-    redirect: "/login",
+    redirect: locale,
+  },
+  {
+    path: "/:locale",
+    component: Root,
     children: [
       {
-        path: "login",
-        component: Login,
+        path: "",
+        component: AllFeatures,
+        name: "allfertures",
+      },
+      {
+        path: "/:locale/login",
+        component: () =>
+          import(/* webpackChunkName: "login" */ "@/pdf_pages/Login.vue"),
         name: "login",
       },
       {
-        path: "allfeatures",
-        component: AllFeatures,
-        name: "allfeatures",
-      },
-      {
-        path: "/pdfmerge",
-        component: PdfMerge,
+        path: "/:locale/pdfmerge",
+        component: () =>
+          import(
+            /* webpackChunkName: "pdfmerge" */ "@/pdf_pages/features/PdfMerge.vue"
+          ),
         name: "pdfmerge",
       },
       {
-        path: "/download/:param",
-        component: Download,
+        path: "/:locale/download/:param",
+        component: () =>
+          import(/* webpackChunkName: "download" */ "@/pdf_pages/DownLoad.vue"),
         name: "download",
       },
 
       {
-        path: "/pdfsplit",
-        component: PdfSplit,
+        path: "/:locale/pdfsplit",
+        component: () =>
+          import(
+            /* webpackChunkName: "pdfsplit" */ "@/pdf_pages/features/PdfSplit.vue"
+          ),
         name: "pdfsplit",
       },
       {
-        path: "/pdfcompress",
-        component: PdfCompress,
+        path: "/:locale/pdfcompress",
+        component: () =>
+          import(
+            /* webpackChunkName: "pdfcompress" */ "@/pdf_pages/features/PdfCompress.vue"
+          ),
         name: "pdfcompress",
       },
       ,
       {
-        path: "/deleted",
-        component: Deleted,
+        path: "/:locale/deleted",
+        component: () =>
+          import(/* webpackChunkName: "deleted" */ "@/pdf_pages/Deleted.vue"),
         name: "deleted",
       },
       {
-        path: "/wordtopdf",
-        component: WordToPdf,
+        path: "/:locale/wordtopdf",
+        component: () =>
+          import(
+            /* webpackChunkName: "pdfcompress" */ "@/pdf_pages/features/WordToPdf.vue"
+          ),
         name: "wordtopdf",
       },
     ],
@@ -118,4 +141,28 @@ const routes = [
   },
 ];
 
-export default routes;
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.params.locale === from.params.locale) {
+    next();
+    return;
+  }
+
+  const { locale } = to.params;
+  console.log(locale);
+
+  loadLocaleMessagesAsync(locale).then(() => {
+    setDocumentLang(locale);
+
+    setDocumentDirectionPerLocale(locale);
+  });
+
+  next();
+});
+
+export default router;

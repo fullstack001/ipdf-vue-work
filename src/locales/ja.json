@@ -1,0 +1,86 @@
+{
+  "page_titles": {
+    "landing": {
+      "title1": "PDFの操作に必要なすべてのツールを一箇所に集約",
+      "text1": "PDFを使うために必要なすべてのツールを、あなたの指先で。すべて100%無料で、簡単に使用できます！数回クリックするだけで、PDFを結合、分割、圧縮、変換、回転、ロック解除、透かしを入れられます。",
+      "section1": {
+        "title": "最新ニュース",
+        "title1": "レレム・イプサムは単なるダミー",
+        "text1": "レレム・イプサムとは、印刷やタイピングを行うインドレムのダミーテキストである。",
+        "title2": "レレム・イプサムは単なるダミー",
+        "text2": "レレム・イプサムとは、印刷やタイピングを行うインドレムのダミーテキストである。",
+        "title3": "レレム・イプサムは単なるダミー",
+        "text3": "レレム・イプサムとは、印刷やタイピングを行うインドレムのダミーテキストである。"
+      },
+      "section2": {
+        "title": "無料アカウント登録",
+        "item1": "ファイル寿命の延長",
+        "item2": "優先ダウンロード・アクセス",
+        "item3": "すべてのファイルを一箇所に",
+        "button": "無料アカウント"
+      }
+    }
+  },
+  "features": {
+    "merge": {
+      "name": "pdfmerge",
+      "title": "PDFのマージ",
+      "description": "最も簡単なPDF結合ツールで、PDFを好きな順序で結合できます。",
+      "file": "merge_pdf.svg"
+    },
+    "split": {
+      "name": "pdfsplit",
+      "title": "PDFを分割する",
+      "description": "独立したPDFファイルに簡単に変換するために、1ページまたはセット全体を分離する",
+      "file": "split_pdf.svg"
+    },
+    "compress": {
+      "name": "pdfcompress",
+      "title": "PDFを圧縮する",
+      "description": "PDFの品質を最大限に最適化しながらファイルサイズを縮小",
+      "file": "compress_pdf.svg"
+    },
+    "word_pdf": {
+      "name": "word_pdf",
+      "title": "WordからPDFへ",
+      "description": "DOCやDOCXファイルをPDFに変換して読みやすくします。",
+      "file": "word_pdf.svg"
+    },
+    "pdf_word": {
+      "name": "pdf_word",
+      "title": "PDFからWordへ",
+      "description": "PDFファイルを編集しやすいDOCやDOCX文書に簡単に変換できます。変換されたWORD文書はほぼ100％正確です。",
+      "file": "pdf_word.svg"
+    },
+    "sign": {
+      "name": "sign_pdf",
+      "title": "PDFに署名",
+      "description": "自分で署名するか、他の人に電子署名を依頼する。",
+      "file": "sign_pdf.svg"
+    },
+    "edit": {
+      "name": "edit_pdf",
+      "title": "PDFを編集する",
+      "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
+      "file": "edit_pdf.svg"
+    },
+    "rotate": {
+      "name": "rotate_pdf",
+      "title": "PDFを回転",
+      "description": "PDF 文書にテキスト、画像、図形、またはフリーハンドの注釈を追加します。追加したコンテンツのサイズ、フォント、色を編集します。",
+      "file": "rotate_pdf.svg"
+    }
+  },
+  "other_features": {
+    "convert_pdf": { "title": "PDF変換" },
+    "all_pdf_tools": { "title": "すべてのPDFツール" }
+  },
+  "toolTip": {
+    "sel_google": "GoogleからPDFを選択",
+    "sel_dropBox": "DropboxからPDFを選択",
+    "upload_local": "パソコンからアップロード",
+    "save_dropBox": "Dropboxに保存",
+    "save_google": "Google Driveに保存",
+    "link": "ファイルリンクの共有またはQRスキャン"
+  }
+}

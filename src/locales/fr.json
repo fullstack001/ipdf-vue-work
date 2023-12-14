@@ -1,0 +1,86 @@
+{
+  "page_titles": {
+    "landing": {
+      "title1": "Tous les outils dont vous avez besoin pour travailler avec des PDF en un seul endroit",
+      "text1": "Tous les outils dont vous avez besoin pour utiliser les PDF sont à portée de main. Tous sont 100% GRATUITS et faciles à utiliser ! Fusionnez, divisez, comprimez, convertissez, faites pivoter, déverrouillez et apposez un filigrane sur les PDF en quelques clics.",
+      "section1": {
+        "title": "Dernières nouvelles de notre entreprise",
+        "title1": "Lerem Opsum est tout simplement idiote",
+        "text1": "Lerem Ipsum est simplement un texte factice de l'imprimerie et de la dactylographie indremm a",
+        "title2": "Lerem Opsum est tout simplement idiote",
+        "text2": "Lerem Ipsum est simplement un texte factice de l'imprimerie et de la dactylographie indremm a",
+        "title3": "Lerem Opsum est tout simplement idiote",
+        "text3": "Lerem Ipsum est simplement un texte factice de l'imprimerie et de la dactylographie indremm a"
+      },
+      "section2": {
+        "title": "S'inscrire à un compte gratuit",
+        "item1": "Durée de vie prolongée des fichiers",
+        "item2": "Accès prioritaire au téléchargement",
+        "item3": "Tous vos fichiers en un seul endroit",
+        "button": "Obtenir un compte gratuit"
+      }
+    }
+  },
+  "features": {
+    "merge": {
+      "name": "pdfmerge",
+      "title": "Fusionner PDF",
+      "description": "Combinez des PDF dans l'ordre que vous souhaitez grâce à la fusion de PDF la plus simple qui soit.",
+      "file": "merge_pdf.svg"
+    },
+    "split": {
+      "name": "pdfsplit",
+      "title": "Diviser le PDF",
+      "description": "Séparer une page ou un ensemble de pages pour les convertir facilement en fichiers PDF indépendants.",
+      "file": "split_pdf.svg"
+    },
+    "compress": {
+      "name": "pdfcompress",
+      "title": "Compresser le PDF",
+      "description": "Réduire la taille des fichiers tout en optimisant la qualité des PDF",
+      "file": "compress_pdf.svg"
+    },
+    "word_pdf": {
+      "name": "word_pdf",
+      "title": "Word vers PDF",
+      "description": "Rendez les fichiers DOC et DOCX faciles à lire en les convertissant en PDF.",
+      "file": "word_pdf.svg"
+    },
+    "pdf_word": {
+      "name": "pdf_word",
+      "title": "PDF vers Word",
+      "description": "Convertissez facilement vos fichiers PDF en documents DOC et DOCX faciles à éditer. Le document WORD converti est presque 100% exact.The converted WORD document is almost 100% accurate.",
+      "file": "pdf_word.svg"
+    },
+    "sign": {
+      "name": "sign_pdf",
+      "title": "Signer le PDF",
+      "description": "Signez vous-même ou demandez des signatures électroniques à d'autres personnes.",
+      "file": "sign_pdf.svg"
+    },
+    "edit": {
+      "name": "edit_pdf",
+      "title": "Editer le PDF",
+      "description": "Ajoutez du texte, des images, des formes ou des annotations à main levée à un document PDF. Modifiez la taille, la police et la couleur du contenu ajouté.",
+      "file": "edit_pdf.svg"
+    },
+    "rotate": {
+      "name": "rotate_pdf",
+      "title": "Rotation du PDF",
+      "description": "Faites pivoter vos PDF comme vous le souhaitez. Vous pouvez même faire pivoter plusieurs PDF à la fois !",
+      "file": "rotate_pdf.svg"
+    }
+  },
+  "other_features": {
+    "convert_pdf": { "title": "CONVERTIR PDF" },
+    "all_pdf_tools": { "title": "TOUS LES OUTILS PDF" }
+  },
+  "toolTip": {
+    "sel_google": "Sélectionner un PDF à partir de Google",
+    "sel_dropBox": "Sélectionner un PDF à partir de Dropbox",
+    "upload_local": "Télécharger depuis l'ordinateur",
+    "save_dropBox": "Enregistrer dans Dropbox",
+    "save_google": "Enregistrer dans Google Drive",
+    "link": "Partager le lien du fichier ou scanner QR"
+  }
+}

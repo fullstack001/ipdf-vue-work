@@ -116,7 +116,7 @@
                   </div>
                   <div class="md-layout-item">
                     <div class="free-img">
-                      <img src="@/assets/img/merge-combine.svg" alt="" />
+                      <img src="@/assets/img/merge-combine.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -214,6 +214,10 @@
                     <md-card>
                       <md-card-media>
                         <img src="@/assets/img/merge1.png" alt="People" />
+                        <div class="card-tip">
+                          <div class="card-tip-date">10</div>
+                          <div class="card-tip-month">NOV</div>
+                        </div>
                       </md-card-media>
 
                       <md-card-header>
@@ -229,6 +233,10 @@
                     <md-card>
                       <md-card-media>
                         <img src="@/assets/img/merge2.png" alt="People" />
+                        <div class="card-tip">
+                          <div class="card-tip-date">10</div>
+                          <div class="card-tip-month">NOV</div>
+                        </div>
                       </md-card-media>
 
                       <md-card-header>
@@ -244,6 +252,10 @@
                     <md-card>
                       <md-card-media>
                         <img src="@/assets/img/merge3.png" alt="People" />
+                        <div class="card-tip">
+                          <div class="card-tip-date">10</div>
+                          <div class="card-tip-month">NOV</div>
+                        </div>
                       </md-card-media>
 
                       <md-card-header>
@@ -838,6 +850,12 @@ body {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
   padding-bottom: 10px;
 }
+
+.preview-card:focus,
+.preview-card:active,
+.preview-card:visited {
+  border: dotted 2px #e76d26;
+}
 .preview_img {
   margin-top: 30px;
 }
@@ -997,6 +1015,7 @@ body {
   border-radius: 5px;
   font-size: 13px;
   margin-bottom: 130px;
+  text-align: left;
 }
 
 .option__panel__title {
@@ -1072,10 +1091,13 @@ body {
 .premium-list {
   display: flex;
   margin: 10px 0px;
+  padding-top: 10px;
+  padding-bottom: 13px;
+  border-bottom: solid 1px #e0e0e0;
 }
 
 .premium-img img {
-  width: 25px;
+  width: 40px;
 }
 
 .premium-text {
@@ -1088,6 +1110,7 @@ body {
 
 .free-img img {
   max-width: 200px;
+  margin: 100px;
 }
 
 .try-sesction {
@@ -1097,6 +1120,25 @@ body {
 
 .try-items {
   margin: 15px 0;
+}
+
+.card-tip {
+  position: absolute;
+  background-color: #ff7c03;
+  border-radius: 0px 8px 8px 0px;
+  bottom: 15px;
+  color: #fff;
+  padding: 5px 5px;
+  font-weight: 500;
+}
+
+.card-tip-date {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+.md-card-header {
+  box-shadow: none !important;
 }
 
 .try-title {
@@ -1181,10 +1223,10 @@ body {
   flex-grow: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  -ms-flex-preferred-size: calc(25% - 4px);
-  flex-basis: calc(25% - 4px);
+  -ms-flex-preferred-size: calc(25% - 30px);
+  flex-basis: calc(25% - 30px);
   border: 1px solid #f5f5fa;
-  margin: 2px;
+  margin: 15px;
   position: relative;
   overflow: hidden;
   -webkit-transition: background-color 0.4s ease-out,
@@ -1213,12 +1255,14 @@ h3 {
 .badge[data-v-3a2b3612] {
   position: absolute;
   top: -10px;
-  right: 33px;
+  right: 30px;
   background-color: rgb(10, 10, 10);
   color: white;
   border-radius: 100%;
-  padding: 1px 8px;
+  padding: 0px 8px;
   font-size: 10px;
+  z-index: 1000;
+  border: solid 2px #e76d26;
 }
 @media (max-width: 960px) {
   .tools__item {

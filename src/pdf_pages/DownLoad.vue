@@ -299,7 +299,7 @@ export default {
         }
       })
       .catch((err) => {
-        this.$router.push("/deleted");
+        this.$router.push({ name: "deleted" });
       });
   },
   methods: {
@@ -332,14 +332,14 @@ export default {
           this.active = true;
         })
         .catch((err) => {
-          this.$router.push("/deleted");
+          this.$router.push({ name: "deleted" });
         });
     },
     async onConfirm() {
       await this.$axios
         .get(`/pdf/delete/${this.id}`)
         .then((res) => {
-          this.$router.push("/deleted");
+          this.$router.push({ name: "deleted" });
         })
         .catch((err) => console.log(err));
     },

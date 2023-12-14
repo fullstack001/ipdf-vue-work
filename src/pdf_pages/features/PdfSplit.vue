@@ -3,7 +3,13 @@
     class="main"
     :style="file ? 'display: flex;' : 'display: inline-block;  width: 100%;'"
   >
-    <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
+    <div
+      class="dropzone-container"
+      @dragover.prevent
+      @drop="handleDrop"
+      :style="pages.length ? 'width: 70%' : 'width: 100%'"
+      ref="dropzone"
+    >
       <div class="upload_btn_area">
         <div v-show="!pages.length" class="upload-buttons">
           <div class="page-title">Split PDF file</div>
@@ -102,8 +108,14 @@
       </div>
     </div>
 
-    <div v-show="pages.length">
-      <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
+    <div v-show="pages.length" style="width: 30%" class="sidebar-area">
+      <div
+        id="sidebar"
+        class="tool__sidebar"
+        style="overflow-y: auto"
+        ref="sidebar"
+        :style="myStyleObject"
+      >
         <h3>Split</h3>
         <div class="tab-area">
           <md-tabs md-alignment="centered">
@@ -193,6 +205,7 @@ export default {
       pdf_click: false,
       merge_selected: false,
       show_checkBox: true,
+      myStyleObject: {},
     };
   },
   mounted() {
@@ -284,6 +297,17 @@ export default {
     setExtract(newExtract) {
       this.extractPages = newExtract;
     },
+    sidebarChange() {
+      const dropzone = this.$refs.dropzone;
+      const computedStyle = window.getComputedStyle(dropzone);
+
+      // Accessing a specific CSS property
+      const height = computedStyle.getPropertyValue("height");
+      console.log("height:", height);
+      this.myStyleObject = {
+        height: height,
+      };
+    },
     click_extract_pages(page) {
       let temp = [];
       if (this.extractEdit) {
@@ -335,10 +359,13 @@ export default {
     //extract split
     extractSplit() {
       this.extractEdit = true;
+      console.log("extra split");
+
       this.pages = [];
       for (let i = 1; i <= this.pageCount; i++) {
         this.pages.push({ id: i, range: [i, i] });
       }
+      this.sidebarChange();
     },
     //split as range
     rangeSplit() {
@@ -347,6 +374,7 @@ export default {
         this.extractPages = [];
       }
       this.extractEdit = false;
+      this.sidebarChange();
     },
     showFlag(page) {
       if (!this.extractPages.length) {
@@ -620,12 +648,8 @@ body {
 
 .dropzone-container {
   width: 100%;
-  height: 100vh;
-}
-.dropzone-container {
-  padding: 4rem;
-  /* background: #f7fafc;
-  border: 1px solid #e2e8f0; */
+  min-height: 100vh;
+  padding: 1rem;
 }
 
 .drop-area {
@@ -760,24 +784,14 @@ body {
   max-width: 60vw;
   cursor: pointer;
 }
-.sidebar-active .tool__sidebar {
-  -ms-flex-preferred-size: 440px;
-  flex-basis: 440px;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding: 0 0 120px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: relative;
-}
 
 #sidebar {
   max-width: 400px !important;
-}
-
-.tool__sidebar {
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 60px;
   background-color: #fff;
 }
 

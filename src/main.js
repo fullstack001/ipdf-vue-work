@@ -15,7 +15,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue";
-import VueRouter from "vue-router";
 import App from "./App";
 import loading from "vuejs-loading-screen";
 import Donut from "vue-css-donut-chart";
@@ -24,7 +23,7 @@ import "vue-css-donut-chart/dist/vcdonut.css";
 import i18n from "./i18n";
 
 // router setup
-import routes from "./routes/routes";
+import router from "./routes/routes";
 
 //vuex setup
 import store from "./store";
@@ -40,17 +39,8 @@ import MaterialDashboard from "./material-dashboard";
 
 import Chartist from "chartist";
 
-// configure router
-const router = new VueRouter({
-  mode: "history", // Enable history mode here
-  base: process.env.BASE_URL,
-  routes, // short for routes: routes
-  linkExactActiveClass: "nav-item active",
-});
-
 Vue.prototype.$Chartist = Chartist;
 
-Vue.use(VueRouter);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
