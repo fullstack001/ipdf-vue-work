@@ -28,6 +28,11 @@
           <b>{{ $t("other_features.convert_pdf.title") }}</b>
         </p>
       </LocalizedLink>
+      <LocalizedLink to="pdftoword">
+        <p class="nav-btn">
+          <b>{{ $t("other_features.convert_pdf.title") }}</b>
+        </p>
+      </LocalizedLink>
       <p class="nav-btn">
         <b>{{ $t("other_features.all_pdf_tools.title") }}</b>
       </p>

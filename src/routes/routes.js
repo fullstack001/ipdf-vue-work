@@ -92,6 +92,14 @@ const routes = [
           ),
         name: "wordtopdf",
       },
+      {
+        path: "/:locale/pdftoword",
+        component: () =>
+          import(
+            /* webpackChunkName: "pdfcompress" */ "@/pdf_pages/features/PdfToWord.vue"
+          ),
+        name: "pdftoword",
+      },
     ],
   },
   {

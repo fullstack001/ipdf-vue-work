@@ -314,7 +314,7 @@ export default {
     },
     back_page() {
       console.log(this.before);
-      this.$router.push(`/${this.before}`);
+      this.$router.push({ name: this.before });
     },
     async calc_del_time() {
       await this.$axios
