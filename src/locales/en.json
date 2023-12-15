@@ -1,4 +1,15 @@
 {
+  "nav-links":{
+    "login": "Login",
+    "signup": "Sign Up",
+    "about": "About",
+    "merge_pdf": "Merge PDF",
+    "split_pdf": "Split PDF",
+    "compress_pdf": "Compress PDF",
+    "convert_pdf": "Convert PDF",
+    "blog": "Blog",
+    "copyright": "Copyright PdfDen. All rights reserved."
+  },
   "page_titles": {
     "landing": {
       "title1": "Every Tool You Need To Work with PDFs In One Place",

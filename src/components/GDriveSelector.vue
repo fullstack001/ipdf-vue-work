@@ -1,6 +1,6 @@
 <template>
   <div class="file-selector">
-    <md-button class="md-icon-button" @click="driveIconClicked()">
+    <button class="md-icon-button gdrive_btn" @click="driveIconClicked()">
       <md-icon>add_to_drive</md-icon>
       <md-tooltip md-direction="right" v-show="buttonStyle == 'download'">
         {{ $t("toolTip.sel_google") }}
@@ -8,7 +8,7 @@
       <md-tooltip md-direction="top" v-show="buttonStyle == 'upload'">{{
         $t("toolTip.save_google")
       }}</md-tooltip>
-    </md-button>
+    </button>
   </div>
 </template>
 
@@ -162,3 +162,20 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.gdrive_btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: solid 2px #f0742e;
+  background-color: #f0742e;
+  margin-bottom: 15px;
+  margin-top: 0px;
+  cursor: pointer;
+}
+
+.gdrive_btn i {
+  color: #fff !important;
+}
+</style>

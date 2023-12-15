@@ -176,7 +176,7 @@ body {
   height: 40px;
   border-radius: 50%;
   background-color: #f0742e;
-  padding: 11px;
+  padding: 13px 11px 8px 11px;
   cursor: pointer;
 }
 </style>

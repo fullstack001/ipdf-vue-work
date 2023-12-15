@@ -2,25 +2,31 @@
   <div class="footer">
     <div class="block__container">
       <!-- <LangSelector /> -->
-      <LocaleSwitcher />
-      <div class="footer-links">
-        <div class="footer-link">
-          <router-link to="/"> About </router-link>
-        </div>
-        <div class="footer-link">
-          <router-link to="/"> Merge Pdf </router-link>
-        </div>
-        <div class="footer-link">
-          <router-link to="/"> Split Pdf </router-link>
-        </div>
-        <div class="footer-link">
-          <router-link to="/"> Compress Pdf </router-link>
-        </div>
-        <div class="footer-link">
-          <router-link to="/"> Convert Pdf </router-link>
-        </div>
-        <div class="footer-link">
-          <router-link to="/"> Blog </router-link>
+      <div class="footer_menus">
+        <LocaleSwitcher />
+        <div class="footer-links">
+          <div class="footer-link">
+            <router-link to="/"> {{ $t("nav-links.about") }} </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/"> {{ $t("nav-links.merge_pdf") }} </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/"> {{ $t("nav-links.split_pdf") }} </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/">
+              {{ $t("nav-links.compress_pdf") }}
+            </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/">
+              {{ $t("nav-links.convert_pdf") }}
+            </router-link>
+          </div>
+          <div class="footer-link">
+            <router-link to="/"> {{ $t("nav-links.blog") }} </router-link>
+          </div>
         </div>
       </div>
       <div class="footer-social">
@@ -37,12 +43,16 @@
           <i class="fa-brands fa-youtube"></i>
         </div>
       </div>
-      <div class="copyright">© Copyright PdfDen. All rights reserved.</div>
+    </div>
+    <div class="block__container">
+      <div class="copyright">© {{ $t("nav-links.copyright") }}</div>
     </div>
   </div>
 </template>
 <script>
 import LocaleSwitcher from "@/components/LocaleSwitcher.vue";
+import LocalizedLink from "@/components/LocalizedLink";
+
 export default {
   components: {
     LocaleSwitcher,
@@ -58,6 +68,11 @@ export default {
   margin-left: auto;
   max-width: 91%;
   position: relative;
+  display: flex;
+}
+
+.footer_menus {
+  display: flex;
 }
 
 .footer-links {
@@ -80,6 +95,10 @@ export default {
   height: 35px;
   padding: 7px 5px 6px 10px;
   color: #e34f4f;
+}
+
+.footer {
+  padding-top: 40px;
 }
 
 .footer-link {

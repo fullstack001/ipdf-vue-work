@@ -30,3 +30,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.locale-switcher {
+  margin-top: 10px;
+  margin-right: 15px;
+}
+</style>

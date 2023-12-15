@@ -1,4 +1,15 @@
 {
+  "nav-links":{
+    "login": "Connexion",
+    "signup": "Inscrivez-vous",
+    "about": "à propos",
+    "merge_pdf": "Fusionner le PDF",
+    "split_pdf": "Diviser le PDF",
+    "compress_pdf": "Compresser le PDF",
+    "convert_pdf": "Convertir PDF",
+    "blog": "Blog",
+    "copyright": "Copyright PdfDen. Tous droits réservés."
+  },
   "page_titles": {
     "landing": {
       "title1": "Tous les outils dont vous avez besoin pour travailler avec des PDF en un seul endroit",

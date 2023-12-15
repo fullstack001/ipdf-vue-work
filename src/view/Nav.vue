@@ -28,11 +28,11 @@
           <b>{{ $t("other_features.convert_pdf.title") }}</b>
         </p>
       </LocalizedLink>
-      <LocalizedLink to="pdftoword">
+      <!-- <LocalizedLink to="pdftoword">
         <p class="nav-btn">
           <b>{{ $t("other_features.convert_pdf.title") }}</b>
         </p>
-      </LocalizedLink>
+      </LocalizedLink> -->
       <p class="nav-btn">
         <b>{{ $t("other_features.all_pdf_tools.title") }}</b>
       </p>
@@ -43,13 +43,15 @@
             <li class="md-list-item">
               <div class="md-list-item-content">
                 <md-button class="md-button md-just-icon md-simple login-btn">
-                  Login
+                  {{ $t("nav-links.login") }}
                 </md-button>
               </div>
             </li>
             <li class="md-list-item">
               <div class="md-list-item-content">
-                <button class="signup-btn">SIGN UP</button>
+                <button class="signup-btn">
+                  {{ $t("nav-links.signup") }}
+                </button>
               </div>
             </li>
             <li class="md-list-item">
@@ -103,7 +105,7 @@ body {
   padding: 10px 24px 0;
 }
 .nav-btn {
-  margin-left: 50px;
+  margin-left: 25px;
   font-size: 12px;
   cursor: pointer;
   color: #495057;
@@ -129,5 +131,20 @@ body {
 
 .active-link {
   color: #ff7c03;
+}
+
+.login-btn,
+.signup-btn {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.signup-btn {
+  border-radius: 8px !important;
+  background: #ff7c03 !important;
+  padding: 10px 15px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
 </style>

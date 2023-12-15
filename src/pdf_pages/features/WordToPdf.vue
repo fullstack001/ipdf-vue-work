@@ -2,12 +2,14 @@
   <div
     class="main"
     :style="
-      files.length > 0 ? 'display: flex' : 'display: inline-block; width: 100%;'
+      file_objs.length > 0
+        ? 'display: flex'
+        : 'display: inline-block; width: 100%;'
     "
   >
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
-        <div v-show="!files.length" class="upload-buttons">
+        <div v-show="!file_objs.length" class="upload-buttons">
           <div class="page-title">Convert WORD to PDF</div>
           <div class="page-description">
             Make DOC and DOCX file easy to ready by converting them to PDF.
@@ -35,7 +37,7 @@
                 v-bind:style="'position: absolute; margin: auto; right: -50px; top: -5px;'"
               >
                 <md-button
-                  v-show="files.length"
+                  v-show="file_objs.length"
                   class="md-icon-button"
                   @click="open_add_local"
                 >
@@ -56,7 +58,7 @@
                   :extensions="['.docx', '.doc']"
                   :folderselect="false"
                   v-bind:style="
-                    files.length > 0
+                    file_objs.length > 0
                       ? 'display: block; margin-top: 5px;'
                       : 'display: inline-block;'
                   "
@@ -69,23 +71,43 @@
         </div>
       </div>
       <div class="files-list">
-        <div class="preview-container mt-4" v-if="files.length">
+        <div class="preview-container mt-4" v-if="file_objs.length">
           <draggable
-            v-model="files"
+            v-model="file_objs"
             :options="{ animation: 150 }"
             class="md-layout"
           >
             <div
               class="preview-card md-layout-item"
-              v-for="(file, index) in files"
+              v-for="(file, index) in file_objs"
               :key="file.name"
             >
               <div class="file__actions">
                 <a
+                  class="file__btn rotate tooltip--top tooltip"
+                  data-rotate="0"
+                  title="Rotate"
+                  data-title="Rotate"
+                  @click="setRotationDegree(`id${index}`, index)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="16"
+                    viewBox="0 0 14 16"
+                  >
+                    <path
+                      d="M11.328 6.364l1.24-1.2c.79.98 1.283 2.113 1.433 3.288h-1.775c-.123-.735-.43-1.454-.896-2.088zm.896 3.778H14c-.15 1.175-.633 2.308-1.424 3.288l-1.24-1.2c.457-.634.765-1.344.888-2.088zm-.888 4.497C10.318 15.4 9.13 15.856 7.9 16v-1.716a5.31 5.31 0 0 0 2.162-.871l1.266 1.226zM6.152 2.595V0l4 3.846-4 3.76V4.302c-2.496.406-4.394 2.485-4.394 4.995s1.898 4.59 4.394 4.995V16C2.68 15.586 0 12.746 0 9.297s2.68-6.29 6.152-6.703z"
+                      fill="#47474F"
+                      fill-rule="evenodd"
+                    ></path>
+                  </svg>
+                </a>
+                <a
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
                   data-title="Remove this file"
-                  @click="remove(files.indexOf(file))"
+                  @click="remove(file_objs.indexOf(file))"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -111,9 +133,9 @@
               </div>
               <div class="prew_title">
                 {{
-                  file.name.length > 19
-                    ? file.name.substring(0, 20) + "..."
-                    : file.name
+                  file.file.name.length > 19
+                    ? file.file.name.substring(0, 20) + "..."
+                    : file.file.name
                 }}
               </div>
             </div>
@@ -121,13 +143,13 @@
           <div
             class="add-more"
             v-bind:style="
-              files.length
+              file_objs.length
                 ? 'position: absolute; top: 50px; right: -30px'
                 : 'position: relative; margin: auto; right: 0; top: 0;'
             "
           >
             <md-button
-              v-show="files.length"
+              v-show="file_objs.length"
               class="md-icon-button"
               @click="open_add_local"
             >
@@ -148,7 +170,7 @@
               :extensions="['.pdf', '.doc']"
               :folderselect="false"
               v-bind:style="
-                files.length > 0
+                file_objs.length > 0
                   ? 'display: block; margin-top: 5px;'
                   : 'display: inline-block;'
               "
@@ -159,7 +181,7 @@
       </div>
     </div>
 
-    <div v-show="files.length > 0">
+    <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
         <h3 class="text-center">Word to PDF</h3>
         <div class="option__panel option__panel--active" id="merge-options">
@@ -177,8 +199,6 @@ import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import CryptoJS from "crypto-js";
 import GDriveSelector from "@/components/GDriveSelector.vue";
-import mammoth from "mammoth";
-import html2canvas from "html2canvas";
 
 export default {
   components: {
@@ -191,7 +211,6 @@ export default {
       isDragging: false,
       files: [],
       file_objs: [],
-      radio: 100,
       second: false,
     };
   },
@@ -218,9 +237,39 @@ export default {
         this.file_objs.push({ file: files[i], degree: 0 });
       }
     },
+    onChange() {
+      const data = this.$refs.file.files;
+      var add_objs = [],
+        i = 0;
+      for (i = 0; i < data.length; i++) {
+        add_objs.push({ file: data[i], degree: 0 });
+      }
+      this.file_objs = [...this.file_objs, ...add_objs];
+      console.log(this.file_objs);
+    },
 
     remove(i) {
-      this.files.splice(i, 1);
+      this.file_objs.splice(i, 1);
+    },
+
+    //rotate thumbnail
+    setRotationDegree(tagId, index) {
+      const computedStyle = window.getComputedStyle(
+        document.getElementById(tagId)
+      );
+      const transformValue = computedStyle.getPropertyValue("transform");
+
+      // Extract rotation degree from the transform value
+      const matrix = new DOMMatrixReadOnly(transformValue);
+      const rotation = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI) + 90;
+      if (rotation == 360) rotation = 0;
+      document.getElementById(tagId).style.transform = `rotate(${rotation}deg)`;
+
+      //save rotation
+      this.file_objs[index] = {
+        file: this.file_objs[index]["file"],
+        degree: rotation,
+      };
     },
 
     //download from dropbox
@@ -237,19 +286,16 @@ export default {
       this.file_objs = [...this.file_objs, ...add_objs];
     },
 
-    onChange() {
-      const data = this.$refs.file.files;
-      for (let i = 0; i < data.length; i++) {
-        this.files.push(data[i]);
-      }
-      console.log(this.files);
-    },
     async convertToPdf() {
       this.$isLoading(true); // show loading screen
       const formData = new FormData();
-      for (let i = 0; i < this.files.length; i++) {
-        formData.append("files", this.files[i]);
+      let degrees = [];
+      for (let i = 0; i < this.file_objs.length; i++) {
+        formData.append("files", this.file_objs[i].file);
+        degrees.push(this.file_objs[i].degree);
       }
+      console.log(degrees);
+      formData.append("degrees", degrees);
       this.$axios
         .post("/pdf/wordtopdf", formData)
         .then((response) => {

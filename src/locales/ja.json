@@ -1,4 +1,15 @@
 {
+  "nav-links":{
+    "login": "接続",
+    "signup": "サインアップ",
+    "about": "約について",
+    "merge_pdf": "PDF 結合",
+    "split_pdf": "PDF 分割",
+    "compress_pdf": "PDF 圧縮",
+    "convert_pdf": "PDF 変換",
+    "blog": "ブログ",
+    "copyright": "著作権 PdfDen。無断複写・転載を禁じます。"
+  },
   "page_titles": {
     "landing": {
       "title1": "PDFの操作に必要なすべてのツールを一箇所に集約",
