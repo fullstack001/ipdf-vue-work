@@ -452,7 +452,7 @@ body {
   width: fit-content;
   position: absolute;
   top: -5px;
-  right: -100px;
+  right: -110px;
 }
 
 .add-more div {

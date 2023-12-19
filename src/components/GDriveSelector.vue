@@ -59,7 +59,8 @@ export default {
         this.oauthToken = authResult.access_token;
         this.buttonStyle == "download"
           ? this.createPicker()
-          : this.processFiles(this.file);
+          : this.createFolder();
+        // : this.processFiles(this.file);
       } else {
         console.log("error:", authResult);
       }
@@ -124,6 +125,31 @@ export default {
         xhr.send();
       });
     },
+
+    async createFolder() {
+      const folderData = {
+        name: "pdfDen",
+        mimeType: "application/vnd.google-apps.folder",
+      };
+
+      try {
+        const response = await axios.post(
+          "https://www.googleapis.com/drive/v3/files",
+          folderData,
+          {
+            headers: {
+              Authorization: `Bearer ${this.oauthToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        console.log("Folder created:", response.data);
+      } catch (error) {
+        console.error("Error creating folder:", error);
+      }
+    },
+
     processFiles(files) {
       console.log(files);
       const formData = new FormData();
@@ -168,8 +194,8 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: solid 2px #f0742e;
-  background-color: #f0742e;
+  border: solid 2px #ff7c03;
+  background-color: #ff7c03;
   margin-bottom: 15px;
   margin-top: 0px;
   cursor: pointer;

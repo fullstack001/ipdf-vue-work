@@ -6,10 +6,11 @@
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
-          <div class="page-title">Merge PDF files</div>
+          <div class="page-title">
+            {{ $t("page_titles.merge_page.title") }}
+          </div>
           <div class="page-description">
-            Combine PDFs in the order you want with the easiest PDF merge
-            available.
+            {{ $t("page_titles.merge_page.description") }}
           </div>
           <div class="drop-area">
             <div class="drop-img">
@@ -17,7 +18,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised">
-                Select PDF files
+                {{ $t("page_titles.merge_page.selectBtn") }}
               </label>
               <input
                 type="file"
@@ -56,15 +57,18 @@
                 />
               </div>
             </div>
-            <div>Or Drop PDFs Here</div>
+            <div>
+              {{ $t("page_titles.merge_page.dropFiles") }}
+            </div>
           </div>
           <div class="merge-descriptions">
             <div class="block__container">
               <div class="description-areas">
-                <div class="description-title">How to combine PDF files</div>
+                <div class="description-title">
+                  {{ $t("page_titles.merge_page.howSection.title") }}
+                </div>
                 <div class="description-sub-title">
-                  Follow these easy steps to combine PDF documents into one
-                  file:
+                  {{ $t("page_titles.merge_page.howSection.description") }}
                 </div>
               </div>
             </div>
@@ -77,8 +81,7 @@
                         <img src="@/assets/img/icons/round1.png" alt="" />
                       </div>
                       <div class="premium-text">
-                        Click the Select a file button above, or drag and drop
-                        files into the drop zone.
+                        {{ $t("page_titles.merge_page.howSection.list1") }}
                       </div>
                     </div>
                     <div class="premium-list">
@@ -86,8 +89,7 @@
                         <img src="@/assets/img/icons/round2.png" alt="" />
                       </div>
                       <div class="premium-text">
-                        Select the files you want to merge using the Acrobat PDF
-                        combiner tool.
+                        {{ $t("page_titles.merge_page.howSection.list2") }}
                       </div>
                     </div>
                     <div class="premium-list">
@@ -95,22 +97,23 @@
                         <img src="@/assets/img/icons/round3.png" alt="" />
                       </div>
                       <div class="premium-text">
-                        Reorder the files if needed.
+                        {{ $t("page_titles.merge_page.howSection.list3") }}
                       </div>
                     </div>
                     <div class="premium-list">
                       <div class="premium-img">
                         <img src="@/assets/img/icons/round4.png" alt="" />
                       </div>
-                      <div class="premium-text">Click Merge files.</div>
+                      <div class="premium-text">
+                        {{ $t("page_titles.merge_page.howSection.list4") }}
+                      </div>
                     </div>
                     <div class="premium-list">
                       <div class="premium-img">
                         <img src="@/assets/img/icons/round5.png" alt="" />
                       </div>
                       <div class="premium-text">
-                        Sign in to download or share the merged file. You can
-                        organize the pages too.
+                        {{ $t("page_titles.merge_page.howSection.list5") }}
                       </div>
                     </div>
                   </div>
@@ -124,40 +127,41 @@
             </div>
             <div class="try-sesction">
               <div class="block__container">
-                <div class="description-title">Try our PDF merger tool</div>
+                <div class="description-title">
+                  {{ $t("page_titles.merge_page.trySection.title") }}
+                </div>
                 <div class="md-layout">
                   <div class="md-layout-item try-items">
                     <div class="try-img">
                       <img src="@/assets/img/icons/combine-pdfs.svg" alt="" />
                     </div>
-                    <div class="try-title">Combine PDFs into one file</div>
+                    <div class="try-title">
+                      {{ $t("page_titles.merge_page.trySection.title1") }}
+                    </div>
                     <div class="try-description">
-                      It's quick and easy to merge PDF files into a single
-                      document with the Adobe Acrobat online tool. Just add
-                      files, merge them, and you're done.
+                      {{ $t("page_titles.merge_page.trySection.description1") }}
                     </div>
                   </div>
                   <div class="md-layout-item try-items">
                     <div class="try-img">
                       <img src="@/assets/img/icons/merge-into-one.svg" alt="" />
                     </div>
-                    <div class="try-title">Simplify with a combined PDF</div>
+                    <div class="try-title">
+                      {{ $t("page_titles.merge_page.trySection.title2") }}
+                    </div>
                     <div class="try-description">
-                      Merging multiple files into one PDF lets you store and
-                      review them more easily. You can also share files with
-                      others more efficiently by emailing a link to a single,
-                      merged PDF file.
+                      {{ $t("page_titles.merge_page.trySection.description2") }}
                     </div>
                   </div>
                   <div class="md-layout-item try-items">
                     <div class="try-img">
                       <img src="@/assets/img/icons/organize-pdf.svg" alt="" />
                     </div>
-                    <div class="try-title">Organize your online PDF</div>
+                    <div class="try-title">
+                      {{ $t("page_titles.merge_page.trySection.title3") }}
+                    </div>
                     <div class="try-description">
-                      After you combine PDF files, simply sign in to organize
-                      individual pages. You can move, add, delete, or rotate PDF
-                      pages as needed until you've created the perfect document.
+                      {{ $t("page_titles.merge_page.trySection.description3") }}
                     </div>
                   </div>
                 </div>
@@ -169,11 +173,11 @@
                         alt=""
                       />
                     </div>
-                    <div class="try-title">Download your file or share it</div>
+                    <div class="try-title">
+                      {{ $t("page_titles.merge_page.trySection.title4") }}
+                    </div>
                     <div class="try-description">
-                      You can download the merged PDF file with a click or by
-                      signing in. You can also share your new file with a friend
-                      or colleague when you sign in.
+                      {{ $t("page_titles.merge_page.trySection.description4") }}
                     </div>
                   </div>
                   <div class="md-layout-item try-items">
@@ -183,22 +187,22 @@
                         alt=""
                       />
                     </div>
-                    <div class="try-title">Work in any web browser</div>
+                    <div class="try-title">
+                      {{ $t("page_titles.merge_page.trySection.title5") }}
+                    </div>
                     <div class="try-description">
-                      Use our PDF merger online tool in any web browser, such as
-                      Microsoft Edge or Google Chrome. It also works on Mac,
-                      Windows, and Linux operating systems.
+                      {{ $t("page_titles.merge_page.trySection.description5") }}
                     </div>
                   </div>
                   <div class="md-layout-item try-items">
                     <div class="try-img">
                       <img src="@/assets/img/icons/best-pdf.svg" alt="" />
                     </div>
-                    <div class="try-title">Use the best PDF combiner</div>
+                    <div class="try-title">
+                      {{ $t("page_titles.merge_page.trySection.title6") }}
+                    </div>
                     <div class="try-description">
-                      Adobe invented the PDF file format, making our PDF tools
-                      highly trusted. Use our PDF combiner to merge files and
-                      keep your work moving from anywhere.
+                      {{ $t("page_titles.merge_page.trySection.description6") }}
                     </div>
                   </div>
                 </div>
@@ -207,7 +211,9 @@
             <div class="solution">
               <div class="block__container">
                 <div class="solution-header">
-                  <div class="description-title">Merge PDF Blog Articles</div>
+                  <div class="description-title">
+                    {{ $t("page_titles.merge_page.articleSection.title") }}
+                  </div>
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item">
@@ -221,10 +227,17 @@
                       </md-card-media>
 
                       <md-card-header>
-                        <div class="md-title">Lorem Ipsum is simply dummy</div>
+                        <div class="md-title">
+                          {{
+                            $t("page_titles.merge_page.articleSection.title1")
+                          }}
+                        </div>
                         <div class="md-subhead">
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typeing indremm has ..
+                          {{
+                            $t(
+                              "page_titles.merge_page.articleSection.description1"
+                            )
+                          }}
                         </div>
                       </md-card-header>
                     </md-card>
@@ -240,10 +253,17 @@
                       </md-card-media>
 
                       <md-card-header>
-                        <div class="md-title">Lorem Ipsum is simply dummy</div>
+                        <div class="md-title">
+                          {{
+                            $t("page_titles.merge_page.articleSection.title2")
+                          }}
+                        </div>
                         <div class="md-subhead">
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typeing indremm has ..
+                          {{
+                            $t(
+                              "page_titles.merge_page.articleSection.description2"
+                            )
+                          }}
                         </div>
                       </md-card-header>
                     </md-card>
@@ -259,10 +279,17 @@
                       </md-card-media>
 
                       <md-card-header>
-                        <div class="md-title">Lorem Ipsum is simply dummy</div>
+                        <div class="md-title">
+                          {{
+                            $t("page_titles.merge_page.articleSection.title3")
+                          }}
+                        </div>
                         <div class="md-subhead">
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typeing indremm has ..
+                          {{
+                            $t(
+                              "page_titles.merge_page.articleSection.description3"
+                            )
+                          }}
                         </div>
                       </md-card-header>
                     </md-card>
@@ -272,7 +299,9 @@
             </div>
             <div class="faq-section">
               <div class="block__container">
-                <div class="description-title">Questions? We have answers.</div>
+                <div class="description-title">
+                  {{ $t("page_titles.merge_page.qaSection.title") }}
+                </div>
                 <faq
                   v-for="(faqItem, index) in faqItems"
                   :key="index"
@@ -284,7 +313,9 @@
 
             <div class="rate-secttion">
               <div class="block__container">
-                <div class="description-title">Questions? We have answers.</div>
+                <div class="description-title">
+                  {{ $t("page_titles.merge_page.rateSection.title") }}
+                </div>
                 <div class="rate-star">
                   <span class="material-icons">star</span>
                   <span class="material-icons">star</span>
@@ -294,18 +325,20 @@
                 </div>
                 <div class="rate-reviews">
                   <span class="rate-score"> 4.8/5 - </span>
-                  <span class="rate-votes"> 254956 votes </span>
+                  <span class="rate-votes">
+                    254956 {{ $t("page_titles.merge_page.rateSection.vote") }}
+                  </span>
                 </div>
               </div>
             </div>
             <div class="online-section">
               <div class="block__container">
                 <div class="description-title">
-                  Try these Acrobat online tools
+                  {{ $t("page_titles.merge_page.onlineSection.title") }}
                 </div>
                 <div class="tools_container">
                   <div
-                    v-for="(item, index) in online_names"
+                    v-for="(item, index) in $t('onlines')"
                     :key="index"
                     class="tools__item"
                   >
@@ -857,7 +890,7 @@ body {
   border: dotted 2px #e76d26;
 }
 .preview_img {
-  margin-top: 30px;
+  margin-top: 40px;
 }
 .preview-img {
   width: 140px;
@@ -1001,7 +1034,7 @@ body {
 } */
 
 .dropbox-icon {
-  background-color: #f0742e;
+  background-color: #ff7c03;
   opacity: 1;
   border-radius: 50%;
   padding: 10px 10px 5px 10px;
@@ -1038,7 +1071,7 @@ body {
 
 #pickfiles {
   display: block;
-  background-color: #f0742e;
+  background-color: #ff7c03;
   width: 40px;
   height: 40px;
   margin-bottom: 10px;
@@ -1049,17 +1082,18 @@ body {
 
 .add-more .md-icon-button {
   display: block;
-  background-color: #f0742e !important;
+  background-color: #ff7c03 !important;
   width: 40px;
   height: 40px;
   margin-bottom: 20px;
   padding: 8px;
   border-radius: 50%;
   cursor: pointer;
+  margin-left: 5px;
 }
 
 .add-more .md-icon-button:hover {
-  background-color: #f0742e !important;
+  background-color: #ff7c03 !important;
 }
 
 .merge-descriptions {
@@ -1262,7 +1296,7 @@ h3 {
   padding: 0px 8px;
   font-size: 10px;
   z-index: 1000;
-  border: solid 2px #e76d26;
+  border: solid 2px #ff7c03;
 }
 
 .block__container {

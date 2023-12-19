@@ -674,6 +674,7 @@ body {
   padding: 8px;
   border-radius: 50%;
   cursor: pointer;
+  margin-left: 5px;
 }
 
 .add-more .md-icon-button:hover {

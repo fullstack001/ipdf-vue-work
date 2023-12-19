@@ -316,31 +316,28 @@ export default {
         .then((response) => {
           console.log(response);
           // Handle response from server
-          // const type = response.data.file.split(".")[1];
-          // console.log(type);
-          // const obj = {
-          //   id: response.data.file,
-          //   button_title: "Download Converted Word",
-          //   dis_text: "PDF has been converted!",
-          //   down_name: `pdfden_converted.${type}`,
-          //   file_type: `application/${type}`,
-          //   before: "pdftoword",
-          // };
-          // // Your secret message
-          // const message = JSON.stringify(obj);
-          // // Your secret key (should be kept private)
-          // const secretKey = "mySecretKey123";
-          // // Encrypt the message using AES encryption with the secret key
-          // const encrypted = CryptoJS.AES.encrypt(
-          //   message,
-          //   secretKey
-          // ).toString();
-          // this.$router.push({
-          //   name: "download",
-          //   params: {
-          //     param: encrypted,
-          //   },
-          // });
+          const type = response.data.split(".")[1];
+          console.log(type);
+          const obj = {
+            id: response.data,
+            button_title: "Download Converted Word",
+            dis_text: "PDF has been converted!",
+            down_name: `pdfden_converted.${type}`,
+            file_type: `application/${type}`,
+            before: "wordtopdf",
+          };
+          // Your secret message
+          const message = JSON.stringify(obj);
+          // Your secret key (should be kept private)
+          const secretKey = "mySecretKey123";
+          // Encrypt the message using AES encryption with the secret key
+          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+          this.$router.push({
+            name: "download",
+            params: {
+              param: encrypted,
+            },
+          });
         })
         .catch((error) => {
           console.error("Error uploading files:", error);

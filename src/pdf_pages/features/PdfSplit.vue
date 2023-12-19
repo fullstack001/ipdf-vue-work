@@ -365,7 +365,7 @@ export default {
       for (let i = 1; i <= this.pageCount; i++) {
         this.pages.push({ id: i, range: [i, i] });
       }
-      this.sidebarChange();
+      // this.sidebarChange();
     },
     //split as range
     rangeSplit() {
@@ -374,7 +374,7 @@ export default {
         this.extractPages = [];
       }
       this.extractEdit = false;
-      this.sidebarChange();
+      // this.sidebarChange();
     },
     showFlag(page) {
       if (!this.extractPages.length) {
@@ -649,7 +649,9 @@ body {
 .dropzone-container {
   width: 100%;
   min-height: 100vh;
+  max-height: 100vh;
   padding: 1rem;
+  overflow-y: scroll;
 }
 
 .drop-area {
@@ -766,7 +768,7 @@ body {
   padding: 24px 48px;
   font-weight: 500;
   font-size: 24px;
-  background: #f0742e;
+  background: #ff7c03;
   line-height: 28px;
   vertical-align: middle;
   color: #fff !important;
@@ -876,7 +878,7 @@ body {
 }
 .social_btn {
   display: block;
-  background-color: #f0742e !important;
+  background-color: #ff7c03 !important;
   width: 40px;
   height: 40px;
   margin-bottom: 20px;

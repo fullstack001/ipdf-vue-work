@@ -30,6 +30,63 @@
         "item3": "すべてのファイルを一箇所に",
         "button": "無料アカウント"
       }
+    },
+    "merge_page": {
+      "title": "PDF ファイルを結合",
+      "description": "最も簡単な PDF 結合を使用して、希望する順序で PDF を結合します。",
+      "selectBtn": "PDF ファイルを選択",
+      "dropFiles": "または PDF をここにドロップします",
+      "howSection": {
+        "title": "PDF ファイルを結合する方法",
+        "description": "PDF ドキュメントを 1 つのファイルに結合するには、次の簡単な手順に従ってください:",
+        "list1": "上の [ファイルを選択] ボタンをクリックするか、ファイルをドロップ ゾーンにドラッグ アンド ドロップします。",
+        "list2": "Acrobat PDF 結合ツールを使用して、結合するファイルを選択します。",
+        "list3": "必要に応じてファイルの順序を変更します。",
+        "list4": "[ファイルの結合] をクリックします。",
+        "list5": "結合されたファイルをダウンロードまたは共有するには、サインインしてください。ページを整理することもできます。"
+      },
+      "trySection": {
+        "title": "PDF 結合ツールをお試しください",
+        "title1": "PDF を 1 つのファイルに結合",
+        "title2": "結合された PDF で簡素化",
+        "title3": "オンライン PDF を整理する",
+        "title4": "ファイルをダウンロードするか共有します",
+        "title5": "どの Web ブラウザでも動作します",
+        "title6": "最高の PDF コンバイナーを使用する",
+        "description1": "Adobe Acrobat オンライン ツールを使用すると、PDF ファイルを 1 つのドキュメントにすばやく簡単に結合できます。ファイルを追加して結合するだけで完了です。",
+        "description2": "複数のファイルを 1 つの PDF に結合すると、ファイルの保存と確認がより簡単になります。また、結合された単一の PDF ファイルへのリンクを電子メールで送信することで、他のユーザーとより効率的にファイルを共有することもできます。",
+        "description3": "PDF ファイルを結合した後、サインインするだけで個々のページを整理できます。完璧なドキュメントが作成されるまで、必要に応じて PDF ページを移動、追加、削除、回転できます。",
+        "description4": "結合された PDF ファイルは、クリックするかサインインすることでダウンロードできます。サインインすると、新しいファイルを友人や同僚と共有することもできます。",
+        "description5": "PDF 結合オンライン ツールは、Microsoft Edge や Google Chrome などの Web ブラウザーで使用できます。Mac、Windows、Linux オペレーティング システムでも動作します。",
+        "description6": "Adobe は PDF ファイル形式を発明し、弊社の PDF ツールは非常に信頼できるものになりました。PDF コンバイナーを使用してファイルを結合し、どこからでも作業を進めることができます。"
+      },
+      "articleSection": {
+        "title": "PDF ブログ記事を結合",
+        "title1": "ローレム・イプサムは単なるダミーです",
+        "title2": "ローレム・イプサムは単なるダミーです",
+        "title3": "ローレム・イプサムは単なるダミーです",
+        "description1": "Lorem Ipsum は、indremm が持つ印刷と入力の単なるダミー テキストです。",
+        "description2": "Lorem Ipsum は、indremm が持つ印刷と入力の単なるダミー テキストです。",
+        "description3": "Lorem Ipsum は、indremm が持つ印刷と入力の単なるダミー テキストです。"
+      },
+      "qaSection": {
+        "title": "質問がありますか? 答えはあります。"
+      },
+      "rateSection": {
+        "title": "あなたの経験を評価してください",
+        "vote": "投票"
+      },
+      "onlineSection": {
+        "title": "これらの Acrobat オンライン ツールを試してください",
+        "title1": "PDF を結合",
+        "title2": "PDF を分割",
+        "title3": "PDF を圧縮",
+        "title4": "PDF を変換 ",
+        "description1": "最も簡単な PDF 結合機能を使用して、希望する順序で PDF を結合します。",
+        "description2": "1 ページまたはセット全体を分割して、独立した PDF ファイルに簡単に変換できます。 ",
+        "description3": "PDF 品質を最大限に高めるために最適化しながらファイル サイズを削減します。",
+        "description4": "PDF ファイルを編集しやすい DOC および DOCX ドキュメントに簡単に変換します。変換された WORD ドキュメントはほぼ 100% 正確です。"
+      }
     }
   },
   "features": {
@@ -52,13 +109,13 @@
       "file": "compress_pdf.svg"
     },
     "word_pdf": {
-      "name": "word_pdf",
+      "name": "wordtopdf",
       "title": "WordからPDFへ",
       "description": "DOCやDOCXファイルをPDFに変換して読みやすくします。",
       "file": "word_pdf.svg"
     },
     "pdf_word": {
-      "name": "pdf_word",
+      "name": "pdftoword",
       "title": "PDFからWordへ",
       "description": "PDFファイルを編集しやすいDOCやDOCX文書に簡単に変換できます。変換されたWORD文書はほぼ100％正確です。",
       "file": "pdf_word.svg"
@@ -80,6 +137,32 @@
       "title": "PDFを回転",
       "description": "PDF 文書にテキスト、画像、図形、またはフリーハンドの注釈を追加します。追加したコンテンツのサイズ、フォント、色を編集します。",
       "file": "rotate_pdf.svg"
+    }
+  },
+  "onlines":{
+    "merge": {
+      "name": "pdfmerge",
+      "title": "PDFのマージ",
+      "description": "最も簡単なPDF結合ツールで、PDFを好きな順序で結合できます。",
+      "file": "merge_pdf.svg"
+    },
+    "split": {
+      "name": "pdfsplit",
+      "title": "PDFを分割する",
+      "description": "独立したPDFファイルに簡単に変換するために、1ページまたはセット全体を分離する",
+      "file": "split_pdf.svg"
+    },
+    "compress": {
+      "name": "pdfcompress",
+      "title": "PDFを圧縮する",
+      "description": "PDFの品質を最大限に最適化しながらファイルサイズを縮小",
+      "file": "compress_pdf.svg"
+    },
+    "pdf_word": {
+      "name": "pdf_word",
+      "title": "PDFからWordへ",
+      "description": "PDFファイルを編集しやすいDOCやDOCX文書に簡単に変換できます。変換されたWORD文書はほぼ100％正確です。",
+      "file": "pdf_word.svg"
     }
   },
   "other_features": {

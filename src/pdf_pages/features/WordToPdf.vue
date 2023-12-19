@@ -36,16 +36,21 @@
                 class="add-more"
                 v-bind:style="'position: absolute; margin: auto; right: -50px; top: -5px;'"
               >
-                <md-button
-                  v-show="file_objs.length"
-                  class="md-icon-button"
-                  @click="open_add_local"
+                <div
+                  class="badge-container md-primary"
+                  md-content="4"
+                  v-if="file_objs.length"
                 >
-                  <md-icon>computer</md-icon>
-                  <md-tooltip md-direction="bottom">{{
-                    $t("toolTip.upload_local")
-                  }}</md-tooltip>
-                </md-button>
+                  <md-button class="md-icon-button" @click="open_add_local">
+                    <md-icon>computer</md-icon>
+                    <md-tooltip md-direction="right"
+                      >{{ $t("toolTip.upload_local") }}
+                    </md-tooltip>
+                  </md-button>
+                  <div class="badge">
+                    {{ file_objs.length }}
+                  </div>
+                </div>
                 <GDriveSelector
                   @picked="onPickedGoogleDriver"
                   :buttonStyle="'download'"
@@ -148,16 +153,21 @@
                 : 'position: relative; margin: auto; right: 0; top: 0;'
             "
           >
-            <md-button
-              v-show="file_objs.length"
-              class="md-icon-button"
-              @click="open_add_local"
+            <div
+              class="badge-container md-primary"
+              md-content="4"
+              v-if="file_objs.length"
             >
-              <md-icon>computer</md-icon>
-              <md-tooltip md-direction="bottom">{{
-                $t("toolTip.upload_local")
-              }}</md-tooltip>
-            </md-button>
+              <md-button class="md-icon-button" @click="open_add_local">
+                <md-icon>computer</md-icon>
+                <md-tooltip md-direction="right"
+                  >{{ $t("toolTip.upload_local") }}
+                </md-tooltip>
+              </md-button>
+              <div class="badge">
+                {{ file_objs.length }}
+              </div>
+            </div>
             <GDriveSelector
               @picked="onPickedGoogleDriver"
               :buttonStyle="'download'"
@@ -610,6 +620,7 @@ body {
   padding: 8px;
   border-radius: 50%;
   cursor: pointer;
+  margin-left: 5px;
 }
 
 .add-more .md-icon-button:hover {
@@ -620,7 +631,7 @@ h3 {
   font-weight: 500;
 }
 
-.tool__sidebar__inactive {
+.tool__sidebar {
   min-width: 400px;
   padding: 10px;
 }
@@ -633,5 +644,25 @@ h3 {
 
 .md-radio-label {
   font-weight: 500 !important;
+}
+
+.badge-container {
+  position: relative;
+}
+h3 {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.badge {
+  position: absolute;
+  top: -10px;
+  right: 30px;
+  background-color: rgb(10, 10, 10);
+  color: white;
+  border-radius: 100%;
+  padding: 0px 8px;
+  font-size: 10px;
+  z-index: 1000;
+  border: solid 2px #ff7c03;
 }
 </style>

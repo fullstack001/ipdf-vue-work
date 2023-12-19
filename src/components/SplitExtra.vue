@@ -22,7 +22,6 @@
       </div>
       <div v-else>
         <md-field style="padding: 0 20px">
-          <label>Select Pages</label>
           <md-input
             v-model="selectPages"
             placeholder="example:1,5-8"
@@ -64,7 +63,6 @@ export default {
         }
       }
       this.selectPages = temp;
-      console.log(this.selectPages);
     },
   },
   methods: {

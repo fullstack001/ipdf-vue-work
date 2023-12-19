@@ -60,11 +60,11 @@ body {
 }
 
 .md-tabs-navigation .md-active {
-  border: solid 1px #f0742e;
+  border: solid 1px #ff7c03;
 }
 
 .md-button.md-primary {
-  background-color: #f0742e !important;
+  background-color: #ff7c03 !important;
 }
 
 .picker-dialog-frame {

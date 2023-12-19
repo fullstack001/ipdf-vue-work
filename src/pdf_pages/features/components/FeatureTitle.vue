@@ -1,6 +1,6 @@
 <template>
   <md-content class="">
-    <a href="" @click="redirect(item.item.name)">
+    <LocalizedLink :to="item.item.name">
       <div>
         <img :src="require(`@/assets/feature_img/${item.item.file}`)" />
       </div>
@@ -12,12 +12,16 @@
           {{ item.item.description }}
         </p>
       </div>
-    </a>
+    </LocalizedLink>
   </md-content>
 </template>
 
 <script>
+import LocalizedLink from "@/components/LocalizedLink.vue";
 export default {
+  components: {
+    LocalizedLink,
+  },
   name: "feature-title",
   props: {
     item: Object,
