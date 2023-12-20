@@ -124,33 +124,11 @@
                 : 'position: relative; margin: auto; right: 0; top: 0;'
             "
           >
-            <md-button
-              v-show="file_objs.length"
-              class="md-icon-button"
-              @click="open_add_local"
-            >
-              <md-icon>computer</md-icon>
-              <md-tooltip md-direction="bottom">{{
-                $t("toolTip.upload_local")
-              }}</md-tooltip>
-            </md-button>
-            <GDriveSelector
-              @picked="onPickedGoogleDriver"
-              :buttonStyle="'download'"
-            />
-
-            <VueDropboxPicker
-              class="cloud dropbox"
-              link-type="direct"
-              :multiselect="true"
-              :extensions="['.pdf', '.doc']"
-              :folderselect="false"
-              v-bind:style="
-                file_objs.length > 0
-                  ? 'display: block; margin-top: 5px;'
-                  : 'display: inline-block;'
-              "
-              @picked="onPickedDropbox"
+            <AddMoreDropDown
+              :pdfCounts="this.file_objs.length"
+              @open_add_local="open_add_local"
+              @onPickedDropbox="onPickedDropbox"
+              @onPickedGoogleDriver="onPickedGoogleDriver"
             />
           </div>
         </div>
@@ -185,6 +163,7 @@ import store from "@/store/index";
 import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
+import AddMoreDropDown from "./components/AddMoreDropDown.vue";
 
 export default {
   components: {
@@ -192,6 +171,7 @@ export default {
     VueDropboxPicker,
     draggable,
     GDriveSelector,
+    AddMoreDropDown,
   },
   data() {
     return {

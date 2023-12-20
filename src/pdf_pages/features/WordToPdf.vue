@@ -158,34 +158,13 @@
               md-content="4"
               v-if="file_objs.length"
             >
-              <md-button class="md-icon-button" @click="open_add_local">
-                <md-icon>computer</md-icon>
-                <md-tooltip md-direction="right"
-                  >{{ $t("toolTip.upload_local") }}
-                </md-tooltip>
-              </md-button>
-              <div class="badge">
-                {{ file_objs.length }}
-              </div>
+              <AddMoreDropDown
+                :pdfCounts="this.file_objs.length"
+                @open_add_local="open_add_local"
+                @onPickedDropbox="onPickedDropbox"
+                @onPickedGoogleDriver="onPickedGoogleDriver"
+              />
             </div>
-            <GDriveSelector
-              @picked="onPickedGoogleDriver"
-              :buttonStyle="'download'"
-            />
-
-            <VueDropboxPicker
-              class="cloud dropbox"
-              link-type="direct"
-              :multiselect="true"
-              :extensions="['.pdf', '.doc']"
-              :folderselect="false"
-              v-bind:style="
-                file_objs.length > 0
-                  ? 'display: block; margin-top: 5px;'
-                  : 'display: inline-block;'
-              "
-              @picked="onPickedDropbox"
-            />
           </div>
         </div>
       </div>
@@ -209,12 +188,14 @@ import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import CryptoJS from "crypto-js";
 import GDriveSelector from "@/components/GDriveSelector.vue";
+import AddMoreDropDown from "./components/AddMoreDropDown.vue";
 
 export default {
   components: {
     VueDropboxPicker,
     draggable,
     GDriveSelector,
+    AddMoreDropDown,
   },
   data() {
     return {

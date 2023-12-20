@@ -90,7 +90,6 @@ export default {
   },
   methods: {
     clickButton() {
-      console.log(342342);
       this.buttonType == "chooser"
         ? this.dropboxIconClicked()
         : this.dropboxSaverIconClicked();
