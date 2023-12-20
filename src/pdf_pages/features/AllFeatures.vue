@@ -169,17 +169,7 @@ h2 {
   color: #575757;
   font-weight: 800;
 }
-.md-layout-item {
-  height: 40px;
 
-  &:after {
-    width: 100%;
-    height: 100%;
-    display: block;
-    background: md-get-palette-color(red, 200);
-    content: " ";
-  }
-}
 .pattern-bg {
   overflow: hidden;
   width: 100vw;
@@ -312,7 +302,7 @@ h4 {
   position: relative;
   background: #47474f;
   color: #f5f5fa;
-  padding: 64px 0 320px;
+  padding: 64px 0 30px;
   z-index: 1;
   background-position: center center;
   background-size: 100% auto;
@@ -344,7 +334,7 @@ h4 {
 }
 
 .free-img img {
-  max-width: 400px;
+  max-width: 300px;
 }
 
 .btn {

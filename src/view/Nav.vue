@@ -1,84 +1,124 @@
 <template>
-  <md-toolbar
+  <!-- <md-toolbar
     md-elevation="0"
     class="md-transparent nav-par"
     v-if="$route.path != '/login'"
-  >
-    <div class="md-toolbar-row nav-top">
-      <LocalizedLink to="/">
-        <img src="@/assets/img/vue-logo.png" width="160" srcset="" />
-      </LocalizedLink>
-      <LocalizedLink to="/pdfmerge">
-        <p class="nav-btn" :class="{ 'active-link': isActive('/pdfmerge') }">
-          <b>{{ $t("features.merge.title") }}</b>
-        </p>
-      </LocalizedLink>
-      <LocalizedLink to="/pdfsplit">
-        <p class="nav-btn" :class="{ 'active-link': isActive('/pdfsplit') }">
-          <b>{{ $t("features.split.title") }}</b>
-        </p>
-      </LocalizedLink>
-      <LocalizedLink to="/pdfcompress">
-        <p class="nav-btn" :class="{ 'active-link': isActive('/pdfcompress') }">
-          <b>{{ $t("features.compress.title") }}</b>
-        </p>
-      </LocalizedLink>
-      <LocalizedLink to="wordtopdf">
-        <p class="nav-btn">
-          <b>{{ $t("other_features.convert_pdf.title") }}</b>
-        </p>
-      </LocalizedLink>
-      <!-- <LocalizedLink to="pdftoword">
-        <p class="nav-btn">
-          <b>{{ $t("other_features.convert_pdf.title") }}</b>
-        </p>
-      </LocalizedLink> -->
-      <p class="nav-btn">
-        <b>{{ $t("other_features.all_pdf_tools.title") }}</b>
-      </p>
-
-      <div class="md-toolbar-section-end">
-        <div class="md-collapse">
-          <md-list>
-            <li class="md-list-item">
-              <div class="md-list-item-content">
-                <md-button class="md-button md-just-icon md-simple login-btn">
-                  {{ $t("nav-links.login") }}
-                </md-button>
-              </div>
-            </li>
-            <li class="md-list-item">
-              <div class="md-list-item-content">
-                <button class="signup-btn">
-                  {{ $t("nav-links.signup") }}
-                </button>
-              </div>
-            </li>
-            <li class="md-list-item">
-              <div class="md-list-item-content">
-                <drop-down>
-                  <md-button
-                    slot="title"
-                    class="md-button md-just-icon md-simple"
-                    data-toggle="dropdown"
-                  >
-                    <md-icon dm-size="large">menu</md-icon>
-                    <p class="hidden-lg hidden-md">Notifications</p>
-                  </md-button>
-                </drop-down>
-              </div>
-            </li>
-          </md-list>
-        </div>
-      </div>
+  > -->
+  <nav class="navbar">
+    <LocalizedLink to="/">
+      <img src="@/assets/img/vue-logo.png" width="160" srcset="" />
+    </LocalizedLink>
+    <div class="navbar-toggle" @click="toggleNavbar">
+      <md-icon>menu</md-icon>
     </div>
-  </md-toolbar>
+    <ul class="nav-lists">
+      <li class="nav-item">
+        <ul class="nav-list">
+          <li>
+            <LocalizedLink
+              to="/pdfmerge"
+              class="nav-btn"
+              :class="{ 'active-link': isActive('/pdfmerge') }"
+            >
+              {{ $t("features.merge.title") }}
+            </LocalizedLink>
+          </li>
+
+          <li>
+            <LocalizedLink
+              to="/pdfsplit"
+              class="nav-btn"
+              :class="{ 'active-link': isActive('/pdfsplit') }"
+            >
+              {{ $t("features.split.title") }}
+            </LocalizedLink>
+          </li>
+          <li>
+            <LocalizedLink
+              to="/pdfcompress"
+              class="nav-btn"
+              :class="{ 'active-link': isActive('/pdfcompress') }"
+            >
+              {{ $t("features.compress.title") }}
+            </LocalizedLink>
+          </li>
+          <li>
+            <LocalizedLink to="/wordtopdf" class="nav-btn">
+              {{ $t("other_features.convert_pdf.title") }}
+            </LocalizedLink>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <ul class="nav-list">
+          <li class="md-list-item login-btn">
+            {{ $t("nav-links.login") }}
+          </li>
+          <li class="md-list-item signup-btn">
+            {{ $t("nav-links.signup") }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div :class="{ 'navbar-open': isOpen }">
+      <ul class="mobile-nav-list">
+        <li>
+          <LocalizedLink
+            to="/pdfmerge"
+            class="nav-btn"
+            :class="{ 'active-link': isActive('/pdfmerge') }"
+          >
+            {{ $t("features.merge.title") }}
+          </LocalizedLink>
+        </li>
+        <li>
+          <LocalizedLink
+            to="/pdfsplit"
+            class="nav-btn"
+            :class="{ 'active-link': isActive('/pdfsplit') }"
+          >
+            {{ $t("features.split.title") }}
+          </LocalizedLink>
+        </li>
+        <li>
+          <LocalizedLink
+            to="/pdfcompress"
+            class="nav-btn"
+            :class="{ 'active-link': isActive('/pdfcompress') }"
+          >
+            {{ $t("features.compress.title") }}
+          </LocalizedLink>
+        </li>
+        <li>
+          <LocalizedLink to="wordtopdf" class="nav-btn">
+            {{ $t("other_features.convert_pdf.title") }}
+          </LocalizedLink>
+        </li>
+        <li class="login-btn">
+          <a href="" class="nav-btn">{{ $t("nav-links.login") }}</a>
+        </li>
+        <li class="signup-btn">
+          <a href="" class="nav-btn"> {{ $t("nav-links.signup") }}</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 <script>
 import LocalizedLink from "@/components/LocalizedLink";
 export default {
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
   components: { LocalizedLink },
   methods: {
+    toggleNavbar() {
+      console.log("toggle");
+      this.isOpen = !this.isOpen;
+    },
     isActive(route) {
       return this.$route.path === route;
     },
@@ -91,30 +131,51 @@ html,
 body {
   font-family: "Montserrat", sans-serif;
 }
-.nav-top {
-  background: #fff;
-  width: 100%;
-  height: 60px;
-  z-index: 1041;
-  position: fixed;
-  right: 0;
-  left: 0;
-  top: 0;
-  -webkit-box-shadow: 0 3px 6px 0 rgba(50, 50, 50, 0.3);
-  box-shadow: 0 3px 6px 0 rgba(50, 50, 50, 0.3);
-  padding: 10px 24px 0;
-}
-.nav-btn {
-  margin-left: 25px;
-  font-size: 12px;
-  cursor: pointer;
-  color: #495057;
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff; /* Material Design Blue */
+  padding: 10px;
 }
 
-.nav-btn b {
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.nav-lists {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+
+.nav-item {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+
+.nav-list li {
+  margin: 0 15px;
+}
+.nav-btn {
   padding: 10px 20px;
   border-radius: 8px;
   border: 1px solid #ff7c03;
+  margin-left: 25px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #495057 !important;
+  font-weight: 600;
 }
 
 .nav-btn:hover {
@@ -123,10 +184,6 @@ body {
 
 .download_btn {
   color: #fff !important;
-}
-
-.md-theme-default a:not(.md-button) {
-  color: #ff7c03;
 }
 
 .active-link {
@@ -146,5 +203,74 @@ body {
   color: #fff;
   border: none;
   cursor: pointer;
+  margin-top: -10px !important;
+}
+
+.mobile-nav-list {
+  display: none;
+}
+
+.router-link-active {
+  color: #ff7c03 !important;
+}
+
+@media only screen and (max-width: 991px) {
+  .navbar-toggle {
+    display: flex;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .navbar-open {
+    display: block !important;
+    z-index: 10;
+  }
+
+  .nav-lists {
+    display: none;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Material Design Blue */
+  }
+
+  .nav-list.show {
+    display: flex;
+  }
+
+  .nav-list li {
+    text-align: left;
+    margin: 20px 0;
+  }
+
+  .navbar-open .mobile-nav-list {
+    display: block;
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Material Design Blue */
+    list-style: none;
+  }
+  .mobile-nav-list li {
+    margin: 30px 0;
+  }
+
+  .nav-btn {
+    margin-left: 0;
+    width: fit-content;
+  }
+
+  .signup-btn {
+    width: fit-content;
+  }
 }
 </style>

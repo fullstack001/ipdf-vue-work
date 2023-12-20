@@ -6,23 +6,44 @@
         <LocaleSwitcher />
         <div class="footer-links">
           <div class="footer-link">
+            <LocalizedLink to="/">
+              <img src="@/assets/img/vue-logo.png" width="100" srcset="" />
+            </LocalizedLink>
+          </div>
+          <div class="footer-link" style="border-right: solid 1px">
             <router-link to="/"> {{ $t("nav-links.about") }} </router-link>
           </div>
-          <div class="footer-link">
-            <router-link to="/"> {{ $t("nav-links.merge_pdf") }} </router-link>
+          <div class="footer-link" style="border-right: solid 1px">
+            <LocalizedLink
+              to="/pdfmerge"
+              class="nav-btn"
+              :class="{ 'active-link': isActive('/pdfmerge') }"
+            >
+              {{ $t("features.merge.title") }}
+            </LocalizedLink>
           </div>
-          <div class="footer-link">
-            <router-link to="/"> {{ $t("nav-links.split_pdf") }} </router-link>
+          <div class="footer-link" style="border-right: solid 1px">
+            <LocalizedLink
+              to="/pdfsplit"
+              class="nav-btn"
+              :class="{ 'active-link': isActive('/pdfsplit') }"
+            >
+              {{ $t("features.split.title") }}
+            </LocalizedLink>
           </div>
-          <div class="footer-link">
-            <router-link to="/">
-              {{ $t("nav-links.compress_pdf") }}
-            </router-link>
+          <div class="footer-link" style="border-right: solid 1px">
+            <LocalizedLink
+              to="/pdfcompress"
+              class="nav-btn"
+              :class="{ 'active-link': isActive('/pdfcompress') }"
+            >
+              {{ $t("features.compress.title") }}
+            </LocalizedLink>
           </div>
-          <div class="footer-link">
-            <router-link to="/">
-              {{ $t("nav-links.convert_pdf") }}
-            </router-link>
+          <div class="footer-link" style="border-right: solid 1px">
+            <LocalizedLink to="wordtopdf" class="nav-btn">
+              {{ $t("other_features.convert_pdf.title") }}
+            </LocalizedLink>
           </div>
           <div class="footer-link">
             <router-link to="/"> {{ $t("nav-links.blog") }} </router-link>
@@ -56,6 +77,12 @@ import LocalizedLink from "@/components/LocalizedLink";
 export default {
   components: {
     LocaleSwitcher,
+    LocalizedLink,
+  },
+  methods: {
+    isActive(route) {
+      return this.$route.path === route;
+    },
   },
 };
 </script>
@@ -82,7 +109,6 @@ export default {
 
 .footer-social {
   display: inline-flex;
-  margin: 10px 0;
   position: absolute;
   right: 0;
 }
@@ -102,7 +128,7 @@ export default {
 }
 
 .footer-link {
-  margin: 0px 20px 0 0px;
+  padding: 0px 10px 0 10px;
 }
 
 .footer-link a {
@@ -125,6 +151,15 @@ export default {
   color: #fff;
   border: none;
   cursor: pointer;
+}
+@media (max-width: 991px) {
+  .footer_menus {
+    display: flow;
+  }
+
+  .footer-links {
+    display: block;
+  }
 }
 
 @media (min-width: 992px) {

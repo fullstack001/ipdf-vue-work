@@ -422,38 +422,11 @@
         </div>
         <div class="add-more" v-show="file_objs.length" style="right: 0">
           <div class="add-more-area">
-            <div
-              class="badge-container md-primary"
-              md-content="4"
-              v-if="file_objs.length"
-            >
-              <md-button class="md-icon-button" @click="open_add_local">
-                <md-icon>computer</md-icon>
-                <md-tooltip md-direction="right"
-                  >{{ $t("toolTip.upload_local") }}
-                </md-tooltip>
-              </md-button>
-              <div class="badge">
-                {{ file_objs.length }}
-              </div>
-            </div>
-            <GDriveSelector
-              @picked="onPickedGoogleDriver"
-              :buttonStyle="'download'"
-            >
-              <md-tooltip md-direction="top"> </md-tooltip>
-            </GDriveSelector>
-            <VueDropboxPicker
-              class="cloud dropbox"
-              link-type="direct"
-              :buttonType="'chooser'"
-              :multiselect="true"
-              :extensions="['.pdf', '.doc']"
-              :folderselect="false"
-              v-bind:style="
-                file_objs.length ? 'margin-top: 5px;' : 'display: inline-block;'
-              "
-              @picked="onPickedDropbox"
+            <AddMoreDropDown
+              :pdfCounts="this.file_objs.length"
+              @open_add_local="open_add_local"
+              @onPickedDropbox="onPickedDropbox"
+              @onPickedGoogleDriver="onPickedGoogleDriver"
             />
             <a
               id="orderByName"
@@ -563,6 +536,7 @@ import generateURL from "@/pdf_pages/services/generateURL";
 import getPageNumber from "@/pdf_pages/services/getPageNumber";
 import faq from "@/components/Faq.vue";
 import FeatureTitle from "./components/FeatureTitle.vue";
+import AddMoreDropDown from "./components/AddMoreDropDown.vue";
 import { online_names } from "../services/online_name";
 
 export default {
@@ -573,6 +547,7 @@ export default {
     faq,
     FeatureTitle,
     GDriveSelector,
+    AddMoreDropDown,
     // GDrivePicker,
   },
   data() {
@@ -600,7 +575,6 @@ export default {
   },
   mounted() {
     if (this.$route.params.file) {
-      console.log(this.$route.params.file);
       this.file_objs = this.$route.params.file.map((file) => {
         return { file: file, degree: 0 };
       });
@@ -668,14 +642,12 @@ export default {
         let pageNum = await getPageNumber(data[i]);
         this.file_objs.push({ file: data[i], degree: 0, page: pageNum });
       }
-      console.log(this.file_objs);
     },
     async onPickedGoogleDriver(data) {
       for (let i = 0; i < data.length; i++) {
         let pageNum = await getPageNumber(data[i]);
         this.file_objs.push({ file: data[i], degree: 0, page: pageNum });
       }
-      console.log(this.file_objs);
     },
     async onChange() {
       const data = this.$refs.file.files;
@@ -686,7 +658,6 @@ export default {
         add_objs.push({ file: data[i], degree: 0, page: pageNum });
       }
       this.file_objs = [...this.file_objs, ...add_objs];
-      console.log(this.file_objs);
     },
     getURL(file_obj) {
       const fileSrc = generateURL(file_obj.file);
@@ -710,7 +681,6 @@ export default {
         temp = temp.sort((a, b) => {
           const nameA = a.file.name.toLowerCase();
           const nameB = b.file.name.toLowerCase();
-          console.log(nameA, nameB, nameA > nameB);
 
           if (nameA < nameB) {
             return -1;
@@ -720,7 +690,6 @@ export default {
             return 0;
           }
         });
-        console.log(temp);
       } else {
         this.file_objs.reverse();
       }
@@ -767,7 +736,6 @@ export default {
 
       const formData = new FormData();
       const blob = new Blob([mergedPdfFile], { type: "application/pdf" });
-      console.log(blob);
 
       formData.append("pdf", blob);
 
@@ -1278,25 +1246,6 @@ body {
 
 .prew_title {
   word-wrap: break-word;
-}
-.badge-container {
-  position: relative;
-}
-h3 {
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-.badge[data-v-3a2b3612] {
-  position: absolute;
-  top: -10px;
-  right: 30px;
-  background-color: rgb(10, 10, 10);
-  color: white;
-  border-radius: 100%;
-  padding: 0px 8px;
-  font-size: 10px;
-  z-index: 1000;
-  border: solid 2px #ff7c03;
 }
 
 .block__container {

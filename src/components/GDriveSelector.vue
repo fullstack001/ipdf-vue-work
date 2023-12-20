@@ -59,7 +59,7 @@ export default {
         this.oauthToken = authResult.access_token;
         this.buttonStyle == "download"
           ? this.createPicker()
-          : this.createFolder();
+          : this.getOrCreatePdfDenFolder();
         // : this.processFiles(this.file);
       } else {
         console.log("error:", authResult);
@@ -106,6 +106,7 @@ export default {
         }
       }
     },
+
     getFileContentFromGoogleDrive(id) {
       return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
@@ -126,48 +127,85 @@ export default {
       });
     },
 
-    async createFolder() {
+    async listFilesInRoot() {
+      // const accessToken = gapi.auth.getToken().access_token;
+
+      try {
+        const response = await this.$axios.get(
+          "https://www.googleapis.com/drive/v3/files",
+          {
+            headers: {
+              Authorization: `Bearer ${this.oauthToken}`,
+            },
+            params: {
+              q: "name='pdfDen' and mimeType='application/vnd.google-apps.folder'",
+            },
+          }
+        );
+
+        return response.data.files;
+      } catch (error) {
+        console.error("Error listing files:", error);
+        throw error;
+      }
+    },
+
+    async createPdfDenFolder() {
+      const accessToken = gapi.auth.getToken().access_token;
+
       const folderData = {
         name: "pdfDen",
         mimeType: "application/vnd.google-apps.folder",
       };
 
       try {
-        const response = await axios.post(
+        const response = await this.$axios.post(
           "https://www.googleapis.com/drive/v3/files",
           folderData,
           {
             headers: {
-              Authorization: `Bearer ${this.oauthToken}`,
+              Authorization: `Bearer ${accessToken}`,
               "Content-Type": "application/json",
             },
           }
         );
 
-        console.log("Folder created:", response.data);
+        return response.data.id;
       } catch (error) {
         console.error("Error creating folder:", error);
+        throw error;
       }
     },
 
-    processFiles(files) {
+    async getOrCreatePdfDenFolder() {
+      try {
+        const pdfDenFolder = await this.listFilesInRoot();
+
+        if (pdfDenFolder.length > 0) {
+          const folderId = pdfDenFolder[0].id;
+          console.log("pdfDen folder exists. ID:", folderId);
+          this.processFiles(this.file, folderId);
+        } else {
+          const newFolderId = await this.createPdfDenFolder();
+          console.log("pdfDen folder created. ID:", newFolderId);
+          this.processFiles(this.file, newFolderId);
+        }
+      } catch (error) {
+        console.error("Error getting or creating pdfDen folder:", error);
+      }
+    },
+
+    processFiles(files, folderId) {
       console.log(files);
+      console.log(folderId);
       const formData = new FormData();
       formData.append("file", files.file);
       formData.append(
         "metadata",
-        new Blob(
-          [
-            JSON.stringify({
-              name: files.name,
-            }),
-          ],
-          { type: "application/pdf" }
-        )
+        new Blob([JSON.stringify({ name: files.name, parents: [folderId] })], {
+          type: "application/json",
+        })
       );
-
-      formData.append("name", files.name);
-      // formData.append("parents", this.currentFolder.folderId);
 
       axios
         .post("https://www.googleapis.com/upload/drive/v3/files", formData, {

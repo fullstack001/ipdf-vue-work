@@ -18,7 +18,6 @@ import {
   setDocumentLang,
 } from "@/util/i18n/document";
 
-// import PdfEdit from "@/pdf_pages/PdfEdit2.vue";
 import AllFeatures from "@/pdf_pages/features/AllFeatures.vue";
 
 Vue.use(VueRouter);
@@ -99,6 +98,14 @@ const routes = [
             /* webpackChunkName: "pdfcompress" */ "@/pdf_pages/features/PdfToWord.vue"
           ),
         name: "pdftoword",
+      },
+      {
+        path: "/:locale/test",
+        component: () =>
+          import(
+            /* webpackChunkName: "pdfcompress" */ "@/pdf_pages/features/components/AddMoreDropDown.vue"
+          ),
+        name: "test",
       },
     ],
   },
