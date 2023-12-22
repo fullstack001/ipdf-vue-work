@@ -9,20 +9,20 @@
         <router-link to="/">
           <img src="@/assets/img/vue-logo.png" width="160" srcset="" />
         </router-link>
-        <router-link to="/pdfmerge">
-          <p class="nav-btn" :class="{ 'active-link': isActive('/pdfmerge') }">
+        <router-link to="/mergepdf">
+          <p class="nav-btn" :class="{ 'active-link': isActive('/mergepdf') }">
             <b>{{ $t("features.merge.title") }}</b>
           </p>
         </router-link>
-        <router-link to="/pdfsplit">
-          <p class="nav-btn" :class="{ 'active-link': isActive('/pdfsplit') }">
+        <router-link to="/splitpdf">
+          <p class="nav-btn" :class="{ 'active-link': isActive('/splitpdf') }">
             <b>{{ $t("features.split.title") }}</b>
           </p>
         </router-link>
-        <router-link to="/pdfcompress">
+        <router-link to="/compresspdf">
           <p
             class="nav-btn"
-            :class="{ 'active-link': isActive('/pdfcompress') }"
+            :class="{ 'active-link': isActive('/compresspdf') }"
           >
             <b>{{ $t("features.compress.title") }}</b>
           </p>

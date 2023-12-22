@@ -9,20 +9,20 @@
         <LocalizedLink to="/">
           <img src="@/assets/img/vue-logo.png" width="160" srcset="" />
         </LocalizedLink>
-        <LocalizedLink to="/pdfmerge">
-          <p class="nav-btn" :class="{ 'active-link': isActive('/pdfmerge') }">
+        <LocalizedLink to="/mergepdf">
+          <p class="nav-btn" :class="{ 'active-link': isActive('/mergepdf') }">
             <b>{{ $t("features.merge.title") }}</b>
           </p>
         </LocalizedLink>
-        <LocalizedLink to="/pdfsplit">
-          <p class="nav-btn" :class="{ 'active-link': isActive('/pdfsplit') }">
+        <LocalizedLink to="/splitpdf">
+          <p class="nav-btn" :class="{ 'active-link': isActive('/splitpdf') }">
             <b>{{ $t("features.split.title") }}</b>
           </p>
         </LocalizedLink>
-        <LocalizedLink to="/pdfcompress">
+        <LocalizedLink to="/compresspdf">
           <p
             class="nav-btn"
-            :class="{ 'active-link': isActive('/pdfcompress') }"
+            :class="{ 'active-link': isActive('/compresspdf') }"
           >
             <b>{{ $t("features.compress.title") }}</b>
           </p>

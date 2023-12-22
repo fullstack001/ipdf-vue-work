@@ -73,4 +73,60 @@ body {
 .md-stepper .md-steppers.md-vertical .md-stepper-header {
   background-color: #fff !important;
 }
+
+.add_button .md-ripple {
+  padding: 0 !important;
+}
+
+.md-icon-button .md-ripple .md-button-content i {
+  color: #000 !important;
+}
+
+.nav-btn .md-button,
+.nav-btn .md-button:active,
+.nav-btn .md-button:focus,
+.nav-btn .md-button:hover,
+.nav-btn .md-button:active:focus,
+.nav-btn .md-button:active:hover {
+  padding: 0;
+  background-color: transparent !important;
+  color: #000 !important;
+  font-weight: 600;
+  box-shadow: none !important;
+}
+
+.nav-btn .md-button .md-ripple {
+  padding: 10px 20px !important;
+}
+
+.md-list-item .md-list-item-container .md-ripple {
+  padding: 0 !important;
+}
+
+.md-list-item .md-list-item-container .md-ripple a {
+  padding: 10px 20px !important;
+}
+.md-menu-content .md-list .md-list-item a {
+  font-size: 12px !important;
+}
+
+.nav-btn .md-button .md-ripple .md-button-content .material-icons {
+  font-size: 12px !important;
+}
+
+.md-list-item {
+  margin-left: 0 !important;
+}
+
+@media (max-width: 991px) {
+  .md-layout-item {
+    flex: auto !important;
+    padding-left: 0;
+  }
+
+  .block__container {
+    margin-left: 0;
+    padding-left: 5px;
+  }
+}
 </style>

@@ -18,6 +18,7 @@ import {
   setDocumentLang,
 } from "@/util/i18n/document";
 
+// import PdfEdit from "@/pdf_pages/PdfEdit2.vue";
 import AllFeatures from "@/pdf_pages/features/AllFeatures.vue";
 
 Vue.use(VueRouter);
@@ -46,12 +47,12 @@ const routes = [
         name: "login",
       },
       {
-        path: "/:locale/pdfmerge",
+        path: "/:locale/mergepdf",
         component: () =>
           import(
-            /* webpackChunkName: "pdfmerge" */ "@/pdf_pages/features/PdfMerge.vue"
+            /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/MergePdf.vue"
           ),
-        name: "pdfmerge",
+        name: "mergepdf",
       },
       {
         path: "/:locale/download/:param",
@@ -61,20 +62,20 @@ const routes = [
       },
 
       {
-        path: "/:locale/pdfsplit",
+        path: "/:locale/splitpdf",
         component: () =>
           import(
-            /* webpackChunkName: "pdfsplit" */ "@/pdf_pages/features/PdfSplit.vue"
+            /* webpackChunkName: "splitpdf" */ "@/pdf_pages/features/SplitPdf.vue"
           ),
-        name: "pdfsplit",
+        name: "splitpdf",
       },
       {
-        path: "/:locale/pdfcompress",
+        path: "/:locale/compresspdf",
         component: () =>
           import(
-            /* webpackChunkName: "pdfcompress" */ "@/pdf_pages/features/PdfCompress.vue"
+            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/CompressPdf.vue"
           ),
-        name: "pdfcompress",
+        name: "compresspdf",
       },
       ,
       {
@@ -87,7 +88,7 @@ const routes = [
         path: "/:locale/wordtopdf",
         component: () =>
           import(
-            /* webpackChunkName: "pdfcompress" */ "@/pdf_pages/features/WordToPdf.vue"
+            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/WordToPdf.vue"
           ),
         name: "wordtopdf",
       },
@@ -95,17 +96,9 @@ const routes = [
         path: "/:locale/pdftoword",
         component: () =>
           import(
-            /* webpackChunkName: "pdfcompress" */ "@/pdf_pages/features/PdfToWord.vue"
+            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/PdfToWord.vue"
           ),
         name: "pdftoword",
-      },
-      {
-        path: "/:locale/test",
-        component: () =>
-          import(
-            /* webpackChunkName: "pdfcompress" */ "@/pdf_pages/features/components/AddMoreDropDown.vue"
-          ),
-        name: "test",
       },
     ],
   },

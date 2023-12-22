@@ -14,7 +14,7 @@
           </div>
           <div class="drop-area">
             <div class="drop-img">
-              <img src="@/assets/img/drop-img.svg" alt="" />
+              <img src="@/assets/feature_img/pdf_word.svg" alt="" />
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
@@ -94,7 +94,7 @@
                     viewBox="0 0 12 12"
                   >
                     <polygon
-                      fill="#47474F"
+                      fill="#fff"
                       fill-rule="evenodd"
                       points="12 1.208 10.79 0 6 4.792 1.21 0 0 1.208 4.79 6 0 10.792 1.21 12 6 7.208 10.79 12 12 10.792 7.21 6"
                     ></polygon>
@@ -120,7 +120,7 @@
             class="add-more"
             v-bind:style="
               file_objs.length
-                ? 'position: absolute; top: 50px; right: -30px'
+                ? 'position: absolute; top: 00px; right: 50px'
                 : 'position: relative; margin: auto; right: 0; top: 0;'
             "
           >
@@ -383,6 +383,7 @@ body {
   margin: auto;
   padding: 50px 0;
   margin-top: 20px;
+  background-color: #fffbf8;
 }
 
 .drop-img {
@@ -462,7 +463,7 @@ body {
   flex: 0 0 24px;
   text-align: center;
   background: rgba(0, 0, 0, 0.1);
-  background: #ebebf4;
+  background: #ff7c03;
   margin-left: 4px;
   z-index: 1030;
   border-radius: 100%;
@@ -521,6 +522,7 @@ body {
 }
 
 .tool__sidebar {
+  min-width: 400px;
   height: 100vh;
   background-color: #fff;
 }
@@ -628,5 +630,15 @@ h3 {
 
 .md-radio-label {
   font-weight: 500 !important;
+}
+
+@media (max-width: 640px) {
+  .drop-area {
+    width: 100%;
+  }
+
+  .uploader__btn {
+    min-width: auto;
+  }
 }
 </style>

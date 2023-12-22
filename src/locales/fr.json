@@ -86,24 +86,30 @@
         "description2": "Séparez une page ou un ensemble complet pour une conversion facile en fichiers PDF indépendants. ",
         "description3": "Réduisez la taille du fichier tout en l'optimisant pour une qualité PDF maximale.",
         "description4": "Convertissez facilement vos fichiers PDF en documents DOC et DOCX faciles à modifier. Le document WORD converti est précis à presque 100 %."
+      },
+      "securitySection": {
+        "title": "Vos fichiers seront traités en toute sécurité par les serveurs Adobe et supprimés à moins que vous ne vous connectiez pour les enregistrer. En utilisant ce service, vous acceptez les conditions d'utilisation et la politique de confidentialité d'Adobe.",
+        "description1": "Fusionner plusieurs PDF en un seul en quelques secondes.",
+        "description2": "Faites glisser et déposez vos PDF pour démarrer, c'est facile !",
+        "description3": "Fonctionne sur Mac, Windows, Android et iOS."
       }
     }
   },
   "features": {
     "merge": {
-      "name": "pdfmerge",
+      "name": "mergepdf",
       "title": "Fusionner PDF",
       "description": "Combinez des PDF dans l'ordre que vous souhaitez grâce à la fusion de PDF la plus simple qui soit.",
       "file": "merge_pdf.svg"
     },
     "split": {
-      "name": "pdfsplit",
+      "name": "splitpdf",
       "title": "Diviser le PDF",
       "description": "Séparer une page ou un ensemble de pages pour les convertir facilement en fichiers PDF indépendants.",
       "file": "split_pdf.svg"
     },
     "compress": {
-      "name": "pdfcompress",
+      "name": "compresspdf",
       "title": "Compresser le PDF",
       "description": "Réduire la taille des fichiers tout en optimisant la qualité des PDF",
       "file": "compress_pdf.svg"
@@ -141,19 +147,19 @@
   },
   "onlines":{
     "merge": {
-      "name": "pdfmerge",
+      "name": "mergepdf",
       "title": "Fusionner PDF",
       "description": "Combinez des PDF dans l'ordre que vous souhaitez grâce à la fusion de PDF la plus simple qui soit.",
       "file": "merge_pdf.svg"
     },
     "split": {
-      "name": "pdfsplit",
+      "name": "splitpdf",
       "title": "Diviser le PDF",
       "description": "Séparer une page ou un ensemble de pages pour les convertir facilement en fichiers PDF indépendants.",
       "file": "split_pdf.svg"
     },
     "compress": {
-      "name": "pdfcompress",
+      "name": "compresspdf",
       "title": "Compresser le PDF",
       "description": "Réduire la taille des fichiers tout en optimisant la qualité des PDF",
       "file": "compress_pdf.svg"

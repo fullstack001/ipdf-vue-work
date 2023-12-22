@@ -23,19 +23,19 @@
   },
   "features": {
     "merge": {
-      "name": "pdfmerge",
+      "name": "mergepdf",
       "title": "Fusionner PDF",
       "description": "Combinez des PDF dans l'ordre que vous souhaitez grâce à la fusion de PDF la plus simple qui soit.",
       "file": "merge_pdf.svg"
     },
     "split": {
-      "name": "pdfsplit",
+      "name": "splitpdf",
       "title": "Diviser le PDF",
       "description": "Séparer une page ou un ensemble de pages pour les convertir facilement en fichiers PDF indépendants.",
       "file": "split_pdf.svg"
     },
     "compress": {
-      "name": "pdfcompress",
+      "name": "compresspdf",
       "title": "Compresser le PDF",
       "description": "Réduire la taille des fichiers tout en optimisant la qualité des PDF",
       "file": "compress_pdf.svg"

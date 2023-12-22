@@ -127,6 +127,16 @@ export default {
       });
     },
 
+    async authenticate() {
+      await gapi.client.init({
+        apiKey: this.developerKey,
+        clientId: this.clientId,
+        scope: "https://www.googleapis.com/auth/drive.file",
+      });
+
+      // await gapi.auth2.getAuthInstance().signIn();
+    },
+
     async listFilesInRoot() {
       // const accessToken = gapi.auth.getToken().access_token;
 
@@ -179,6 +189,8 @@ export default {
 
     async getOrCreatePdfDenFolder() {
       try {
+        // await this.authenticate();
+
         const pdfDenFolder = await this.listFilesInRoot();
 
         if (pdfDenFolder.length > 0) {
@@ -233,13 +245,13 @@ export default {
   height: 40px;
   border-radius: 50%;
   border: solid 2px #ff7c03;
-  background-color: #ff7c03;
   margin-bottom: 15px;
   margin-top: 0px;
   cursor: pointer;
+  background-color: transparent;
 }
 
 .gdrive_btn i {
-  color: #fff !important;
+  color: #000 !important;
 }
 </style>

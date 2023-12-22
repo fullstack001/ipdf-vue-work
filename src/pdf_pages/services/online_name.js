@@ -1,20 +1,20 @@
 export const online_names = [
   {
-    name: "pdfmerge",
+    name: "mergepdf",
     title: "Merge PDF",
     description:
       "Combine PDFs in the order you want with the easiest PDF merger available",
     file: "merge_pdf.svg",
   },
   {
-    name: "pdfsplit",
+    name: "splitpdf",
     title: "Split PDF",
     description:
       "Separate one page or a whole set for easy conversion into independent PDF files",
     file: "split_pdf.svg",
   },
   {
-    name: "pdfcompress",
+    name: "compresspdf",
     title: "Compress PDF",
     description: "Reduce file size while optimizing for maximal PDF quality",
     file: "compress_pdf.svg",

@@ -23,19 +23,19 @@
   },
   "features": {
     "merge": {
-      "name": "pdfmerge",
+      "name": "mergepdf",
       "title": "PDFのマージ",
       "description": "最も簡単なPDF結合ツールで、PDFを好きな順序で結合できます。",
       "file": "merge_pdf.svg"
     },
     "split": {
-      "name": "pdfsplit",
+      "name": "splitpdf",
       "title": "PDFを分割する",
       "description": "独立したPDFファイルに簡単に変換するために、1ページまたはセット全体を分離する",
       "file": "split_pdf.svg"
     },
     "compress": {
-      "name": "pdfcompress",
+      "name": "compresspdf",
       "title": "PDFを圧縮する",
       "description": "PDFの品質を最大限に最適化しながらファイルサイズを縮小",
       "file": "compress_pdf.svg"

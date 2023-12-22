@@ -1,107 +1,132 @@
 <template>
-  <!-- <md-toolbar
-    md-elevation="0"
-    class="md-transparent nav-par"
-    v-if="$route.path != '/login'"
-  > -->
   <nav class="navbar">
-    <LocalizedLink to="/">
-      <img src="@/assets/img/vue-logo.png" width="160" srcset="" />
-    </LocalizedLink>
-    <div class="navbar-toggle" @click="toggleNavbar">
-      <md-icon>menu</md-icon>
-    </div>
-    <ul class="nav-lists">
-      <li class="nav-item">
-        <ul class="nav-list">
+    <div class="block__container">
+      <LocalizedLink to="/" style="background-color: #fff !important">
+        <img src="@/assets/img/vue-logo.png" width="160" srcset="" />
+      </LocalizedLink>
+      <div class="navbar-toggle" @click="toggleNavbar">
+        <md-icon>menu</md-icon>
+      </div>
+      <ul class="nav-lists">
+        <li class="nav-item">
+          <ul class="nav-list">
+            <li>
+              <LocalizedLink
+                to="/mergepdf"
+                class="nav-btn"
+                :class="{ 'active-link': isActive('/mergepdf') }"
+              >
+                {{ $t("features.merge.title") }}
+              </LocalizedLink>
+            </li>
+
+            <li>
+              <LocalizedLink
+                to="/splitpdf"
+                class="nav-btn"
+                :class="{ 'active-link': isActive('/splitpdf') }"
+              >
+                {{ $t("features.split.title") }}
+              </LocalizedLink>
+            </li>
+            <li>
+              <LocalizedLink
+                to="/compresspdf"
+                class="nav-btn"
+                :class="{ 'active-link': isActive('/compresspdf') }"
+              >
+                {{ $t("features.compress.title") }}
+              </LocalizedLink>
+            </li>
+            <li style="margin-top: -10px">
+              <md-menu md-align-trigger class="nav-btn" style="padding: 0">
+                <md-button md-menu-trigger>
+                  {{ $t("other_features.convert_pdf.title") }}
+                  <span class="material-icons"> expand_more </span>
+                </md-button>
+
+                <md-menu-content>
+                  <md-menu-item>
+                    <LocalizedLink to="wordtopdf">
+                      {{ $t("features.word_pdf.title") }}
+                    </LocalizedLink>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <LocalizedLink to="pdftoword">
+                      {{ $t("features.pdf_word.title") }}
+                    </LocalizedLink>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <LocalizedLink to="edit">
+                      {{ $t("features.edit.title") }}
+                    </LocalizedLink>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <LocalizedLink to="sign">
+                      {{ $t("features.sign.title") }}
+                    </LocalizedLink>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </li>
+            <li></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <ul class="nav-list">
+            <li class="md-list-item login-btn">
+              {{ $t("nav-links.login") }}
+            </li>
+            <li class="md-list-item signup-btn">
+              {{ $t("nav-links.signup") }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div :class="{ 'navbar-open': isOpen }">
+        <ul class="mobile-nav-list">
           <li>
             <LocalizedLink
-              to="/pdfmerge"
+              to="/mergepdf"
               class="nav-btn"
-              :class="{ 'active-link': isActive('/pdfmerge') }"
+              :class="{ 'active-link': isActive('/mergepdf') }"
             >
               {{ $t("features.merge.title") }}
             </LocalizedLink>
           </li>
-
           <li>
             <LocalizedLink
-              to="/pdfsplit"
+              to="/splitpdf"
               class="nav-btn"
-              :class="{ 'active-link': isActive('/pdfsplit') }"
+              :class="{ 'active-link': isActive('/splitpdf') }"
             >
               {{ $t("features.split.title") }}
             </LocalizedLink>
           </li>
           <li>
             <LocalizedLink
-              to="/pdfcompress"
+              to="/compresspdf"
               class="nav-btn"
-              :class="{ 'active-link': isActive('/pdfcompress') }"
+              :class="{ 'active-link': isActive('/compresspdf') }"
             >
               {{ $t("features.compress.title") }}
             </LocalizedLink>
           </li>
+
           <li>
-            <LocalizedLink to="/wordtopdf" class="nav-btn">
+            <LocalizedLink to="wordtopdf" class="nav-btn">
               {{ $t("other_features.convert_pdf.title") }}
             </LocalizedLink>
           </li>
-        </ul>
-      </li>
-
-      <li class="nav-item">
-        <ul class="nav-list">
-          <li class="md-list-item login-btn">
-            {{ $t("nav-links.login") }}
+          <li class="login-btn">
+            <a href="" class="nav-btn">{{ $t("nav-links.login") }}</a>
           </li>
-          <li class="md-list-item signup-btn">
-            {{ $t("nav-links.signup") }}
+          <li class="signup-btn">
+            <a href="" class="nav-btn"> {{ $t("nav-links.signup") }}</a>
           </li>
         </ul>
-      </li>
-    </ul>
-    <div :class="{ 'navbar-open': isOpen }">
-      <ul class="mobile-nav-list">
-        <li>
-          <LocalizedLink
-            to="/pdfmerge"
-            class="nav-btn"
-            :class="{ 'active-link': isActive('/pdfmerge') }"
-          >
-            {{ $t("features.merge.title") }}
-          </LocalizedLink>
-        </li>
-        <li>
-          <LocalizedLink
-            to="/pdfsplit"
-            class="nav-btn"
-            :class="{ 'active-link': isActive('/pdfsplit') }"
-          >
-            {{ $t("features.split.title") }}
-          </LocalizedLink>
-        </li>
-        <li>
-          <LocalizedLink
-            to="/pdfcompress"
-            class="nav-btn"
-            :class="{ 'active-link': isActive('/pdfcompress') }"
-          >
-            {{ $t("features.compress.title") }}
-          </LocalizedLink>
-        </li>
-        <li>
-          <LocalizedLink to="wordtopdf" class="nav-btn">
-            {{ $t("other_features.convert_pdf.title") }}
-          </LocalizedLink>
-        </li>
-        <li class="login-btn">
-          <a href="" class="nav-btn">{{ $t("nav-links.login") }}</a>
-        </li>
-        <li class="signup-btn">
-          <a href="" class="nav-btn"> {{ $t("nav-links.signup") }}</a>
-        </li>
-      </ul>
+      </div>
     </div>
   </nav>
 </template>
@@ -131,13 +156,22 @@ html,
 body {
   font-family: "Montserrat", sans-serif;
 }
-
-.navbar {
+.block__container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 91%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.navbar {
   background-color: #fff; /* Material Design Blue */
-  padding: 10px;
+
+  box-shadow: 0px 4px 17px 0px rgb(81 65 65 / 38%);
 }
 
 .navbar-toggle {
@@ -165,13 +199,13 @@ body {
 }
 
 .nav-list li {
-  margin: 0 15px;
+  margin: 0 10px;
 }
 .nav-btn {
   padding: 10px 20px;
   border-radius: 8px;
   border: 1px solid #ff7c03;
-  margin-left: 25px;
+  margin-left: 0px;
   font-size: 12px;
   cursor: pointer;
   color: #495057 !important;
@@ -211,7 +245,8 @@ body {
 }
 
 .router-link-active {
-  color: #ff7c03 !important;
+  color: #fff !important;
+  background-color: #ff7c03 !important;
 }
 
 @media only screen and (max-width: 991px) {
@@ -254,7 +289,7 @@ body {
     display: block;
     flex-direction: column;
     position: absolute;
-    top: 40px;
+    top: 20px;
     left: 0;
     width: 100%;
     background-color: #fff; /* Material Design Blue */

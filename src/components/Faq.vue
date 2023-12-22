@@ -1,11 +1,17 @@
 <template>
-  <div class="faq">
-    <p class="question" @click="toggleAnswer">
+  <div>
+    <div>
+      {{ faq.active }}
+    </div>
+    <div class="question" @click="toggleAnswer">
       {{ faq.q }}
-    </p>
-    <p class="answer" ref="answer">
+      <div class="indicator">
+        {{ isOpen ? "-" : "+" }}
+      </div>
+    </div>
+    <div class="answer" ref="answer">
       {{ faq.a }}
-    </p>
+    </div>
   </div>
 </template>
 
@@ -102,5 +108,12 @@ body {
   display: inline-block;
   line-height: 0.5;
   color: #666;
+}
+
+.indicator {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: #000;
 }
 </style>

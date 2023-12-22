@@ -86,24 +86,30 @@
         "description2": "Separate one page or a whole set for easy conversion into independent PDF files. ",
         "description3": "Reduce file size while optimizing for maximal PDF quality.",
         "description4": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate."
+      },
+      "securitySection": {
+        "title": "Your files will be securely handled by Adobe servers and deleted unless you sign in to save them. By using this service, you agree to the Adobe Terms of Use and Privacy Policy.",
+        "description1": "Merge multiple PDFs into one in seconds.",
+        "description2": "Drag & drop your PDFs to start—easy!",
+        "description3": "Works on Mac, Windows, Android, and iOS."
       }
     }
   },
   "features": {
     "merge": {
-      "name": "pdfmerge",
+      "name": "mergepdf",
       "title": "Merge PDF",
       "description": "Combine PDFs in the order you want with the easiest PDF merger available",
       "file": "merge_pdf.svg"
     },
     "split": {
-      "name": "pdfsplit",
+      "name": "splitpdf",
       "title": "Split PDF",
       "description": "Separate one page or a whole set for easy conversion into independent PDF files",
       "file": "split_pdf.svg"
     },
     "compress": {
-      "name": "pdfcompress",
+      "name": "compresspdf",
       "title": "Compress PDF",
       "description": "Reduce file size while optimizing for maximal PDF quality",
       "file": "compress_pdf.svg"
@@ -141,19 +147,19 @@
   },
   "onlines":{
     "merge": {
-      "name": "pdfmerge",
+      "name": "mergepdf",
       "title": "Merge PDF",
       "description": "Combine PDFs in the order you want with the easiest PDF merger available",
       "file": "merge_pdf.svg"
     },
     "split": {
-      "name": "pdfsplit",
+      "name": "splitpdf",
       "title": "Split PDF",
       "description": "Separate one page or a whole set for easy conversion into independent PDF files",
       "file": "split_pdf.svg"
     },
     "compress": {
-      "name": "pdfcompress",
+      "name": "compresspdf",
       "title": "Compress PDF",
       "description": "Reduce file size while optimizing for maximal PDF quality",
       "file": "compress_pdf.svg"

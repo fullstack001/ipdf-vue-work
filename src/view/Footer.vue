@@ -10,37 +10,37 @@
               <img src="@/assets/img/vue-logo.png" width="100" srcset="" />
             </LocalizedLink>
           </div>
-          <div class="footer-link" style="border-right: solid 1px">
+          <div class="footer-link border-right">
             <router-link to="/"> {{ $t("nav-links.about") }} </router-link>
           </div>
-          <div class="footer-link" style="border-right: solid 1px">
+          <div class="footer-link border-right">
             <LocalizedLink
-              to="/pdfmerge"
+              to="/mergepdf"
               class="nav-btn"
-              :class="{ 'active-link': isActive('/pdfmerge') }"
+              :class="{ 'active-link': isActive('/mergepdf') }"
             >
               {{ $t("features.merge.title") }}
             </LocalizedLink>
           </div>
-          <div class="footer-link" style="border-right: solid 1px">
+          <div class="footer-link border-right">
             <LocalizedLink
-              to="/pdfsplit"
+              to="/splitpdf"
               class="nav-btn"
-              :class="{ 'active-link': isActive('/pdfsplit') }"
+              :class="{ 'active-link': isActive('/splitpdf') }"
             >
               {{ $t("features.split.title") }}
             </LocalizedLink>
           </div>
-          <div class="footer-link" style="border-right: solid 1px">
+          <div class="footer-link border-right">
             <LocalizedLink
-              to="/pdfcompress"
+              to="/compresspdf"
               class="nav-btn"
-              :class="{ 'active-link': isActive('/pdfcompress') }"
+              :class="{ 'active-link': isActive('/compresspdf') }"
             >
               {{ $t("features.compress.title") }}
             </LocalizedLink>
           </div>
-          <div class="footer-link" style="border-right: solid 1px">
+          <div class="footer-link border-right">
             <LocalizedLink to="wordtopdf" class="nav-btn">
               {{ $t("other_features.convert_pdf.title") }}
             </LocalizedLink>
@@ -133,6 +133,7 @@ export default {
 
 .footer-link a {
   color: #000 !important;
+  font-weight: 600;
 }
 .copyright {
   padding-bottom: 20px;
@@ -152,6 +153,10 @@ export default {
   border: none;
   cursor: pointer;
 }
+
+.border-right {
+  border-right: solid 1px;
+}
 @media (max-width: 991px) {
   .footer_menus {
     display: flow;
@@ -159,6 +164,14 @@ export default {
 
   .footer-links {
     display: block;
+  }
+
+  .border-right {
+    border-right: none;
+  }
+
+  .footer-social {
+    top: 20px;
   }
 }
 

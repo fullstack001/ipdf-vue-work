@@ -2,25 +2,23 @@
   <div
     class="main"
     :style="
-      file_objs.length > 0
-        ? 'display: flex'
-        : 'display: inline-block; width: 100%;'
+      file_objs.length ? 'display: flex' : 'display: inline-block; width: 100%;'
     "
   >
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
-          <div class="page-title">Convert WORD to PDF</div>
+          <div class="page-title">Compress PDF file</div>
           <div class="page-description">
-            Make DOC and DOCX file easy to ready by converting them to PDF.
+            Reduce file size while optimizing for maximal PDF quality.
           </div>
           <div class="drop-area">
             <div class="drop-img">
-              <img src="@/assets/feature_img/word_pdf.svg" alt="" />
+              <img src="@/assets/feature_img/compress_pdf.svg" alt="" />
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
-                Select WORD files
+                Select PDF files
               </label>
               <input
                 type="file"
@@ -30,27 +28,22 @@
                 class="hidden-input"
                 @change="onChange"
                 ref="file"
-                accept=".doc, .docx"
+                accept=".pdf"
               />
               <div
                 class="add-more"
                 v-bind:style="'position: absolute; margin: auto; right: -50px; top: -5px;'"
               >
-                <div
-                  class="badge-container md-primary"
-                  md-content="4"
-                  v-if="file_objs.length"
+                <md-button
+                  v-show="file_objs.length"
+                  class="md-icon-button"
+                  @click="open_add_local"
                 >
-                  <md-button class="md-icon-button" @click="open_add_local">
-                    <md-icon>computer</md-icon>
-                    <md-tooltip md-direction="right"
-                      >{{ $t("toolTip.upload_local") }}
-                    </md-tooltip>
-                  </md-button>
-                  <div class="badge">
-                    {{ file_objs.length }}
-                  </div>
-                </div>
+                  <md-icon>computer</md-icon>
+                  <md-tooltip md-direction="bottom">{{
+                    $t("toolTip.upload_local")
+                  }}</md-tooltip>
+                </md-button>
                 <GDriveSelector
                   @picked="onPickedGoogleDriver"
                   :buttonStyle="'download'"
@@ -60,7 +53,7 @@
                   class="cloud dropbox"
                   link-type="direct"
                   :multiselect="true"
-                  :extensions="['.docx', '.doc']"
+                  :extensions="['.pdf', '.doc']"
                   :folderselect="false"
                   v-bind:style="
                     file_objs.length > 0
@@ -71,7 +64,7 @@
                 />
               </div>
             </div>
-            <div>Or Drop WORD documents Here</div>
+            <div>Or Drop PDFs Here</div>
           </div>
         </div>
       </div>
@@ -84,30 +77,10 @@
           >
             <div
               class="preview-card md-layout-item"
-              v-for="(file, index) in file_objs"
-              :key="file.name"
+              v-for="(file_obj, index) in file_objs"
+              :key="file_obj.file.name"
             >
               <div class="file__actions">
-                <a
-                  class="file__btn rotate tooltip--top tooltip"
-                  data-rotate="0"
-                  title="Rotate"
-                  data-title="Rotate"
-                  @click="setRotationDegree(`id${index}`, index)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="16"
-                    viewBox="0 0 14 16"
-                  >
-                    <path
-                      d="M11.328 6.364l1.24-1.2c.79.98 1.283 2.113 1.433 3.288h-1.775c-.123-.735-.43-1.454-.896-2.088zm.896 3.778H14c-.15 1.175-.633 2.308-1.424 3.288l-1.24-1.2c.457-.634.765-1.344.888-2.088zm-.888 4.497C10.318 15.4 9.13 15.856 7.9 16v-1.716a5.31 5.31 0 0 0 2.162-.871l1.266 1.226zM6.152 2.595V0l4 3.846-4 3.76V4.302c-2.496.406-4.394 2.485-4.394 4.995s1.898 4.59 4.394 4.995V16C2.68 15.586 0 12.746 0 9.297s2.68-6.29 6.152-6.703z"
-                      fill="#fff"
-                      fill-rule="evenodd"
-                    ></path>
-                  </svg>
-                </a>
                 <a
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
@@ -121,7 +94,7 @@
                     viewBox="0 0 12 12"
                   >
                     <polygon
-                      fill="#fff"
+                      fill="#47474F"
                       fill-rule="evenodd"
                       points="12 1.208 10.79 0 6 4.792 1.21 0 0 1.208 4.79 6 0 10.792 1.21 12 6 7.208 10.79 12 12 10.792 7.21 6"
                     ></polygon>
@@ -129,19 +102,17 @@
                 </a>
               </div>
               <div :id="'id' + index" :style="'id' + index">
-                <img
-                  src="@/assets/img/word.png"
-                  srcset="@/assets/img/word.png"
-                  alt="language selector icon"
-                  class="word_preview_img"
-                />
+                <PdfViewer :fileUrl="getURL(file_obj)" />
               </div>
               <div class="prew_title">
                 {{
-                  file.file.name.length > 19
-                    ? file.file.name.substring(0, 20) + "..."
-                    : file.file.name
+                  file_obj.file.name.length > 19
+                    ? file_obj.file.name.substring(0, 20) + "..."
+                    : file_obj.file.name
                 }}
+                <!-- <md-tooltip md-direction="bottom"
+                  >{{ file_obj.file.name }}
+                </md-tooltip> -->
               </div>
             </div>
           </draggable>
@@ -153,18 +124,12 @@
                 : 'position: relative; margin: auto; right: 0; top: 0;'
             "
           >
-            <div
-              class="badge-container md-primary"
-              md-content="4"
-              v-if="file_objs.length"
-            >
-              <AddMoreDropDown
-                :pdfCounts="this.file_objs.length"
-                @open_add_local="open_add_local"
-                @onPickedDropbox="onPickedDropbox"
-                @onPickedGoogleDriver="onPickedGoogleDriver"
-              />
-            </div>
+            <AddMoreDropDown
+              :pdfCounts="this.file_objs.length"
+              @open_add_local="open_add_local"
+              @onPickedDropbox="onPickedDropbox"
+              @onPickedGoogleDriver="onPickedGoogleDriver"
+            />
           </div>
         </div>
       </div>
@@ -172,26 +137,66 @@
 
     <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3 class="text-center">Word to PDF</h3>
+        <h3 class="text-center">Compression level</h3>
+        <div class="tool__sidebar__inactive">
+          <md-radio
+            v-model="radio"
+            value="50"
+            class="split_option"
+            :class="radio == 50 ? 'md-checked' : ''"
+            >EXTREME COMPRESSION
+            <p><small>(Less quality, high compression)</small></p>
+          </md-radio>
+          <md-radio
+            v-model="radio"
+            value="100"
+            class="split_option"
+            :class="radio == 100 ? 'md-checked' : ''"
+            >RECOMMENDED COMPRESSION
+            <p>
+              <small>(Good quality, good compression)</small>
+            </p>
+          </md-radio>
+          <md-radio
+            v-model="radio"
+            value="150"
+            class="split_option"
+            :class="radio == 150 ? 'md-checked' : ''"
+            >LESS COMPRESSION
+            <p>
+              <small>(High quality, less compression)</small>
+            </p>
+          </md-radio>
+        </div>
         <div class="option__panel option__panel--active" id="merge-options">
-          <button class="option__panel__title" @click="convertToPdf">
-            Convert to PDF
+          <button class="option__panel__title" @click="expressPDFs">
+            Compress PDF
           </button>
         </div>
       </div>
     </div>
+    <md-dialog-alert
+      :md-active.sync="second"
+      md-title="Select Level!"
+      md-content="Your have to select level and compress the PDF"
+    />
   </div>
 </template>
 
 <script>
+import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import CryptoJS from "crypto-js";
+import store from "@/store/index";
+import * as type from "@/store/types";
+import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
-import AddMoreDropDown from "./components/AddMoreDropDown.vue";
+import AddMoreDropDown from "@/pdf_pages/features/components/AddMoreDropDown.vue";
 
 export default {
   components: {
+    PdfViewer,
     VueDropboxPicker,
     draggable,
     GDriveSelector,
@@ -202,11 +207,20 @@ export default {
       isDragging: false,
       files: [],
       file_objs: [],
+      radio: 100,
       second: false,
     };
   },
 
   methods: {
+    //add merged pdf to vuex
+    setPdfResult(result) {
+      store.dispatch({
+        type: type.SetResult,
+        amount: result,
+      });
+    },
+
     //click add from local button
     open_add_local() {
       this.$refs.file.click();
@@ -227,16 +241,6 @@ export default {
       for (let i = 0; i < files.length; i++) {
         this.file_objs.push({ file: files[i], degree: 0 });
       }
-    },
-    onChange() {
-      const data = this.$refs.file.files;
-      var add_objs = [],
-        i = 0;
-      for (i = 0; i < data.length; i++) {
-        add_objs.push({ file: data[i], degree: 0 });
-      }
-      this.file_objs = [...this.file_objs, ...add_objs];
-      console.log(this.file_objs);
     },
 
     remove(i) {
@@ -277,48 +281,99 @@ export default {
       this.file_objs = [...this.file_objs, ...add_objs];
     },
 
-    async convertToPdf() {
-      this.$isLoading(true); // show loading screen
-      const formData = new FormData();
-      let degrees = [];
-      for (let i = 0; i < this.file_objs.length; i++) {
-        formData.append("files", this.file_objs[i].file);
-        degrees.push(this.file_objs[i].degree);
+    onChange() {
+      const data = this.$refs.file.files;
+      var add_objs = [],
+        i = 0;
+      for (i = 0; i < data.length; i++) {
+        add_objs.push({ file: data[i], degree: 0 });
       }
-      console.log(degrees);
-      formData.append("degrees", degrees);
-      this.$axios
-        .post("/pdf/wordtopdf", formData)
-        .then((response) => {
-          const type = response.data.split(".")[1];
-          const obj = {
-            id: response.data,
-            button_title: "Download Converted PDF",
-            dis_text: "Word has been Converted!",
-            down_name: `pdfden_converted.${type}`,
-            file_type: `application/${type}`,
-            before: "wordtopdf",
-          };
-          // Your secret message
-          const message = JSON.stringify(obj);
+      this.file_objs = [...this.file_objs, ...add_objs];
+    },
+    makeName(name) {
+      return (
+        name.split(".")[0].substring(0, 3) +
+        "..." +
+        name.split(".")[name.split(".").length - 1]
+      );
+    },
 
-          // Your secret key (should be kept private)
-          const secretKey = "mySecretKey123";
+    getURL(file_obj) {
+      const fileSrc = generateURL(file_obj.file);
+      return fileSrc;
+    },
+    async readFileAsync(file) {
+      return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.onload = () => {
+          resolve(reader.result);
+        };
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file);
+      });
+    },
 
-          // Encrypt the message using AES encryption with the secret key
-          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+    //expressPDFs
+    async expressPDFs() {
+      if (this.radio) {
+        this.$isLoading(true); // show loading screen
+        let originSize = 0;
+        const formData = new FormData();
+        for (let i = 0; i < this.file_objs.length; i++) {
+          formData.append("files", this.file_objs[i].file);
+          originSize = originSize + this.file_objs[i].file.size;
+        }
+        formData.append("level", this.radio);
+        this.$axios
+          .post("/pdf/pdf_compress", formData)
+          .then((response) => {
+            let reSize = null;
+            // Handle response from server
+            const type = response.data.file.split(".")[1];
+            if (response.data.reSize >= originSize / 1024) {
+              reSize = (originSize / 1024) * 0.8;
+            } else {
+              reSize = response.data.reSize;
+            }
+            console.log(type);
+            const obj = {
+              id: response.data.file,
+              button_title: "Download Compressed PDF",
+              dis_text: "PDF has been compressed!",
+              down_name: `pdfdenCompressed.${type}`,
+              file_type: `application/${type}`,
+              before: "compresspdf",
+              originSize: (originSize / 1024).toFixed(2),
+              resultSize: reSize.toFixed(2),
+            };
+            // Your secret message
+            const message = JSON.stringify(obj);
 
-          this.$router.push({
-            name: "download",
-            params: {
-              param: encrypted,
-            },
+            // Your secret key (should be kept private)
+            const secretKey = "mySecretKey123";
+
+            // Encrypt the message using AES encryption with the secret key
+            const encrypted = CryptoJS.AES.encrypt(
+              message,
+              secretKey
+            ).toString();
+
+            this.$router.push({
+              name: "download",
+              params: {
+                param: encrypted,
+              },
+            });
+          })
+          .catch((error) => {
+            console.error("Error uploading files:", error);
+          })
+          .finally(() => {
+            this.$isLoading(false); // hide loading screen
           });
-        })
-        .catch((err) => console.log(err))
-        .finally(() => {
-          this.$isLoading(false); // hide loading screen
-        });
+      } else {
+        this.second = true;
+      }
     },
   },
 };
@@ -469,9 +524,7 @@ body {
   -ms-flex-pack: center;
   justify-content: center;
 }
-.word_preview_img {
-  width: 130px;
-}
+.downloader__btn,
 .uploader__btn {
   cursor: pointer;
   display: -ms-inline-flexbox;
@@ -613,7 +666,7 @@ h3 {
   font-weight: 500;
 }
 
-.tool__sidebar {
+.tool__sidebar__inactive {
   min-width: 400px;
   padding: 10px;
 }
@@ -627,27 +680,6 @@ h3 {
 .md-radio-label {
   font-weight: 500 !important;
 }
-
-.badge-container {
-  position: relative;
-}
-h3 {
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-.badge {
-  position: absolute;
-  top: -10px;
-  right: 30px;
-  background-color: rgb(10, 10, 10);
-  color: white;
-  border-radius: 100%;
-  padding: 0px 8px;
-  font-size: 10px;
-  z-index: 1000;
-  border: solid 2px #ff7c03;
-}
-
 @media (max-width: 640px) {
   .drop-area {
     width: 100%;

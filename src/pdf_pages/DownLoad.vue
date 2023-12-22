@@ -4,10 +4,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <div class="page-title">Download PDF File</div>
+    <div class="page-title">
+      <span class="material-icons"> check_circle</span>
+      Download PDF File
+    </div>
     <div class="page-description">{{ dis_text }}</div>
     <div class="download_btn">
-      <a class="md-icon-button back-btn" @click="back_page">
+      <!-- <a class="md-icon-button back-btn" @click="back_page">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16">
           <path
             d="M6.533 15.065L.438 8.968c-.116-.116-.208-.255-.27-.4a1.27 1.27 0 0 1 .009-.971c.066-.155.16-.296.277-.415l6.21-6.21A1.27 1.27 0 0 1 8.461.947c.49.49.485 1.295-.017 1.797l-4.02 4.02 10.47-.097a1.24 1.24 0 0 1 1.258 1.258 1.3 1.3 0 0 1-1.282 1.282L4.4 9.305l3.947 3.947c.49.492.485 1.295-.017 1.797s-1.306.508-1.797.017z"
@@ -15,9 +18,12 @@
             fill-rule="nonzero"
           ></path>
         </svg>
-      </a>
+      </a> -->
       <a id="link" class="download__btn md-raised md-danger">
         {{ button_title }}
+        <span class="material-icons" style="margin-left: 10px">
+          arrow_circle_down
+        </span>
       </a>
       <div class="add-more">
         <div>
@@ -50,9 +56,8 @@
           <GDriveSelector
             :buttonStyle="'upload'"
             :file="{ file: gDriveFile, name: down_name }"
+            style="margin-right: 10px"
           />
-        </div>
-        <div>
           <VueDropboxPicker
             class="cloud dropbox"
             link-type="direct"
@@ -72,16 +77,49 @@
             >
           </md-button>
         </div>
+        <div></div>
       </div>
+
       <div class="extra-work">
-        <button class="download-more" @click="go_merge">
-          <img :src="require(`@/assets/feature_img/merge_pdf.svg`)" />
-          <md-tooltip md-direction="bottom">Continue to Merge PDF</md-tooltip>
-        </button>
-        <button class="download-more" @click="go_split">
-          <img :src="require(`@/assets/feature_img/split_pdf.svg`)" />
-          <md-tooltip md-direction="bottom">Continue to Split PDF</md-tooltip>
-        </button>
+        <div class="title">Contine To</div>
+        <div class="extra-work-area">
+          <div class="download-more" @click="go_merge">
+            <img :src="require(`@/assets/feature_img/merge_pdf.svg`)" />
+            <span class="download-more-title"> Merge PDf </span>
+          </div>
+          <div class="download-more" @click="go_split">
+            <img :src="require(`@/assets/feature_img/split_pdf.svg`)" />
+            <span class="download-more-title"> Split PDF </span>
+          </div>
+          <div class="download-more" @click="go_compress">
+            <img :src="require(`@/assets/feature_img/compress_pdf.svg`)" />
+            <span class="download-more-title"> Compress PDF </span>
+          </div>
+          <div class="download-more" @click="go_convert">
+            <img :src="require(`@/assets/feature_img/word_pdf.svg`)" />
+            <span class="download-more-title"> Convert PDF </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rate-secttion">
+      <div class="block__container">
+        <div class="description-title">
+          {{ $t("page_titles.merge_page.rateSection.title") }}
+        </div>
+        <div class="rate-star">
+          <span class="material-icons">star</span>
+          <span class="material-icons">star</span>
+          <span class="material-icons">star</span>
+          <span class="material-icons">star</span>
+          <span class="material-icons">star_outline</span>
+        </div>
+        <div class="rate-reviews">
+          <span class="rate-score"> 4.8/5 - </span>
+          <span class="rate-votes">
+            254956 {{ $t("page_titles.merge_page.rateSection.vote") }}
+          </span>
+        </div>
       </div>
     </div>
     <md-dialog-alert
@@ -139,7 +177,7 @@
       <Chart
         :resultSize="Number(reSize)"
         :originSize="Number(originSize)"
-        v-show="before == 'pdfcompress'"
+        v-show="before == 'compresspdf'"
       />
     </div>
   </div>
@@ -363,7 +401,7 @@ export default {
     },
     go_merge() {
       this.$router.push({
-        name: "pdfmerge",
+        name: "mergepdf",
         params: {
           file: this.files,
         },
@@ -372,13 +410,30 @@ export default {
     go_split() {
       if (this.file_type == "application/pdf") {
         this.$router.push({
-          name: "pdfsplit",
+          name: "splitpdf",
           params: {
             file: this.files,
           },
         });
       }
     },
+    go_compress() {
+      this.$router.push({
+        name: "compresspdf",
+        params: {
+          file: this.files,
+        },
+      });
+    },
+    go_convert() {
+      this.$router.push({
+        name: "wordtopdf",
+        params: {
+          file: this.files,
+        },
+      });
+    },
+
     generateFileUrl(content) {
       // Create a Blob from the file content
       const blob = new Blob([content], { type: "application/pdf" }); // Adjust type as needed
@@ -450,9 +505,10 @@ body {
 
 .add-more {
   width: fit-content;
-  position: absolute;
+  /* position: absolute; */
   top: -5px;
   right: -110px;
+  margin: auto;
 }
 
 .add-more div {
@@ -461,7 +517,7 @@ body {
 
 .add-more div .md-icon-button {
   display: block;
-  background-color: #ff7c03 !important;
+  background-color: transparent !important;
   width: 40px;
   height: 40px;
   padding: 8px;
@@ -470,10 +526,7 @@ body {
   margin-top: 0;
   margin-bottom: 5px;
   margin-right: 5px;
-}
-
-.add-more .md-icon-button:hover {
-  background-color: #ff7c03 !important;
+  border: solid 2px #ff7c03;
 }
 
 .dropbox-icon {
@@ -547,22 +600,32 @@ body {
 }
 
 .extra-work {
-  position: absolute;
-  right: 0;
+  color: #575757;
+  margin-top: 30px;
+}
+
+.extra-work .title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.extra-work-area {
+  display: inline-flex;
+  margin: auto;
 }
 
 .download-more {
-  background-color: #fff !important;
-  color: #fff !important;
-  width: 40px;
-  height: 40px;
   margin-left: 10px;
   margin-right: 10px;
-  border-radius: 50%;
   border: none;
   padding: 10px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.14);
   cursor: pointer;
+  font-weight: 600;
+}
+
+.download-more img {
+  width: 30px;
 }
 
 .timer {
@@ -586,5 +649,42 @@ body {
 
 .chart_area {
   text-align: center;
+}
+
+.page-title span {
+  color: #8ac823;
+  padding-top: 8px;
+  font-size: 35px;
+}
+
+.rate-secttion {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.description-title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.rate-star {
+  padding: 20px 0;
+}
+
+.rate-star span {
+  color: #ff7c03;
+}
+
+.rate-score {
+  color: #ff7c03;
+  font-size: 18px;
+}
+
+.rate-star span {
+  cursor: pointer;
+}
+
+.rate-votes {
+  font-size: 18px;
 }
 </style>

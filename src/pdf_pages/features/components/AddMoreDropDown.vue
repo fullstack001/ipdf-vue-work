@@ -1,13 +1,17 @@
 <template>
   <div class="example">
-    <md-speed-dial :class="topPosition" md-direction="bottom">
+    <md-speed-dial
+      class="dropdown-tooltip"
+      :class="topPosition"
+      md-direction="bottom"
+    >
       <div
         class="badge-container md-primary"
         md-content="4"
         v-if="pdfCounts > 0"
       >
         <md-speed-dial-target class="add_button">
-          <md-icon>add</md-icon>
+          <md-icon color="#000">add</md-icon>
         </md-speed-dial-target>
         <div class="badge">
           {{ pdfCounts }}
@@ -15,25 +19,14 @@
       </div>
 
       <md-speed-dial-content>
-        <!-- <md-button class="md-icon-button"> -->
-        <!-- <div
-            class="badge-container md-primary"
-            md-content="4"
-            v-if="file_objs.length"
-          > -->
         <md-button class="md-icon-button" @click="open_add_local">
           <md-icon>computer</md-icon>
           <md-tooltip md-direction="right"
             >{{ $t("toolTip.upload_local") }}
           </md-tooltip>
         </md-button>
-        <!-- <div class="badge">
-              {{ file_objs.length }}
-            </div>
-          </div> -->
-        <!-- </md-button> -->
 
-        <md-button class="md-icon-button">
+        <md-button class="md-icon-button1">
           <GDriveSelector
             @picked="onPickedGoogleDriver"
             :buttonStyle="'download'"
@@ -41,7 +34,7 @@
             <md-tooltip md-direction="top"> </md-tooltip>
           </GDriveSelector>
         </md-button>
-        <md-button>
+        <md-button class="dropbox-btn">
           <VueDropboxPicker
             class="cloud dropbox"
             link-type="direct"
@@ -101,7 +94,7 @@ h3 {
 .badge[data-v-43894eff] {
   position: absolute;
   top: -10px;
-  right: 30px;
+  right: 55px;
   background-color: rgb(10, 10, 10);
   color: white;
   border-radius: 100%;
@@ -110,22 +103,42 @@ h3 {
   z-index: 1000;
   border: solid 2px #ff7c03;
 }
+
+.md-ripple {
+  padding: 0 !important;
+}
 .add-more .md-icon-button {
   display: block;
-  background-color: #ff7c03 !important;
   width: 40px;
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   padding: 8px;
   border-radius: 50%;
   cursor: pointer;
-  margin-left: 5px;
+  margin-left: 0px;
+  border: solid 2px #ff7c03;
+  background-color: transparent !important;
+  color: #000 !important;
 }
 .add_button {
   background-color: #ff7c03 !important;
+  padding: 0;
 }
 
-.add-more .md-icon-button:hover {
-  background-color: #ff7c03 !important;
+.dropbox-btn {
+  margin-top: -20px !important;
+}
+
+.dropbox-btn,
+.md-icon-button1 {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding: 0;
+}
+
+.md-icon-font {
+  color: #000 !important;
 }
 </style>

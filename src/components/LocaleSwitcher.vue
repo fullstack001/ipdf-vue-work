@@ -36,4 +36,9 @@ export default {
   margin-top: 10px;
   margin-right: 15px;
 }
+
+select {
+  border: none;
+  background-color: transparent;
+}
 </style>
