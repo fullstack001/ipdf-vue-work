@@ -100,6 +100,14 @@ const routes = [
           ),
         name: "pdftoword",
       },
+      {
+        path: "/:locale/pdfedit",
+        component: () =>
+          import(
+            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/PdfEdit.vue"
+          ),
+        name: "pdfedit",
+      },
     ],
   },
   {

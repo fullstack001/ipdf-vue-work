@@ -279,7 +279,6 @@ export default {
         responseType: "blob",
       })
       .then((response) => {
-        console.log(response.data);
         this.gDriveFile = response.data;
         // Create a link and trigger the download
         const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -381,10 +380,6 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-    onCancel() {
-      console.log("Cancel");
-    },
-    open_add_local() {},
     copyLink() {
       // Select the text in the input field
       const inputField = this.$refs.linkInput;

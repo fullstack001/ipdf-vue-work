@@ -229,7 +229,11 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
+          this.$swal(
+            "Success!",
+            "Your file has saved in Google Drive.",
+            "success"
+          );
         })
         .catch((error) => {
           console.log(error);

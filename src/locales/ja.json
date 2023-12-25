@@ -133,7 +133,7 @@
       "file": "sign_pdf.svg"
     },
     "edit": {
-      "name": "edit_pdf",
+      "name": "pdfedit",
       "title": "PDFを編集する",
       "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
       "file": "edit_pdf.svg"
@@ -164,7 +164,7 @@
       "description": "PDFの品質を最大限に最適化しながらファイルサイズを縮小",
       "file": "compress_pdf.svg"
     },
-    "pdf_word": {
+    "pdftoword": {
       "name": "pdf_word",
       "title": "PDFからWordへ",
       "description": "PDFファイルを編集しやすいDOCやDOCX文書に簡単に変換できます。変換されたWORD文書はほぼ100％正確です。",

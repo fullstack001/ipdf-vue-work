@@ -133,7 +133,7 @@
       "file": "sign_pdf.svg"
     },
     "edit": {
-      "name": "edit_pdf",
+      "name": "pdfedit",
       "title": "Edit PDF",
       "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
       "file": "edit_pdf.svg"
@@ -165,7 +165,7 @@
       "file": "compress_pdf.svg"
     },
     "pdf_word": {
-      "name": "pdf_word",
+      "name": "pdftoword",
       "title": "PDF to Word",
       "description": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",
       "file": "pdf_word.svg"

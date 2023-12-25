@@ -19,6 +19,8 @@ import App from "./App";
 import loading from "vuejs-loading-screen";
 import Donut from "vue-css-donut-chart";
 import "vue-css-donut-chart/dist/vcdonut.css";
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
 import i18n from "./i18n";
 
@@ -47,6 +49,7 @@ Vue.use(GlobalDirectives);
 Vue.use(Notifications);
 Vue.use(axios);
 Vue.use(Donut);
+Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false;
 

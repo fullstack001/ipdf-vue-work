@@ -133,7 +133,7 @@
       "file": "sign_pdf.svg"
     },
     "edit": {
-      "name": "edit_pdf",
+      "name": "pdfedit",
       "title": "Editer le PDF",
       "description": "Ajoutez du texte, des images, des formes ou des annotations à main levée à un document PDF. Modifiez la taille, la police et la couleur du contenu ajouté.",
       "file": "edit_pdf.svg"
@@ -164,7 +164,7 @@
       "description": "Réduire la taille des fichiers tout en optimisant la qualité des PDF",
       "file": "compress_pdf.svg"
     },
-    "pdf_word": {
+    "pdftoword": {
       "name": "pdf_word",
       "title": "PDF vers Word",
       "description": "Convertissez facilement vos fichiers PDF en documents DOC et DOCX faciles à éditer. Le document WORD converti est presque 100% exact.The converted WORD document is almost 100% accurate.",
