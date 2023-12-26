@@ -57,7 +57,7 @@
                     </LocalizedLink>
                   </md-menu-item>
                   <md-menu-item>
-                    <LocalizedLink to="edit">
+                    <LocalizedLink to="pdfedit">
                       {{ $t("features.edit.title") }}
                     </LocalizedLink>
                   </md-menu-item>

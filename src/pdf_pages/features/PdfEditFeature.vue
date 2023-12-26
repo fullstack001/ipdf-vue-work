@@ -9,7 +9,11 @@
       </div>
     </div> -->
     <div class="files-list" v-if="file">
-      <EditPdf />
+      <EditPdf
+        :pdfUrl="getURL(file)"
+        :get_pdf="get_result"
+        @upload="upload_pdf"
+      />
     </div>
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
@@ -76,8 +80,8 @@
         <h3 class="text-center">Compression level</h3>
 
         <div class="option__panel option__panel--active" id="merge-options">
-          <button class="option__panel__title" @click="convertToWord">
-            Convert to WORD
+          <button class="option__panel__title" @click="get_edit_result">
+            Edit PDF
           </button>
         </div>
       </div>
@@ -106,6 +110,7 @@ export default {
       file: null,
       currentPageImage: null,
       currentPageNum: 0,
+      get_result: false,
     };
   },
 
@@ -164,34 +169,34 @@ export default {
         reader.readAsArrayBuffer(file);
       });
     },
+    get_edit_result() {
+      this.get_result = true;
+    },
 
     //convertToWord
-    async convertToWord() {
+    async upload_pdf(data) {
       this.$isLoading(true); // show loading screen
+      console.log(data);
       const formData = new FormData();
-      for (let i = 0; i < this.file_objs.length; i++) {
-        formData.append("files", this.file_objs[i].file);
-      }
+      formData.append("pdf", data);
 
       this.$axios
-        .post("/pdf/pdf_to_word", formData)
+        .post("/pdf/pdf_upload", formData)
         .then((response) => {
-          console.log(response);
-          // Handle response from server
-          const type = response.data.split(".")[1];
-          console.log(type);
           const obj = {
             id: response.data,
-            button_title: "Download Converted Word",
-            dis_text: "PDF has been converted!",
-            down_name: `pdfden_converted.${type}`,
-            file_type: `application/${type}`,
-            before: "wordtopdf",
+            button_title: "Download Edited PDF",
+            dis_text: "PDF has been edited!",
+            down_name: "edited_pdf.pdf",
+            file_type: "application/pdf",
+            before: "pdfedit",
           };
           // Your secret message
           const message = JSON.stringify(obj);
+
           // Your secret key (should be kept private)
           const secretKey = "mySecretKey123";
+
           // Encrypt the message using AES encryption with the secret key
           const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
           this.$router.push({
@@ -201,8 +206,8 @@ export default {
             },
           });
         })
-        .catch((error) => {
-          console.error("Error uploading files:", error);
+        .catch((e) => {
+          console.log(e);
         })
         .finally(() => {
           this.$isLoading(false); // hide loading screen

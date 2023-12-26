@@ -147,6 +147,22 @@ export default {
   mounted() {
     this.loadScripts();
   },
+  props: {
+    pdfUrl: {
+      require: true,
+      type: String,
+    },
+    get_pdf: {
+      default: false,
+    },
+  },
+  watch: {
+    get_pdf(newValue) {
+      if (newValue == true) {
+        this.savePDF();
+      }
+    },
+  },
   data() {
     return {
       pdf: null,
@@ -156,10 +172,7 @@ export default {
   },
   methods: {
     loadScripts() {
-      var pdf = new PDFAnnotate(
-        "pdf-container-annotate",
-        "http://127.0.0.1:5000/uploads/8598b0f8-3580-48d4-891f-4d5b8cb96af2.pdf"
-      );
+      var pdf = new PDFAnnotate("pdf-container-annotate", this.pdfUrl);
       this.pdf = pdf;
     },
     changeActiveTool(event) {
@@ -210,8 +223,9 @@ export default {
     clearPage() {
       this.pdf.clearActivePage();
     },
-    savePDF() {
-      this.pdf.savePdf("output.pdf");
+    async savePDF() {
+      const url = await this.pdf.savePdf("output.pdf");
+      this.$emit("upload", url);
     },
     set_color(color) {
       $(".color-tool.active").removeClass("active");
