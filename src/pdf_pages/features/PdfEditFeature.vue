@@ -3,10 +3,13 @@
     class="main"
     :style="file ? 'display: flex' : 'display: inline-block; width: 100%;'"
   >
-    <div v-if="file">
+    <!-- <div v-if="file">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
         <PdfPreviewList :url="getURL(file)" @set_img="set_image_url" />
       </div>
+    </div> -->
+    <div class="files-list" v-if="file">
+      <EditPdf />
     </div>
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
@@ -21,7 +24,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
-                Select PDF files
+                Select PDF file
               </label>
               <input
                 type="file"
@@ -66,11 +69,6 @@
           </div>
         </div>
       </div>
-      <div class="files-list">
-        <div class="preview-container mt-4" v-if="file">
-          <ToastEdit :image="currentPageImage" :page="currentPageNum" />
-        </div>
-      </div>
     </div>
 
     <div v-if="file">
@@ -92,15 +90,15 @@ import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import CryptoJS from "crypto-js";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
-import ToastEdit from "./components/ToastEdit.vue";
 import PdfPreviewList from "./components/PdfPreviewList.vue";
+import EditPdf from "./components/EditPdf.vue";
 
 export default {
   components: {
     VueDropboxPicker,
-    PdfPreviewList,
+    // PdfPreviewList,
     GDriveSelector,
-    ToastEdit,
+    EditPdf,
   },
   data() {
     return {

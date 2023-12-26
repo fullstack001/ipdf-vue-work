@@ -45,7 +45,6 @@
             </div>`"
             md-confirm-text="Delet it now"
             md-cancel-text="Cancel"
-            @md-cancel="onCancel"
             @md-confirm="onConfirm"
           />
 

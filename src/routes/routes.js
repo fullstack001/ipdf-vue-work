@@ -104,7 +104,7 @@ const routes = [
         path: "/:locale/pdfedit",
         component: () =>
           import(
-            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/PdfEdit.vue"
+            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/PdfEditFeature.vue"
           ),
         name: "pdfedit",
       },
