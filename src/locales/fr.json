@@ -1,5 +1,5 @@
 {
-  "nav-links":{
+  "nav-links": {
     "login": "Connexion",
     "signup": "Inscrivez-vous",
     "about": "à propos",
@@ -54,11 +54,11 @@
         "title5": "Travailler dans n'importe quel navigateur Web",
         "title6": "Utilisez le meilleur combinateur PDF",
         "description1": "Il est simple et rapide de fusionner des fichiers PDF en un seul document avec l'outil en ligne Adobe Acrobat. Ajoutez simplement des fichiers, fusionnez-les et vous avez terminé.",
-         "description2": "La fusion de plusieurs fichiers en un seul PDF vous permet de les stocker et de les consulter plus facilement. Vous pouvez également partager des fichiers avec d'autres plus efficacement en envoyant par e-mail un lien vers un seul fichier PDF fusionné.",
-         "description3": "Après avoir combiné des fichiers PDF, connectez-vous simplement pour organiser des pages individuelles. Vous pouvez déplacer, ajouter, supprimer ou faire pivoter des pages PDF selon vos besoins jusqu'à ce que vous ayez créé le document parfait.",
-         "description4": "Vous pouvez télécharger le fichier PDF fusionné en un clic ou en vous connectant. Vous pouvez également partager votre nouveau fichier avec un ami ou un collègue lorsque vous vous connectez.",
-         "description5": "Utilisez notre outil de fusion de PDF en ligne dans n'importe quel navigateur Web, tel que Microsoft Edge ou Google Chrome. Il fonctionne également sur les systèmes d'exploitation Mac, Windows et Linux.",
-         "description6": "Adobe a inventé le format de fichier PDF, ce qui rend nos outils PDF très fiables. Utilisez notre combinateur PDF pour fusionner des fichiers et poursuivre votre travail où que vous soyez."
+        "description2": "La fusion de plusieurs fichiers en un seul PDF vous permet de les stocker et de les consulter plus facilement. Vous pouvez également partager des fichiers avec d'autres plus efficacement en envoyant par e-mail un lien vers un seul fichier PDF fusionné.",
+        "description3": "Après avoir combiné des fichiers PDF, connectez-vous simplement pour organiser des pages individuelles. Vous pouvez déplacer, ajouter, supprimer ou faire pivoter des pages PDF selon vos besoins jusqu'à ce que vous ayez créé le document parfait.",
+        "description4": "Vous pouvez télécharger le fichier PDF fusionné en un clic ou en vous connectant. Vous pouvez également partager votre nouveau fichier avec un ami ou un collègue lorsque vous vous connectez.",
+        "description5": "Utilisez notre outil de fusion de PDF en ligne dans n'importe quel navigateur Web, tel que Microsoft Edge ou Google Chrome. Il fonctionne également sur les systèmes d'exploitation Mac, Windows et Linux.",
+        "description6": "Adobe a inventé le format de fichier PDF, ce qui rend nos outils PDF très fiables. Utilisez notre combinateur PDF pour fusionner des fichiers et poursuivre votre travail où que vous soyez."
       },
       "articleSection": {
         "title": "Fusionner les articles du blog PDF",
@@ -70,7 +70,7 @@
         "description3": "Lorem Ipsum est simplement un texte factice de l'impression et de la saisie que j'ai .."
       },
       "qaSection": {
-        "title": "Des questions ? Nous avons des réponses."     
+        "title": "Des questions ? Nous avons des réponses."
       },
       "rateSection": {
         "title": "Évaluez votre expérience",
@@ -127,13 +127,13 @@
       "file": "pdf_word.svg"
     },
     "sign": {
-      "name": "sign_pdf",
+      "name": "signpdf",
       "title": "Signer le PDF",
       "description": "Signez vous-même ou demandez des signatures électroniques à d'autres personnes.",
       "file": "sign_pdf.svg"
     },
     "edit": {
-      "name": "pdfedit",
+      "name": "editpdf",
       "title": "Editer le PDF",
       "description": "Ajoutez du texte, des images, des formes ou des annotations à main levée à un document PDF. Modifiez la taille, la police et la couleur du contenu ajouté.",
       "file": "edit_pdf.svg"
@@ -145,7 +145,7 @@
       "file": "rotate_pdf.svg"
     }
   },
-  "onlines":{
+  "onlines": {
     "merge": {
       "name": "mergepdf",
       "title": "Fusionner PDF",

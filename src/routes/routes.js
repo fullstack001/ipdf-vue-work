@@ -18,7 +18,6 @@ import {
   setDocumentLang,
 } from "@/util/i18n/document";
 
-// import PdfEdit from "@/pdf_pages/PdfEdit2.vue";
 import AllFeatures from "@/pdf_pages/features/AllFeatures.vue";
 
 Vue.use(VueRouter);
@@ -60,7 +59,6 @@ const routes = [
           import(/* webpackChunkName: "download" */ "@/pdf_pages/DownLoad.vue"),
         name: "download",
       },
-
       {
         path: "/:locale/splitpdf",
         component: () =>
@@ -77,7 +75,6 @@ const routes = [
           ),
         name: "compresspdf",
       },
-      ,
       {
         path: "/:locale/deleted",
         component: () =>
@@ -101,12 +98,12 @@ const routes = [
         name: "pdftoword",
       },
       {
-        path: "/:locale/pdfedit",
+        path: "/:locale/editpdf",
         component: () =>
           import(
-            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/PdfEditFeature.vue"
+            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/EditPdfFeature.vue"
           ),
-        name: "pdfedit",
+        name: "editpdf",
       },
     ],
   },

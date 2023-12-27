@@ -1,5 +1,5 @@
 {
-  "nav-links":{
+  "nav-links": {
     "login": "Login",
     "signup": "Sign Up",
     "about": "About",
@@ -70,7 +70,7 @@
         "description3": "Lorem Ipsum is simply dummy text of the printing and typeing indremm has .."
       },
       "qaSection": {
-        "title": "Questions? We have answers."       
+        "title": "Questions? We have answers."
       },
       "rateSection": {
         "title": "Rate your experience",
@@ -127,13 +127,13 @@
       "file": "pdf_word.svg"
     },
     "sign": {
-      "name": "sign_pdf",
+      "name": "signpdf",
       "title": "Sign PDF",
       "description": "Sign yourself or request electronic signatures from others.",
       "file": "sign_pdf.svg"
     },
     "edit": {
-      "name": "pdfedit",
+      "name": "editpdf",
       "title": "Edit PDF",
       "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
       "file": "edit_pdf.svg"
@@ -145,7 +145,7 @@
       "file": "rotate_pdf.svg"
     }
   },
-  "onlines":{
+  "onlines": {
     "merge": {
       "name": "mergepdf",
       "title": "Merge PDF",
@@ -175,13 +175,12 @@
     "convert_pdf": { "title": "CONVERT PDF" },
     "all_pdf_tools": { "title": "ALL PDF TOOLS" }
   },
-  "toolTip":{
-    "sel_google":"Select PDF from Google Drive",
-    "sel_dropBox":"Select PDF from Dropbox",
-    "upload_local":"Upload from Computer",
-    "save_dropBox":"Save to Dropbox",
-    "save_google":"Save to Google Drive",
-    "link":"Share File Link or Scan QR"
+  "toolTip": {
+    "sel_google": "Select PDF from Google Drive",
+    "sel_dropBox": "Select PDF from Dropbox",
+    "upload_local": "Upload from Computer",
+    "save_dropBox": "Save to Dropbox",
+    "save_google": "Save to Google Drive",
+    "link": "Share File Link or Scan QR"
   }
-
 }

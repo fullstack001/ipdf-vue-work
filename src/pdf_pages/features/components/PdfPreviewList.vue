@@ -82,9 +82,9 @@ export default {
 
         renderTask.promise.then(() => {
           // Convert the canvas content to a Blob
-          canvas.toBlob((blob) => {
+          canvas.toBlob(() => {
             // Create a Blob URL from the Blob
-            const blobUrl = URL.createObjectURL(blob);
+            // const blobUrl = URL.createObjectURL(blob);
 
             // Convert the canvas content to a data URL
             const imageUrl = canvas.toDataURL("image/png");

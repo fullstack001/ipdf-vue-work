@@ -1,5 +1,5 @@
 {
-  "nav-links":{
+  "nav-links": {
     "login": "接続",
     "signup": "サインアップ",
     "about": "約について",
@@ -127,13 +127,13 @@
       "file": "pdf_word.svg"
     },
     "sign": {
-      "name": "sign_pdf",
+      "name": "signpdf",
       "title": "PDFに署名",
       "description": "自分で署名するか、他の人に電子署名を依頼する。",
       "file": "sign_pdf.svg"
     },
     "edit": {
-      "name": "pdfedit",
+      "name": "editpdf",
       "title": "PDFを編集する",
       "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
       "file": "edit_pdf.svg"
@@ -145,7 +145,7 @@
       "file": "rotate_pdf.svg"
     }
   },
-  "onlines":{
+  "onlines": {
     "merge": {
       "name": "mergepdf",
       "title": "PDFのマージ",

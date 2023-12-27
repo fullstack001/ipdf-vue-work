@@ -11,6 +11,7 @@
           v-model="brushSize"
           @click="set_brush_size"
           max="50"
+          min="1"
         />
       </div>
 
@@ -35,6 +36,15 @@
         </select>
       </div>
       <div class="tool">
+        <input
+          type="color"
+          name="colorpicker"
+          id="colorpicker"
+          v-model="color_pallet"
+          @change="set_color1"
+        />
+      </div>
+      <!-- <div class="tool">
         <button
           class="color-tool active black-tool"
           @click="set_color('black')"
@@ -60,7 +70,7 @@
           @click="set_color('yellow')"
           style="background-color: yellow"
         ></button>
-      </div>
+      </div> -->
       <!-- Toolbar content -->
       <!-- Example: -->
       <div class="tool">
@@ -123,14 +133,14 @@
       <!-- <div class="tool">
         <button class="btn btn-info btn-sm" @click="showPdfData()">{}</button>
       </div> -->
-      <div class="tool">
+      <!-- <div class="tool">
         <button class="btn btn-light btn-sm" @click="savePDF()">
           <i class="fa fa-save"></i> Save
         </button>
-      </div>
+      </div> -->
       <!-- Replace other @click events similarly -->
     </div>
-    <div id="pdf-container-annotate"></div>
+    <div id="pdf-container-annotate" v-on:keydown="handleKeyPress"></div>
     <!-- Modal content -->
   </div>
 </template>
@@ -168,6 +178,7 @@ export default {
       pdf: null,
       brushSize: 1,
       fontSize: 12,
+      color_pallet: "#0000ff",
     };
   },
   methods: {
@@ -217,6 +228,7 @@ export default {
       this.pdf.addImageToCanvas();
     },
     deleteSelectedObject: function (event) {
+      console.log(event);
       event.preventDefault();
       this.pdf.deleteSelectedObject();
     },
@@ -232,6 +244,9 @@ export default {
       $(`.${color}-tool`).addClass("active");
       this.pdf.setColor(color);
     },
+    set_color1() {
+      this.pdf.setColor(this.color_pallet);
+    },
     set_font_size() {
       console.log(this.fontSize);
       this.pdf.setFontSize(this.fontSize);
@@ -240,6 +255,25 @@ export default {
       console.log(this.brushSize);
       this.pdf.setBrushSize(this.brushSize);
     },
+    handleKeyPress: function (event) {
+      console.log(event);
+      // Check if the pressed key is the delete key
+      if (event.key === "Delete") {
+        console.log("Delete key pressed");
+        // Add your delete key handling logic here
+      }
+    },
   },
 };
 </script>
+
+<style scoped>
+.edit-pdf-content {
+  max-height: 100vh;
+  overflow-y: scroll;
+}
+
+#colorpicker {
+  height: 25px !important;
+}
+</style>

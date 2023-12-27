@@ -108,6 +108,7 @@ body {
 }
 .md-menu-content .md-list .md-list-item a {
   font-size: 12px !important;
+  width: 100% !important;
 }
 
 .nav-btn .md-button .md-ripple .md-button-content .material-icons {

@@ -53,7 +53,7 @@
       "file": "pdf_word.svg"
     },
     "sign": {
-      "name": "sign_pdf",
+      "name": "signpdf",
       "title": "Sign PDF",
       "description": "Sign yourself or request electronic signatures from others.",
       "file": "sign_pdf.svg"
@@ -75,12 +75,12 @@
     "convert_pdf": { "title": "CONVERT PDF" },
     "all_pdf_tools": { "title": "ALL PDF TOOLS" }
   },
-  "toolTip":{
-    "sel_google":"Select PDF from Google Drive",
-    "sel_dropBox":"Select PDF from Dropbox",
-    "upload_local":"Upload from Computer",
-    "save_dropBox":"Save to Dropbox",
-    "save_google":"Save to Google Drive",
-    "link":"Share File Link or Scan QR"
+  "toolTip": {
+    "sel_google": "Select PDF from Google Drive",
+    "sel_dropBox": "Select PDF from Dropbox",
+    "upload_local": "Upload from Computer",
+    "save_dropBox": "Save to Dropbox",
+    "save_google": "Save to Google Drive",
+    "link": "Share File Link or Scan QR"
   }
 }
