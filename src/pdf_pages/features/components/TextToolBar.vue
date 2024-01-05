@@ -56,9 +56,8 @@
 
 <script>
 import "bootstrap/scss/bootstrap.scss";
-import "@/assets/annotations/styles.css";
-import "@/assets/annotations/pdfannotate.css";
-
+import "@/assets/editFunctions/styles.css";
+import "@/assets/editFunctions/pdfannotate.css";
 export default {
   name: "TextToolBar",
   data() {
