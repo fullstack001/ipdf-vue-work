@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import "bootstrap/scss/bootstrap.scss";
 import "@/assets/editFunctions/styles.css";
 import "@/assets/editFunctions/pdfannotate.css";
 
