@@ -97,11 +97,11 @@
 <script>
 // Import necessary libraries here
 import "bootstrap/scss/bootstrap.scss";
-import "@/assets/annotations/styles.css";
-import "@/assets/annotations/pdfannotate.css";
+import "@/pdf_pages/services/annotations/styles.css";
+import "@/pdf_pages/services/annotations/pdfannotate.css";
 import TextToolBar from "@/pdf_pages/features/components/TextToolBar.vue";
 import $ from "jquery";
-import { PDFAnnotate } from "@/assets/annotations/pdfannotate.js";
+import { PDFAnnotate } from "@/pdf_pages/services/annotations/pdfannotate.js";
 import ShapeToolBar from "./ShapeToolBar.vue";
 
 export default {
