@@ -3,15 +3,17 @@
     class="main"
     :style="file ? 'display: flex' : 'display: inline-block; width: 100%;'"
   >
-    <!-- <div v-if="file">
-      <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
+    <div v-if="file">
+      <div id="sidebar" class="tool__sidebar">
         <PdfPreviewList :url="getURL(file)" @set_img="set_image_url" />
       </div>
-    </div> -->
+    </div>
     <div class="files-list" v-if="file">
       <EditPdf
         :pdfUrl="getURL(file)"
         :get_pdf="get_result"
+        :currentPage="currentPageNum"
+        :totalPageNum="totalPageNum"
         @upload="upload_pdf"
       />
     </div>
@@ -110,13 +112,13 @@ import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import CryptoJS from "crypto-js";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
-// import PdfPreviewList from './components/PdfPreviewList.vue';
+import PdfPreviewList from "./components/PdfPreviewList.vue";
 import EditPdf from "./components/EditPdf.vue";
 
 export default {
   components: {
     VueDropboxPicker,
-    // PdfPreviewList,
+    PdfPreviewList,
     GDriveSelector,
     EditPdf,
   },
@@ -126,6 +128,7 @@ export default {
       file: null,
       currentPageImage: null,
       currentPageNum: 0,
+      totalPageNum: 0,
       get_result: false,
     };
   },
@@ -134,6 +137,7 @@ export default {
     set_image_url(data) {
       this.currentPageImage = data.url;
       this.currentPageNum = data.pageNum;
+      this.totalPageNum = data.totalPageNum;
     },
     //click add from local button
     open_add_local() {
@@ -161,14 +165,6 @@ export default {
     onChange() {
       const data = this.$refs.file.files;
       this.file = data[0];
-      //   console.log(this.file);
-    },
-    makeName(name) {
-      return (
-        name.split(".")[0].substring(0, 3) +
-        "..." +
-        name.split(".")[name.split(".").length - 1]
-      );
     },
 
     getURL(file) {
@@ -349,7 +345,7 @@ body {
 }
 
 .tool__sidebar {
-  min-width: 400px;
+  min-width: 300px;
   max-width: 400px;
   height: 100vh;
   background-color: #fff;

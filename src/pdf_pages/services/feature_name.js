@@ -34,7 +34,7 @@ export const feature_names = [
     file: "word_pdf.svg",
   },
   {
-    name: "signpdf",
+    name: "sign_pdf",
     title: "Sign PDF",
     description: "Sign yourself or request electronic signatures from others.",
     file: "sign_pdf.svg",

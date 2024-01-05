@@ -336,6 +336,7 @@ export default {
       })
       .catch((err) => {
         this.$router.push({ name: "deleted" });
+        console.log(err);
       });
   },
   methods: {
@@ -346,6 +347,7 @@ export default {
         .then((res) => console.log(res.data))
         .catch((err) => {
           alert("Fail");
+          console.log(err);
         });
     },
     back_page() {
@@ -369,6 +371,7 @@ export default {
         })
         .catch((err) => {
           this.$router.push({ name: "deleted" });
+          console.log(err);
         });
     },
     async onConfirm() {
@@ -376,6 +379,7 @@ export default {
         .get(`/pdf/delete/${this.id}`)
         .then((res) => {
           this.$router.push({ name: "deleted" });
+          console.log(res);
         })
         .catch((err) => console.log(err));
     },

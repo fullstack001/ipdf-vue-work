@@ -7,7 +7,7 @@
       <div class="info">Page {{ currentPage }} of {{ numPages }}</div>
       <div><input type="button" value="Next" @click="nextPage" /></div>
     </div>
-    <div class="pdf-preview-list">
+    <div class="pdf-preview-list" ref="scrollableList">
       <div
         v-for="page in numPages"
         :key="page"
@@ -18,7 +18,6 @@
         {{ page }}
       </div>
     </div>
-    <!-- <canvas id="pdf-container"></canvas> -->
   </div>
 </template>
 
@@ -88,10 +87,20 @@ export default {
 
             // Convert the canvas content to a data URL
             const imageUrl = canvas.toDataURL("image/png");
-            this.$emit("set_img", { url: imageUrl, pageNum: currentPage });
+            this.$emit("set_img", {
+              url: imageUrl,
+              pageNum: currentPage,
+              totalPageNum: this.numPages,
+            });
           }, "image/png");
         });
       });
+
+      const scrollableDiv = this.$refs.scrollableList;
+      const totalHeight =
+        scrollableDiv.scrollHeight - scrollableDiv.clientHeight;
+      const scrollToPosition = (currentPage - 1) * 210 + 35;
+      this.setScrollbarPosition(scrollToPosition);
     },
 
     previousPage() {
@@ -107,6 +116,10 @@ export default {
           : this.currentPage;
       this.getPage(this.currentPage);
     },
+    setScrollbarPosition(position) {
+      // Set the scrollbar's location programmatically
+      this.$refs.scrollableList.scrollTop = position;
+    },
   },
 };
 </script>
@@ -120,10 +133,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  top: 10px;
-  right: 30px;
-  position: relative;
+  /* position: sticky; */
+  top: 0px;
+  background-color: rgb(50, 54, 57);
+  color: #fff;
+  padding: 10px 0px;
 }
 
 .stepper .info {
@@ -131,7 +145,10 @@ export default {
   padding-right: 10px;
 }
 .pdf-preview-list {
-  margin-top: 30px;
+  margin-bottom: 50px;
+  height: 95vh;
+  overflow-y: scroll;
+  padding-top: 50px;
 }
 .pdf-page {
   margin-bottom: 10px;

@@ -473,7 +473,7 @@ export default {
         let temp = await mergedPdf.save();
         splited_temp.push(temp);
       } else {
-        splited_temp = planPages.map(async (planPage, index) => {
+        splited_temp = planPages.map(async (planPage) => {
           const mergedPdf = await PDFDocument.create();
           const file = this.file;
           let pdfBytes = null;

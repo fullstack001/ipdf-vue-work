@@ -252,7 +252,7 @@ export default {
 
       // Extract rotation degree from the transform value
       const matrix = new DOMMatrixReadOnly(transformValue);
-      const rotation = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI) + 90;
+      let rotation = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI) + 90;
       if (rotation == 360) rotation = 0;
       document.getElementById(tagId).style.transform = `rotate(${rotation}deg)`;
 

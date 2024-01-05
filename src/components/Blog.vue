@@ -21,7 +21,9 @@
           <img src="@/assets/img/blog/image1.png" alt="" />
         </div>
         <div class="blog-social">
-          <div></div>
+          <div>
+            
+          </div>
         </div>
       </div>
     </div>

@@ -127,7 +127,7 @@
       "file": "pdf_word.svg"
     },
     "sign": {
-      "name": "signpdf",
+      "name": "sign_pdf",
       "title": "Signer le PDF",
       "description": "Signez vous-même ou demandez des signatures électroniques à d'autres personnes.",
       "file": "sign_pdf.svg"

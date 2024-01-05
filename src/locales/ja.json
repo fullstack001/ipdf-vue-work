@@ -127,7 +127,7 @@
       "file": "pdf_word.svg"
     },
     "sign": {
-      "name": "signpdf",
+      "name": "sign_pdf",
       "title": "PDFに署名",
       "description": "自分で署名するか、他の人に電子署名を依頼する。",
       "file": "sign_pdf.svg"
