@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import "@/assets/editFunctions/styles.css";
-import "@/assets/editFunctions/pdfannotate.css";
+import "@/assets/js/styles.css";
+import "@/assets/js/pdfannotate.css";
 
 export default {
   name: "TextToolBar",
