@@ -14,7 +14,7 @@
         :get_pdf="get_result"
         :currentPage="currentPageNum"
         :totalPageNum="totalPageNum"
-        @upload="upload_pdf"
+        @upload="upload_png"
       />
     </div>
     <div
@@ -114,6 +114,7 @@ import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import PdfPreviewList from "./components/PdfPreviewList.vue";
 import EditPdf from "./components/EditPdf.vue";
+import addImagesToPDF from "../services/add_img_to_pdf";
 
 export default {
   components: {
@@ -186,14 +187,28 @@ export default {
     },
 
     //convertToWord
-    async upload_pdf(data) {
-      this.$isLoading(true); // show loading screen
-      console.log(data);
+    async upload_png(data) {
       const formData = new FormData();
-      formData.append("pdf", data);
+      for (let i = 0; i < data.length; i++) {
+        formData.append("files", data[i]);
+      }
 
+      this.$axios.post("/pdf/png_upload", formData).then(async (res) => {
+        const pdf = await addImagesToPDF(this.getURL(this.file), res.data);
+        this.upload_pdf(pdf, res.data);
+      });
+      this.get_result = false;
+    },
+    upload_pdf(pdf, data) {
+      console.log(data);
+      const deletes = data.map((item) => {
+        return item.filename;
+      });
+      const formData = new FormData();
+      formData.append("files", pdf);
+      formData.append("deletes", deletes);
       this.$axios
-        .post("/pdf/pdf_upload", formData)
+        .post("/pdf/edited_pdf_upload", formData)
         .then((response) => {
           const obj = {
             id: response.data,
@@ -205,10 +220,8 @@ export default {
           };
           // Your secret message
           const message = JSON.stringify(obj);
-
           // Your secret key (should be kept private)
           const secretKey = "mySecretKey123";
-
           // Encrypt the message using AES encryption with the secret key
           const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
           this.$router.push({

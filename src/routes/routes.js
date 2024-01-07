@@ -105,6 +105,14 @@ const routes = [
           ),
         name: "editpdf",
       },
+      {
+        path: "/:locale/signpdf",
+        component: () =>
+          import(
+            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/SignPdf.vue"
+          ),
+        name: "signpdf",
+      },
     ],
   },
   {

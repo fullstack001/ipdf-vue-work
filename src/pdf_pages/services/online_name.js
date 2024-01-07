@@ -20,7 +20,7 @@ export const online_names = [
     file: "compress_pdf.svg",
   },
   {
-    name: "pdf_word",
+    name: "pdftoword",
     title: "PDF to Word",
     description:
       "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",

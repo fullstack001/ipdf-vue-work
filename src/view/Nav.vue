@@ -45,7 +45,7 @@
                   <span class="material-icons"> expand_more </span>
                 </md-button>
 
-                <md-menu-content style="z-index: 1000;">
+                <md-menu-content style="z-index: 1000">
                   <md-menu-item>
                     <LocalizedLink to="wordtopdf">
                       {{ $t("features.word_pdf.title") }}
@@ -62,7 +62,7 @@
                     </LocalizedLink>
                   </md-menu-item>
                   <md-menu-item>
-                    <LocalizedLink to="sign">
+                    <LocalizedLink to="signpdf">
                       {{ $t("features.sign.title") }}
                     </LocalizedLink>
                   </md-menu-item>

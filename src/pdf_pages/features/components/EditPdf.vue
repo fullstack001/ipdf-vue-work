@@ -162,7 +162,10 @@ export default {
   },
   methods: {
     loadScripts() {
-      var pdf = new PDFAnnotate("pdf-container-annotate", this.pdfUrl);
+      var pdf = new PDFAnnotate("pdf-container-annotate", this.pdfUrl, {
+        scale: 1,
+        pageImageCompression: "FAST", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
+      });
       this.pdf = pdf;
     },
     setScrollbarPosition(position) {
@@ -243,8 +246,8 @@ export default {
       this.pdf.clearActivePage();
     },
     async savePDF() {
-      const url = await this.pdf.savePdf("output.pdf");
-      this.$emit("upload", url);
+      const images = await this.pdf.savePdf("output.pdf");
+      this.$emit("upload", images);
     },
     set_color(color) {
       $(".color-tool.active").removeClass("active");
