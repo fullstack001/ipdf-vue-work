@@ -1,7 +1,7 @@
 <template>
-  <modal title="Set your signature details" @close="$emit('close')">
+  <modal title="Set your signature details" @apply_sign="apply_signature">
     <div slot="body">
-      <form @submit.prevent="onSubmit">
+      <form>
         <div class="name-initial">
           <!-- Name -->
           <div
@@ -9,24 +9,18 @@
             :class="{ errorInput: $v.name.$error }"
           >
             <label>Full name:</label>
-            <p class="errorText" v-if="!$v.name.required">Field is required!</p>
             <input
               v-model="name"
               :class="{ error: $v.name.$error }"
-              @change="$v.name.$touch()"
+              @change="changeName"
+              @input="getInit"
             />
+            <p class="errorText" v-if="!$v.name.required">Field is required!</p>
           </div>
           <!-- Email -->
-          <div class="form-item" :class="{ errorInput: $v.email.$error }">
+          <div class="form-item">
             <label>Initials:</label>
-            <p class="errorText" v-if="!$v.email.required">
-              Field is required!
-            </p>
-            <input
-              v-model="email"
-              :class="{ error: $v.email.$error }"
-              @change="$v.email.$touch()"
-            />
+            <input v-model="init_name" />
           </div>
         </div>
       </form>
@@ -43,55 +37,7 @@
             ><i class="fa-solid fa-pencil"></i> Signature</label
           >
           <div class="tab-content">
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
-            <br />
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
-            <br />
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
-            <br />
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
-            <br />
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
-            <br />
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
-            <br />
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
-            <br />
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
-            <br />
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
-            <br />
-            <div style="display: inline-flex">
-              <input type="radio" id="one" value="One" v-model="sign_picked" />
-              <label for="one">One</label>
-            </div>
+            <SinatureTabComponent :name="name" :get_sign="get_signature" />
           </div>
         </div>
         <div class="tab">
@@ -99,14 +45,18 @@
           <label for="tab-2" class="tab-label"
             ><i class="fa-solid fa-spell-check"></i> Initial</label
           >
-          <div class="tab-content">Content Two</div>
+          <div class="tab-content">
+            <InitTabComponent :name="init_name" :get_init="get_signature" />
+          </div>
         </div>
         <div class="tab">
           <input type="radio" name="css-tabs" id="tab-3" class="tab-switch" />
           <label for="tab-3" class="tab-label"
             ><i class="fa-solid fa-stamp"></i> Company Stamp</label
           >
-          <div class="tab-content">Content Three</div>
+          <div class="tab-content">
+            <DropFile :get_stamp="get_signature" />
+          </div>
         </div>
       </div>
     </div>
@@ -114,60 +64,81 @@
 </template>
 
 <script>
-import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
+import DropFile from "@/components/DropFile.vue";
+import { required } from "vuelidate/lib/validators";
 import modal from "@/components/Modal.vue";
+import SinatureTabComponent from "./SinatureTabComponent.vue";
+import InitTabComponent from "./InitTabComponent.vue";
 
 export default {
   components: {
     modal,
+    DropFile,
+    SinatureTabComponent,
+    InitTabComponent,
   },
   data() {
     return {
       name: "",
-      email: "",
-      password: "",
+      init_name: "",
       repeatPassword: "",
-      sign_picked: false,
-      init_picked: false,
-      font_styles: [],
+      sign_picked_family: "Reenie Beanie",
+      init_picked_family: false,
+      font_families: [
+        "Reenie Beanie",
+        "Satisfy",
+        "Zeyada",
+        "Shadows Into Light",
+        "Alex Brush",
+        "Allura",
+        "Handlee",
+        "Kristi",
+        "La Belle Aurore",
+        "Marck Script",
+      ],
+      get_signature: false,
     };
   },
   validations: {
     name: {
       required,
-      minLength: minLength(4),
-    },
-    email: {
-      required,
-      email,
     },
   },
   methods: {
-    onSubmit() {
+    getInit() {
+      const name = this.name;
+      let temp = name.split(" ");
+      let init_name = "";
+      temp.forEach((word) => {
+        init_name = init_name + word.charAt(0).toUpperCase();
+      });
+      this.init_name = init_name;
+    },
+    changeName() {
+      this.$v.name.$touch();
+      this.getInit();
+    },
+    async apply_signature() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        const user = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          repeatPassword: this.repeatPassword,
-        };
-        console.log(user);
-
-        //DONE
-        this.name = "";
-        this.email = "";
-        this.password = "";
-        this.repeatPassword = "";
+        await this.get_data();
         this.$v.$reset();
         this.$emit("close");
       }
+    },
+    get_data() {
+      this.get_signature = true;
     },
   },
 };
 </script>
 
 <style lang="scss">
+.sign-option {
+  border: 1px solid;
+  border-color: #9e9e9e;
+  padding-top: 10px;
+}
 .name-initial {
   display: inline-flex;
 }
@@ -198,7 +169,7 @@ input.error {
 .tabs {
   position: relative;
   background: #1abc9c;
-  height: 14.75rem;
+  height: 300px;
   align-content: center;
   border: solid 1px;
 }
@@ -234,7 +205,6 @@ input.error {
   transition: all 0.25s;
 }
 .tab-content {
-  padding: 1.618rem;
   background: #fff;
   color: #2c3e50;
   border-bottom: 0.25rem solid #bdc3c7;
@@ -248,6 +218,7 @@ input.error {
   opacity: 0;
   transition: all 0.35s;
   text-align: left;
+  display: grid;
 }
 .tab-switch:checked + .tab-label {
   background: #fff;

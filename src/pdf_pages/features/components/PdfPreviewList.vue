@@ -1,11 +1,31 @@
 <template>
   <div id="pageContainer">
     <div class="stepper">
-      <div>
-        <input type="button" value="Previous" @click="previousPage" />
+      <div class="arrow">
+        <i
+          class="fa-solid fa-chevron-up"
+          style="font-size: medium"
+          @click="previousPage"
+        ></i>
       </div>
-      <div class="info">Page {{ currentPage }} of {{ numPages }}</div>
-      <div><input type="button" value="Next" @click="nextPage" /></div>
+      <div class="arrow">
+        <i
+          class="fa-solid fa-chevron-down"
+          style="font-size: medium"
+          @click="nextPage"
+        ></i>
+      </div>
+      <div class="info">
+        <input
+          v-model="currentPage"
+          type="number"
+          :max="numPages"
+          :min="1"
+          style="width: 40px; height: 24px; margin-right: 3px"
+          @change="() => getPage(currentPage * 1)"
+        />
+        / {{ numPages }}
+      </div>
     </div>
     <div class="pdf-preview-list" ref="scrollableList">
       <div
@@ -64,6 +84,7 @@ export default {
     },
 
     getPage(currentPage) {
+      console.log(currentPage);
       this.pdfDocument.getPage(currentPage).then((page) => {
         const viewport = page.getViewport({ scale: 1 });
 
@@ -129,20 +150,32 @@ export default {
   margin: auto;
 }
 
+.arrow {
+  background-color: white;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  color: black;
+  margin-left: 5px;
+}
+
 .stepper {
   display: flex;
   align-items: center;
   justify-content: center;
   /* position: sticky; */
   top: 0px;
-  background-color: rgb(50, 54, 57);
-  color: #fff;
+  height: 50px;
+  background-color: #f5f5fa;
+  color: rgb(50, 54, 57);
   padding: 10px 0px;
+  box-shadow: 5px 0px 5px 0px rgba(87, 81, 81, 0.75);
 }
 
 .stepper .info {
   padding-left: 10px;
   padding-right: 10px;
+  display: flex;
 }
 .pdf-preview-list {
   margin-bottom: 50px;

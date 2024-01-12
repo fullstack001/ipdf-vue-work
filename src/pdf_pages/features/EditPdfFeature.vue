@@ -200,7 +200,6 @@ export default {
       this.get_result = false;
     },
     upload_pdf(pdf, data) {
-      console.log(data);
       const deletes = data.map((item) => {
         return item.filename;
       });
@@ -476,6 +475,7 @@ h3 {
 
 .files-list {
   width: 100%;
+  max-width: 1300px !important;
 }
 
 @media (max-width: 640px) {

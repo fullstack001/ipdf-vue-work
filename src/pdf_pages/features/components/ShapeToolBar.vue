@@ -10,12 +10,8 @@
       </button>
     </div>
     <div class="tool">
-      <button class="tool-button">
-        <i
-          class="fa-regular fa-square"
-          title="Add rectangle"
-          v-on:click="enableRectangle"
-        ></i>
+      <button class="tool-button" v-on:click="enableRectangle">
+        <i class="fa-regular fa-square" title="Add rectangle"></i>
       </button>
     </div>
     <div class="tool">
@@ -24,9 +20,18 @@
       </button>
     </div>
     <div class="tool">
-      <button class="tool-button">
-        <i class="fa-solid fa-minus" v-on:click="enableLine"></i>
+      <button class="tool-button" v-on:click="enableLine">
+        <i class="fa-solid fa-minus"></i>
       </button>
+    </div>
+    <div class="tool">
+      <input
+        type="color"
+        name="colorpicker"
+        id="colorpicker"
+        v-model="color_pallet"
+        @change="set_color"
+      />
     </div>
   </div>
 </template>
@@ -58,6 +63,9 @@ export default {
     },
     enableLine(e) {
       this.$emit("enableLine", e);
+    },
+    set_color() {
+      this.$emit("set_color", this.color_pallet);
     },
   },
 };

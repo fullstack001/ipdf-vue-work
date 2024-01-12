@@ -24,6 +24,9 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
   this.borderColor = "#000000";
   this.borderSize = 1;
   this.font_size = 16;
+  this.font_underline = false;
+  this.font_background_color = "white";
+  this.font_color = "#000000";
   this.font_family = "Arial";
   this.font_weight = "normal";
   this.font_style = "normal";
@@ -60,6 +63,7 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
           }
 
           var viewport = page.getViewport({ scale: scale });
+          console.log(viewport);
           var canvas = document.createElement("canvas");
           document.getElementById(inst.container_id).appendChild(canvas);
           canvas.className = "pdf-canvas";
@@ -135,6 +139,7 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
 
   this.fabricClickHandler = function (event, fabricObj) {
     var inst = this;
+    console.log(inst.color);
     var toolObj;
     if (inst.active_tool == 2) {
       toolObj = new fabric.IText(inst.textBoxText, {
@@ -145,9 +150,12 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
         fill: inst.color,
         fontSize: inst.font_size,
         fontFamily: inst.font_family,
+        underline: inst.font_underline,
         fontStyle: inst.font_style,
         fontWeight: inst.font_weight,
+        backgroundColor: inst.font_background_color,
         selectable: true,
+        fill: inst.font_color,
       });
     } else if (inst.active_tool == 4) {
       toolObj = new fabric.Rect({
@@ -342,7 +350,7 @@ PDFAnnotate.prototype.savePdf = async function (fileName) {
           canvas.add(imgObjects[j]);
         }
         // Convert the Fabric.js canvas to an image data URL
-        const imageDataUrl = canvas.toDataURL({ format: "png" });
+        const imageDataUrl = canvas.toDataURL("image/png", 1.0);
 
         const byteString = atob(imageDataUrl.split(",")[1]);
         const mimeString = imageDataUrl
@@ -393,12 +401,32 @@ PDFAnnotate.prototype.setBorderColor = function (color) {
   var inst = this;
   inst.borderColor = color;
 };
+PDFAnnotate.prototype.defaultFontStyle = function () {
+  this.font_size = 16;
+  this.font_underline = false;
+  this.font_family = "Arial";
+  this.font_weight = "normal";
+  this.font_style = "normal";
+  this.font_background_color = null;
+  this.font_color = "black";
+};
+
+PDFAnnotate.prototype.setFontBackgroundColor = function (color) {
+  this.font_background_color = color;
+};
+
+PDFAnnotate.prototype.setFontColor = function (color) {
+  this.font_color = color;
+};
 
 PDFAnnotate.prototype.setFontSize = function (size) {
   this.font_size = size;
 };
 PDFAnnotate.prototype.setFontFamily = function (family) {
   this.font_family = family;
+};
+PDFAnnotate.prototype.setFontUnderline = function (data) {
+  this.font_underline = data;
 };
 
 PDFAnnotate.prototype.setFontStyle = function (style) {
@@ -469,8 +497,12 @@ PDFAnnotate.prototype.loadFromJSON = function (jsonData) {
 };
 
 PDFAnnotate.prototype.setDefaultTextForTextBox = function (text) {
+  console.log(text);
   var inst = this;
   if (typeof text === "string") {
-    inst.textBoxText = text;
+    inst.textBoxText = "text";
   }
+};
+PDFAnnotate.prototype.doubleClick = function (e) {
+  console.log(e);
 };

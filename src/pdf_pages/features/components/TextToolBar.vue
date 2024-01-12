@@ -1,7 +1,8 @@
 <template>
   <div class="texttoolbar">
     <div class="tool">
-      <label for="">Font size </label>
+      <i class="fa-solid fa-t" style="font-size: xx-small"></i>
+      <i class="fa-solid fa-t" style="margin-right: 10px"></i>
       <select
         id="font-size"
         class="form-control"
@@ -21,7 +22,7 @@
       </select>
     </div>
     <div class="tool">
-      <label for="">Font family</label>
+      <i class="fa-solid fa-t" style="margin-right: 10px"></i>
       <select
         id="font-size"
         class="form-control"
@@ -34,22 +35,53 @@
         <option value="Courier">Courier</option>
         <option value="Comic Sans MS">Comic Sans MS</option>
         <option value="Times New Roman">Times New Roman</option>
+        <option value="Handlee">Handlee</option>
       </select>
     </div>
     <div class="tool">
-      <button class="tool-button">
-        <i class="fa-sharp fa-solid fa-bold" @click="set_font_weight"></i>
+      <button
+        class="tool-button"
+        @click="set_font_weight"
+        :class="fontWeight == 'bold' && 'active'"
+      >
+        <i class="fa-sharp fa-solid fa-bold"></i>
       </button>
     </div>
-    <!-- <div class="tool">
-      <button class="tool-button">
+    <div class="tool">
+      <button
+        class="tool-button"
+        @click="set_font_underline"
+        :class="underline && 'active'"
+      >
         <i class="fa-sharp fa-solid fa-underline"></i>
       </button>
-    </div> -->
+    </div>
     <div class="tool">
-      <button class="tool-button">
-        <i class="fa-sharp fa-solid fa-italic" @click="set_font_style"></i>
+      <button
+        class="tool-button"
+        @click="set_font_style"
+        :class="fontStyle == 'italic' && 'active'"
+      >
+        <i class="fa-sharp fa-solid fa-italic"></i>
       </button>
+    </div>
+    <div class="tool">
+      <i class="fa-solid fa-font" style="margin-right: 10px"></i>
+      <input
+        type="color"
+        id="colorpicker"
+        v-model="color_pallet"
+        @change="set_font_color"
+      />
+    </div>
+    <div class="tool">
+      <i class="fa-solid fa-fill-drip" style="margin-right: 10px"></i>
+      <input
+        type="color"
+        id="colorpicker1"
+        v-model="backColor_pallet"
+        @change="set_font_background_color"
+      />
     </div>
   </div>
 </template>
@@ -57,18 +89,30 @@
 <script>
 import "@/assets/js/styles.css";
 import "@/assets/js/pdfannotate.css";
+import { enableRipple } from "@syncfusion/ej2-base";
+
+enableRipple(true);
 export default {
   name: "TextToolBar",
   data() {
     return {
-      fontSize: 12,
+      fontSize: 16,
+      underline: false,
       fontFamily: "Arial",
       fontWeight: "normal",
       fontStyle: "normal",
       color_pallet: "#212121",
+      backColor_pallet: "#ffffff",
     };
   },
+  watch: {
+    fontSize(newValue) {},
+  },
   methods: {
+    set_font_underline() {
+      this.underline = !this.underline;
+      this.$emit("set_font_underline", this.underline);
+    },
     set_font_weight() {
       this.fontWeight = this.fontWeight == "normal" ? "bold" : "normal";
       this.$emit("set_font_weight", this.fontWeight);
@@ -84,8 +128,11 @@ export default {
       this.$emit("set_font_family", this.fontFamily);
       // console.log(this.fontFamily);
     },
-    set_color1() {
-      this.$emit("set_color1", this.color_pallet);
+    set_font_color() {
+      this.$emit("set_font_color", this.color_pallet);
+    },
+    set_font_background_color() {
+      this.$emit("set_font_background_color", this.backColor_pallet);
     },
   },
 };
@@ -93,5 +140,10 @@ export default {
 <style scoped>
 #colorpicker {
   height: 25px !important;
+  width: 25px;
+}
+#colorpicker1 {
+  height: 25px !important;
+  width: 25px;
 }
 </style>

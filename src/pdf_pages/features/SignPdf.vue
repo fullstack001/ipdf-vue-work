@@ -2,12 +2,26 @@
   <div
     class="main"
     :style="
-      file_objs.length ? 'display: flex' : 'display: inline-block; width: 100%;'
+      files.length ? 'display: flex' : 'display: inline-block; width: 100%;'
     "
   >
+    <div v-if="files.length">
+      <div id="sidebar" class="tool__sidebar">
+        <PdfPreviewList :url="getURL(files[0])" @set_img="set_image_url" />
+      </div>
+    </div>
+    <div class="files-list" v-if="files.length">
+      <SignComponent
+        :pdfUrl="getURL(files[0])"
+        :get_pdf="get_result"
+        :currentPage="currentPageNum"
+        :totalPageNum="totalPageNum"
+        @upload="upload_png"
+      />
+    </div>
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
-        <div v-show="!file_objs.length" class="upload-buttons">
+        <div v-show="!files.length" class="upload-buttons">
           <div class="page-title">Sign PDF</div>
           <div class="page-description">
             Your tool to eSign documents. Sign a document yourself or send a
@@ -47,7 +61,7 @@
                   :extensions="['.pdf', '.doc']"
                   :folderselect="false"
                   v-bind:style="
-                    file_objs.length > 0
+                    files.length > 0
                       ? 'display: block; margin-top: 5px;'
                       : 'display: inline-block;'
                   "
@@ -59,120 +73,46 @@
           </div>
         </div>
       </div>
-      <div class="files-list">
-        <div class="preview-container mt-4" v-if="file_objs.length">
-          <draggable
-            v-model="file_objs"
-            :options="{ animation: 150 }"
-            class="md-layout"
-          >
-            <div
-              class="preview-card md-layout-item"
-              v-for="(file_obj, index) in file_objs"
-              :key="file_obj.file.name"
-            >
-              <div class="file__actions">
-                <a
-                  class="file__btn remove tooltip--top tooltip"
-                  title="Remove this file"
-                  data-title="Remove this file"
-                  @click="remove(file_objs.indexOf(file))"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                  >
-                    <polygon
-                      fill="#47474F"
-                      fill-rule="evenodd"
-                      points="12 1.208 10.79 0 6 4.792 1.21 0 0 1.208 4.79 6 0 10.792 1.21 12 6 7.208 10.79 12 12 10.792 7.21 6"
-                    ></polygon>
-                  </svg>
-                </a>
-              </div>
-              <div :id="'id' + index" :style="'id' + index">
-                <PdfViewer :fileUrl="getURL(file_obj)" />
-              </div>
-              <div class="prew_title">
-                {{
-                  file_obj.file.name.length > 19
-                    ? file_obj.file.name.substring(0, 20) + "..."
-                    : file_obj.file.name
-                }}
-                <!-- <md-tooltip md-direction="bottom"
-                  >{{ file_obj.file.name }}
-                </md-tooltip> -->
-              </div>
-            </div>
-          </draggable>
-          <div
-            class="add-more"
-            v-bind:style="
-              file_objs.length
-                ? 'position: absolute; top: 0px; right: 50px'
-                : 'position: relative; margin: auto; right: 0; top: 0;'
-            "
-          >
-            <AddMoreDropDown
-              :pdfCounts="this.file_objs.length"
-              @open_add_local="open_add_local"
-              @onPickedDropbox="onPickedDropbox"
-              @onPickedGoogleDriver="onPickedGoogleDriver"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-show="file_objs.length > 0">
-      <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3 class="text-center">Signing options</h3>
-        <div class="tool__sidebar__inactive"></div>
-        <div class="option__panel option__panel--active" id="merge-options">
-          <button class="option__panel__title" @click="expressPDFs">
-            Sign PDF
-          </button>
-        </div>
-      </div>
     </div>
     <SignatureModal v-if="modalValidate" @close="modalValidate = false" />
   </div>
 </template>
 
 <script>
-import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
-import draggable from "vuedraggable";
 import CryptoJS from "crypto-js";
 import store from "@/store/index";
 import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
-import AddMoreDropDown from "@/pdf_pages/features/components/AddMoreDropDown.vue";
+// import AddMoreDropDown from "@/pdf_pages/features/components/AddMoreDropDown.vue";
 import SignatureModal from "@/pdf_pages/features/components/SignatureModal.vue";
+import PdfPreviewList from "./components/PdfPreviewList.vue";
+import SignComponent from "./components/SignComponent.vue";
 
 export default {
   components: {
-    PdfViewer,
+    PdfPreviewList,
+    SignComponent,
     VueDropboxPicker,
-    draggable,
     GDriveSelector,
-    AddMoreDropDown,
+    // AddMoreDropDown,
     SignatureModal,
   },
   data() {
     return {
       isDragging: false,
       files: [],
-      file_objs: [],
-      radio: 100,
       second: false,
       modalValidate: false,
+      currentPageImage: null,
+      currentPageNum: 0,
+      totalPageNum: 0,
+      get_result: false,
     };
   },
   watch: {
-    file_objs(newValue, oldValue) {
+    files(newValue, oldValue) {
       if ((oldValue.length == 0, newValue.length == 1)) {
         this.modalValidate = true;
       }
@@ -180,6 +120,11 @@ export default {
   },
 
   methods: {
+    set_image_url(data) {
+      this.currentPageImage = data.url;
+      this.currentPageNum = data.pageNum;
+      this.totalPageNum = data.totalPageNum;
+    },
     //add merged pdf to vuex
     setPdfResult(result) {
       store.dispatch({
@@ -205,79 +150,30 @@ export default {
     },
     handleFiles(files) {
       // Process the dropped files
-      for (let i = 0; i < files.length; i++) {
-        this.file_objs.push({ file: files[i], degree: 0 });
-      }
-    },
 
-    remove(i) {
-      this.file_objs.splice(i, 1);
-    },
-
-    //rotate thumbnail
-    setRotationDegree(tagId, index) {
-      const computedStyle = window.getComputedStyle(
-        document.getElementById(tagId)
-      );
-      const transformValue = computedStyle.getPropertyValue("transform");
-
-      // Extract rotation degree from the transform value
-      const matrix = new DOMMatrixReadOnly(transformValue);
-      const rotation = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI) + 90;
-      if (rotation == 360) rotation = 0;
-      document.getElementById(tagId).style.transform = `rotate(${rotation}deg)`;
-
-      //save rotation
-      this.file_objs[index] = {
-        file: this.file_objs[index]["file"],
-        degree: rotation,
-      };
+      this.files = [...files];
     },
 
     //download from dropbox
     onPickedDropbox(data) {
-      const add_objs = data.map((item) => {
-        return { file: item, degree: 0 };
-      });
-      this.file_objs = [...this.file_objs, ...add_objs];
+      this.files = [...this.files, ...data];
     },
     onPickedGoogleDriver(data) {
-      const add_objs = data.map((item) => {
-        return { file: item, degree: 0 };
-      });
-      this.file_objs = [...this.file_objs, ...add_objs];
+      this.files = [...this.files, ...data];
     },
 
     onChange() {
       const data = this.$refs.file.files;
-      var add_objs = [],
-        i = 0;
-      for (i = 0; i < data.length; i++) {
-        add_objs.push({ file: data[i], degree: 0 });
-      }
-      this.file_objs = [...this.file_objs, ...add_objs];
-    },
-    makeName(name) {
-      return (
-        name.split(".")[0].substring(0, 3) +
-        "..." +
-        name.split(".")[name.split(".").length - 1]
-      );
+      this.files = [...this.files, ...data];
     },
 
-    getURL(file_obj) {
-      const fileSrc = generateURL(file_obj.file);
+    getURL(file) {
+      const fileSrc = generateURL(file);
       return fileSrc;
     },
-    async readFileAsync(file) {
-      return new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.onload = () => {
-          resolve(reader.result);
-        };
-        reader.onerror = reject;
-        reader.readAsArrayBuffer(file);
-      });
+
+    upload_png() {
+      console.log("asd");
     },
 
     //expressPDFs
@@ -286,9 +182,9 @@ export default {
         this.$isLoading(true); // show loading screen
         let originSize = 0;
         const formData = new FormData();
-        for (let i = 0; i < this.file_objs.length; i++) {
-          formData.append("files", this.file_objs[i].file);
-          originSize = originSize + this.file_objs[i].file.size;
+        for (let i = 0; i < this.files.length; i++) {
+          formData.append("files", this.files[i].file);
+          originSize = originSize + this.files[i].file.size;
         }
         formData.append("level", this.radio);
         this.$axios

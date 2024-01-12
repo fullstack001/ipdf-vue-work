@@ -10,12 +10,13 @@ canvas, .canvas-container {
 
 .toolbar {
   width: 100%;
-  background-color: rgb(50, 54, 57);
+  background-color: #f5f5fa;
   height: 50px;
   position: sticky;
   top: 0;
   left: 0;
   z-index: 10;
+  box-shadow: 5px 0px 5px 0px rgba(87, 81, 81, 0.75);
 }
 
 #pdf-container-annotate {
@@ -30,7 +31,7 @@ button:focus {
 
 .toolbar .tool {
   display: inline-block;
-  color: #fff;
+  color: rgb(50, 54, 57);
   height: 100%;
   padding-top: 10px;
   padding-left: 10px;
@@ -70,34 +71,38 @@ button:focus {
 }
 
 .toolbar .tool .tool-button {
-  background-color: rgb(50, 54, 57);
-  border: 1px solid rgb(50, 54, 57);
-  color: #fff;
+  background-color: #f5f5fa ;
+  border: 0px solid rgb(50, 54, 57);
+  color:rgb(50, 54, 57);
   cursor: pointer;
 }
 
 .toolbar .tool .tool-button:hover,
-.toolbar .tool .tool-button.active {
-  background-color: rgb(82, 86, 89);
-  border-color: rgb(82, 86, 89);
+.toolbar .tool .tool-button.active,
+.texttoolbar .tool .tool-button.hover,
+.texttoolbar .tool .tool-button.active {
+  /* background-color: rgb(82, 86, 89); */
+  /* border-color: rgb(82, 86, 89); */
+  color:red
 }
 
 
 
 .texttoolbar {
   width: 100%;
-  background-color: rgb(50, 54, 57);
+  background-color: #f5f5fa;
   height: 50px;
   position: sticky;
   top: 50px;
   left: 0;
-  z-index: 10;
+  z-index: 9;
+  box-shadow: 5px 0px 5px 0px rgba(87, 81, 81, 0.75);
 }
 
 
 .texttoolbar .tool {
   display: inline-block;
-  color: #fff;
+  color: rgb(50, 54, 57);
   height: 100%;
   padding-top: 10px;
   padding-left: 10px;
@@ -137,14 +142,14 @@ button:focus {
 }
 
 .texttoolbar .tool .tool-button {
-  background-color: rgb(50, 54, 57);
-  border: 1px solid rgb(50, 54, 57);
-  color: #fff;
+  background-color: #f5f5fa;
+  border: 1px solid #f5f5fa;
+  color: rgb(50, 54, 57);
   cursor: pointer;
 }
 
 .texttoolbar .tool .tool-button:hover,
 .texttoolbar .tool .tool-button.active {
-  background-color: rgb(82, 86, 89);
-  border-color: rgb(82, 86, 89);
+  background-color: #f5f5fa;
+  border-color: #f5f5fa;
 }

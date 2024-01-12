@@ -100,7 +100,7 @@ h3 {
   border-radius: 100%;
   padding: 0px 8px;
   font-size: 10px;
-  z-index: 1000;
+  z-index: 500;
   border: solid 2px #ff7c03;
 }
 

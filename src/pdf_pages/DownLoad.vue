@@ -250,7 +250,6 @@ export default {
     },
   },
   async created() {
-    console.log(234);
     this.download_urls = window.location.origin + this.$route.path;
     // Your secret key (should be kept private)
     const secretKey = "mySecretKey123";

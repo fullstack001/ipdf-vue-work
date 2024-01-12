@@ -170,6 +170,7 @@ body {
 
 .navbar {
   background-color: #fff; /* Material Design Blue */
+  z-index: 11;
 
   box-shadow: 0px 4px 17px 0px rgb(81 65 65 / 38%);
 }
