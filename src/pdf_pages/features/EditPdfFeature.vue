@@ -188,6 +188,7 @@ export default {
 
     //convertToWord
     async upload_png(data) {
+      this.$isLoading(true); // show loading screen
       const formData = new FormData();
       for (let i = 0; i < data.length; i++) {
         formData.append("files", data[i]);
