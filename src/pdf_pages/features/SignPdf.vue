@@ -1,25 +1,27 @@
 <template>
-  <div
-    class="main"
-    :style="
-      files.length ? 'display: flex' : 'display: inline-block; width: 100%;'
-    "
-  >
-    <div v-if="files.length">
+  <div class="main row">
+    <div v-if="files.length" class="col-md-2">
       <div id="sidebar" class="tool__sidebar">
         <PdfPreviewList :url="getURL(files[0])" @set_img="set_image_url" />
       </div>
     </div>
-    <div class="files-list" v-if="files.length">
+    <div v-if="files.length" class="col-md-10">
       <SignComponent
         :pdfUrl="getURL(files[0])"
         :get_pdf="get_result"
         :currentPage="currentPageNum"
         :totalPageNum="totalPageNum"
         @upload="upload_png"
+        :sign_obj="sign_obj"
+        @editSign="modalValidate = true"
       />
     </div>
-    <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
+    <div
+      class="dropzone-container col-md-12"
+      @dragover.prevent
+      @drop="handleDrop"
+      v-if="!files.length"
+    >
       <div class="upload_btn_area">
         <div v-show="!files.length" class="upload-buttons">
           <div class="page-title">Sign PDF</div>
@@ -44,6 +46,7 @@
                 @change="onChange"
                 ref="file"
                 accept=".pdf"
+                style="display: none"
               />
               <div
                 class="add-more"
@@ -74,21 +77,23 @@
         </div>
       </div>
     </div>
-    <SignatureModal v-if="modalValidate" @close="modalValidate = false" />
+    <SignatureModal
+      v-if="modalValidate"
+      :nameProps="sign_name"
+      @close="set_sign_items"
+    />
   </div>
 </template>
 
 <script>
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import CryptoJS from "crypto-js";
-import store from "@/store/index";
-import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
-// import AddMoreDropDown from "@/pdf_pages/features/components/AddMoreDropDown.vue";
 import SignatureModal from "@/pdf_pages/features/components/SignatureModal.vue";
 import PdfPreviewList from "./components/PdfPreviewList.vue";
 import SignComponent from "./components/SignComponent.vue";
+import addImagesToPDF from "../services/add_img_to_pdf";
 
 export default {
   components: {
@@ -96,7 +101,6 @@ export default {
     SignComponent,
     VueDropboxPicker,
     GDriveSelector,
-    // AddMoreDropDown,
     SignatureModal,
   },
   data() {
@@ -109,6 +113,8 @@ export default {
       currentPageNum: 0,
       totalPageNum: 0,
       get_result: false,
+      sign_obj: null,
+      sign_name: null,
     };
   },
   watch: {
@@ -125,14 +131,11 @@ export default {
       this.currentPageNum = data.pageNum;
       this.totalPageNum = data.totalPageNum;
     },
-    //add merged pdf to vuex
-    setPdfResult(result) {
-      store.dispatch({
-        type: type.SetResult,
-        amount: result,
-      });
+    set_sign_items(data) {
+      this.modalValidate = false;
+      this.sign_obj = data;
+      this.sign_name = data.name_text;
     },
-
     //click add from local button
     open_add_local() {
       this.$refs.file.click();
@@ -172,71 +175,55 @@ export default {
       return fileSrc;
     },
 
-    upload_png() {
-      console.log("asd");
-    },
-
-    //expressPDFs
-    async expressPDFs() {
-      if (this.radio) {
-        this.$isLoading(true); // show loading screen
-        let originSize = 0;
-        const formData = new FormData();
-        for (let i = 0; i < this.files.length; i++) {
-          formData.append("files", this.files[i].file);
-          originSize = originSize + this.files[i].file.size;
-        }
-        formData.append("level", this.radio);
-        this.$axios
-          .post("/pdf/pdf_compress", formData)
-          .then((response) => {
-            let reSize = null;
-            // Handle response from server
-            const type = response.data.file.split(".")[1];
-            if (response.data.reSize >= originSize / 1024) {
-              reSize = (originSize / 1024) * 0.8;
-            } else {
-              reSize = response.data.reSize;
-            }
-            console.log(type);
-            const obj = {
-              id: response.data.file,
-              button_title: "Download Compressed PDF",
-              dis_text: "PDF has been compressed!",
-              down_name: `pdfdenCompressed.${type}`,
-              file_type: `application/${type}`,
-              before: "compresspdf",
-              originSize: (originSize / 1024).toFixed(2),
-              resultSize: reSize.toFixed(2),
-            };
-            // Your secret message
-            const message = JSON.stringify(obj);
-
-            // Your secret key (should be kept private)
-            const secretKey = "mySecretKey123";
-
-            // Encrypt the message using AES encryption with the secret key
-            const encrypted = CryptoJS.AES.encrypt(
-              message,
-              secretKey
-            ).toString();
-
-            this.$router.push({
-              name: "download",
-              params: {
-                param: encrypted,
-              },
-            });
-          })
-          .catch((error) => {
-            console.error("Error uploading files:", error);
-          })
-          .finally(() => {
-            this.$isLoading(false); // hide loading screen
-          });
-      } else {
-        this.second = true;
+    async upload_png(data) {
+      const formData = new FormData();
+      for (let i = 0; i < data.length; i++) {
+        formData.append("files", data[i]);
       }
+
+      this.$axios.post("/pdf/png_upload", formData).then(async (res) => {
+        const pdf = await addImagesToPDF(this.getURL(this.files[0]), res.data);
+        this.upload_pdf(pdf, res.data);
+      });
+      this.get_result = false;
+    },
+    upload_pdf(pdf, data) {
+      const deletes = data.map((item) => {
+        return item.filename;
+      });
+      const formData = new FormData();
+      formData.append("files", pdf);
+      formData.append("deletes", deletes);
+      this.$axios
+        .post("/pdf/edited_pdf_upload", formData)
+        .then((response) => {
+          const obj = {
+            id: response.data,
+            button_title: "Download Signed PDF",
+            dis_text: "PDF has been Signed!",
+            down_name: "signed_pdf.pdf",
+            file_type: "application/pdf",
+            before: "signpdf",
+          };
+          // Your secret message
+          const message = JSON.stringify(obj);
+          // Your secret key (should be kept private)
+          const secretKey = "mySecretKey123";
+          // Encrypt the message using AES encryption with the secret key
+          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+          this.$router.push({
+            name: "download",
+            params: {
+              param: encrypted,
+            },
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .finally(() => {
+          this.$isLoading(false); // hide loading screen
+        });
     },
   },
 };
@@ -298,75 +285,10 @@ body {
   background-color: #fffbf8;
 }
 
-.drop-img {
-  width: 96px;
-  margin: auto;
-  margin-bottom: 30px;
-}
-
 .upload_btn_area {
   position: relative;
 }
-.hidden-input {
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  width: 1px;
-  height: 1px;
-}
-.file-label {
-  font-size: 20px;
-  display: block;
-  cursor: pointer;
-}
-.preview-container {
-  position: relative;
-  margin-top: 2rem;
-}
 
-.preview_area {
-  display: flex;
-}
-.preview-card {
-  cursor: grab;
-  flex: 1 1;
-  margin: 4px;
-  max-width: 250px;
-  height: 250px;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-line-pack: distribute;
-  align-content: space-around;
-  -ms-flex-pack: center;
-  justify-content: center;
-  position: relative;
-  border: 1px solid rgba(0, 0, 0, 0);
-  background: #fdfdfd;
-  border-radius: 8px;
-  -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
-}
-
-.preview-img {
-  width: 140px;
-  height: 180px;
-  border-radius: 5px;
-  border: 1px solid #a2a2a2;
-  background-color: #a2a2a2;
-}
-
-.file__actions {
-  top: 8px;
-  right: 8px;
-  position: absolute;
-  display: inline-flex;
-  /* display: none; */
-  z-index: 100;
-}
 .file__btn {
   padding: 3px;
   width: 24px;
@@ -436,6 +358,7 @@ body {
 .tool__sidebar {
   height: 100vh;
   background-color: #fff;
+  min-width: 300px;
 }
 
 .draggable-item {

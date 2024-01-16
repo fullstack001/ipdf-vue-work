@@ -63,7 +63,6 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
           }
 
           var viewport = page.getViewport({ scale: scale });
-          console.log(viewport);
           var canvas = document.createElement("canvas");
           document.getElementById(inst.container_id).appendChild(canvas);
           canvas.className = "pdf-canvas";
@@ -139,7 +138,6 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
 
   this.fabricClickHandler = function (event, fabricObj) {
     var inst = this;
-    console.log(inst.color);
     var toolObj;
     if (inst.active_tool == 2) {
       toolObj = new fabric.IText(inst.textBoxText, {
@@ -366,16 +364,6 @@ PDFAnnotate.prototype.savePdf = async function (fileName) {
 
         const blob = new Blob([ab], { type: "image/png" });
         resultImages.push(blob);
-
-        // // Create a download link
-        // const link = document.createElement("a");
-        // link.href = URL.createObjectURL(blob);
-        // link.download = "fileName.png";
-
-        // // Append the link to the document and trigger the download
-        // document.body.appendChild(link);
-        // link.click();
-        // document.body.removeChild(link);
       });
     }
   });

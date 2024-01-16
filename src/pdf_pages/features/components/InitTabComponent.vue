@@ -54,13 +54,13 @@
             :key="family"
             class="sign-option"
           >
-            <input type="radio" :value="family" v-model="sign_picked_family" />
+            <input type="radio" :value="family" v-model="init_picked_family" />
             <label
-              :id="family"
+              :id="family + 'init'"
               for="one"
               style="font-size: xx-large; margin-left: 15px"
               :style="`font-family:${family} !important; color:${fontColor};`"
-              >{{ name.length > 0 ? name : "Signature" }}</label
+              >{{ name.length > 0 ? name : "Initials" }}</label
             >
           </div>
         </div>
@@ -89,12 +89,7 @@
           <div
             class="color-tool"
             style="background-color: yellow"
-            @click="
-              () => {
-                fontColor = 'yellow';
-                convertToPNG();
-              }
-            "
+            @click="fontColor = 'yellow'"
           ></div>
         </div>
       </div>
@@ -104,15 +99,15 @@
           class="reset-draw"
           @click.prevent="
             () => {
-              $refs.VueCanvasDrawing.reset();
-              $refs.VueCanvasDrawing.redraw();
+              $refs.InitVueCanvasDrawing.reset();
+              $refs.InitVueCanvasDrawing.redraw();
             }
           "
         >
           <i class="fa-solid fa-trash-can"></i>
         </div>
         <vue-drawing-canvas
-          ref="VueCanvasDrawing"
+          ref="InitVueCanvasDrawing"
           :width="640"
           :height="240"
           :lineWidth="2"
@@ -121,7 +116,7 @@
           :saveAs="'png'"
         />
         <canvas
-          ref="myCanvas"
+          ref="myInitCanvas"
           width="320"
           height="120"
           style="display: none"
@@ -162,7 +157,7 @@
       </div>
 
       <div id="init_upload" class="tabcontent_init">
-        <DropFile />
+        <DropFile v-if="active_btn == 'init_upload'" :data="'init_img'" />
       </div>
     </div>
   </div>
@@ -179,18 +174,28 @@ export default {
   },
   props: ["name", "get_init"],
   watch: {
-    get_init(newValue) {
+    async get_init(newValue) {
+      let temp = await this.convertToPNG();
       if (newValue) {
-        console.log("get");
+        console.log(temp);
+        switch (this.active_btn) {
+          case "init_text":
+            this.init_png = temp;
+            break;
+          case "init_draw":
+            this.init_png = this.saveImage() ? this.saveImage() : temp;
+            break;
+          case "init_upload":
+            this.init_png = this.upload_img ? this.upload_img : temp;
+        }
       }
+      this.$emit("set_init", this.init_png);
     },
   },
   data() {
     return {
       font_families: [
-        "Reenie Beanie",
         "Satisfy",
-        "Zeyada",
         "Shadows Into Light",
         "Alex Brush",
         "Allura",
@@ -198,11 +203,14 @@ export default {
         "Kristi",
         "La Belle Aurore",
         "Marck Script",
+        "Reenie Beanie",
+        "Zeyada",
       ],
-      active_btn: "text",
+      active_btn: "init_text",
       color: "#212121",
       fontColor: "#212121",
-      sign_picked_family: "Reenie Beanie",
+      init_picked_family: "Satisfy",
+      init_png: null,
     };
   },
   methods: {
@@ -218,9 +226,12 @@ export default {
       this.active_btn = item;
       document.getElementById(item).style.display = "block";
     },
-    drawOnCanvas() {
-      var dataURL1 = this.$refs.VueCanvasDrawing.getAllStrokes();
-      const canvas = this.$refs.myCanvas;
+    saveImage() {
+      var dataURL1 = this.$refs.InitVueCanvasDrawing.getAllStrokes();
+      if (dataURL1.length == 0) {
+        return null;
+      }
+      const canvas = this.$refs.myInitCanvas;
       let ctx = canvas.getContext("2d");
       for (var j = 0; j < dataURL1.length; j++) {
         let obj = dataURL1[j];
@@ -251,24 +262,15 @@ export default {
         }
       }
 
-      //Stroke or fill based on the 'fill' property
-    },
-    saveImage() {
-      this.drawOnCanvas();
-
       // Convert canvas content to PNG data URL
       const dataURL = this.$refs.myCanvas.toDataURL("image/png");
 
-      // Create an anchor element for downloading
-      const downloadLink = document.createElement("a");
-      downloadLink.href = dataURL;
-      downloadLink.download = "canvas_image.png"; // Set the desired file name and extension
-
-      // Trigger a click on the link to start the download
-      downloadLink.click();
+      return dataURL;
     },
     async convertToPNG() {
-      const textContainer = document.getElementById(this.sign_picked_family);
+      const textContainer = document.getElementById(
+        this.init_picked_family + "init"
+      );
 
       // Use html2canvas to capture the content of the text container
       const canvas = await html2canvas(textContainer, {
@@ -276,15 +278,9 @@ export default {
       });
 
       // Convert the canvas content to a data URL (PNG format)
-      const dataURL = canvas.toDataURL("image/png");
+      const dataURL = await canvas.toDataURL("image/png");
 
-      // Create an anchor element for downloading
-      const downloadLink = document.createElement("a");
-      downloadLink.href = dataURL;
-      downloadLink.download = "canvas_image.png"; // Set the desired file name and extension
-
-      // Trigger a click on the link to start the download
-      downloadLink.click();
+      return await dataURL;
     },
   },
 };

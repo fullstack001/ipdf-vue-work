@@ -37,7 +37,11 @@
             ><i class="fa-solid fa-pencil"></i> Signature</label
           >
           <div class="tab-content">
-            <SinatureTabComponent :name="name" :get_sign="get_signature" />
+            <SinatureTabComponent
+              :name="name"
+              :get_sign="get_signature"
+              @set_sign="set_signature"
+            />
           </div>
         </div>
         <div class="tab">
@@ -46,7 +50,11 @@
             ><i class="fa-solid fa-spell-check"></i> Initial</label
           >
           <div class="tab-content">
-            <InitTabComponent :name="init_name" :get_init="get_signature" />
+            <InitTabComponent
+              :name="init_name"
+              :get_init="get_signature"
+              @set_init="set_initials"
+            />
           </div>
         </div>
         <div class="tab">
@@ -55,7 +63,11 @@
             ><i class="fa-solid fa-stamp"></i> Company Stamp</label
           >
           <div class="tab-content">
-            <DropFile :get_stamp="get_signature" />
+            <StampDropFile
+              :get_stamp="get_signature"
+              :data="'stamp_img'"
+              @set_stamp="set_stamp"
+            />
           </div>
         </div>
       </div>
@@ -64,18 +76,26 @@
 </template>
 
 <script>
-import DropFile from "@/components/DropFile.vue";
+import StampDropFile from "@/components/StampDropFile.vue";
 import { required } from "vuelidate/lib/validators";
 import modal from "@/components/Modal.vue";
 import SinatureTabComponent from "./SinatureTabComponent.vue";
 import InitTabComponent from "./InitTabComponent.vue";
+import convert from "@/pdf_pages/services/convertTextToImg.js";
 
 export default {
   components: {
+    StampDropFile,
     modal,
-    DropFile,
     SinatureTabComponent,
     InitTabComponent,
+  },
+  props: ["nameProps"],
+  created() {
+    if (this.nameProps) {
+      this.name = this.nameProps;
+      this.getInit();
+    }
   },
   data() {
     return {
@@ -97,7 +117,26 @@ export default {
         "Marck Script",
       ],
       get_signature: false,
+      sign_png: null,
+      init_png: null,
+      stamp_png: null,
     };
+  },
+  watch: {
+    async sign_png(newValue) {
+      if (newValue != null) {
+        const name_img = await convert(this.name);
+
+        const data = {
+          sign: this.sign_png,
+          init: this.init_png,
+          stamp: this.stamp_png,
+          name: name_img,
+          name_text: this.name,
+        };
+        this.$emit("close", data);
+      }
+    },
   },
   validations: {
     name: {
@@ -105,6 +144,15 @@ export default {
     },
   },
   methods: {
+    set_signature(data) {
+      this.sign_png = data;
+    },
+    set_initials(data) {
+      this.init_png = data;
+    },
+    set_stamp(data) {
+      this.stamp_png = data;
+    },
     getInit() {
       const name = this.name;
       let temp = name.split(" ");
@@ -121,13 +169,9 @@ export default {
     async apply_signature() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        await this.get_data();
+        this.get_signature = true;
         this.$v.$reset();
-        this.$emit("close");
       }
-    },
-    get_data() {
-      this.get_signature = true;
     },
   },
 };

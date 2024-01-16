@@ -3,6 +3,7 @@
     <div>
       <div class="tab">
         <button
+          ref="textTab"
           class="tablinks"
           @click="openCity('text')"
           :class="active_btn == 'text' && 'active'"
@@ -89,12 +90,7 @@
           <div
             class="color-tool"
             style="background-color: yellow"
-            @click="
-              () => {
-                fontColor = 'yellow';
-                convertToPNG();
-              }
-            "
+            @click="fontColor = 'yellow'"
           ></div>
         </div>
       </div>
@@ -151,18 +147,17 @@
           <div
             class="color-tool"
             style="background-color: yellow"
-            @click="
-              () => {
-                saveImage();
-                color = 'yellow';
-              }
-            "
+            @click="color = 'yellow'"
           ></div>
         </div>
       </div>
 
       <div id="upload" class="tabcontent">
-        <DropFile />
+        <DropFile
+          v-if="active_btn == 'upload'"
+          :data="'sign_img'"
+          @set_stamp="set_stamp"
+        />
       </div>
     </div>
   </div>
@@ -177,20 +172,33 @@ export default {
     VueDrawingCanvas,
     DropFile,
   },
+  mounted() {
+    this.$refs.textTab.click();
+  },
   props: ["name", "get_sign"],
   watch: {
-    get_sign(newValue) {
+    async get_sign(newValue) {
+      let temp = await this.convertToPNG();
       if (newValue) {
-        console.log("get");
+        switch (this.active_btn) {
+          case "text":
+            this.sign_png = temp;
+            break;
+          case "draw":
+            this.sign_png = this.saveImage() ? this.saveImage() : temp;
+            break;
+          case "upload":
+            this.sign_png = this.upload_img ? this.upload_img : temp;
+        }
       }
+
+      this.$emit("set_sign", this.sign_png);
     },
   },
   data() {
     return {
       font_families: [
-        "Reenie Beanie",
         "Satisfy",
-        "Zeyada",
         "Shadows Into Light",
         "Alex Brush",
         "Allura",
@@ -198,14 +206,21 @@ export default {
         "Kristi",
         "La Belle Aurore",
         "Marck Script",
+        "Reenie Beanie",
+        "Zeyada",
       ],
       active_btn: "text",
       color: "#212121",
       fontColor: "#212121",
-      sign_picked_family: "Reenie Beanie",
+      sign_picked_family: "Satisfy",
+      sign_png: null,
+      upload_img: null,
     };
   },
   methods: {
+    set_stamp(data) {
+      this.upload_img = data;
+    },
     openCity(item) {
       // Declare all variables
       var i, tabcontent, tablinks;
@@ -218,13 +233,15 @@ export default {
       this.active_btn = item;
       document.getElementById(item).style.display = "block";
     },
-    drawOnCanvas() {
+    saveImage() {
       var dataURL1 = this.$refs.VueCanvasDrawing.getAllStrokes();
+      if (dataURL1.length == 0) {
+        return null;
+      }
       const canvas = this.$refs.myCanvas;
       let ctx = canvas.getContext("2d");
       for (var j = 0; j < dataURL1.length; j++) {
         let obj = dataURL1[j];
-        console.log(obj);
         // Apply properties to the context
         ctx.strokeStyle = obj.color;
         ctx.lineWidth = obj.width;
@@ -251,24 +268,15 @@ export default {
         }
       }
 
-      //Stroke or fill based on the 'fill' property
-    },
-    saveImage() {
-      this.drawOnCanvas();
-
       // Convert canvas content to PNG data URL
       const dataURL = this.$refs.myCanvas.toDataURL("image/png");
 
-      // Create an anchor element for downloading
-      const downloadLink = document.createElement("a");
-      downloadLink.href = dataURL;
-      downloadLink.download = "canvas_image.png"; // Set the desired file name and extension
-
-      // Trigger a click on the link to start the download
-      downloadLink.click();
+      return dataURL;
     },
     async convertToPNG() {
-      const textContainer = document.getElementById(this.sign_picked_family);
+      const textContainer = await document.getElementById(
+        this.sign_picked_family
+      );
 
       // Use html2canvas to capture the content of the text container
       const canvas = await html2canvas(textContainer, {
@@ -276,15 +284,9 @@ export default {
       });
 
       // Convert the canvas content to a data URL (PNG format)
-      const dataURL = canvas.toDataURL("image/png");
+      const dataURL = await canvas.toDataURL("image/png");
 
-      // Create an anchor element for downloading
-      const downloadLink = document.createElement("a");
-      downloadLink.href = dataURL;
-      downloadLink.download = "canvas_image.png"; // Set the desired file name and extension
-
-      // Trigger a click on the link to start the download
-      downloadLink.click();
+      return await dataURL;
     },
   },
 };
