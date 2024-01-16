@@ -13,5 +13,4 @@ function uploadPdf(data) {
       console.log(err);
     });
 }
-
 export default uploadPdf;
