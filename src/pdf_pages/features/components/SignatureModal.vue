@@ -3,6 +3,7 @@
     <div slot="body">
       <form>
         <div class="name-initial">
+          <i class="fa-regular fa-circle-user user-icon"></i>
           <!-- Name -->
           <div
             class="form-item name-input"
@@ -14,13 +15,14 @@
               :class="{ error: $v.name.$error }"
               @change="changeName"
               @input="getInit"
+              placeholder="Your name"
             />
-            <p class="errorText" v-if="!$v.name.required">Field is required!</p>
+            <!-- <p class="errorText" v-if="!$v.name.required">Field is required!</p> -->
           </div>
           <!-- Email -->
           <div class="form-item">
             <label>Initials:</label>
-            <input v-model="init_name" />
+            <input v-model="init_name" placeholder="Your initials" />
           </div>
         </div>
       </form>
@@ -178,6 +180,12 @@ export default {
 </script>
 
 <style lang="scss">
+.user-icon {
+  font-size: 27px;
+  margin-top: 60px;
+  margin-right: 11px;
+}
+
 .sign-option {
   border: 1px solid;
   border-color: #9e9e9e;
@@ -204,6 +212,7 @@ export default {
 .form-item {
   margin: 20px;
   text-align: left;
+  display: grid;
 }
 
 input.error {
@@ -253,7 +262,7 @@ input.error {
   color: #2c3e50;
   border-bottom: 0.25rem solid #bdc3c7;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: hidden;
   width: 100%;
   position: absolute;
   z-index: 1;
@@ -280,5 +289,10 @@ input.error {
   opacity: 1;
   transition: all 0.35s;
   z-index: 3;
+}
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border-width: thin;
 }
 </style>

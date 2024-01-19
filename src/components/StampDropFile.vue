@@ -81,7 +81,7 @@ const resizeImage = ({ file, maxSize }) => {
     canvas.getContext("2d").drawImage(image, 0, 0, width, height);
 
     const dataUrl = canvas.toDataURL("image/png");
-    return dataURItoBlob(dataUrl);
+    return dataUrl;
   };
 
   return new Promise((ok, no) => {
@@ -122,8 +122,9 @@ export default {
       // START: preview resized
       await resizeImage({ file: this.img, maxSize: 150 })
         .then((resizedImage) => {
-          this.resizedImg = URL.createObjectURL(resizedImage);
-          this.$emit("set_stamp", this.resizedImg);
+          // this.resizedImg = URL.createObjectURL(resizedImage);
+          this.resizeImg = resizedImage;
+          this.$emit("set_stamp", this.resizeImg);
         })
         .catch((err) => {
           console.error(err);

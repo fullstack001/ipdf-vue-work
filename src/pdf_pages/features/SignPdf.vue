@@ -94,6 +94,7 @@ import SignatureModal from "@/pdf_pages/features/components/SignatureModal.vue";
 import PdfPreviewList from "./components/PdfPreviewList.vue";
 import SignComponent from "./components/SignComponent.vue";
 import addImagesToPDF from "../services/add_img_to_pdf";
+import addImagesToPDF1 from "../services/add_img_to_pdf1";
 
 export default {
   components: {
@@ -176,27 +177,37 @@ export default {
     },
 
     async upload_png(data) {
-      this.$isLoading(true); // show loading screen
-      const formData = new FormData();
-      for (let i = 0; i < data.length; i++) {
-        formData.append("files", data[i]);
-      }
+      let added = data[0];
+      let matched = data[1];
+      const pdf = await addImagesToPDF1(
+        this.getURL(this.files[0]),
+        added,
+        matched
+      );
+      console.log(pdf);
+      await this.upload_pdf(pdf);
+      // let images = data.appendImages;
+      // this.$isLoading(true); // show loading screen
+      // const formData = new FormData();
+      // for (let i = 0; i < images.length; i++) {
+      //   formData.append("files", images[i]);
+      // }
 
-      this.$axios.post("/pdf/png_upload", formData).then(async (res) => {
-        const pdf = await addImagesToPDF(this.getURL(this.files[0]), res.data);
-        this.upload_pdf(pdf, res.data);
-      });
+      // this.$axios.post("/pdf/png_upload", formData).then(async (res) => {
+      //   const pdf = await addImagesToPDF(this.getURL(this.files[0]), res.data);
+      //   this.upload_pdf(pdf, res.data);
+      // });
       this.get_result = false;
     },
     upload_pdf(pdf, data) {
-      const deletes = data.map((item) => {
-        return item.filename;
-      });
+      // const deletes = data.map((item) => {
+      //   return item.filename;
+      // });
       const formData = new FormData();
-      formData.append("files", pdf);
-      formData.append("deletes", deletes);
+      formData.append("pdf", pdf);
+      // formData.append("deletes", deletes);
       this.$axios
-        .post("/pdf/edited_pdf_upload", formData)
+        .post("/pdf/pdf_upload", formData)
         .then((response) => {
           const obj = {
             id: response.data,

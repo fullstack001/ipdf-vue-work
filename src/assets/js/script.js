@@ -1,21 +1,21 @@
-var pdf = new PDFAnnotate('pdf-container-annotate', 'sample.pdf', {
+var pdf = new PDFAnnotate("pdf-container-annotate", "sample.pdf", {
   onPageUpdated(page, oldData, newData) {
     window.console.log(page, oldData, newData);
   },
   ready() {
-    console.log('Plugin initialized successfully');
+    console.log("Plugin initialized successfully");
     pdf.loadFromJSON(sampleOutput);
   },
   scale: 1.5,
-  pageImageCompression: 'MEDIUM', // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
+  pageImageCompression: "MEDIUM", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
 });
 
 function changeActiveTool(event) {
-  var element = $(event.target).hasClass('tool-button')
+  var element = $(event.target).hasClass("tool-button")
     ? $(event.target)
-    : $(event.target).parents('.tool-button').first();
-  $('.tool-button.active').removeClass('active');
-  $(element).addClass('active');
+    : $(event.target).parents(".tool-button").first();
+  $(".tool-button.active").removeClass("active");
+  $(element).addClass("active");
 }
 
 function enableSelector(event) {
@@ -40,7 +40,7 @@ function enableAddArrow(event) {
   event.preventDefault();
   changeActiveTool(event);
   pdf.enableAddArrow(function () {
-    $('.tool-button').first().find('i').click();
+    $(".tool-button").first().find("i").click();
   });
 }
 
@@ -52,19 +52,19 @@ function addImage(event) {
 function enableRectangle(event) {
   event.preventDefault();
   changeActiveTool(event);
-  pdf.setColor('rgba(255, 0, 0, 0.3)');
-  pdf.setBorderColor('blue');
+  pdf.setColor("rgba(255, 0, 0, 0.3)");
+  pdf.setBorderColor("blue");
   pdf.enableRectangle();
 }
 
-function deleteSelectedObject(event) { 
+function deleteSelectedObject(event) {
   event.preventDefault();
   pdf.deleteSelectedObject();
 }
 
 function savePDF() {
   // pdf.savePdf();
-  pdf.savePdf('output.pdf'); // save with given file name
+  pdf.savePdf("output.pdf"); // save with given file name
 }
 
 function clearPage() {
@@ -73,28 +73,28 @@ function clearPage() {
 
 function showPdfData() {
   pdf.serializePdf(function (string) {
-    $('#dataModal .modal-body pre')
+    $("#dataModal .modal-body pre")
       .first()
       .text(JSON.stringify(JSON.parse(string), null, 4));
     PR.prettyPrint();
-    $('#dataModal').modal('show');
+    $("#dataModal").modal("show");
   });
 }
 
 $(function () {
-  $('.color-tool').click(function () {
-    $('.color-tool.active').removeClass('active');
-    $(this).addClass('active');
+  $(".color-tool").click(function () {
+    $(".color-tool.active").removeClass("active");
+    $(this).addClass("active");
     color = $(this).get(0).style.backgroundColor;
     pdf.setColor(color);
   });
 
-  $('#brush-size').change(function () {
+  $("#brush-size").change(function () {
     var width = $(this).val();
     pdf.setBrushSize(width);
   });
 
-  $('#font-size').change(function () {
+  $("#font-size").change(function () {
     var font_size = $(this).val();
     pdf.setFontSize(font_size);
   });

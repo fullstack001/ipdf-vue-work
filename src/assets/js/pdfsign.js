@@ -3,15 +3,6 @@ import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 GlobalWorkerOptions.workerSrc = PDFJSWorker;
 import $ from "jquery";
 import { fabric } from "fabric";
-import jsPDF from "jspdf";
-import { Arrow } from "./arrow.fabric";
-import { DrawLine } from "./line.fabric";
-
-let fabric1 = fabric;
-// const customScript2 = document.createElement('script');
-// customScript2.src = '@/assets/annotations/arrow.fabric.js'; // Replace with your script file path
-// customScript2.async = false;
-// document.head.appendChild(customScript2);
 
 export const PDFAnnotate = function (container_id, url, options = {}) {
   this.toolObj1 = null;
@@ -264,6 +255,7 @@ PDFAnnotate.prototype.savePdf = async function (fileName) {
   var inst = this;
   var objects = this.fabricObjects;
   var resultImages = [];
+  var added_items = [];
   let url = "";
   // var fabricObj = inst.fabricObjects[inst.active_canvas];
 
@@ -280,7 +272,21 @@ PDFAnnotate.prototype.savePdf = async function (fileName) {
           height: pageHeight,
         });
         let imgObjects = objects[index]._objects;
+        var temp = [];
         for (var j = 0; j < imgObjects.length; j++) {
+          var obj = imgObjects[j];
+          if (obj.top >= 0 && obj.top < pageHeight) {
+            temp.push({
+              top: obj.top,
+              left: obj.left,
+              scaleX: obj.scaleX,
+              scaleY: obj.scaleY,
+              url: obj._originalElement.currentSrc,
+              width: obj.width,
+              height: obj.height,
+            });
+          }
+          // console.log(index, imgObjects[j]);
           canvas.add(imgObjects[j]);
         }
         // Convert the Fabric.js canvas to an image data URL
@@ -300,10 +306,12 @@ PDFAnnotate.prototype.savePdf = async function (fileName) {
 
         const blob = new Blob([ab], { type: "image/png" });
         resultImages.push(blob);
+        added_items.push(temp);
+        temp = [];
       });
     }
   });
-  return resultImages;
+  return added_items;
 };
 
 PDFAnnotate.prototype.defaultFontStyle = function () {

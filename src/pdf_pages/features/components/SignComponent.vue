@@ -2,7 +2,11 @@
   <div class="edit-pdf-content row">
     <div class="col-md-9 mx-0">
       <div class="toolbar"></div>
-      <div id="pdf-container-annotate" ref="scrollableDiv"></div>
+      <div
+        id="pdf-container-annotate"
+        ref="scrollableDiv"
+        @mouseover="get_objects"
+      ></div>
     </div>
     <div class="col-md-3">
       <h3 class="mt-3 mb-5">Signing options</h3>
@@ -104,9 +108,12 @@
             <img :src="sign_obj && sign_obj.sign" class="my-2 add_item" />
           </div>
 
-          <div class="sign_draggable_actions" @click="$emit('editSign')">
+          <div class="sign_draggable_actions">
             <div class="sign__draggable_actions_edit">
-              <i class="fa fa-pencil"></i>
+              <i class="fa fa-pencil" @click="$emit('editSign')"></i>
+              <div class="sign_counters" v-if="sign_num > 0">
+                {{ sign_num }}
+              </div>
             </div>
           </div>
         </div>
@@ -193,9 +200,12 @@
           <div class="sign_draggable_prev">
             <img class="my-2 add_item" :src="sign_obj && sign_obj.init" />
           </div>
-          <div class="sign_draggable_actions" @click="$emit('editSign')">
+          <div class="sign_draggable_actions">
             <div class="sign__draggable_actions_edit">
-              <i class="fa fa-pencil"></i>
+              <i class="fa fa-pencil" @click="$emit('editSign')"></i>
+              <div class="sign_counters" v-if="init_num > 0">
+                {{ init_num }}
+              </div>
             </div>
           </div>
         </div>
@@ -298,9 +308,12 @@
               >Name</span
             >
           </div>
-          <div class="sign_draggable_actions" @click="$emit('editSign')">
+          <div class="sign_draggable_actions">
             <div class="sign__draggable_actions_edit">
-              <i class="fa fa-pencil"></i>
+              <i class="fa fa-pencil" @click="$emit('editSign')"></i>
+              <div class="sign_counters" v-if="name_num > 0">
+                {{ name_num }}
+              </div>
             </div>
           </div>
         </div>
@@ -403,9 +416,12 @@
               >Date</span
             >
           </div>
-          <div class="sign_draggable_actions" @click="dateModalValidate = true">
+          <div class="sign_draggable_actions">
             <div class="sign__draggable_actions_edit">
-              <i class="fa fa-pencil"></i>
+              <i class="fa fa-pencil" @click="dateModalValidate = true"></i>
+              <div class="sign_counters" v-if="date_num > 0">
+                {{ date_num }}
+              </div>
             </div>
           </div>
         </div>
@@ -508,9 +524,12 @@
               >Text</span
             >
           </div>
-          <div class="sign_draggable_actions" @click="textModalValidate = true">
+          <div class="sign_draggable_actions">
             <div class="sign__draggable_actions_edit">
-              <i class="fa fa-pencil"></i>
+              <i class="fa fa-pencil" @click="textModalValidate = true"></i>
+              <div class="sign_counters" v-if="text_num > 0">
+                {{ text_num }}
+              </div>
             </div>
           </div>
         </div>
@@ -591,7 +610,10 @@
           </div>
           <div class="sign_draggable_actions" @click="$emit('editSign')">
             <div class="sign__draggable_actions_edit">
-              <i class="fa fa-pencil"></i>
+              <i class="fa fa-pencil" @click="$emit('editSign')"></i>
+              <div class="sign_counters" v-if="stamp_num > 0">
+                {{ stamp_num }}
+              </div>
             </div>
           </div>
         </div>
@@ -680,7 +702,6 @@ export default {
   data() {
     return {
       pdf: null,
-      firsted: false,
       show_img: null,
       date_img: null,
       text_img: null,
@@ -688,6 +709,12 @@ export default {
       text: "Text",
       dateModalValidate: false,
       textModalValidate: false,
+      sign_num: 0,
+      init_num: 0,
+      name_num: 0,
+      date_num: 0,
+      text_num: 0,
+      stamp_num: 0,
     };
   },
   methods: {
@@ -707,6 +734,7 @@ export default {
       if (e.key == "Delete" && activeObject) {
         this.pdf.fabricObjects[this.pdf.active_canvas].remove(activeObject);
         // this.pdf.fabricObjects[this.pdf.active_canvas].renderAll();
+        this.get_objects();
       }
       // Your handler code here
     },
@@ -717,13 +745,63 @@ export default {
       });
       this.pdf = pdf;
     },
+    async get_objects() {
+      const images = await this.pdf.savePdf("output.pdf");
+      this.set_counts(images);
+    },
     setScrollbarPosition(position) {
       // Set the scrollbar's location programmatically
       this.$refs.scrollableDiv.scrollTop = position;
     },
+    set_counts(data) {
+      var sign_num = 0;
+      var init_num = 0;
+      var name_num = 0;
+      var date_num = 0;
+      var text_num = 0;
+      var stamp_num = 0;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].length == 0) continue;
+        const item = data[i];
+        for (let j = 0; j < item.length; j++) {
+          switch (item[j].url) {
+            case this.sign_obj.sign:
+              sign_num++;
+              break;
+            case this.sign_obj.init:
+              init_num++;
+              break;
+            case this.sign_obj.name:
+              name_num++;
+              break;
+            case this.date_img:
+              date_num++;
+              break;
+            case this.text_img:
+              text_num++;
+              break;
+            case this.stamp_img:
+              stamp_num++;
+              break;
+            default:
+              break;
+          }
+        }
+      }
+      this.sign_num = sign_num;
+      this.init_num = init_num;
+      this.name_num = name_num;
+      this.date_num = date_num;
+      this.text_num = text_num;
+      this.stamp_num = stamp_num;
+    },
     async savePDF() {
       const images = await this.pdf.savePdf("output.pdf");
-      this.$emit("upload", images);
+      const matched = {
+        text: [this.sign_obj.name_text, this.date, this.text],
+        img: [this.sign_obj.name, this.date_img, this.text_img],
+      };
+      this.$emit("upload", [images, matched]);
     },
   },
 };
@@ -750,6 +828,13 @@ img {
 
 #colorpicker {
   height: 25px !important;
+}
+.sign_counters {
+  background-color: #4a7aab;
+  border-radius: 50%;
+  padding-left: 9px;
+  padding-right: 9px;
+  color: white;
 }
 .sign_btn {
   font-size: 22px;

@@ -271,7 +271,7 @@ export default {
       const textContainer = document.getElementById(
         this.init_picked_family + "init"
       );
-
+      textContainer.style.fontSize = "25px";
       // Use html2canvas to capture the content of the text container
       const canvas = await html2canvas(textContainer, {
         backgroundColor: null, // Remove the default white background

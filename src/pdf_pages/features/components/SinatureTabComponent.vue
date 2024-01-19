@@ -277,6 +277,7 @@ export default {
       const textContainer = await document.getElementById(
         this.sign_picked_family
       );
+      textContainer.style.fontSize = "25px";
 
       // Use html2canvas to capture the content of the text container
       const canvas = await html2canvas(textContainer, {

@@ -283,8 +283,6 @@ export default {
         this.url = url;
         const link = document.getElementById("link");
         link.download = this.down_name;
-        let binaryData = [];
-        binaryData.push(this.result);
         link.href = url;
         if (this.file_type == "application/pdf") {
           this.files = [
@@ -334,21 +332,11 @@ export default {
         }
       })
       .catch((err) => {
-        this.$router.push({ name: "deleted" });
         console.log(err);
+        this.$router.push({ name: "deleted" });
       });
   },
   methods: {
-    upload_dropbox() {
-      console.log(234);
-      this.$axios
-        .post("/pdf/upload_dropbox", { fileName: this.id })
-        .then((res) => console.log(res.data))
-        .catch((err) => {
-          alert("Fail");
-          console.log(err);
-        });
-    },
     back_page() {
       console.log(this.before);
       this.$router.push({ name: this.before });
