@@ -249,7 +249,7 @@ export default {
       return store.state.result;
     },
   },
-  async created() {
+  created() {
     this.download_urls = window.location.origin + this.$route.path;
     // Your secret key (should be kept private)
     const secretKey = "mySecretKey123";
@@ -269,9 +269,15 @@ export default {
     this.originSize = paramObj.originSize;
     this.reSize = paramObj.resultSize;
     this.downloadURL = `/pdf/download/${this.id}`;
-    console.log(this.downloadURL);
+    this.$axios
+      .post("/pdf/get_from_db", { name: this.id })
+      .then((res) => console.log(res.data))
+      .catch((err) => {
+        console.log("return deleted page in created");
+        this.$router.push({ name: "deleted" });
+      });
   },
-  async mounted() {
+  mounted() {
     // Make a GET request to the server endpoint to download the file
     this.$axios
       .get(this.downloadURL, {
@@ -333,7 +339,7 @@ export default {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("file not existed");
         this.$router.push({ name: "deleted" });
       });
   },
