@@ -25,7 +25,6 @@
 export default {
   methods: {
     back_page() {
-      console.log(this.before);
       this.$router.push(`/`);
     },
     go_home() {

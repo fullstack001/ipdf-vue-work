@@ -74,7 +74,7 @@ export default {
           this.getPage(this.currentPage);
         },
         (reason) => {
-          console.error(reason);
+          window.console.error(reason);
         }
       );
     },
@@ -84,7 +84,6 @@ export default {
     },
 
     getPage(currentPage) {
-      console.log(currentPage);
       this.pdfDocument.getPage(currentPage).then((page) => {
         const viewport = page.getViewport({ scale: 1 });
 
@@ -145,7 +144,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #pageContainer {
   margin: auto;
 }

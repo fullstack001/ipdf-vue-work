@@ -243,13 +243,21 @@ export default {
     hours: null,
     minutes: null,
     seconds: null,
+    go_deleted_page: false,
   }),
+  watch: {
+    go_deleted_page(newValue) {
+      if (newValue) {
+      }
+    },
+  },
   computed: {
     result() {
       return store.state.result;
     },
   },
-  created() {
+  async created() {
+    console.log("Stress Full");
     this.download_urls = window.location.origin + this.$route.path;
     // Your secret key (should be kept private)
     const secretKey = "mySecretKey123";
@@ -269,13 +277,7 @@ export default {
     this.originSize = paramObj.originSize;
     this.reSize = paramObj.resultSize;
     this.downloadURL = `/pdf/download/${this.id}`;
-    this.$axios
-      .post("/pdf/get_from_db", { name: this.id })
-      .then((res) => console.log(res.data))
-      .catch((err) => {
-        console.log("return deleted page in created");
-        this.$router.push({ name: "deleted" });
-      });
+    await this.checkFile();
   },
   mounted() {
     // Make a GET request to the server endpoint to download the file
@@ -340,10 +342,19 @@ export default {
       })
       .catch((err) => {
         console.log("file not existed");
-        this.$router.push({ name: "deleted" });
+        this.$router.replace({ name: "deleted" });
       });
   },
   methods: {
+    checkFile() {
+      this.$axios
+        .post("/pdf/get_from_db", { name: this.id })
+        .then((res) => console.log(res.data))
+        .catch((err) => {
+          console.log("return deleted page in created");
+          this.$router.replace({ name: "deleted" });
+        });
+    },
     back_page() {
       console.log(this.before);
       this.$router.push({ name: this.before });
@@ -372,7 +383,7 @@ export default {
       await this.$axios
         .get(`/pdf/delete/${this.id}`)
         .then((res) => {
-          this.$router.push({ name: "deleted" });
+          this.$router.replace({ name: "deleted" });
           console.log(res);
         })
         .catch((err) => console.log(err));
@@ -525,7 +536,7 @@ body {
   height: 40px;
   margin-right: 5px;
 }
-.md-dialog /deep/.md-dialog-container {
+.md-dialog .md-dialog-container {
   max-width: 768px;
 }
 
