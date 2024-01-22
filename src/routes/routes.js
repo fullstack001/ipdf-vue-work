@@ -39,6 +39,13 @@ const routes = [
         component: AllFeatures,
         name: "allfertures",
       },
+
+      {
+        path: "/:locale/signup",
+        component: () =>
+          import(/* webpackChunkName: "login" */ "@/pages/SignUp.vue"),
+        name: "signup",
+      },
       {
         path: "/:locale/login",
         component: () =>

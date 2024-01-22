@@ -79,7 +79,9 @@
               {{ $t("nav-links.login") }}
             </li>
             <li class="md-list-item signup-btn">
-              {{ $t("nav-links.signup") }}
+              <LocalizedLink to="signup">
+                {{ $t("nav-links.signup") }}
+              </LocalizedLink>
             </li>
           </ul>
         </li>
@@ -122,8 +124,10 @@
           <li class="login-btn">
             <a href="" class="nav-btn">{{ $t("nav-links.login") }}</a>
           </li>
-          <li class="signup-btn">
-            <a href="" class="nav-btn"> {{ $t("nav-links.signup") }}</a>
+          <li>
+            <LocalizedLink to="signup" class="signup-btn">
+              <div class="nav-btn">{{ $t("nav-links.signup") }}</div>
+            </LocalizedLink>
           </li>
         </ul>
       </div>

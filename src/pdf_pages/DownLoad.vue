@@ -269,6 +269,7 @@ export default {
     this.originSize = paramObj.originSize;
     this.reSize = paramObj.resultSize;
     this.downloadURL = `/pdf/download/${this.id}`;
+    console.log(this.downloadURL);
   },
   async mounted() {
     // Make a GET request to the server endpoint to download the file

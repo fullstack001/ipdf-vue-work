@@ -360,7 +360,6 @@ export default {
     //extract split
     extractSplit() {
       this.extractEdit = true;
-      console.log("extra split");
 
       this.pages = [];
       for (let i = 1; i <= this.pageCount; i++) {
@@ -422,7 +421,6 @@ export default {
 
     splitPDF() {
       this.$isLoading(true); // show loading screen
-      console.log(this.extractPages, this.extractEdit, this.pages);
       let planPages = [];
       if (this.extractEdit) {
         planPages = this.extractPages;
@@ -431,7 +429,6 @@ export default {
           return [page.range[0] * 1, page.range[1] * 1];
         });
       }
-      console.log(planPages);
       //split PDF
       this.splitingPDF(planPages);
     },
@@ -512,7 +509,6 @@ export default {
     },
 
     uploadPdf(pdfFile) {
-      console.log(pdfFile);
       const formData = new FormData();
       const blob = new Blob(pdfFile, { type: "application/pdf" });
 
@@ -537,7 +533,6 @@ export default {
 
           // Encrypt the message using AES encryption with the secret key
           const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
-          console.log(encrypted);
           this.$router.push({
             name: "download",
             params: {

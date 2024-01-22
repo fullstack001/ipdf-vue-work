@@ -184,7 +184,6 @@ export default {
         added,
         matched
       );
-      console.log(pdf);
       await this.upload_pdf(pdf);
       // let images = data.appendImages;
       // this.$isLoading(true); // show loading screen
