@@ -10,21 +10,16 @@
     </div>
     <div class="page-description">{{ dis_text }}</div>
     <div class="download_btn">
-      <!-- <a class="md-icon-button back-btn" @click="back_page">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16">
-          <path
-            d="M6.533 15.065L.438 8.968c-.116-.116-.208-.255-.27-.4a1.27 1.27 0 0 1 .009-.971c.066-.155.16-.296.277-.415l6.21-6.21A1.27 1.27 0 0 1 8.461.947c.49.49.485 1.295-.017 1.797l-4.02 4.02 10.47-.097a1.24 1.24 0 0 1 1.258 1.258 1.3 1.3 0 0 1-1.282 1.282L4.4 9.305l3.947 3.947c.49.492.485 1.295-.017 1.797s-1.306.508-1.797.017z"
-            fill="#fff"
-            fill-rule="nonzero"
-          ></path>
-        </svg>
-      </a> -->
-      <a id="link" class="download__btn md-raised md-danger">
+      <div
+        id="link"
+        class="download__btn md-raised md-danger"
+        @click="download_file"
+      >
         {{ button_title }}
         <span class="material-icons" style="margin-left: 10px">
           arrow_circle_down
         </span>
-      </a>
+      </div>
       <div class="add-more">
         <div>
           <md-dialog-confirm
@@ -247,8 +242,7 @@ export default {
   }),
   watch: {
     go_deleted_page(newValue) {
-      if (newValue) {
-      }
+      console.log(newValue);
     },
   },
   computed: {
@@ -256,8 +250,7 @@ export default {
       return store.state.result;
     },
   },
-  async created() {
-    console.log("Stress Full");
+  created() {
     this.download_urls = window.location.origin + this.$route.path;
     // Your secret key (should be kept private)
     const secretKey = "mySecretKey123";
@@ -277,75 +270,76 @@ export default {
     this.originSize = paramObj.originSize;
     this.reSize = paramObj.resultSize;
     this.downloadURL = `/pdf/download/${this.id}`;
-    await this.checkFile();
   },
   mounted() {
     // Make a GET request to the server endpoint to download the file
-    this.$axios
-      .get(this.downloadURL, {
-        responseType: "blob",
-      })
-      .then((response) => {
-        this.gDriveFile = response.data;
-        // Create a link and trigger the download
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        this.url = url;
-        const link = document.getElementById("link");
-        link.download = this.down_name;
-        link.href = url;
-        if (this.file_type == "application/pdf") {
-          this.files = [
-            {
-              name: "newPdf.pdf",
-              link: this.url,
-            },
-          ];
-        } else {
-          const zipFile = response.data;
-          const zip = new JSZip();
-
-          zip
-            .loadAsync(zipFile)
-            .then((contents) => {
-              const pdfFiles = [];
-              contents.forEach((relativePath, zipEntry) => {
-                if (
-                  !zipEntry.dir &&
-                  zipEntry.name.toLowerCase().endsWith(".pdf")
-                ) {
-                  pdfFiles.push(zipEntry);
-                }
-              });
-
-              const promises = pdfFiles.map((zipEntry) => {
-                return zipEntry.async("blob").then((blob) => ({
-                  name: zipEntry.name,
-                  link: URL.createObjectURL(blob),
-                }));
-              });
-
-              Promise.all(promises)
-                .then((extractedPDFs) => {
-                  this.files = extractedPDFs;
-                })
-                .catch((error) => {
-                  console.error(
-                    "Error occurred while extracting PDF files:",
-                    error
-                  );
-                });
-            })
-            .catch((error) => {
-              console.error("Error occurred while reading ZIP file:", error);
-            });
-        }
-      })
-      .catch((err) => {
-        console.log("file not existed");
-        this.$router.replace({ name: "deleted" });
-      });
+    this.fetch_file();
   },
   methods: {
+    async fetch_file() {
+      console.log(this.go_deleted_page);
+      await this.$axios
+        .get(this.downloadURL, {
+          responseType: "blob",
+        })
+        .then((response) => {
+          this.gDriveFile = response.data;
+          // Create a link and trigger the download
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          console.log(url);
+          this.url = url;
+          if (this.file_type == "application/pdf") {
+            this.files = [
+              {
+                name: "newPdf.pdf",
+                link: this.url,
+              },
+            ];
+          } else {
+            const zipFile = response.data;
+            const zip = new JSZip();
+
+            zip
+              .loadAsync(zipFile)
+              .then((contents) => {
+                const pdfFiles = [];
+                contents.forEach((relativePath, zipEntry) => {
+                  if (
+                    !zipEntry.dir &&
+                    zipEntry.name.toLowerCase().endsWith(".pdf")
+                  ) {
+                    pdfFiles.push(zipEntry);
+                  }
+                });
+
+                const promises = pdfFiles.map((zipEntry) => {
+                  return zipEntry.async("blob").then((blob) => ({
+                    name: zipEntry.name,
+                    link: URL.createObjectURL(blob),
+                  }));
+                });
+
+                Promise.all(promises)
+                  .then((extractedPDFs) => {
+                    this.files = extractedPDFs;
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Error occurred while extracting PDF files:",
+                      error
+                    );
+                  });
+              })
+              .catch((error) => {
+                console.error("Error occurred while reading ZIP file:", error);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log("file not existed");
+          this.$router.replace({ name: "deleted" });
+        });
+    },
     checkFile() {
       this.$axios
         .post("/pdf/get_from_db", { name: this.id })
@@ -355,9 +349,16 @@ export default {
           this.$router.replace({ name: "deleted" });
         });
     },
-    back_page() {
-      console.log(this.before);
-      this.$router.push({ name: this.before });
+    download_file() {
+      // Create a download link
+      const link = document.createElement("a");
+      link.href = this.url;
+      link.download = this.down_name;
+
+      // Append the link to the document and trigger the download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
     async calc_del_time() {
       await this.$axios
@@ -384,6 +385,7 @@ export default {
         .get(`/pdf/delete/${this.id}`)
         .then((res) => {
           this.$router.replace({ name: "deleted" });
+          this.go_deleted_page = true;
           console.log(res);
         })
         .catch((err) => console.log(err));
@@ -459,6 +461,7 @@ body {
 }
 
 .download__btn {
+  cursor: pointer;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -ms-flex-align: center;
