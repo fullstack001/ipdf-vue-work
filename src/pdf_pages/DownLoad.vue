@@ -5,7 +5,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
     <div class="page-title">
-      <span class="material-icons"> check_circle</span>
+      <div class="md-badge">
+        <i class="fa-solid fa-check"></i>
+      </div>
       Download PDF File
     </div>
     <div class="page-description">{{ dis_text }}</div>
@@ -553,12 +555,18 @@ body {
 }
 
 .page-title {
-  margin-top: 50px;
-  font-weight: 600;
-  font-size: 42px;
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: 700;
+  font-size: 37px;
   line-height: 52px;
   color: #33333b;
   text-align: center;
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 20px;
 }
 
 .page-description {
@@ -637,6 +645,7 @@ body {
   padding: 10px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 20px;
 }
 
 .download-more img {
@@ -702,5 +711,32 @@ body {
 .rate-votes {
   font-size: 18px;
 }
+.md-badge {
+  left: -63px;
+  position: absolute;
+  -webkit-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  /* -webkit-box-align: center; */
+  -ms-flex-align: center;
+  -webkit-box-align: center;
+  align-items: center;
+  /* -webkit-box-pack: center; */
+  -ms-flex-pack: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  /* left: 9px; */
+  /* top: 5px; */
+  font-size: 35px;
+  font-style: revert;
+  font-weight: bold;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: #fff;
+  pointer-events: none;
+  background: #8ac823 !important;
+}
 </style>
-@/store/store

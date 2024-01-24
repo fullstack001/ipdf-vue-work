@@ -61,7 +61,7 @@
               {{ $t("page_titles.merge_page.dropFiles") }}
             </div>
           </div>
-          <div class="security-area">
+          <!-- <div class="security-area">
             <div class="security-titlel">
               <div class="security-img">
                 <img src="@/assets/img/carbon_security.png" alt="" />
@@ -102,7 +102,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="merge-descriptions">
             <div class="block__container">
               <div class="description-areas">
@@ -368,12 +368,9 @@
                 <div class="description-title">
                   {{ $t("page_titles.merge_page.qaSection.title") }}
                 </div>
-                <faq
-                  v-for="(faqItem, index) in faqItems"
-                  :key="index"
-                  :faq="faqItem"
-                >
-                </faq>
+                <div v-for="(faqItem, index) in faqItems" :key="index">
+                  <faq :faq="faqItem" />
+                </div>
               </div>
             </div>
 
@@ -427,8 +424,13 @@
               class="preview-card md-layout-item"
               v-for="(file_obj, index) in file_objs"
               :key="file_obj.file.name"
+              @mouseover="show_file_action = file_obj.file.name"
+              @mouseleave="show_file_action = null"
             >
-              <div class="file__actions">
+              <div
+                class="file__actions"
+                v-show="show_file_action == file_obj.file.name"
+              >
                 <a
                   class="file__btn rotate tooltip--top tooltip"
                   data-rotate="0"
@@ -489,7 +491,7 @@
         <div
           class="add-more"
           v-show="file_objs.length"
-          :style="file_objs.length > 1 ? 'right: 10px' : 'right: 120px'"
+          :style="file_objs.length > 1 ? 'right: 30px' : 'right: 120px'"
         >
           <a
             id="orderByName"
@@ -612,6 +614,7 @@ export default {
   },
   data() {
     return {
+      show_file_action: null,
       isDragging: false,
       files: [],
       file_objs: [],
@@ -621,17 +624,17 @@ export default {
         {
           q: "In what order will my merged PDF files appear?",
           a: "Once you add the files you'd like to combine, you can drag and drop them into your preferred order. The top file in your list will appear first in the merged PDF file.",
-          active: "true",
+          active: true,
         },
         {
           q: "How many pages can I include in a merged PDF?",
           a: "Once you add the files you'd like to combine, you can drag and drop them into your preferred order. The top file in your list will appear first in the merged PDF file.",
-          active: "false",
+          active: false,
         },
         {
           q: "Can I delete and reorder pages after I merge files?",
           a: "Once you add the files you'd like to combine, you can drag and drop them into your preferred order. The top file in your list will appear first in the merged PDF file.",
-          active: "false",
+          active: false,
         },
       ],
     };

@@ -4,10 +4,10 @@
   max-width: 200px;
   height: auto;
   text-align: center;
-  border-radius: $border-radius-base;
-  background-color: $white-color !important;
-  color: $gray !important;
-  font-size: 12px;
+  border-radius: 10px;
+  background-color: #201f1f !important;
+  color: #fefefe !important;
+  font-size: 13px;
   font-weight: 400;
   @include shadow-8dp();
 

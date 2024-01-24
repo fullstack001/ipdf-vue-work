@@ -628,7 +628,6 @@
 <script>
 import "@/assets/js/styles.css";
 import "@/assets/js/pdfannotate.css";
-import $ from "jquery";
 import { PDFAnnotate } from "@/assets/js/pdfsign.js";
 import convert from "@/pdf_pages/services/convertTextToImg.js";
 import DateFormatModal from "./DateFormatModal.vue";
@@ -653,9 +652,11 @@ export default {
   },
   destroyed() {
     window.removeEventListener("keydown", this.keyDownHandler);
+    window.location.reload();
   },
   async mounted() {
     this.loadScripts();
+
     this.date_img = await convert(this.date);
     this.text_img = await convert(this.text);
   },
@@ -805,8 +806,9 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-@import "~bootstrap/scss/bootstrap";
+<style scoped>
+/* @import "~bootstrap/scss/bootstrap"; */
+@import "~bootstrap/dist/css/bootstrap.min.css";
 </style>
 
 <style scoped>

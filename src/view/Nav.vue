@@ -38,6 +38,33 @@
                 {{ $t("features.compress.title") }}
               </LocalizedLink>
             </li>
+            <li>
+              <LocalizedLink
+                to="/signpdf"
+                class="nav-btn"
+                :class="{ 'active-link': isActive('/signpdf') }"
+              >
+                {{ $t("features.sign.title") }}
+              </LocalizedLink>
+            </li>
+            <li>
+              <LocalizedLink
+                to="/editpdf"
+                class="nav-btn"
+                :class="{ 'active-link': isActive('/editpdf') }"
+              >
+                {{ $t("features.edit.title") }}
+              </LocalizedLink>
+            </li>
+            <li>
+              <LocalizedLink
+                to="/rotatepdf"
+                class="nav-btn"
+                :class="{ 'active-link': isActive('/rotatepdf') }"
+              >
+                {{ $t("features.rotate.title") }}
+              </LocalizedLink>
+            </li>
             <li style="margin-top: -10px">
               <md-menu md-align-trigger class="nav-btn" style="padding: 0">
                 <md-button md-menu-trigger>
@@ -266,6 +293,14 @@ body {
 .router-link-active {
   color: #fff !important;
   background-color: #ff7c03 !important;
+}
+@media (max-width: 1570px) {
+  .nav-btn {
+    padding: 13px 5px;
+  }
+  .block__container {
+    max-width: 100%;
+  }
 }
 
 @media only screen and (max-width: 991px) {

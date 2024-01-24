@@ -489,7 +489,7 @@
         <div
           class="add-more"
           v-show="file_objs.length"
-          :style="file_objs.length > 1 ? 'right: 10px' : 'right: 120px'"
+          :style="file_objs.length > 1 ? 'right: 30px' : 'right: 120px'"
         >
           <a
             id="orderByName"

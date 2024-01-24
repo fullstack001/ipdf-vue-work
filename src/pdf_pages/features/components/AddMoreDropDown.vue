@@ -12,6 +12,9 @@
       >
         <md-speed-dial-target class="add_button">
           <md-icon color="#000">add</md-icon>
+          <md-tooltip md-direction="left"
+            >{{ $t("toolTip.add_more") }}
+          </md-tooltip>
         </md-speed-dial-target>
         <div class="badge">
           {{ pdfCounts }}

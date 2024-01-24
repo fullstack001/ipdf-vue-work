@@ -262,13 +262,31 @@
 
 .md-menu-content {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  border-radius: $border-radius-base !important;
+  border-radius: 7px !important;
   overflow: hidden;
 
   .md-list .md-list-item a {
     font-size: 10px;
   }
 }
+
+.md-menu-content {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  min-width: 144px;
+  border-radius: 15px;
+  max-width: 280px;
+  max-height: 35vh;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  z-index: 9;
+  border-radius: 2px;
+  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: opacity, transform, top, left !important;
+}
+
 
 .md-list-item a {
   color: inherit !important;

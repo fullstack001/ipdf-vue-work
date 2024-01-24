@@ -187,6 +187,7 @@
     "upload_local": "パソコンからアップロード",
     "save_dropBox": "Dropboxに保存",
     "save_google": "Google Driveに保存",
-    "link": "ファイルリンクの共有またはQRスキャン"
+    "link": "ファイルリンクの共有またはQRスキャン",
+    "add_more": "さらにファイルを追加"
   }
 }

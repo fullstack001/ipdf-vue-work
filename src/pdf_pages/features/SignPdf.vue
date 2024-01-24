@@ -30,7 +30,7 @@
             signature request to others.
           </div>
           <div class="drop-area">
-            <div class="drop-img">
+            <div class="drop-img mb-4">
               <img src="@/assets/feature_img/sign_pdf.svg" alt="" />
             </div>
             <div class="upload_btn">

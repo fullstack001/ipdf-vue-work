@@ -168,7 +168,7 @@ export default {
   background-color: #f5f5fa;
   color: rgb(50, 54, 57);
   padding: 10px 0px;
-  box-shadow: 5px 0px 5px 0px rgba(87, 81, 81, 0.75);
+  /* box-shadow: 0px 0px 5px 0px rgba(87, 81, 81, 0.75); */
 }
 
 .stepper .info {

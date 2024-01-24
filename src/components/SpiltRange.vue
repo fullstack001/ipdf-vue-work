@@ -22,28 +22,28 @@
         @start="drag = true"
         @end="drag = false"
       >
-        <div v-for="range in disArray" :key="range.id">
+        <div
+          v-for="range in disArray"
+          :key="range.id"
+          @mouseover="delete_enable = range.id"
+          @mouseleave="delete_enable = null"
+        >
           <div class="viewport">
             <md-toolbar class="md-transparent" :md-elevation="1">
               <span class="md-title">
+                <img
+                  src="@/assets/img/drag-up-down.svg"
+                  alt=""
+                  style="margin-right: 10px; width: 15px"
+                />
                 Range{{ range.id }}
-                <a
+                <div
                   class="file__btn remove tooltip--top tooltip"
                   @click="remove(disArray.indexOf(range))"
+                  v-if="delete_enable == range.id"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                  >
-                    <polygon
-                      fill="#fff"
-                      fill-rule="evenodd"
-                      points="12 1.208 10.79 0 6 4.792 1.21 0 0 1.208 4.79 6 0 10.792 1.21 12 6 7.208 10.79 12 12 10.792 7.21 6"
-                    ></polygon>
-                  </svg>
-                </a>
+                  <i class="fa-solid fa-xmark"></i>
+                </div>
               </span>
             </md-toolbar>
             <md-list class="md-double-line">
@@ -115,6 +115,7 @@ export default {
       disArray: [],
       maxId: 1,
       active: true,
+      delete_enable: null,
     };
   },
   watch: {
@@ -202,7 +203,16 @@ h3 {
   color: #85858e !important;
   font-weight: 500;
 }
-
+.file__btn {
+  background: #fefefe;
+  padding-left: 6px;
+  color: black;
+  padding-right: 6px;
+  border-radius: 100%;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: -33px;
+}
 .active_btn {
   background-color: #f5f5fa !important;
   border: solid 2px #ff7c03;
@@ -214,20 +224,34 @@ h3 {
   right: 10px;
   cursor: pointer;
 }
+.md-button-content {
+  padding: 5px 3px 15px 3px !important;
+}
 
 .md-toolbar:hover {
   background-color: #d2d2dd !important;
+  cursor: move;
+}
+.viewport:hover {
+  background-color: #d2d2dd !important;
+}
+.md-toolbar {
+  font-size: 15px !important;
 }
 
 .md-field label {
   font-size: 14px !important;
+}
+.ml-list {
+  padding: 0px !important;
 }
 
 .add_range_btn {
   background-color: #f5f5fa !important;
   border: solid 2px #ff7c03;
   border-radius: 5px;
-  padding: 5px 0px;
+  padding: 10px !important;
+  height: 48px !important;
   color: #ff7c03 !important;
 }
 

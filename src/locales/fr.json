@@ -188,6 +188,7 @@
     "upload_local": "Télécharger depuis l'ordinateur",
     "save_dropBox": "Enregistrer dans Dropbox",
     "save_google": "Enregistrer dans Google Drive",
-    "link": "Partager le lien du fichier ou scanner QR"
+    "link": "Partager le lien du fichier ou scanner QR",
+    "add_more": "Ajouter plus de fichiers"
   }
 }

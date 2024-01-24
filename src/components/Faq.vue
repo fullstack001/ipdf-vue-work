@@ -1,47 +1,25 @@
 <template>
-  <div>
-    <div class="question" @click="toggleAnswer">
-      {{ faq.q }}
+  <div class="each-question">
+    <div class="question" @click="faqItem.active = !faqItem.active">
+      {{ faqItem.q }}
       <div class="indicator">
-        {{ isOpen ? "-" : "+" }}
+        {{ faqItem.active ? "-" : "+" }}
       </div>
     </div>
-    <div class="answer" ref="answer">
-      {{ faq.a }}
+    <div class="answer" v-show="faqItem.active">
+      {{ faqItem.a }}
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["faq"],
   data() {
     return {
       isOpen: false,
+      faqItem: this.faq,
     };
-  },
-  props: ["faq"],
-  methods: {
-    toggleAnswer() {
-      // collapse if open, expand if not.
-      if (this.isOpen) {
-        this.collapse();
-      } else {
-        this.expand();
-      }
-      this.isOpen = !this.isOpen;
-    },
-    collapse() {
-      // select the answer element
-      const answer = this.$refs.answer;
-      answer.style.height = 0; // set its height to 0
-    },
-    expand() {
-      // select answer element
-      const answer = this.$refs.answer;
-
-      // set its height to its normal scroll height to expand it fully
-      answer.style.height = answer.scrollHeight + "px";
-    },
   },
 };
 </script>
@@ -62,7 +40,7 @@ body {
   background: #fff;
   cursor: pointer;
   font-weight: bold;
-  box-shadow: 0px 4px 0px 0 #88888855;
+  /* box-shadow: 0px 4px 0px 0 #88888855; */
   padding: 10px 0;
   transition: transform 0.2s;
   position: relative;
@@ -79,16 +57,15 @@ body {
 }
 
 /* styles when the question is clicked */
-.question:active {
-  transform: translateY(4px);
-  box-shadow: none;
-}
 
 .answer {
   transition: 0.25s; /* smooth slide-in */
   height: 0; /* starts collapsed */
   overflow: hidden;
   line-height: 1.5;
+  height: 30px;
+  margin-top: 22px;
+  margin-bottom: 10px;
 }
 
 .answer::before {
@@ -103,14 +80,20 @@ body {
   position: absolute;
   right: 20px;
   display: inline-block;
-  line-height: 0.5;
-  color: #666;
+  /* line-height: 0.5;
+  color: #666; */
 }
 
 .indicator {
   position: absolute;
   right: 10px;
   top: 5px;
-  color: #000;
+  color: #1b1a1a;
+}
+.each-question {
+  padding-top: 32px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  border-bottom: solid 1px #88888855;
 }
 </style>

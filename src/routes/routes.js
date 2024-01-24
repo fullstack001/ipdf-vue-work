@@ -189,13 +189,13 @@ router.beforeEach((to, from, next) => {
     return;
   }
   // console.log(to.params.locale);
-  // if (to.params.locale === "en") {
+  const { locale } = to.params;
+  // if (locale === "en") {
   //   // Redirect to the same route without the 'en' prefix
   //   const pathWithoutLocale = to.fullPath.replace(/^\/en/, "");
   //   next({ path: pathWithoutLocale });
   //   return;
   // }
-  const { locale } = to.params;
 
   loadLocaleMessagesAsync(locale).then(() => {
     setDocumentLang(locale);

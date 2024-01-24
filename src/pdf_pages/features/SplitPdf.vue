@@ -7,7 +7,7 @@
       class="dropzone-container"
       @dragover.prevent
       @drop="handleDrop"
-      :style="pages.length ? 'width: 70%' : 'width: 100%'"
+      :style="pages.length ? 'width: 113%' : 'width: 100%'"
       ref="dropzone"
     >
       <div class="upload_btn_area">
@@ -64,7 +64,9 @@
           >
             <div class="range__container" v-for="page in pages" :key="page.id">
               <div v-show="extractEdit && showFlag(page.id)">
-                <md-badge class="md-primary" md-position="top" md-content="*" />
+                <div class="md-badge">
+                  <i class="fa-solid fa-check"></i>
+                </div>
               </div>
               <div v-show="!extractEdit">
                 <p>Range{{ page.id }}</p>
@@ -441,7 +443,9 @@ export default {
           pdfBytes = await this.readFileAsync(file);
         }
 
-        const pdf = await PDFDocument.load(pdfBytes);
+        const pdf = await PDFDocument.load(pdfBytes, {
+          ignoreEncryption: true,
+        });
         const copiedPages = await mergedPdf.copyPages(
           pdf,
           pdf.getPageIndices()
@@ -477,7 +481,9 @@ export default {
             pdfBytes = await this.readFileAsync(file);
           }
 
-          const pdf = await PDFDocument.load(pdfBytes);
+          const pdf = await PDFDocument.load(pdfBytes, {
+            ignoreEncryption: true,
+          });
           const copiedPages = await mergedPdf.copyPages(
             pdf,
             pdf.getPageIndices()
@@ -623,7 +629,25 @@ body {
   color: #33333b;
   text-align: center;
 }
-
+.md-badge {
+  position: absolute;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 9px;
+  top: 5px;
+  font-size: 18px;
+  font-style: revert;
+  font-weight: bold;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #fff;
+  pointer-events: none;
+  z-index: 6;
+  background: springgreen !important;
+}
 .page-description {
   max-width: 800px;
   margin: 8px auto 0;
@@ -959,4 +983,3 @@ h3 {
   }
 }
 </style>
-@/store/store
