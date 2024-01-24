@@ -179,7 +179,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user-icon {
   font-size: 27px;
   margin-top: 60px;

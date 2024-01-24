@@ -185,4 +185,9 @@ export default {
 .pdf-page {
   margin-bottom: 10px;
 }
+input {
+  padding: 2px;
+  border-radius: 5px;
+  border-width: thin;
+}
 </style>

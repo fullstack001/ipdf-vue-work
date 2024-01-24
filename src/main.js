@@ -19,7 +19,6 @@ import App from "./App";
 import loading from "vuejs-loading-screen";
 import Donut from "vue-css-donut-chart";
 import "vue-css-donut-chart/dist/vcdonut.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import Vuelidate from "vuelidate";
@@ -30,8 +29,7 @@ import i18n from "./i18n";
 import router from "./routes/routes";
 
 //vuex setup
-import store from "./store";
-
+import store from "./store/index.js";
 // Plugins
 import axios from "./plugins/axios";
 import GlobalComponents from "./globalComponents";
@@ -64,10 +62,10 @@ Vue.use(loading, {
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
-  render: (h) => h(App),
-  store,
   router,
   i18n,
+  store,
+  render: (h) => h(App),
   // data: {
   //   Chartist: Chartist,
   // },

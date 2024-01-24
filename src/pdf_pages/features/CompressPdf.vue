@@ -188,8 +188,6 @@ import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import CryptoJS from "crypto-js";
-import store from "@/store/index";
-import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import AddMoreDropDown from "@/pdf_pages/features/components/AddMoreDropDown.vue";
@@ -213,14 +211,6 @@ export default {
   },
 
   methods: {
-    //add merged pdf to vuex
-    setPdfResult(result) {
-      store.dispatch({
-        type: type.SetResult,
-        amount: result,
-      });
-    },
-
     //click add from local button
     open_add_local() {
       this.$refs.file.click();
@@ -690,3 +680,4 @@ h3 {
   }
 }
 </style>
+@/store/store

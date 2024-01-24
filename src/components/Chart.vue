@@ -42,13 +42,13 @@ export default {
     setStep() {
       let i = 0;
       let intervalId = setInterval(() => {
-        this.completedSteps = this.completedSteps + 30;
+        this.completedSteps = this.completedSteps + 1;
         this.rate = ((this.completedSteps / this.originSize) * 100).toFixed(0);
         i = i + 15;
         if (this.completedSteps >= this.resultSize) {
           clearInterval(intervalId);
         }
-      }, 3);
+      }, 0.1);
     },
   },
 };

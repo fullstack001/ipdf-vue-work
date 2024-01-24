@@ -95,7 +95,7 @@
 
 <script>
 // Import necessary libraries here
-import "bootstrap/scss/bootstrap.scss";
+// import "bootstrap/scss/bootstrap.scss";
 import "@/assets/js/styles.css";
 import "@/assets/js/pdfannotate.css";
 import TextToolBar from "@/pdf_pages/features/components/TextToolBar.vue";
@@ -386,6 +386,9 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+@import "~bootstrap/scss/bootstrap";
+</style>
 
 <style scoped>
 .canvas-container {

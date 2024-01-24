@@ -242,7 +242,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
 html,
 body {
@@ -251,9 +251,6 @@ body {
 .md-radio {
   display: flex;
 }
-</style>
-
-<style scoped>
 .main {
   flex-grow: 1;
   align-items: center;

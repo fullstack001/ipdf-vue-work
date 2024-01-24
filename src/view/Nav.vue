@@ -76,7 +76,9 @@
         <li class="nav-item">
           <ul class="nav-list">
             <li class="md-list-item login-btn">
-              {{ $t("nav-links.login") }}
+              <LocalizedLink to="login">
+                {{ $t("nav-links.login") }}
+              </LocalizedLink>
             </li>
             <li class="md-list-item signup-btn">
               <LocalizedLink to="signup">
@@ -121,8 +123,10 @@
               {{ $t("other_features.convert_pdf.title") }}
             </LocalizedLink>
           </li>
-          <li class="login-btn">
-            <a href="" class="nav-btn">{{ $t("nav-links.login") }}</a>
+          <li>
+            <LocalizedLink to="login" class="login-btn">
+              <div class="nav-btn">{{ $t("nav-links.login") }}</div>
+            </LocalizedLink>
           </li>
           <li>
             <LocalizedLink to="signup" class="signup-btn">
@@ -135,7 +139,9 @@
   </nav>
 </template>
 <script>
+import store from "@/store/index.js";
 import LocalizedLink from "@/components/LocalizedLink";
+
 export default {
   data() {
     return {
@@ -143,6 +149,11 @@ export default {
     };
   },
   components: { LocalizedLink },
+  computed: {
+    user() {
+      return store.state.user;
+    },
+  },
   methods: {
     toggleNavbar() {
       console.log("toggle");
@@ -233,6 +244,9 @@ body {
 .signup-btn {
   font-size: 12px !important;
   font-weight: 600 !important;
+}
+.login-btn {
+  cursor: pointer;
 }
 
 .signup-btn {

@@ -93,6 +93,13 @@
         "description2": "Faites glisser et déposez vos PDF pour démarrer, c'est facile !",
         "description3": "Fonctionne sur Mac, Windows, Android et iOS."
       }
+    },
+    
+    "rotate_page":{
+      "title": "Rotation du PDF",
+      "description": "Faites pivoter vos PDF comme vous en avez besoin. Vous pouvez même faire pivoter plusieurs PDF à la fois !",
+      "selectBtn": "Sélectionner les fichiers PDF",
+      "dropFiles": "Ou déposez les PDF ici"
     }
   },
   "features": {
@@ -139,7 +146,7 @@
       "file": "edit_pdf.svg"
     },
     "rotate": {
-      "name": "rotate_pdf",
+      "name": "rotatepdf",
       "title": "Rotation du PDF",
       "description": "Faites pivoter vos PDF comme vous le souhaitez. Vous pouvez même faire pivoter plusieurs PDF à la fois !",
       "file": "rotate_pdf.svg"

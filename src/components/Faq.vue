@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div>
-      {{ faq.active }}
-    </div>
     <div class="question" @click="toggleAnswer">
       {{ faq.q }}
       <div class="indicator">

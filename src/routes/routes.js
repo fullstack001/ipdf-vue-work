@@ -40,18 +40,18 @@ const routes = [
         name: "allfertures",
       },
 
-      {
-        path: "/:locale/signup",
-        component: () =>
-          import(/* webpackChunkName: "login" */ "@/pages/SignUp.vue"),
-        name: "signup",
-      },
-      {
-        path: "/:locale/login",
-        component: () =>
-          import(/* webpackChunkName: "login" */ "@/pdf_pages/Login.vue"),
-        name: "login",
-      },
+      // {
+      //   path: "/:locale/signup",
+      //   component: () =>
+      //     import(/* webpackChunkName: "login" */ "@/pages/SignUp.vue"),
+      //   name: "signup",
+      // },
+      // {
+      //   path: "/:locale/login",
+      //   component: () =>
+      //     import(/* webpackChunkName: "login" */ "@/pages/Login.vue"),
+      //   name: "login",
+      // },
       {
         path: "/:locale/mergepdf",
         component: () =>
@@ -60,6 +60,14 @@ const routes = [
           ),
         name: "mergepdf",
       },
+      // {
+      //   path: "/:locale/rotatepdf",
+      //   component: () =>
+      //     import(
+      //       /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/RotatePdf.vue"
+      //     ),
+      //   name: "rotatepdf",
+      // },
       {
         path: "/:locale/download/:param",
         component: () =>

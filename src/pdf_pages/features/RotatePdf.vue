@@ -7,10 +7,10 @@
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
           <div class="page-title">
-            {{ $t("page_titles.merge_page.title") }}
+            {{ $t("page_titles.rotate_page.title") }}
           </div>
           <div class="page-description">
-            {{ $t("page_titles.merge_page.description") }}
+            {{ $t("page_titles.rotate_page.description") }}
           </div>
           <div class="drop-area">
             <div class="drop-img">
@@ -18,7 +18,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised">
-                {{ $t("page_titles.merge_page.selectBtn") }}
+                {{ $t("page_titles.rotate_page.selectBtn") }}
               </label>
               <input
                 type="file"
@@ -554,30 +554,175 @@
 
     <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3>MergePDF</h3>
+        <h3>Rotate PDF</h3>
 
         <div class="option__panel option__panel--active" id="merge-options">
           <div class="option__panel__content">
-            <div
-              class="info drag"
-              style="display: none"
-              v-show="file_objs.length == 1"
-            >
-              To change the order of your PDFs, drag and drop the files as you
-              want.
+            <div class="info multiple">
+              Mouse over PDF file below and a
+              <svg width="14" height="17" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="m11.328 6.375 1.24-1.2A6.505 6.505 0 0 1 14 8.452h-1.775a4.904 4.904 0 0 0-.896-2.087l-.001.01Zm.896 3.778H14a6.552 6.552 0 0 1-1.424 3.288l-1.24-1.2a4.963 4.963 0 0 0 .888-2.088Zm-.888 4.497a7.118 7.118 0 0 1-3.427 1.36v-1.725a5.31 5.31 0 0 0 2.162-.871l1.266 1.226-.001.01ZM6.152 2.595V0l4 3.846-4 3.76V4.303c-2.496.406-4.394 2.485-4.394 4.995 0 2.51 1.898 4.6 4.394 4.995v1.708C2.68 15.585 0 12.745 0 9.298c0-3.447 2.68-6.29 6.152-6.703Z"
+                  fill="#3A87AD"
+                  fill-rule="evenodd"
+                ></path>
+              </svg>
+              icon will appear, click on the arrows to rotate PDFs.
             </div>
-            <div class="info multiple" v-show="file_objs.length > 1">
-              Please, select more PDF files by clicking again on ’Select PDF
-              files’. <br />Select multiple files by mantaining pressed ’Ctrl’
-            </div>
-            <div class="multiple hidden">Please, select more PDF files</div>
           </div>
-          <button
-            class="option__panel__title"
-            @click="mergePDFs"
-            :disabled="file_objs.length == 1"
-          >
-            Merge PDF
+          <div class="rotate-action-panel">
+            <div>
+              <div class="form__group">
+                <div class="option__title fileSelector">
+                  Select files to rotate:
+                </div>
+                <div class="float-right option" data-action="reset">
+                  <a href="javascript:;">Reset all</a>
+                </div>
+              </div>
+              <ul class="option__image fileSelector">
+                <li
+                  class="option__image__item"
+                  data-action="select"
+                  data-value="all"
+                  :class="{ 'option--active': optionSelect == 'all' }"
+                  @click="() => (optionSelect = 'all')"
+                >
+                  <svg
+                    width="47px"
+                    height="32px"
+                    viewBox="0 0 47 32"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <g
+                      stroke="none"
+                      stroke-width="1"
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      <g
+                        transform="translate(-1071.000000, -509.000000)"
+                        fill="#969696"
+                        fill-rule="nonzero"
+                      >
+                        <g transform="translate(1071.000000, 509.000000)">
+                          <path
+                            d="M3,3 L3,29 L21,29 L21,3 L3,3 Z M2,0 L22,0 C23.1045695,0 24,0.8954305 24,2 L24,30 C24,31.1045695 23.1045695,32 22,32 L2,32 C0.8954305,32 0,31.1045695 0,30 L0,2 C0,0.8954305 0.8954305,0 2,0 Z"
+                            id="portrait"
+                          ></path>
+                          <path
+                            d="M18,25 L44,25 L44,7 L18,7 L18,25 Z M15,26 L15,6 C15,4.8954305 15.8954305,4 17,4 L45,4 C46.1045695,4 47,4.8954305 47,6 L47,26 C47,27.1045695 46.1045695,28 45,28 L17,28 C15.8954305,28 15,27.1045695 15,26 Z"
+                            id="landscape"
+                          ></path>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                  <div class="option__image__item__title">All</div>
+                </li>
+                <li
+                  class="option__image__item"
+                  data-action="select"
+                  data-value="portrait"
+                  :class="{ 'option--active': optionSelect == 'portrait' }"
+                  @click="() => (optionSelect = 'portrait')"
+                >
+                  <svg
+                    width="24px"
+                    height="32px"
+                    viewBox="0 0 24 32"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <g
+                      stroke="none"
+                      stroke-width="1"
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      <g
+                        transform="translate(-1208.000000, -509.000000)"
+                        fill="#161616"
+                        fill-rule="nonzero"
+                      >
+                        <path
+                          d="M1211,512 L1211,538 L1229,538 L1229,512 L1211,512 Z M1210,509 L1230,509 C1231.10457,509 1232,509.895431 1232,511 L1232,539 C1232,540.104569 1231.10457,541 1230,541 L1210,541 C1208.89543,541 1208,540.104569 1208,539 L1208,511 C1208,509.895431 1208.89543,509 1210,509 Z"
+                          id="portrait"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  <div class="option__image__item__title">Portrait</div>
+                </li>
+                <li
+                  class="option__image__item"
+                  data-action="select"
+                  data-value="landscape"
+                  :class="{ 'option--active': optionSelect == 'landscape' }"
+                  @click="() => (optionSelect = 'landscape')"
+                >
+                  <svg
+                    width="32px"
+                    height="24px"
+                    viewBox="0 0 32 24"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <g
+                      stroke="none"
+                      stroke-width="1"
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      <g
+                        transform="translate(-1335.000000, -513.000000)"
+                        fill="#969696"
+                        fill-rule="nonzero"
+                      >
+                        <path
+                          d="M1338,534 L1364,534 L1364,516 L1338,516 L1338,534 Z M1335,535 L1335,515 C1335,513.895431 1335.89543,513 1337,513 L1365,513 C1366.10457,513 1367,513.895431 1367,515 L1367,535 C1367,536.104569 1366.10457,537 1365,537 L1337,537 C1335.89543,537 1335,536.104569 1335,535 Z"
+                          id="landscape"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                  <div class="option__image__item__title">Landscape</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="option__panel__content1">
+            <div class="option__title">Rotation</div>
+            <div class="form__group">
+              <div class="option__actions">
+                <button
+                  class="option__btn option--action"
+                  data-action="rotateRight"
+                >
+                  <div class="option__btn__icon">
+                    <i class="fa-solid fa-rotate-right"></i>
+                  </div>
+                  <span>Right</span>
+                </button>
+
+                <button
+                  class="option__btn option--action"
+                  data-action="rotateLeft"
+                >
+                  <div class="option__btn__icon">
+                    <i class="fa-solid fa-rotate-left"></i>
+                  </div>
+                  <span>Left</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button class="option__panel__title" @click="mergePDFs">
+            Rotate PDF
           </button>
         </div>
       </div>
@@ -616,6 +761,7 @@ export default {
       files: [],
       file_objs: [],
       sorted: false,
+      optionSelect: null,
       online_names: online_names,
       faqItems: [
         {
@@ -850,7 +996,117 @@ body {
   justify-content: center;
   text-align: center;
 }
-
+.option__image {
+  cursor: pointer;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -10px;
+  margin-right: 10px;
+  font-size: 15px;
+}
+ul {
+  list-style: none;
+}
+.form__group {
+  font-size: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  display: flex;
+}
+.option__btn {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  width: 240px;
+  margin: 8px auto;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 16px;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.14);
+  letter-spacing: 0.3px;
+  text-align: center;
+  line-height: 18px;
+  color: #161616;
+  padding: 0;
+  overflow: hidden;
+  background: #f5f5fa;
+  border-width: 0;
+}
+.option__btn:hover {
+  border: solid 1px #e76d26;
+  color: red;
+}
+.option__btn span {
+  margin-left: 20px;
+}
+.option__actions {
+  margin: auto;
+}
+.option__btn__icon {
+  padding: 12px;
+  width: 55px;
+  -ms-flex: 0 0 55px;
+  -webkit-box-flex: 0;
+  flex: 0 0 55px;
+  height: 100%;
+  min-height: 45px;
+  background: #ff7c03;
+  color: white;
+  font-size: 20px;
+}
+.float-right {
+  margin-left: 70px;
+  color: red;
+}
+.option {
+  -webkit-transition: all 0.4s linear;
+  -o-transition: all 0.4s linear;
+  transition: all 0.4s linear;
+}
+.option__title {
+  font-weight: 500;
+  color: #33333b;
+  margin: 0px 0 24px 7px;
+  text-align: left;
+  /* margin-left: 10px; */
+  font-size: 20px;
+}
+.option__image__item {
+  padding: 18px 20px;
+  position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 30%;
+  text-align: center;
+  color: #85858e;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: 4px;
+  background: #f5f5fa;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
+  border: 2px solid rgba(0, 0, 0, 0);
+}
+.option__image__item svg {
+  margin: auto;
+  margin-bottom: 20px;
+}
+.option__image__item.option--active {
+  color: #ff7c03;
+  border: 2px solid #ff7c03;
+}
 .page-title {
   margin-top: 50px;
   font-weight: 600;
@@ -1071,9 +1327,12 @@ body {
   background: #def2ff;
   padding: 10px;
   border-radius: 5px;
-  font-size: 13px;
-  margin-bottom: 130px;
-  text-align: left;
+  font-size: 15px;
+  margin-bottom: 30px;
+  text-align: center;
+  max-width: 370px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .option__panel__title {
@@ -1088,6 +1347,7 @@ body {
   padding: 15px 40px;
   font-weight: 600;
   cursor: pointer;
+  margin-top: 250px;
 }
 
 .option__panel__title:hover {

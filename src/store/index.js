@@ -6,16 +6,16 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    result: null,
+    user: null,
   },
   mutations: {
-    setresult(state, payload) {
-      return (state.result = payload.amount);
+    setUser(state, payload) {
+      return (state.user = payload);
     },
   },
   actions: {
-    setresult(context, payload) {
-      context.commit("setresult", payload);
+    setUser(context, payload) {
+      context.commit("setUser", payload);
     },
   },
 });

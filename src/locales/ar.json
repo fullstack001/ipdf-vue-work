@@ -65,7 +65,7 @@
       "file": "edit_pdf.svg"
     },
     "rotate": {
-      "name": "rotate_pdf",
+      "name": "rotatepdf",
       "title": "Rotate PDF",
       "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
       "file": "rotate_pdf.svg"

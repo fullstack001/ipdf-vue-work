@@ -179,8 +179,6 @@ import CryptoJS from "crypto-js";
 import SplitExtra from "@/components/SplitExtra.vue";
 import SpiltRange from "@/components/SpiltRange.vue";
 import JSZip from "jszip";
-import store from "@/store/index";
-import * as type from "@/store/types";
 import { GlobalWorkerOptions, getDocument } from "pdfjs-dist/legacy/build/pdf";
 import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 GlobalWorkerOptions.workerSrc = PDFJSWorker;
@@ -236,12 +234,6 @@ export default {
       this.merge_selected = false;
     },
     //add merged pdf to vuex
-    setPdfResult(result) {
-      store.dispatch({
-        type: type.SetResult,
-        amount: result,
-      });
-    },
 
     //file from local
     onChange() {
@@ -560,7 +552,6 @@ export default {
       Promise.all(promises).then(() => {
         zip.generateAsync({ type: "blob" }).then((content) => {
           //save on vuex
-          this.setPdfResult(content);
 
           //upload zip file to server
           const formData = new FormData();
@@ -968,3 +959,4 @@ h3 {
   }
 }
 </style>
+@/store/store

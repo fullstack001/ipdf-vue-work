@@ -626,7 +626,6 @@
 </template>
 
 <script>
-import "bootstrap/scss/bootstrap.scss";
 import "@/assets/js/styles.css";
 import "@/assets/js/pdfannotate.css";
 import $ from "jquery";
@@ -806,6 +805,9 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+@import "~bootstrap/scss/bootstrap";
+</style>
 
 <style scoped>
 img {

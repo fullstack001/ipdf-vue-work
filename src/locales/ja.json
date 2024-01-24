@@ -93,6 +93,12 @@
         "description2": "PDF をドラッグ アンド ドロップして開始します。簡単です!",
         "description3": "Mac、Windows、Android、iOS で動作します。"
       }
+    },
+    "rotate_page": {
+      "title": "PDF を回転",
+      "description": "必要に応じて PDF を回転します。複数の PDF を一度に回転することもできます!",
+      "selectBtn": "PDF ファイルを選択",
+      "dropFiles": "または PDF をここにドロップします"
     }
   },
   "features": {
@@ -139,7 +145,7 @@
       "file": "edit_pdf.svg"
     },
     "rotate": {
-      "name": "rotate_pdf",
+      "name": "rotatepdf",
       "title": "PDFを回転",
       "description": "PDF 文書にテキスト、画像、図形、またはフリーハンドの注釈を追加します。追加したコンテンツのサイズ、フォント、色を編集します。",
       "file": "rotate_pdf.svg"

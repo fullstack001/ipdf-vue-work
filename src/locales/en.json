@@ -93,6 +93,12 @@
         "description2": "Drag & drop your PDFs to start—easy!",
         "description3": "Works on Mac, Windows, Android, and iOS."
       }
+    },
+    "rotate_page":{
+      "title": "Rotate PDF",
+      "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
+      "selectBtn": "Select PDF Files",
+      "dropFiles": "Or Drop PDFs Here"
     }
   },
   "features": {
@@ -139,7 +145,7 @@
       "file": "edit_pdf.svg"
     },
     "rotate": {
-      "name": "rotate_pdf",
+      "name": "rotatepdf",
       "title": "Rotate PDF",
       "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
       "file": "rotate_pdf.svg"

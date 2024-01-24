@@ -178,7 +178,6 @@
 </template>
 <script>
 import Vue from "vue";
-import store from "@/store/index";
 import CryptoJS from "crypto-js";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import JSZip from "jszip";
@@ -272,10 +271,29 @@ export default {
     this.downloadURL = `/pdf/download/${this.id}`;
   },
   mounted() {
+    this.checkFile();
     // Make a GET request to the server endpoint to download the file
-    this.fetch_file();
   },
   methods: {
+    checkFile() {
+      console.log("Second Testing");
+      this.$axios
+        .post("/pdf/get_from_db", { name: this.id })
+        .then((res) => {
+          if (Object.keys(res.data).length > 0) {
+            console.log(res.data);
+            this.fetch_file();
+          } else {
+            console.log("success redirect");
+            this.$router.replace({ name: "deleted" });
+          }
+        })
+        .catch((err) => {
+          console.log("return deleted page in created");
+          this.$router.replace({ name: "deleted" });
+        });
+    },
+
     async fetch_file() {
       console.log(this.go_deleted_page);
       await this.$axios
@@ -340,15 +358,7 @@ export default {
           this.$router.replace({ name: "deleted" });
         });
     },
-    checkFile() {
-      this.$axios
-        .post("/pdf/get_from_db", { name: this.id })
-        .then((res) => console.log(res.data))
-        .catch((err) => {
-          console.log("return deleted page in created");
-          this.$router.replace({ name: "deleted" });
-        });
-    },
+
     download_file() {
       // Create a download link
       const link = document.createElement("a");
@@ -386,7 +396,6 @@ export default {
         .then((res) => {
           this.$router.replace({ name: "deleted" });
           this.go_deleted_page = true;
-          console.log(res);
         })
         .catch((err) => console.log(err));
     },
@@ -694,3 +703,4 @@ body {
   font-size: 18px;
 }
 </style>
+@/store/store
