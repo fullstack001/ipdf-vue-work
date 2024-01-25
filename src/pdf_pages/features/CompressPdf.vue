@@ -334,7 +334,7 @@ export default {
             console.log(type);
             const obj = {
               id: response.data.file,
-              button_title: "Download Compressed PDF",
+              button_title: "Successfully Compressed",
               dis_text: "PDF has been compressed!",
               down_name: `pdfdenCompressed.${type}`,
               file_type: `application/${type}`,

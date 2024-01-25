@@ -809,7 +809,7 @@ export default {
         .then((response) => {
           const obj = {
             id: response.data,
-            button_title: "Download Merged PDF",
+            button_title: "Successfully Merged",
             dis_text: "PDF has been merged!",
             down_name: "merged_pdf.pdf",
             file_type: "application/pdf",

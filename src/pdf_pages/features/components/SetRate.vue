@@ -40,9 +40,9 @@
           Thank you!
         </div>
       </div>
-      <div class="mt3">
+      <!-- <div class="mt3">
         <a class="rightArrow" href="/en/contact">Please report problems here</a>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

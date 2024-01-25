@@ -8,17 +8,20 @@
       <div class="md-badge">
         <i class="fa-solid fa-check"></i>
       </div>
-      Download PDF File
+      {{ button_title }}
     </div>
-    <div class="page-description">{{ dis_text }}</div>
+    <div class="page-description" style="margin-bottom: 20px">
+      {{ down_name }}
+    </div>
     <div class="download_btn">
       <div
         id="link"
         class="download__btn md-raised md-danger"
         @click="download_file"
       >
-        {{ button_title }}
-        <span class="material-icons" style="margin-left: 10px">
+        Download PDF File
+
+        <span class="material-icons" style="margin-left: 10px; font-size: 30px">
           arrow_circle_down
         </span>
       </div>

@@ -296,7 +296,7 @@ export default {
           console.log(type);
           const obj = {
             id: response.data,
-            button_title: "Download Converted Word",
+            button_title: "Successfully Converted",
             dis_text: "PDF has been converted!",
             down_name: `pdfden_converted.${type}`,
             file_type: `application/${type}`,

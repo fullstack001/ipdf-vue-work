@@ -517,7 +517,7 @@ export default {
         .then((response) => {
           const obj = {
             id: response.data,
-            button_title: "Download Spilted PDF",
+            button_title: "Successfully Splited",
             dis_text: "PDF has been Splited!",
             down_name: "splited_pdf.pdf",
             file_type: "application/pdf",

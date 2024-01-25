@@ -212,7 +212,7 @@ export default {
         .then((response) => {
           const obj = {
             id: response.data,
-            button_title: "Download Edited PDF",
+            button_title: "Successfully Edited",
             dis_text: "PDF has been edited!",
             down_name: "edited_pdf.pdf",
             file_type: "application/pdf",

@@ -210,7 +210,7 @@ export default {
         .then((response) => {
           const obj = {
             id: response.data,
-            button_title: "Download Signed PDF",
+            button_title: "Successfully Signed",
             dis_text: "PDF has been Signed!",
             down_name: "signed_pdf.pdf",
             file_type: "application/pdf",
