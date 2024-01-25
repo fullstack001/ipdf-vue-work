@@ -482,8 +482,8 @@
                 }}
               </div>
               <md-tooltip md-direction="top"
-                >{{ (file_obj.file.size / 1024).toFixed(2) }} KByte
-                {{ file_obj.page }}pages
+                >{{ (file_obj.file.size / 1024).toFixed(2) }} Kbyte
+                {{ file_obj.page }} pages
               </md-tooltip>
             </div>
           </draggable>
@@ -896,6 +896,7 @@ body {
   position: relative;
   margin-top: 2rem;
   padding-left: 20px;
+  margin-right: 80px;
 }
 
 .preview_area {

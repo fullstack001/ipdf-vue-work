@@ -8,7 +8,7 @@
         <md-icon>menu</md-icon>
       </div>
       <ul class="nav-lists">
-        <li class="nav-item">
+        <li class="nav-item" style="position: relative; right: 200px">
           <ul class="nav-list">
             <li>
               <LocalizedLink
@@ -40,20 +40,20 @@
             </li>
             <li>
               <LocalizedLink
-                to="/editpdf"
-                class="nav-btn"
-                :class="{ 'active-link': isActive('/editpdf') }"
-              >
-                {{ $t("features.edit.title") }}
-              </LocalizedLink>
-            </li>
-            <li>
-              <LocalizedLink
                 to="/signpdf"
                 class="nav-btn"
                 :class="{ 'active-link': isActive('/signpdf') }"
               >
                 {{ $t("features.sign.title") }}
+              </LocalizedLink>
+            </li>
+            <li>
+              <LocalizedLink
+                to="/editpdf"
+                class="nav-btn"
+                :class="{ 'active-link': isActive('/editpdf') }"
+              >
+                {{ $t("features.edit.title") }}
               </LocalizedLink>
             </li>
             <li>
@@ -66,40 +66,41 @@
               </LocalizedLink>
             </li>
             <li style="margin-top: -10px">
-              <md-menu md-align-trigger class="nav-btn" style="padding: 0">
-                <md-button md-menu-trigger>
+              <md-speed-dial
+                class="dropdown-tooltip"
+                md-direction="bottom"
+                style="padding: 0; position: absolute; right: -140px"
+              >
+                <button class="nav-btn" md-menu-trigger>
                   {{ $t("other_features.convert_pdf.title") }}
-                  <span class="material-icons"> expand_more </span>
-                </md-button>
+                </button>
 
-                <md-menu-content style="z-index: 1000">
-                  <md-menu-item>
+                <md-speed-dial-content style="z-index: 1000">
+                  <md-button class="nav-btn">
                     <LocalizedLink to="wordtopdf">
                       {{ $t("features.word_pdf.title") }}
                     </LocalizedLink>
-                  </md-menu-item>
-                  <md-menu-item>
+                  </md-button>
+                  <md-button class="nav-btn">
                     <LocalizedLink to="pdftoword">
                       {{ $t("features.pdf_word.title") }}
+                    </LocalizedLink>
+                  </md-button>
+                  <!-- <md-menu-item>
+                    <LocalizedLink to="signpdf">
+                      {{ $t("features.sign.title") }}
                     </LocalizedLink>
                   </md-menu-item>
                   <md-menu-item>
                     <LocalizedLink to="editpdf">
                       {{ $t("features.edit.title") }}
                     </LocalizedLink>
-                  </md-menu-item>
-                  <md-menu-item>
-                    <LocalizedLink to="signpdf">
-                      {{ $t("features.sign.title") }}
-                    </LocalizedLink>
-                  </md-menu-item>
-                </md-menu-content>
-              </md-menu>
+                  </md-menu-item> -->
+                </md-speed-dial-content>
+              </md-speed-dial>
             </li>
-            <li></li>
           </ul>
         </li>
-
         <li class="nav-item">
           <ul class="nav-list">
             <li class="md-list-item login-btn">
@@ -209,12 +210,38 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.md-speed-dial {
+  display: block;
+  flex-direction: column;
+}
+.md-speed-dial .md-button {
+  margin: 1px 0;
+  padding: 0;
+  background: #fefefe !important;
+  height: 40px;
+  width: 150px;
+  border-radius: 8px;
+  border: 1px solid #ff7c03;
+}
+.md-speed-dial .md-button .md-button-content {
+  color: #495057 !important;
+  font-weight: 600 !important;
+}
 
 .navbar {
   background-color: #fff; /* Material Design Blue */
   z-index: 11;
 
   box-shadow: 0px 4px 17px 0px rgb(81 65 65 / 38%);
+}
+button {
+  background: #fefefe;
+  margin: 2px 0px;
+  height: 38px;
+  font-weight: 600;
+}
+a {
+  color: #000000 !important;
 }
 
 .navbar-toggle {

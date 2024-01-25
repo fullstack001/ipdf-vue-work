@@ -406,6 +406,7 @@ body {
 .preview-container {
   position: relative;
   margin-top: 2rem;
+  margin-right: 80px;
 }
 
 .preview_area {

@@ -1,23 +1,23 @@
 <template>
   <div class="row">
-    <div class="col-md-7 sign_panel">
-      <h1 class="text-center">PDFDEN</h1>
-      <h4 class="card-title mt-3 text-center">Create new account</h4>
-      <p>
-        <a href="" class="btn btn-block btn-twitter">
-          <i class="fab fa-twitter"></i>   Login via Twitter</a
-        >
-        <a href="" class="btn btn-block btn-facebook text-white">
-          <i class="fab fa-google"></i>   Login via Google</a
-        >
-      </p>
+    <div class="col-md-7 sign_panel text-center">
+      <img class="mb-4" src="@/assets/img/vue-logo.png" width="240" srcset="" />
+      <h2 class="my-3">Create new account</h2>
+      <!-- <div class="social-btns">
+        <div href="" class="btn btn-block btn-twitter text-white mx-2">
+          <i class="fab fa-twitter"></i>   Login via Twitter
+        </div>
+        <div href="" class="btn btn-block btn-facebook text-white mx-2">
+          <i class="fab fa-google"></i>   Login via Google
+        </div>
+      </div> -->
       <form @submit.prevent="handleSubmit">
         <div class="form-group input-group">
           <div class="input-group-prepend">
             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
           </div>
           <input
-            class="form-control"
+            class="form-control py-4"
             placeholder="Full name"
             type="text"
             v-model="userForm.name"
@@ -43,7 +43,7 @@
             name="email"
             id="email"
             v-model="userForm.email"
-            class="form-control"
+            class="form-control py-4"
             placeholder="Email address"
             type="text"
             :class="{
@@ -72,7 +72,7 @@
             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
           </div>
           <input
-            class="form-control"
+            class="form-control pt-4 pb-4"
             placeholder="Create password"
             type="password"
             v-model="userForm.password"
@@ -97,8 +97,8 @@
 
         <!-- form-group// -->
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">
-            Create New Account
+          <button type="submit" class="btn btn-danger btn-block signup-btn">
+            Sign up
           </button>
         </div>
         <!-- form-group// -->
@@ -184,7 +184,13 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+@import "~bootstrap/scss/bootstrap";
+</style>
 <style scoped>
+.social-btns {
+  display: flex;
+}
 .form-group {
   margin-top: 30px;
 }
@@ -195,6 +201,13 @@ export default {
 }
 input {
   padding-left: 20px;
+}
+.signup-btn {
+  display: block;
+  width: 30%;
+  padding: 10px;
+  border-radius: 20px;
+  margin: auto;
 }
 
 .btn-facebook {

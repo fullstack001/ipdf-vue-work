@@ -456,6 +456,9 @@ body {
   position: relative;
   margin-top: 2rem;
 }
+.md-layout {
+  margin-right: 40px;
+}
 
 .preview_area {
   display: flex;

@@ -36,7 +36,7 @@
                   alt=""
                   style="margin-right: 10px; width: 15px"
                 />
-                Range{{ range.id }}
+                Range {{ range.id }}
                 <div
                   class="file__btn remove tooltip--top tooltip"
                   @click="remove(disArray.indexOf(range))"

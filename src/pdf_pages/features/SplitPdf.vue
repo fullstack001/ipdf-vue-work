@@ -646,7 +646,7 @@ body {
   color: #fff;
   pointer-events: none;
   z-index: 6;
-  background: springgreen !important;
+  background: green !important;
 }
 .page-description {
   max-width: 800px;

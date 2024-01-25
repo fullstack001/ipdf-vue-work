@@ -125,6 +125,9 @@ export default {
       }
     },
   },
+  destroyed() {
+    window.location.href = "";
+  },
 
   methods: {
     set_image_url(data) {

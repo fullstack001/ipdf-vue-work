@@ -40,12 +40,12 @@ const routes = [
         name: "allfertures",
       },
 
-      // {
-      //   path: "/:locale/signup",
-      //   component: () =>
-      //     import(/* webpackChunkName: "login" */ "@/pages/SignUp.vue"),
-      //   name: "signup",
-      // },
+      {
+        path: "/:locale/signup",
+        component: () =>
+          import(/* webpackChunkName: "login" */ "@/pages/SignUp.vue"),
+        name: "signup",
+      },
       // {
       //   path: "/:locale/login",
       //   component: () =>
