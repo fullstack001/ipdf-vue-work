@@ -40,20 +40,20 @@
             </li>
             <li>
               <LocalizedLink
-                to="/signpdf"
-                class="nav-btn"
-                :class="{ 'active-link': isActive('/signpdf') }"
-              >
-                {{ $t("features.sign.title") }}
-              </LocalizedLink>
-            </li>
-            <li>
-              <LocalizedLink
                 to="/editpdf"
                 class="nav-btn"
                 :class="{ 'active-link': isActive('/editpdf') }"
               >
                 {{ $t("features.edit.title") }}
+              </LocalizedLink>
+            </li>
+            <li>
+              <LocalizedLink
+                to="/signpdf"
+                class="nav-btn"
+                :class="{ 'active-link': isActive('/signpdf') }"
+              >
+                {{ $t("features.sign.title") }}
               </LocalizedLink>
             </li>
             <li>

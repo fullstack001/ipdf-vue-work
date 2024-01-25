@@ -85,10 +85,15 @@
             <div
               class="preview-card md-layout-item"
               v-for="(file, index) in file_objs"
-              :key="file.name"
+              :key="file.file.name"
+              @mouseover="show_file_action = file.file.name"
+              @mouseleave="show_file_action = null"
             >
-              <div class="file__actions">
-                <a
+              <div
+                class="file__actions"
+                v-show="show_file_action == file.file.name"
+              >
+                <!-- <a
                   class="file__btn rotate tooltip--top tooltip"
                   data-rotate="0"
                   title="Rotate"
@@ -107,7 +112,7 @@
                       fill-rule="evenodd"
                     ></path>
                   </svg>
-                </a>
+                </a> -->
                 <a
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
@@ -203,6 +208,7 @@ export default {
       files: [],
       file_objs: [],
       second: false,
+      show_file_action: null,
     };
   },
 

@@ -79,8 +79,13 @@
               class="preview-card md-layout-item"
               v-for="(file_obj, index) in file_objs"
               :key="file_obj.file.name"
+              @mouseover="show_file_action = file_obj.file.name"
+              @mouseleave="show_file_action = null"
             >
-              <div class="file__actions">
+              <div
+                class="file__actions"
+                v-show="show_file_action == file_obj.file.name"
+              >
                 <a
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
@@ -173,6 +178,7 @@ export default {
   },
   data() {
     return {
+      show_file_action: null,
       isDragging: false,
       files: [],
       file_objs: [],

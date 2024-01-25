@@ -176,6 +176,7 @@
         v-show="before == 'compresspdf'"
       />
     </div>
+    <SetRate />
   </div>
 </template>
 <script>
@@ -186,6 +187,7 @@ import JSZip from "jszip";
 import VueQRCodeComponent from "vue-qrcode-component";
 import Chart from "@/components/Chart.vue"; // Replace with the correct path
 import GDriveSelector from "@/components/GDriveSelector.vue";
+import SetRate from "@/pdf_pages/features/components/SetRate.vue";
 Vue.component("qr-code", VueQRCodeComponent);
 
 export default {
@@ -193,6 +195,7 @@ export default {
     VueDropboxPicker,
     GDriveSelector,
     Chart,
+    SetRate,
   },
   props: {
     message: String,
@@ -241,11 +244,6 @@ export default {
     seconds: null,
     go_deleted_page: false,
   }),
-  watch: {
-    go_deleted_page(newValue) {
-      console.log(newValue);
-    },
-  },
   computed: {
     result() {
       return store.state.result;
