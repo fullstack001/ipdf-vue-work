@@ -10,9 +10,11 @@
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
-          <div class="page-title">Convert WORD to PDF</div>
+          <div class="page-title">
+            {{ $t("page_titles.word_pdf.title") }}
+          </div>
           <div class="page-description">
-            Make DOC and DOCX file easy to ready by converting them to PDF.
+            {{ $t("page_titles.word_pdf.description") }}
           </div>
           <div class="drop-area">
             <div class="drop-img">
@@ -20,7 +22,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
-                Select WORD files
+                {{ $t("page_titles.word_pdf.selectBtn") }}
               </label>
               <input
                 type="file"
@@ -71,7 +73,7 @@
                 />
               </div>
             </div>
-            <div>Or Drop WORD documents Here</div>
+            <div>{{ $t("page_titles.word_pdf.dropFiles") }}</div>
           </div>
         </div>
       </div>
@@ -85,13 +87,13 @@
             <div
               class="preview-card md-layout-item"
               v-for="(file, index) in file_objs"
-              :key="file.file.name"
-              @mouseover="show_file_action = file.file.name"
+              :key="file.file.name + index"
+              @mouseover="show_file_action = file.file.name + index"
               @mouseleave="show_file_action = null"
             >
               <div
                 class="file__actions"
-                v-show="show_file_action == file.file.name"
+                v-show="show_file_action == file.file.name + index"
               >
                 <!-- <a
                   class="file__btn rotate tooltip--top tooltip"
@@ -180,7 +182,7 @@
         <h3 class="text-center">Word to PDF</h3>
         <div class="option__panel option__panel--active" id="merge-options">
           <button class="option__panel__title" @click="convertToPdf">
-            Convert to PDF
+            {{ $t("page_titles.word_pdf.actionBtn") }}
           </button>
         </div>
       </div>
@@ -410,7 +412,11 @@ body {
 .preview-container {
   position: relative;
   margin-top: 2rem;
-  margin-right: 80px;
+  margin-right: 20px;
+}
+.md-layout {
+  max-height: 95vh;
+  overflow-y: auto;
 }
 
 .preview_area {
@@ -420,7 +426,8 @@ body {
   cursor: grab;
   flex: 1 1;
   margin: 4px;
-  max-width: 250px;
+  max-width: 215px;
+  min-width: 215px;
   height: 250px;
   display: -ms-flexbox;
   display: flex;

@@ -31,11 +31,34 @@
         "button": "Obtenir un compte gratuit"
       }
     },
+    "signUp": {
+       "create": "Créer un nouveau compte",
+       "name_req": "Le champ Nom est obligatoire",
+       "fullName": "Nom complet",
+       "email": "Adresse email",
+       "email_req": "Le champ email est obligatoire",
+       "email_type": "Veuillez fournir une adresse email valide",
+       "email_exi": "L'utilisateur existe déjà",
+       "pass": "Créer un mot de passe",
+       "pass_req": "Le champ Mot de passe est obligatoire",
+       "pass_length": "Le mot de passe doit comporter au moins 6 caractères",
+       "signUp": "Inscrivez-vous",
+       "have_acc": "Vous avez un compte ?",
+       "login":"Connexion",
+       "tool_title": "Outils PDF pour les personnes productives",
+       "tool_des": " PDFDen vous aide à convertir, modifier, signer électroniquement et protéger des fichiers PDF rapidement et facilement. Profitez d'une suite complète d'outils pour gérer efficacement les documents, quel que soit l'endroit où vous travaillez. "
+     },
     "merge_page": {
       "title": "Fusionner des fichiers PDF",
       "description": "Combinez les PDF dans l'ordre souhaité grâce à la fusion PDF la plus simple disponible.",
       "selectBtn": "Sélectionner les fichiers PDF",
       "dropFiles": "Ou déposez les PDF ici",
+      "mergePdf": "FusionnerPDF",
+      "one_des": "Pour modifier l'ordre de vos PDF, faites glisser et déposez les fichiers comme vous le souhaitez.",
+      "more_des": "Veuillez sélectionner plus de fichiers PDF en cliquant à nouveau sur 'Sélectionner les fichiers PDF'.",
+      "more_des_a": "Sélectionnez plusieurs fichiers en maintenant enfoncé 'Ctrl'",
+      "multi": "Veuillez sélectionner plus de fichiers PDF",
+      "actionBtn": "Fusionner le PDF",
       "howSection": {
         "title": "Comment combiner des fichiers PDF",
         "description": "Suivez ces étapes simples pour combiner des documents PDF en un seul fichier:",
@@ -94,13 +117,102 @@
         "description3": "Fonctionne sur Mac, Windows, Android et iOS."
       }
     },
-    
-    "rotate_page":{
+    "rotate_page": {
       "title": "Rotation du PDF",
       "description": "Faites pivoter vos PDF comme vous en avez besoin. Vous pouvez même faire pivoter plusieurs PDF à la fois !",
       "selectBtn": "Sélectionner les fichiers PDF",
-      "dropFiles": "Ou déposez les PDF ici"
-    }
+      "dropFiles": "Ou déposez les PDF ici",
+      "rotatePdf": "Rotation du PDF",
+      "info_a": "Survolez le fichier PDF ci-dessous et a",
+      "info_b": "une icône apparaîtra, cliquez sur les flèches pour faire pivoter les PDF.",
+      "set_rotate": "Sélectionner les fichiers à faire pivoter :",
+      "reset": "Tout réinitialiser",
+      "all": "Tous",
+      "portrait": "Portrait",
+      "landscape": "Paysage",
+      "rotation": "Rotation",
+      "right": "Droite",
+      "left": "Gauche",
+      "actionBtn": "Rotation du PDF"
+    },
+    "edit_page": {
+      "title": "Éditeur PDF",
+      "description": "Faites pivoter vos PDF comme vous en avez besoin. Vous pouvez même faire pivoter plusieurs PDF à la fois !",
+      "selectBtn": "Sélectionner les fichiers PDF",
+      "dropFiles": "Ou déposez les PDF ici",
+      "editPdf": "Modifier le PDF",
+      "elements": "Éléments",
+      "ele_des": "Depuis cette barre d'outils, vous pouvez réorganiser les éléments pour les déplacer vers l'arrière ou devant le document.",
+      "actionBtn": "Modifier le PDF"
+    },
+    "split_page": {
+      "title": "Diviser le fichier PDF",
+      "description": "Séparez une page ou un ensemble complet pour une conversion facile en fichiers PDF indépendants.",
+      "selectBtn": "Sélectionner les fichiers PDF",
+      "dropFiles": "Ou déposez les PDF ici",
+      "range": "plage",
+      "split": "diviser",
+      "allRange": "Fusionner toutes les plages dans un seul fichier PDF.",
+      "actionBtn": "Diviser le PDF",
+      "down_btn_title": "Scindé avec succès",
+      "rangeMode": "Mode plage :",
+      "customRange": "Plage personnalisée",
+      "fixedRange": "Plage fixe",
+      "fromPage": "Depuis la page",
+      "to": "À",
+      "addRange": "+ Ajouter une plage",
+      "split_des_b": "Ce PDF sera divisé en fichiers de",
+      "split_des_a": " Les PDF seront créés",
+      "extractMode": "Mode d'extraction",
+      "extractAll": "Extraire toutes les pages",
+      "selectPage": "Sélectionner une page",
+      "extract_des_b": "Les pages sélectionnées seront converties en fichiers PDF séparés.",
+      "extract_des_a": "Le PDF sera créé"
+    },
+    "sign_page": {
+       "title": "Signer le PDF",
+       "des": "Votre outil pour signer électroniquement des documents. Signez vous-même un document ou envoyez une demande de signature à d'autres.",
+       "selectBtn": "Sélectionner les fichiers PDF",
+       "dropFiles": "Ou déposez les PDF ici",
+       "sign_options": "Options de signature",
+       "name": "nom",
+       "date": "Date",
+       "text": "Texte",
+       "actionBtn": "signer le PDF",
+       "fullName": "Nom complet : ",
+       "initials": "Initiales : ",
+       "signature": "Signature",
+       "initial": "Initiale",
+       "stamp": "Cachet de l'entreprise"
+     },
+    "compress_page": {
+      "title": "Compresser le fichier PDF",
+      "description": "Réduisez la taille du fichier tout en l'optimisant pour une qualité PDF maximale.",
+      "selectBtn": "Sélectionner les fichiers PDF",
+      "dropFiles": "Ou déposez les PDF ici",
+      "level": "Niveau de compression",
+      "extreme": "COMPRESSION EXTRÊME",
+      "extreme_des": "(Moins de qualité, compression élevée)",
+      "recommended": "COMPRESSION RECOMMANDÉE",
+      "recommended_des": "(Bonne qualité, bonne compression)",
+      "less": "MOINS DE COMPRESSION",
+      "less_des": "(Haute qualité, moins de compression)",
+      "actionBtn": "Compresser le PDF"
+    },
+    "pdf_word": {
+       "title": "Convertisseur PDF en WORD",
+       "description": " Convertissez vos documents PDF en documents WORD avec une précision incroyable.",
+       "selectBtn": "Sélectionner les fichiers WORD",
+       "dropFiles": "Ou déposez les PDF ici",
+       "actionBtn": "Convertir en PDF"
+     },
+     "word_pdf": {
+       "title": "Convertir WORD en PDF",
+       "description": " Facilitez la préparation des fichiers DOC et DOCX en les convertissant en PDF.",
+       "selectBtn": "Sélectionner les fichiers PDF",
+       "dropFiles": "Ou déposez les PDF ici",
+       "actionBtn": "Convertir en WORD"
+     }
   },
   "features": {
     "merge": {

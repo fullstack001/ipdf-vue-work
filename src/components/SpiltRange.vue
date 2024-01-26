@@ -1,19 +1,20 @@
 <template>
   <div>
-    <h3>Range mode:</h3>
+    <h3>{{ $t("page_titles.split_page.rangeMode") }}</h3>
     <md-button
       class="md-raised range_btn"
       v-bind:class="custom_show ? 'active_btn' : ''"
       @click="customRangeEdit"
     >
-      Custom ranges
+      {{ $t("page_titles.split_page.customRange") }}
     </md-button>
     <md-button
       class="md-raised range_btn"
       @click="fixedRangeEdit"
       v-bind:class="custom_show ? '' : 'active_btn'"
-      >Fixed ranges</md-button
     >
+      {{ $t("page_titles.split_page.fixedRange") }}
+    </md-button>
     <div v-show="custom_show">
       <draggable
         :options="{ animation: 150 }"
@@ -36,7 +37,7 @@
                   alt=""
                   style="margin-right: 10px; width: 15px"
                 />
-                Range {{ range.id }}
+                {{ $t("page_titles.split_page.range") }} {{ range.id }}
                 <div
                   class="file__btn remove tooltip--top tooltip"
                   @click="remove(disArray.indexOf(range))"
@@ -50,7 +51,7 @@
               <md-list-item>
                 <div class="md-list-item-text" style="display: contents">
                   <div class="range-area">
-                    <label> From Page</label>
+                    <label>{{ $t("page_titles.split_page.fromPage") }}</label>
                     <input
                       type="number"
                       :max="range.range[1]"
@@ -61,7 +62,7 @@
                   </div>
 
                   <div class="range-area">
-                    <label>To</label>
+                    <label>{{ $t("page_titles.split_page.to") }}</label>
                     <input
                       type="number"
                       :max="maxNumber"
@@ -76,9 +77,9 @@
           </div>
         </div>
       </draggable>
-      <md-button class="md-dense add_range_btn" @click="addRange"
-        >+ Add Range</md-button
-      >
+      <md-button class="md-dense add_range_btn" @click="addRange">{{
+        $t("page_titles.split_page.addRange")
+      }}</md-button>
     </div>
     <div v-show="!custom_show">
       <div>
@@ -94,8 +95,8 @@
         </md-field>
       </div>
       <div class="description">
-        This PDF will be split into files of {{ fixed_range }}.
-        {{ disArray.length }}PDFs will be created
+        {{ $t("page_titles.split_page.split_des_b") }} {{ fixed_range }}.
+        {{ disArray.length }} {{ $t("page_titles.split_page.split_des_a") }}
       </div>
     </div>
   </div>

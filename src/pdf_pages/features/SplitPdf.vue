@@ -12,10 +12,9 @@
     >
       <div class="upload_btn_area">
         <div v-show="!pages.length" class="upload-buttons">
-          <div class="page-title">Split PDF file</div>
+          <div class="page-title">{{ $t("page_titles.split_page.title") }}</div>
           <div class="page-description">
-            Separate one page or a whole set for easy conversion into
-            independent PDF files.
+            {{ $t("page_titles.split_page.description") }}
           </div>
           <div class="drop-area">
             <div class="drop-img">
@@ -23,7 +22,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
-                Select PDF files
+                {{ $t("page_titles.split_page.selectBtn") }}
               </label>
               <input
                 type="file"
@@ -51,7 +50,7 @@
                 />
               </div>
             </div>
-            <div>Or Drop PDFs Here</div>
+            <div>{{ $t("page_titles.split_page.dropFiles") }}</div>
           </div>
         </div>
       </div>
@@ -69,7 +68,7 @@
                 </div>
               </div>
               <div v-show="!extractEdit">
-                <p>Range{{ page.id }}</p>
+                <p>{{ $t("page_titles.split_page.range") }} {{ page.id }}</p>
               </div>
               <div class="split_card" v-if="page.range[0] == page.range[1]">
                 <div
@@ -119,7 +118,7 @@
         ref="sidebar"
         :style="myStyleObject"
       >
-        <h3>Split</h3>
+        <h3>{{ $t("page_titles.split_page.split") }}</h3>
         <div class="tab-area">
           <md-tabs md-alignment="centered">
             <md-tab
@@ -160,12 +159,12 @@
 
         <div class="option__panel option__panel--active" id="merge-options">
           <div v-if="show_checkBox">
-            <md-checkbox v-model="merge_selected" value="true"
-              >Merge all ranges in one PDF file.</md-checkbox
-            >
+            <md-checkbox v-model="merge_selected" value="true">
+              {{ $t("page_titles.split_page.allRange") }}
+            </md-checkbox>
           </div>
           <button class="option__panel__title" @click="splitPDF">
-            Split PDF
+            {{ $t("page_titles.split_page.actionBtn") }}
           </button>
         </div>
       </div>
@@ -247,6 +246,22 @@ export default {
       this.get_pages(data[0]);
     },
 
+    handleDrop(event) {
+      event.preventDefault();
+      let files = event.dataTransfer.files;
+      if (files.length > 1) {
+        this.$swal(
+          "Sorry!",
+          "PDFden cannot process  more than one files in a task",
+          "warning"
+        );
+        return;
+      } else {
+        this.get_pages(files[0]);
+        this.file = files[0];
+      }
+    },
+
     //download from dropbox
     onPickedDropbox(data) {
       this.file = data[0];
@@ -279,14 +294,6 @@ export default {
           console.error(reason);
         }
       );
-    },
-
-    handleDrop(event) {
-      event.preventDefault();
-      const file = event.dataTransfer.files[0];
-      if (file) {
-        this.file = file;
-      }
     },
 
     setExtract(newExtract) {
@@ -517,7 +524,7 @@ export default {
         .then((response) => {
           const obj = {
             id: response.data,
-            button_title: "Successfully Splited",
+            button_title: this.$t("page_titles.split_page.appRange"),
             dis_text: "PDF has been Splited!",
             down_name: "splited_pdf.pdf",
             file_type: "application/pdf",
@@ -570,7 +577,7 @@ export default {
             .then((response) => {
               const obj = {
                 id: response.data,
-                button_title: "Download split PDF",
+                button_title: this.$t("page_titles.split_page.appRange"),
                 dis_text: "PDF has been split!",
                 down_name: "splited_pdf.zip",
                 file_type: "application/zip",

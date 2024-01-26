@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-7 sign_panel text-center">
       <img class="mb-4" src="@/assets/img/vue-logo.png" width="240" srcset="" />
-      <h2 class="my-3">Create new account</h2>
+      <h2 class="my-3">{{ $t("page_titles.signUp.create") }}</h2>
       <!-- <div class="social-btns">
         <div href="" class="btn btn-block btn-twitter text-white mx-2">
           <i class="fab fa-twitter"></i>   Login via Twitter
@@ -18,7 +18,7 @@
           </div>
           <input
             class="form-control py-4"
-            placeholder="Full name"
+            :placeholder="$t('page_titles.signUp.fullName')"
             type="text"
             v-model="userForm.name"
             id="name"
@@ -29,7 +29,7 @@
             v-if="isSubmitted && !$v.userForm.name.required"
             class="invalid-feedback"
           >
-            Name field is required
+            {{ $t("page_titles.signUp.name_req") }}
           </div>
         </div>
         <!-- form-group// -->
@@ -44,7 +44,7 @@
             id="email"
             v-model="userForm.email"
             class="form-control py-4"
-            placeholder="Email address"
+            :placeholder="$t('page_titles.signUp.email')"
             type="text"
             :class="{
               'is-invalid':
@@ -55,15 +55,15 @@
             v-if="isSubmitted && $v.userForm.email.$error"
             class="invalid-feedback"
           >
-            <span v-if="!$v.userForm.email.required"
-              >Email field is required</span
-            >
-            <span v-if="!$v.userForm.email.email"
-              >Please provide valid email</span
-            >
+            <span v-if="!$v.userForm.email.required">
+              {{ $t("page_titles.signUp.email_req") }}
+            </span>
+            <span v-if="!$v.userForm.email.email">
+              {{ $t("page_titles.signUp.email_type") }}
+            </span>
           </div>
           <div v-if="userExit" class="invalid-feedback">
-            <span>User already Exist</span>
+            <span>{{ $t("page_titles.signUp.email_exi") }}</span>
           </div>
         </div>
 
@@ -73,7 +73,7 @@
           </div>
           <input
             class="form-control pt-4 pb-4"
-            placeholder="Create password"
+            :placeholder="$t('page_titles.signUp.pass')"
             type="password"
             v-model="userForm.password"
             id="password"
@@ -86,32 +86,37 @@
             v-if="isSubmitted && $v.userForm.password.$error"
             class="invalid-feedback"
           >
-            <span v-if="!$v.userForm.password.required"
-              >Password field is required</span
-            >
-            <span v-if="!$v.userForm.password.minLength"
-              >Password should be at least 5 characters long</span
-            >
+            <span v-if="!$v.userForm.password.required">
+              {{ $t("page_titles.signUp.pass_req") }}
+            </span>
+            <span v-if="!$v.userForm.password.minLength">
+              {{ $t("page_titles.signUp.pass_length") }}
+            </span>
           </div>
         </div>
 
         <!-- form-group// -->
         <div class="form-group">
           <button type="submit" class="btn btn-danger btn-block signup-btn">
-            Sign up
+            {{ $t("page_titles.signUp.signUp") }}
           </button>
         </div>
         <!-- form-group// -->
-        <p class="text-center">Have an account? <a href="">Log In</a></p>
+        <p class="text-center">
+          {{ $t("page_titles.signUp.have_acc") }}
+          <LocalizedLink to="login">
+            {{ $t("nav-links.login") }}
+          </LocalizedLink>
+        </p>
       </form>
     </div>
     <div class="sign-right col-md-5 padding-auto" p-5>
       <img src="@/assets/img/pdfden.png" class="m-5" width="400px" />
-      <div class="title mt-2 mb-2">PDF tools for productive people</div>
+      <div class="title mt-2 mb-2">
+        {{ $t("page_titles.signUp.tool_title") }}
+      </div>
       <div style="font-size: 20px; margin-top: 40px">
-        iLovePDF helps you convert, edit, e-sign, and protect PDF files quickly
-        and easily. Enjoy a full suite of tools to effectively manage documents
-        —no matter where you’re working.
+        {{ $t("page_titles.signUp.tool_des") }}
       </div>
     </div>
   </div>

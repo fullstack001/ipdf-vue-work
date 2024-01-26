@@ -8,9 +8,11 @@
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
-          <div class="page-title">PDF to WORD Converter</div>
+          <div class="page-title">
+            {{ $t("page_titles.pdf_word.title") }}
+          </div>
           <div class="page-description">
-            Convert your PDF to WORD documents with incredible accuracy.
+            {{ $t("page_titles.pdf_word.description") }}
           </div>
           <div class="drop-area">
             <div class="drop-img">
@@ -18,7 +20,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
-                Select PDF files
+                {{ $t("page_titles.pdf_word.selectBtn") }}
               </label>
               <input
                 type="file"
@@ -64,7 +66,7 @@
                 />
               </div>
             </div>
-            <div>Or Drop PDFs Here</div>
+            <div>{{ $t("page_titles.pdf_word.dropFiles") }}</div>
           </div>
         </div>
       </div>
@@ -78,19 +80,19 @@
             <div
               class="preview-card md-layout-item"
               v-for="(file_obj, index) in file_objs"
-              :key="file_obj.file.name"
-              @mouseover="show_file_action = file_obj.file.name"
+              :key="file_obj.file.name + index"
+              @mouseover="show_file_action = file_obj.file.name + index"
               @mouseleave="show_file_action = null"
             >
               <div
                 class="file__actions"
-                v-show="show_file_action == file_obj.file.name"
+                v-show="show_file_action == file_obj.file.name + index"
               >
                 <a
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
                   data-title="Remove this file"
-                  @click="remove(file_objs.indexOf(file))"
+                  @click="remove(file_objs.indexOf(file_obj))"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -142,11 +144,9 @@
 
     <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3 class="text-center">Compression level</h3>
-
         <div class="option__panel option__panel--active" id="merge-options">
           <button class="option__panel__title" @click="convertToWord">
-            Convert to WORD
+            {{ $t("page_titles.pdf_word.actionBtn") }}
           </button>
         </div>
       </div>
@@ -163,7 +163,6 @@
 import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
-import * as type from "@/store/types";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import AddMoreDropDown from "./components/AddMoreDropDown.vue";
@@ -406,9 +405,12 @@ body {
 .preview-container {
   position: relative;
   margin-top: 2rem;
-  margin-right: 80px;
+  margin-right: 20px;
 }
-
+.md-layout {
+  max-height: 95vh;
+  overflow-y: auto;
+}
 .preview_area {
   display: flex;
 }
@@ -416,7 +418,8 @@ body {
   cursor: grab;
   flex: 1 1;
   margin: 4px;
-  max-width: 250px;
+  max-width: 215px;
+  min-width: 215px;
   height: 250px;
   display: -ms-flexbox;
   display: flex;

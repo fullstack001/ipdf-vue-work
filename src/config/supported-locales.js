@@ -1,5 +1,6 @@
 export default {
   en: "English",
-  fr: "French",
-  ja: "Japanese",
+  fr: "Français",
+  ja: "日本語",
+  it: "Italiano",
 };

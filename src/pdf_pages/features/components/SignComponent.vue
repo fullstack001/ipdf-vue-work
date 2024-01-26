@@ -9,7 +9,7 @@
       ></div>
     </div>
     <div class="col-md-3">
-      <h3 class="mt-3 mb-5">Signing options</h3>
+      <h3 class="mt-3 mb-5">{{ $t("page_titles.sign_page.sign_options") }}</h3>
       <div class="furniture" v-show="sign_obj">
         <div class="sign_item p-1" draggable="true">
           <div class="sign_draggable_drag">
@@ -305,7 +305,7 @@
               v-bind:style="
                 show_img == 'name' ? 'display: none;' : 'display: block; '
               "
-              >Name</span
+              >{{ $t("page_titles.sign_page.name") }}</span
             >
           </div>
           <div class="sign_draggable_actions">
@@ -413,7 +413,7 @@
               v-bind:style="
                 show_img == 'date' ? 'display: none;' : 'display: block; '
               "
-              >Date</span
+              >{{ $t("page_titles.sign_page.date") }}</span
             >
           </div>
           <div class="sign_draggable_actions">
@@ -521,7 +521,7 @@
               v-bind:style="
                 show_img == 'text' ? 'display: none;' : 'display: block; '
               "
-              >Text</span
+              >{{ $t("page_titles.sign_page.text") }}</span
             >
           </div>
           <div class="sign_draggable_actions">
@@ -618,7 +618,9 @@
           </div>
         </div>
       </div>
-      <button class="sign_btn" @click="savePDF">Sign PDF</button>
+      <button class="sign_btn" @click="savePDF">
+        {{ $t("page_titles.sign_page.actionBtn") }}
+      </button>
     </div>
     <DateFormatModal v-if="dateModalValidate" @close="set_date_format" />
     <TextModal v-if="textModalValidate" @close="set_text" :textProps="text" />

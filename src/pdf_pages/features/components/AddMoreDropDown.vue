@@ -10,7 +10,7 @@
         md-content="4"
         v-if="pdfCounts > 0"
       >
-        <md-speed-dial-target class="add_button">
+        <md-speed-dial-target class="add_button" @click="open_add_local">
           <md-icon color="#000">add</md-icon>
           <md-tooltip md-direction="left"
             >{{ $t("toolTip.add_more") }}

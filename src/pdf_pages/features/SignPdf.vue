@@ -24,10 +24,9 @@
     >
       <div class="upload_btn_area">
         <div v-show="!files.length" class="upload-buttons">
-          <div class="page-title">Sign PDF</div>
+          <div class="page-title">{{ $t("page_titles.sign_page.title") }}</div>
           <div class="page-description">
-            Your tool to eSign documents. Sign a document yourself or send a
-            signature request to others.
+            {{ $t("page_titles.sign_page.des") }}
           </div>
           <div class="drop-area">
             <div class="drop-img mb-4">
@@ -35,7 +34,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
-                Select PDF files
+                {{ $t("page_titles.sign_page.selectBtn") }}
               </label>
               <input
                 type="file"
@@ -72,7 +71,7 @@
                 />
               </div>
             </div>
-            <div>Or Drop PDFs Here</div>
+            <div>{{ $t("page_titles.sign_page.dropFiles") }}</div>
           </div>
         </div>
       </div>
@@ -152,8 +151,17 @@ export default {
 
     handleDrop(event) {
       event.preventDefault();
-      const files = event.dataTransfer.files;
-      this.handleFiles(files);
+      let files = event.dataTransfer.files;
+      if (files.length > 1) {
+        this.$swal(
+          "Sorry!",
+          "PDFden cannot process  more than one files in a task",
+          "warning"
+        );
+        return;
+      } else {
+        this.handleFiles(files);
+      }
     },
     handleFiles(files) {
       // Process the dropped files

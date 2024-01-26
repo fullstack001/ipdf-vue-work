@@ -8,9 +8,11 @@
     <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
-          <div class="page-title">Compress PDF file</div>
+          <div class="page-title">
+            {{ $t("page_titles.compress_page.title") }}
+          </div>
           <div class="page-description">
-            Reduce file size while optimizing for maximal PDF quality.
+            {{ $t("page_titles.compress_page.description") }}
           </div>
           <div class="drop-area">
             <div class="drop-img">
@@ -18,7 +20,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
-                Select PDF files
+                {{ $t("page_titles.compress_page.selectBtn") }}
               </label>
               <input
                 type="file"
@@ -64,7 +66,7 @@
                 />
               </div>
             </div>
-            <div>Or Drop PDFs Here</div>
+            <div>{{ $t("page_titles.compress_page.dropFiles") }}</div>
           </div>
         </div>
       </div>
@@ -78,19 +80,19 @@
             <div
               class="preview-card md-layout-item"
               v-for="(file_obj, index) in file_objs"
-              :key="file_obj.file.name"
-              @mouseover="show_file_action = file_obj.file.name"
+              :key="file_obj.file.name + index"
+              @mouseover="show_file_action = file_obj.file.name + index"
               @mouseleave="show_file_action = null"
             >
               <div
                 class="file__actions"
-                v-show="show_file_action == file_obj.file.name"
+                v-show="show_file_action == file_obj.file.name + index"
               >
                 <a
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
                   data-title="Remove this file"
-                  @click="remove(file_objs.indexOf(file))"
+                  @click="remove(file_objs.indexOf(file_obj))"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -142,24 +144,28 @@
 
     <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3 class="text-center">Compression level</h3>
+        <h3 class="text-center">{{ $t("page_titles.compress_page.level") }}</h3>
         <div class="tool__sidebar__inactive">
           <md-radio
             v-model="radio"
             value="50"
             class="split_option"
             :class="radio == 50 ? 'md-checked' : ''"
-            >EXTREME COMPRESSION
-            <p><small>(Less quality, high compression)</small></p>
+            >{{ $t("page_titles.compress_page.extreme") }}
+            <p>
+              <small>{{ $t("page_titles.compress_page.extreme_des") }}</small>
+            </p>
           </md-radio>
           <md-radio
             v-model="radio"
             value="100"
             class="split_option"
             :class="radio == 100 ? 'md-checked' : ''"
-            >RECOMMENDED COMPRESSION
+            >{{ $t("page_titles.compress_page.recommended") }}
             <p>
-              <small>(Good quality, good compression)</small>
+              <small>{{
+                $t("page_titles.compress_page.recommended_des")
+              }}</small>
             </p>
           </md-radio>
           <md-radio
@@ -167,15 +173,15 @@
             value="150"
             class="split_option"
             :class="radio == 150 ? 'md-checked' : ''"
-            >LESS COMPRESSION
+            >{{ $t("page_titles.compress_page.less") }}
             <p>
-              <small>(High quality, less compression)</small>
+              <small>{{ $t("page_titles.compress_page.less_des") }}</small>
             </p>
           </md-radio>
         </div>
         <div class="option__panel option__panel--active" id="merge-options">
           <button class="option__panel__title" @click="expressPDFs">
-            Compress PDF
+            {{ $t("page_titles.compress_page.actionBtn") }}
           </button>
         </div>
       </div>
@@ -279,6 +285,7 @@ export default {
 
     onChange() {
       const data = this.$refs.file.files;
+      this.$refs.file.values = "";
       var add_objs = [],
         i = 0;
       for (i = 0; i < data.length; i++) {
@@ -454,39 +461,41 @@ body {
 }
 .preview-container {
   position: relative;
-  margin-top: 2rem;
-}
-.md-layout {
-  margin-right: 40px;
+  padding-left: 15px;
+  margin-right: 20px;
 }
 
 .preview_area {
   display: flex;
 }
+.md-layout {
+  max-height: 95vh;
+  overflow-y: auto;
+}
 .preview-card {
   cursor: grab;
   flex: 1 1;
   margin: 4px;
-  max-width: 250px;
-  height: 250px;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-line-pack: distribute;
-  align-content: space-around;
-  -ms-flex-pack: center;
-  justify-content: center;
+  max-width: 215px;
+  min-width: 215px;
+  min-height: 230px;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0);
   background: #fdfdfd;
   border-radius: 8px;
   -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+  padding-bottom: 10px;
 }
 
+.preview-card:focus,
+.preview-card:active,
+.preview-card:visited {
+  border: dotted 2px #e76d26;
+}
+.preview_img {
+  margin-top: 40px;
+}
 .preview-img {
   width: 140px;
   height: 180px;

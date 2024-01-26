@@ -31,11 +31,34 @@
         "button": "Get Free Account"
       }
     },
+    "signUp": {
+      "create": "Create New Account",
+      "name_req": "Name field is required",
+      "fullName": "Full name",
+      "email": "Email address",
+      "email_req": "Email field is required",
+      "email_type": "Please provide valid email",
+      "email_exi": "User already exist",
+      "pass": "Create password",
+      "pass_req": "Password field is required",
+      "pass_length": "Password should be at least 6 characters long",
+      "signUp": "Sign Up",
+      "have_acc": "Have an account?",
+      "login": "Log IN",
+      "tool_title": "PDF tools for productive people",
+      "tool_des": " PDFDen helps you convert, edit, e-sign, and protect PDF files quickly and easily. Enjoy a full suite of tools to effectively manage documents —no matter where you’re working."
+    },
     "merge_page": {
       "title": "Merge PDF files",
       "description": "Combine PDFs in the order you want with the easiest PDF merge available.",
       "selectBtn": "Select PDF Files",
       "dropFiles": "Or Drop PDFs Here",
+      "mergePdf": "MergePDF",
+      "one_des": "To change the order of your PDFs, drag and drop the files as you want.",
+      "more_des": "Please, select more PDF files by clicking again on ’Select PDF files’.",
+      "more_des_a": "Select multiple files by mantaining pressed ’Ctrl’",
+      "multi": "Please, select more PDF files",
+      "actionBtn": "Merge PDF",
       "howSection": {
         "title": "How to combine PDF files",
         "description": "Follow these easy steps to combine PDF documents into one file:",
@@ -94,11 +117,104 @@
         "description3": "Works on Mac, Windows, Android, and iOS."
       }
     },
-    "rotate_page":{
+    "rotate_page": {
       "title": "Rotate PDF",
       "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
       "selectBtn": "Select PDF Files",
-      "dropFiles": "Or Drop PDFs Here"
+      "dropFiles": "Or Drop PDFs Here",
+      "rotatePdf": "Rotate PDF",
+      "info_a": "Mouse over PDF file below and a",
+      "info_b": "icon will appear, click on the arrows to rotate PDFs.",
+      "set_rotate": "Select files to rotate:",
+      "reset": "Reset All",
+      "all": "All",
+      "portrait": "Portrait",
+      "landscape": "LandScape",
+      "rotation": "Rotation",
+      "right": "Right",
+      "left": "Left",
+      "actionBtn": "Rotate PDF"
+    },
+    "edit_page": {
+      "title": "PDF Editor",
+      "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
+      "selectBtn": "Select PDF Files",
+      "dropFiles": "Or Drop PDFs Here",
+      "editPdf": "Edit PDF",
+      "elements": "Elements",
+      "ele_des": "From this toolbar you can reorder elements to move them back or in front of the document.",
+      "actionBtn": "Edit PDF"
+    },
+
+    "pdf_word": {
+      "title": "PDF to WORD Converter",
+      "description": " Convert your PDF to WORD documents with incredible accuracy.",
+      "selectBtn": "Select WORD files",
+      "dropFiles": "Or Drop PDFs Here",
+      "actionBtn": "Convert to PDF"
+    },
+    "word_pdf": {
+      "title": "Convert WORD to PDF",
+      "description": " Make DOC and DOCX file easy to ready by converting them to PDF.",
+      "selectBtn": "Select PDF Files",
+      "dropFiles": "Or Drop PDFs Here",
+      "actionBtn": "Convert to WORD"
+    },
+    "split_page": {
+      "title": "Split PDF file",
+      "description": "Edit PDF by adding text, shapes, comments and highlights. Your secure and simple too to edit.",
+      "selectBtn": "Select PDF Files",
+      "dropFiles": "Or Drop PDFs Here",
+      "range": "range",
+      "split": "Split",
+      "allRange": "Merge all ranges in one PDF file.",
+      "actionBtn": "Split PDF",
+      "down_btn_title": "Successfully Splited",
+      "rangeMode": "Range mode:",
+      "customRange": "Custom range",
+      "fixedRange": "Fixed range",
+      "fromPage": "From Page",
+      "to": "To",
+      "addRange": "+ Add Range",
+      "split_des_b": "This PDF will be split into files of",
+      "split_des_a": " PDFs will be created",
+      "extractMode": "Extract Mode",
+      "extractAll": "Extract all pages",
+      "selectPage": "Select page",
+      "extract_des_b": "Seleceted pages will be converted into separate PDF files.",
+      "extract_des_a": "Pdf will be created",
+      "split_by_range": "SPLIT BY RANGE",
+      "extract_pages": "EXTRACT PAGES"
+    },
+    "compress_page": {
+      "title": "Compress PDF file",
+      "description": "Reduce file size while optimizing for maximal PDF quality.",
+      "selectBtn": "Select PDF Files",
+      "dropFiles": "Or Drop PDFs Here",
+      "level": "Compression Level",
+      "extreme": "EXTREME COMPRESSION",
+      "extreme_des": "(Less quality, high compression)",
+      "recommended": "RECOMMENDED COMPRESSION",
+      "recommended_des": "(Good quality, good compression)",
+      "less": "LESS COMPRESSION",
+      "less_des": "(High quality, less compression)",
+      "actionBtn": "Compress PDF"
+    },
+    "sign_page": {
+      "title": "Sign PDF",
+      "des": "Your tool to eSign documents. Sign a document yourself or send a signature request to others.",
+      "selectBtn": "Select PDF Files",
+      "dropFiles": "Or Drop PDFs Here",
+      "sign_options": "Signing options",
+      "name": "Name",
+      "date": "Date",
+      "text": "Text",
+      "actionBtn": "sign PDF",
+      "fullName": "Full Name: ",
+      "initials": "Initials: ",
+      "signature": "Signature",
+      "initial": "Initial",
+      "stamp": "Company Stamp"
     }
   },
   "features": {
@@ -188,6 +304,6 @@
     "save_dropBox": "Save to Dropbox",
     "save_google": "Save to Google Drive",
     "link": "Share File Link or Scan QR",
-    "add_more":"Add more files"
+    "add_more": "Add more files"
   }
 }

@@ -25,10 +25,11 @@
     >
       <div class="upload_btn_area">
         <div class="upload-buttons">
-          <div class="page-title">PDF Editor</div>
+          <div class="page-title">
+            {{ $t("page_titles.edit_page.title") }}
+          </div>
           <div class="page-description">
-            Edit PDF by adding text, shapes, comments and highlights. Your
-            secure and simple too to edit.
+            {{ $t("page_titles.edit_page.description") }}
           </div>
           <div class="drop-area">
             <div class="drop-img">
@@ -36,7 +37,7 @@
             </div>
             <div class="upload_btn">
               <label for="fileInput" class="uploader__btn md-raised md-danger">
-                Select PDF file
+                {{ $t("page_titles.edit_page.selectBtn") }}
               </label>
               <input
                 type="file"
@@ -77,7 +78,7 @@
                 />
               </div>
             </div>
-            <div>Or Drop PDFs Here</div>
+            <div>{{ $t("page_titles.edit_page.dropFiles") }}</div>
           </div>
         </div>
       </div>
@@ -86,20 +87,23 @@
     <div v-if="file" id="sidebar">
       <div class="tool__sidebar" style="overflow-y: auto">
         <div class="edit-title">
-          <h3 class="text-center">Edit PDF</h3>
+          <h3 class="text-center">
+            {{ $t("page_titles.edit_page.editPdf") }}
+          </h3>
         </div>
 
         <div class="edit-description">
-          <div class="edit-desc-title">Elements</div>
+          <div class="edit-desc-title">
+            {{ $t("page_titles.edit_page.elements") }}
+          </div>
           <div class="edit-desc-detail">
-            From this toolbar you can reorder elements to move them back or in
-            front of the document.
+            {{ $t("page_titles.edit_page.ele_des") }}
           </div>
         </div>
 
         <div class="option__panel option__panel--active" id="merge-options">
           <button class="option__panel__title" @click="get_edit_result">
-            Edit PDF
+            {{ $t("page_titles.edit_page.actionBtn") }}
           </button>
         </div>
       </div>
@@ -153,7 +157,16 @@ export default {
     handleDrop(event) {
       event.preventDefault();
       const files = event.dataTransfer.files;
-      this.file = files[0];
+      if (files.length > 1) {
+        this.$swal(
+          "Sorry!",
+          "PDFden cannot process  more than one files in a task",
+          "warning"
+        );
+        return;
+      } else {
+        this.handleFiles(files[0]);
+      }
     },
     //download from dropbox
     onPickedDropbox(data) {

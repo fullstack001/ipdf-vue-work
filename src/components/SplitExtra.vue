@@ -1,24 +1,24 @@
 <template>
   <div>
-    <h3>Extract Mode</h3>
+    <h3>{{ $t("page_titles.split_page.extractMode") }}</h3>
     <div>
       <md-button
         class="md-raised add_range_btn"
         @click="selAll"
         v-bind:class="disAll ? 'active_btn' : ''"
-        >Extract all pages</md-button
+        >{{ $t("page_titles.split_page.extractAll") }}</md-button
       >
       <md-button
         class="md-raised add_range_btn"
         @click="selPage"
         v-bind:class="disAll ? '' : 'active_btn'"
-        >Select pages</md-button
+        >{{ $t("page_titles.split_page.selectPage") }}</md-button
       >
     </div>
     <div>
       <div v-if="disAll" class="description">
-        Seleceted pages will be converted into separate PDF files.
-        {{ maxNum }}PDF will be created
+        {{ $t("page_titles.split_page.extract_des_b") }}
+        {{ maxNum }}{{ $t("page_titles.split_page.extract_des_a") }}
       </div>
       <div v-else>
         <md-field style="padding: 0 20px">

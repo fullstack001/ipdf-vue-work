@@ -61,7 +61,7 @@
               {{ $t("page_titles.merge_page.dropFiles") }}
             </div>
           </div>
-          <div class="security-area">
+          <!-- <div class="security-area">
             <div class="security-titlel">
               <div class="security-img">
                 <img src="@/assets/img/carbon_security.png" alt="" />
@@ -102,7 +102,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="merge-descriptions">
             <div class="block__container">
               <div class="description-areas">
@@ -426,13 +426,13 @@
             <div
               class="preview-card md-layout-item"
               v-for="(file_obj, index) in file_objs"
-              :key="file_obj.file.name"
-              @mouseover="show_file_action = file_obj.file.name"
+              :key="file_obj.file.name + index"
+              @mouseover="show_file_action = file_obj.file.name + index"
               @mouseleave="show_file_action = null"
             >
               <div
                 class="file__actions"
-                v-show="show_file_action == file_obj.file.name"
+                v-show="show_file_action == file_obj.file.name + index"
               >
                 <a
                   class="file__btn rotate tooltip--top tooltip"
@@ -503,7 +503,7 @@
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
                   data-title="Remove this file"
-                  @click="remove(file_objs.indexOf(file))"
+                  @click="remove(file_objs.indexOf(file_obj))"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -530,8 +530,8 @@
                 }}
               </div>
               <md-tooltip md-direction="top"
-                >{{ (file_obj.file.size / 1024).toFixed(2) }} KByte
-                {{ file_obj.page }}pages
+                >{{ (file_obj.file.size / 1024).toFixed(2) }} Kbyte
+                {{ file_obj.page }} pages
               </md-tooltip>
             </div>
           </draggable>
@@ -604,12 +604,12 @@
 
     <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3>Rotate PDF</h3>
+        <h3>{{ $t("page_titles.rotate_page.rotatePdf") }}</h3>
 
         <div class="option__panel option__panel--active" id="merge-options">
           <div class="option__panel__content">
             <div class="info multiple">
-              Mouse over PDF file below and a
+              {{ $t("page_titles.rotate_page.info_a") }}
               <svg width="14" height="17" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="m11.328 6.375 1.24-1.2A6.505 6.505 0 0 1 14 8.452h-1.775a4.904 4.904 0 0 0-.896-2.087l-.001.01Zm.896 3.778H14a6.552 6.552 0 0 1-1.424 3.288l-1.24-1.2a4.963 4.963 0 0 0 .888-2.088Zm-.888 4.497a7.118 7.118 0 0 1-3.427 1.36v-1.725a5.31 5.31 0 0 0 2.162-.871l1.266 1.226-.001.01ZM6.152 2.595V0l4 3.846-4 3.76V4.303c-2.496.406-4.394 2.485-4.394 4.995 0 2.51 1.898 4.6 4.394 4.995v1.708C2.68 15.585 0 12.745 0 9.298c0-3.447 2.68-6.29 6.152-6.703Z"
@@ -617,17 +617,19 @@
                   fill-rule="evenodd"
                 ></path>
               </svg>
-              icon will appear, click on the arrows to rotate PDFs.
+              {{ $t("page_titles.rotate_page.info_b") }}
             </div>
           </div>
           <div class="rotate-action-panel">
             <div>
               <div class="form__group">
                 <div class="option__title fileSelector">
-                  Select files to rotate:
+                  {{ $t("page_titles.rotate_page.set_rotate") }}
                 </div>
                 <div class="float-right option" data-action="reset">
-                  <a @click="reset_all">Reset all</a>
+                  <a @click="reset_all">
+                    {{ $t("page_titles.rotate_page.reset") }}
+                  </a>
                 </div>
               </div>
               <ul
@@ -673,7 +675,9 @@
                       </g>
                     </g>
                   </svg>
-                  <div class="option__image__item__title">All</div>
+                  <div class="option__image__item__title">
+                    {{ $t("page_titles.rotate_page.all") }}
+                  </div>
                 </li>
                 <li
                   class="option__image__item"
@@ -708,7 +712,9 @@
                       </g>
                     </g>
                   </svg>
-                  <div class="option__image__item__title">Portrait</div>
+                  <div class="option__image__item__title">
+                    {{ $t("page_titles.rotate_page.portrait") }}
+                  </div>
                 </li>
                 <li
                   class="option__image__item"
@@ -743,13 +749,17 @@
                       </g>
                     </g>
                   </svg>
-                  <div class="option__image__item__title">Landscape</div>
+                  <div class="option__image__item__title">
+                    {{ $t("page_titles.rotate_page.landscape") }}
+                  </div>
                 </li>
               </ul>
             </div>
           </div>
           <div class="option__panel__content1">
-            <div class="option__title">Rotation</div>
+            <div class="option__title">
+              {{ $t("page_titles.rotate_page.rotation") }}
+            </div>
             <div class="form__group">
               <div class="option__actions">
                 <button
@@ -760,7 +770,7 @@
                   <div class="option__btn__icon">
                     <i class="fa-solid fa-rotate-right"></i>
                   </div>
-                  <span>Right</span>
+                  <span>{{ $t("page_titles.rotate_page.right") }}</span>
                 </button>
 
                 <button
@@ -771,13 +781,13 @@
                   <div class="option__btn__icon">
                     <i class="fa-solid fa-rotate-left"></i>
                   </div>
-                  <span>Left</span>
+                  <span>{{ $t("page_titles.rotate_page.left") }}</span>
                 </button>
               </div>
             </div>
           </div>
           <button class="option__panel__title" @click="rotatePdfs">
-            Rotate PDF
+            {{ $t("page_titles.rotate_page.actionBtn") }}
           </button>
         </div>
       </div>
@@ -1410,7 +1420,8 @@ ul {
   cursor: grab;
   flex: 1 1;
   margin: 4px;
-  max-width: 200px;
+  max-width: 215px;
+  min-width: 215px;
   min-height: 230px;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0);
@@ -1856,6 +1867,11 @@ h3 {
 .security-area .md-layout {
   width: 80%;
   margin: auto;
+}
+.md-layout {
+  margin-right: 80px;
+  max-height: 95vh;
+  overflow-y: auto;
 }
 
 .security-titlel {

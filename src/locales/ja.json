@@ -31,11 +31,34 @@
         "button": "無料アカウント"
       }
     },
+    "signUp": {
+       "create": "新しいアカウントを作成",
+       "name_req": "名前フィールドは必須です",
+       "fullName": "フルネーム",
+       "email": "メールアドレス",
+       "email_req": "電子メールフィールドは必須です",
+       "email_type": "有効な電子メールを入力してください",
+       "email_exi": "ユーザーはすでに存在します",
+       "pass": "パスワードを作成",
+       "pass_req": "パスワードフィールドは必須です",
+       "pass_length": "パスワードの長さは少なくとも 6 文字である必要があります",
+       "signUp": "サインアップ",
+       "have_acc": "アカウントをお持ちですか?",
+       "login": "ログイン",
+       "tool_title": "生産的な人々のための PDF ツール",
+       "tool_des": " PDFDen を使用すると、PDF ファイルの変換、編集、電子署名、保護を迅速かつ簡単に行うことができます。作業場所に関係なく、ドキュメントを効果的に管理するためのツール一式をお楽しみください。"
+     },
     "merge_page": {
       "title": "PDF ファイルを結合",
       "description": "最も簡単な PDF 結合を使用して、希望する順序で PDF を結合します。",
       "selectBtn": "PDF ファイルを選択",
       "dropFiles": "または PDF をここにドロップします",
+      "mergePdf": "PDF をマージ",
+      "one_des": "PDF の順序を変更するには、必要に応じてファイルをドラッグ アンド ドロップします。",
+      "more_des": "「PDF ファイルを選択」をもう一度クリックして、さらに PDF ファイルを選択してください。",
+      "mere_des_a": "「Ctrl」を押したままにして複数のファイルを選択します",
+      "multi": "さらに PDF ファイルを選択してください",
+      "actionBtn": "PDF を結合",
       "howSection": {
         "title": "PDF ファイルを結合する方法",
         "description": "PDF ドキュメントを 1 つのファイルに結合するには、次の簡単な手順に従ってください:",
@@ -94,12 +117,102 @@
         "description3": "Mac、Windows、Android、iOS で動作します。"
       }
     },
-    "rotate_page": {
-      "title": "PDF を回転",
+   "rotate_page": {
+       "title": "PDF を回転",
+       "description": "必要に応じて PDF を回転します。複数の PDF を一度に回転することもできます!",
+       "selectBtn": "PDF ファイルを選択",
+       "dropFiles": "または PDF をここにドロップします",
+       "rotatePdf": "PDF を回転",
+       "info_a": "下の PDF ファイルにマウスを置くと、a",
+       "info_b": "アイコンが表示されます。矢印をクリックして PDF を回転します。",
+       "set_rotate": "回転するファイルを選択してください:",
+       "reset": "すべてリセット",
+       "all": "すべて",
+       "portrait": "ポートレート",
+       "landscape": "風景",
+       "rotation": "回転",
+       "right":"そう",
+       "left": "左",
+       "actionBtn": "PDF を回転"
+     },
+    "split_page": {
+      "title": "PDF ファイルを分割",
+      "description": "1 ページまたはセット全体を分割して、独立した PDF ファイルに簡単に変換できます。",
+      "selectBtn": "PDF ファイルを選択",
+      "dropFiles": "または PDF をここにドロップします",
+      "range": "範囲",
+      "split": "分割",
+      "allRange": "すべての範囲を 1 つの PDF ファイルに結合します。",
+      "actionBtn": "PDF を分割",
+      "down_btn_title": "分割に成功しました",
+      "rangeMode": "レンジモード:",
+      "customRange": "カスタム範囲",
+      "fixedRange": "固定範囲",
+      "fromPage": "ページから",
+      "to": "へ",
+      "addRange": "+ 範囲を追加",
+      "split_des_b": "この PDF は次のファイルに分割されます",
+      "split_des_a": " PDF が作成されます",
+      "extractMode": "抽出モード",
+      "extractAll": "すべてのページを抽出",
+      "selectPage": "ページを選択",
+      "extract_des_b": "選択したページは個別の PDF ファイルに変換されます。",
+      "extract_des_a": "PDF が作成されます"
+    },
+    "compress_page": {
+      "title": "PDF ファイルを圧縮",
+      "description": "PDF 品質を最大限に高めるために最適化しながらファイル サイズを削減します。",
+      "selectBtn": "PDF ファイルを選択",
+      "dropFiles": "または PDF をここにドロップします",
+      "level": "圧縮レベル",
+      "extreme": "極端な圧縮",
+      "extreme_des": "(低品質、高圧縮)",
+      "recommended": "推奨圧縮",
+      "recommended_des": "(高品質、高圧縮)",
+      "less": "圧縮を軽減",
+      "less_des": "(高品質、低圧縮)",
+      "actionBtn": "PDF を圧縮"
+    },
+    "sign_page": {
+      "title": "PDF に署名",
+      "des": "ドキュメントに電子署名するためのツール。自分でドキュメントに署名するか、他の人に署名リクエストを送信します。",
+      "selectBtn": "PDF ファイルを選択",
+      "dropFiles": "または PDF をここにドロップします",
+      "sign_options": "署名オプション",
+      "name": "名前",
+      "date": "日付",
+      "text": "テキスト",
+      "actionBtn": "PDF に署名",
+      "fullName": "フルネーム: ",
+      "initials": "イニシャル: ",
+      "signature": "署名",
+      "initial": "初期",
+      "stamp": "社印"
+    },
+    "edit_page": {
+      "title": "PDF エディター",
       "description": "必要に応じて PDF を回転します。複数の PDF を一度に回転することもできます!",
       "selectBtn": "PDF ファイルを選択",
-      "dropFiles": "または PDF をここにドロップします"
-    }
+      "dropFiles": "または PDF をここにドロップします",
+      "editPdf": "PDF を編集",
+      "elements": "要素",
+      "ele_des": "このツールバーから要素を並べ替えて、ドキュメントの前後に移動できます。",
+      "actionBtn": "PDF を編集"
+    },
+    "pdf_word": {
+       "title": "PDF から WORD へのコンバーター",
+       "description": " 信じられないほどの精度で PDF を WORD ドキュメントに変換します。",
+       "selectBtn": "WORD ファイルを選択",
+       "dropFiles": "または PDF をここにドロップします",
+       "actionBtn": "PDF に変換"
+     },
+     "word_pdf": {
+       "title": "WORD を PDF に変換",
+       "description": " DOC および DOCX ファイルを PDF に変換することで、簡単に準備できるようにします。",
+       "selectBtn": "PDF ファイルを選択",
+       "dropFiles": "または PDF をここにドロップします",
+       "actionBtn": "WORD に変換"
+     }
   },
   "features": {
     "merge": {

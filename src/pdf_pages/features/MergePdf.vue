@@ -423,13 +423,13 @@
             <div
               class="preview-card md-layout-item"
               v-for="(file_obj, index) in file_objs"
-              :key="file_obj.file.name"
-              @mouseover="show_file_action = file_obj.file.name"
+              :key="file_obj.file.name + index"
+              @mouseover="show_file_action = file_obj.file.name + index"
               @mouseleave="show_file_action = null"
             >
               <div
                 class="file__actions"
-                v-show="show_file_action == file_obj.file.name"
+                v-show="show_file_action == file_obj.file.name + index"
               >
                 <a
                   class="file__btn rotate tooltip--top tooltip"
@@ -455,7 +455,7 @@
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
                   data-title="Remove this file"
-                  @click="remove(file_objs.indexOf(file))"
+                  @click="remove(file_objs.indexOf(file_obj))"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -556,7 +556,7 @@
 
     <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3>MergePDF</h3>
+        <h3>{{ $t("page_titles.merge_page.mergePdf") }}</h3>
 
         <div class="option__panel option__panel--active" id="merge-options">
           <div class="option__panel__content">
@@ -565,21 +565,23 @@
               style="display: none"
               v-show="file_objs.length == 1"
             >
-              To change the order of your PDFs, drag and drop the files as you
-              want.
+              {{ $t("page_titles.merge_page.one_des") }}
             </div>
             <div class="info multiple" v-show="file_objs.length > 1">
-              Please, select more PDF files by clicking again on ’Select PDF
-              files’. <br />Select multiple files by mantaining pressed ’Ctrl’
+              {{ $t("page_titles.merge_page.more_des") }}
+              <br />
+              {{ $t("page_titles.merge_page.more_des_a") }}
             </div>
-            <div class="multiple hidden">Please, select more PDF files</div>
+            <div class="multiple hidden">
+              {{ $t("page_titles.merge_page.multi") }}
+            </div>
           </div>
           <button
             class="option__panel__title"
             @click="mergePDFs"
             :disabled="file_objs.length == 1"
           >
-            Merge PDF
+            {{ $t("page_titles.merge_page.actionBtn") }}
           </button>
         </div>
       </div>
@@ -895,8 +897,7 @@ body {
 .preview-container {
   position: relative;
   margin-top: 2rem;
-  padding-left: 20px;
-  margin-right: 80px;
+  padding-left: 40px;
 }
 
 .preview_area {
@@ -906,7 +907,8 @@ body {
   cursor: grab;
   flex: 1 1;
   margin: 4px;
-  max-width: 200px;
+  max-width: 215px;
+  min-width: 215px;
   min-height: 230px;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0);
@@ -1342,6 +1344,10 @@ h3 {
   margin-right: auto;
   margin-left: auto;
   max-width: 91%;
+}
+.md-layout {
+  max-height: 95vh;
+  overflow-y: auto;
 }
 
 .security-area .md-layout {
