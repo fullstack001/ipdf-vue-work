@@ -1,0 +1,310 @@
+{
+    "nav-links": {
+        "login": "Log masuk",
+        "signup": "Daftar",
+        "about": "About",
+        "merge_pdf": "Gabungkan PDF",
+        "split_pdf": "Split PDF",
+        "compress_pdf": "Mampatkan PDF",
+        "convert_pdf": "Tukar PDF",
+        "blog": "Blog",
+        "copyright": "Hak Cipta PdfDen. Hak cipta terpelihara."
+    },
+    "page_titles": {
+      "landing": {
+        "title1": "Setiap Alat yang Anda Perlukan Untuk Bekerja dengan PDF Di Satu Tempat",
+         "text1": "Setiap alat yang anda perlukan untuk menggunakan PDF, di hujung jari anda. Semuanya 100% PERCUMA dan mudah digunakan! Gabung, Pisahkan, Mampat, Tukar, Putar, Buka kunci dan tanda air PDF dengan hanya beberapa klik",
+        "section1": {
+            "title": "Berita Terkini Dari Syarikat Kami",
+            "title1": "Lerem Ipsum hanyalah tiruan",
+            "text1": "Lerem Ipsum hanyalah teks tiruan cetakan dan taip indremm",
+            "title2": "Lorem Ipsum hanyalah tiruan",
+            "text2": "Lerem Ipsum hanyalah teks tiruan bagi cetakan dan taip indremm",
+            "title3": "Lerem Ipsum hanyalah tiruan",
+            "text3": "Lerem Ipsum hanyalah teks tiruan bagi cetakan dan taip indremm"
+        },
+        "section2": {
+            "title": "Daftar Untuk Akaun Percuma",
+            "item1": "Hayat Fail Lanjutan",
+            "item2": "Akses Muat Turun Keutamaan",
+            "item3": "Semua fail anda di satu tempat",
+            "button": "Dapatkan Akaun Percuma"
+        }
+      },
+      "signUp": {
+        "create": "Buat Akaun Baharu",
+         "name_req": "Medan nama diperlukan",
+         "fullName": "Nama penuh",
+         "email": "Alamat e-mel",
+         "email_req": "Medan e-mel diperlukan",
+         "email_type": "Sila berikan e-mel yang sah",
+         "email_exi": "Pengguna sudah wujud",
+         "pass": "Buat kata laluan",
+         "pass_req": "Medan kata laluan diperlukan",
+         "pass_length": "Kata laluan hendaklah sekurang-kurangnya 6 aksara",
+         "signUp": "Daftar",
+         "have_acc": "Ada akaun?",
+         "log masuk": "Log MASUK",
+         "tool_title": "Alat PDF untuk orang yang produktif",
+         "tool_des": " PDFDen membantu anda menukar, mengedit, menandatangani elektronik dan melindungi fail PDF dengan cepat dan mudah. Nikmati set lengkap alatan untuk mengurus dokumen dengan berkesan —tidak kira di mana anda bekerja."
+      },
+      "merge_page": {
+        "title": "Gabungkan fail PDF",
+        "description": "Gabungkan PDF mengikut susunan yang anda inginkan dengan gabungan PDF paling mudah tersedia.",
+        "selectBtn": "Pilih Fail PDF",
+        "dropFiles": "Atau Lepaskan PDF Di Sini",
+        "mergePdf": "MergePDF",
+        "one_des": "Untuk menukar susunan PDF anda, seret dan lepas fail seperti yang anda mahu.",
+        "more_des": "Sila, pilih lebih banyak fail PDF dengan mengklik sekali lagi pada 'Pilih fail PDF'.",
+        "mere_des_a": "Pilih berbilang fail dengan mengekalkan 'Ctrl' yang ditekan",
+        "multi": "Sila, pilih lebih banyak fail PDF",
+        "actionBtn": "Gabungkan PDF",
+        "howSection": {
+            "title": "Cara menggabungkan fail PDF",
+            "description": "Ikuti langkah mudah ini untuk menggabungkan dokumen PDF ke dalam satu fail:",
+            "list1": "Klik butang Pilih fail di atas, atau seret dan lepaskan fail ke dalam zon jatuh.",
+            "list2": "Pilih fail yang anda ingin gabungkan menggunakan alat penggabung PDF Acrobat.",
+            "list3": "Susun semula fail jika perlu.",
+            "list4": "Klik Gabungkan fail.",
+            "list5": "Log masuk untuk memuat turun atau berkongsi fail yang digabungkan. Anda juga boleh menyusun halaman."
+        },
+        "trySection": {
+          "title": "Try our PDF merger tool",
+          "title1": "Combine PDFs into one file",
+          "title2": "Simplify with a combined PDF",
+          "title3": "Organize your online PDF",
+          "title4": "Download your file or share it",
+          "title5": "Work in any web browser",
+          "title6": "Use the best PDF combiner",
+          "description1": "It's quick and easy to merge PDF files into a single document with the Adobe Acrobat online tool. Just add files, merge them, and you're done.",
+          "description2": "Merging multiple files into one PDF lets you store and review them more easily. You can also share files with others more efficiently by emailing a link to a single, merged PDF file.",
+          "description3": "After you combine PDF files, simply sign in to organize individual pages. You can move, add, delete, or rotate PDF pages as needed until you've created the perfect document.",
+          "description4": "You can download the merged PDF file with a click or by signing in. You can also share your new file with a friend or colleague when you sign in.",
+          "description5": "Use our PDF merger online tool in any web browser, such as Microsoft Edge or Google Chrome. It also works on Mac, Windows, and Linux operating systems.",
+          "description6": "Adobe invented the PDF file format, making our PDF tools highly trusted. Use our PDF combiner to merge files and keep your work moving from anywhere."
+        },
+        "articleSection": {
+            "title": "Gabungkan Artikel Blog PDF",
+            "title1": "Lorem Ipsum hanyalah tiruan",
+            "title2": "Lorem Ipsum hanyalah tiruan",
+            "title3": "Lorem Ipsum hanyalah tiruan",
+            "description1": "Lorem Ipsum hanyalah teks tiruan bagi cetakan dan taip indremm mempunyai ..",
+            "description2": "Lorem Ipsum hanyalah teks tiruan bagi cetakan dan taip indremm mempunyai ..",
+            "description3": "Lorem Ipsum hanyalah teks tiruan bagi cetakan dan taip indremm mempunyai .."
+        },
+        "qaSection": {
+            "title": "Soalan? Kami ada jawapan."
+        },
+        "rateSection": {
+            "title": "Nilai pengalaman anda",
+            "vote": "undi"
+        },
+        "onlineSection": {
+            "title": "Cuba alatan dalam talian Acrobat ini",
+            "title1": "Gabungkan PDF",
+            "title2": "Pemisah PDF",
+            "title3": "Mampat PDF",
+            "title4": "Tukar PDF ",
+            "description1": "Gabungkan PDF mengikut susunan yang anda mahukan dengan penggabungan PDF paling mudah tersedia.",
+            "description2": "Asingkan satu halaman atau satu set keseluruhan untuk penukaran mudah kepada fail PDF bebas. ",
+            "description3": "Kurangkan saiz fail sambil mengoptimumkan kualiti PDF maksimum.",
+            "description4": "Tukar fail PDF anda dengan mudah kepada dokumen DOC dan DOCX yang mudah diedit. Dokumen WORD yang ditukar hampir 100% tepat."
+        },
+        "securitySection": {
+            "title": "Fail anda akan dikendalikan dengan selamat oleh pelayan Adobe dan dipadam melainkan anda log masuk untuk menyimpannya. Dengan menggunakan perkhidmatan ini, anda bersetuju menerima Syarat Penggunaan dan Dasar Privasi Adobe.",
+            "description1": "Gabungkan berbilang PDF menjadi satu dalam beberapa saat.",
+            "description2": "Seret & lepaskan PDF anda untuk bermula—mudah!",
+            "description3": "Berfungsi pada Mac, Windows, Android dan iOS."
+        }
+      },
+      "rotate_page": {
+        "title": "Putar PDF",
+         "description": "Putar PDF anda mengikut cara yang anda perlukan. Malah anda boleh memutar berbilang PDF sekaligus!",
+         "selectBtn": "Pilih Fail PDF",
+         "dropFiles": "Atau Lepaskan PDF Di Sini",
+         "rotatePdf": "Putar PDF",
+         "info_a": "Tetikus pada fail PDF di bawah dan a",
+         "info_b": "ikon akan muncul, klik pada anak panah untuk memutar PDF.",
+         "set_rotate": "Pilih fail untuk diputar:",
+         "reset": "Tetapkan Semula Semua",
+         "all": "Semua",
+         "portrait": "Potret",
+         "landscape": "Lanskap",
+         "rotation": "Putaran",
+         "right":  "betul",
+         "left": "Kiri",
+         "actionBtn": "Putar PDF"
+      },
+      "edit_page": {
+        "title": "Editor PDF",
+        "description": "Putar PDF anda mengikut cara yang anda perlukan. Malah anda boleh memutar berbilang PDF sekaligus!",
+        "selectBtn": "Pilih Fail PDF",
+        "dropFiles": "Atau Lepaskan PDF Di Sini",
+        "editPdf": "Edit PDF",
+        "elemen": "Unsur",
+        "ele_des": "Daripada bar alat ini anda boleh menyusun semula elemen untuk mengalihkannya ke belakang atau di hadapan dokumen.",
+        "actionBtn": "Edit PDF"
+      },
+  
+      "pdf_word": {
+        "title": "Penukar PDF ke WORD",
+         "description": " Tukar PDF anda kepada dokumen WORD dengan ketepatan yang luar biasa.",
+         "selectBtn": "Pilih fail WORD",
+         "dropFiles": "Atau Lepaskan PDF Di Sini",
+         "actionBtn": "Tukar kepada PDF"
+      },
+      "word_pdf": {
+        "title": "Tukar WORD kepada PDF",
+         "description": " Jadikan fail DOC dan DOCX mudah disediakan dengan menukarnya kepada PDF.",
+         "selectBtn": "Pilih Fail PDF",
+         "dropFiles": "Atau Lepaskan PDF Di Sini",
+         "actionBtn": "Tukar kepada WORD"
+      },
+      "split_page": {
+        "title": "Pisah fail PDF",
+        "description": "Edit PDF dengan menambah teks, bentuk, ulasan dan sorotan. Anda selamat dan mudah juga untuk diedit.",
+        "selectBtn": "Pilih Fail PDF",
+        "dropFiles": "Atau Lepaskan PDF Di Sini",
+        "range": "julat",
+        "split": "Split",
+        "allRange": "Gabungkan semua julat dalam satu fail PDF.",
+        "actionBtn": "Pisah PDF",
+        "down_btn_title": "Berjaya Dipisahkan",
+        "rangeMode": "Mod julat:",
+        "customRange": "Julat tersuai",
+        "fixedRange": "Julat tetap",
+        "fromPage": "Dari Halaman",
+        "to": "Kepada",
+        "addRange": "+ Tambah Julat",
+        "split_des_b": "PDF ini akan dibahagikan kepada fail",
+        "split_des_a": " PDF akan dibuat",
+        "extractMode": "Mod Ekstrak",
+        "extractAll": "Ekstrak semua halaman",
+        "selectPage": "Pilih halaman",
+        "extract_des_b": "Halaman yang dipilih akan ditukar menjadi fail PDF yang berasingan.",
+        "extract_des_a": "Pdf akan dibuat",
+        "split_by_range": "PISAH MENGIKUT Julat",
+        "extract_pages": "EKSTRAK HALAMAN"
+      },
+      "compress_page": {
+        "title": "Mampatkan fail PDF",
+         "description": "Kurangkan saiz fail sambil mengoptimumkan kualiti PDF maksimum.",
+         "selectBtn": "Pilih Fail PDF",
+         "dropFiles": "Atau Lepaskan PDF Di Sini",
+         "level": "Tahap Mampatan",
+         "extreme": "MAMPATAN MELAMPAU",
+         "extreme_des": "(Kurang kualiti, mampatan tinggi)",
+         "recommended": "MAMPATAN DISYORKAN",
+         "recommended_des": "(Kualiti yang baik, pemampatan yang baik)",
+         "less": "KURANG PEMAMPATAN",
+         "less_des": "(Kualiti tinggi, kurang mampatan)",
+         "actionBtn": "Mampatkan PDF"
+      },
+      "sign_page": {
+        "title": "Tandatangan PDF",
+        "des": "Alat anda untuk eSign dokumen. Tandatangan dokumen sendiri atau hantar permintaan tandatangan kepada orang lain.",
+        "selectBtn": "Pilih Fail PDF",
+        "dropFiles": "Atau Lepaskan PDF Di Sini",
+        "sign_options": "Pilihan menandatangani",
+        "name": "Nama",
+        "date": "Tarikh",
+        "text": "Teks",
+        "actionBtn": "tandatangan PDF",
+        "fullName": "Nama Penuh: ",
+        "initials": "Initial: ",
+        "signature": "Tandatangan",
+        "initial": "Initial",
+        "stamp": "Setem Syarikat"
+      }
+    },
+    "features": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "Gabungkan PDF",
+        "description": "Gabungkan PDF mengikut susunan yang anda inginkan dengan penggabungan PDF paling mudah tersedia",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "Pisah PDF",
+        "description": "Asingkan satu halaman atau satu set keseluruhan untuk penukaran mudah kepada fail PDF bebas",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "Mampatkan PDF",
+         "description": "Kurangkan saiz fail sambil mengoptimumkan kualiti PDF maksimum",
+        "file": "compress_pdf.svg"
+      },
+      "word_pdf": {
+        "name": "wordtopdf",
+        "title": "Perkataan kepada PDF",
+         "description": "Jadikan fail DOC dan DOCX mudah dibaca dengan menukarnya kepada PDF.",
+        "file": "word_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF to Word",
+        "description": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",
+        "file": "pdf_word.svg"
+      },
+      "sign": {
+        "name": "signpdf",
+        "title": "Tandatangan PDF",
+         "description": "Tandatangani diri sendiri atau minta tandatangan elektronik daripada orang lain.",
+        "file": "sign_pdf.svg"
+      },
+      "edit": {
+        "name": "editpdf",
+        "title": "Edit PDF",
+         "description": "Tambahkan teks, imej, bentuk atau anotasi tangan bebas pada dokumen PDF. Edit saiz, fon dan warna kandungan yang ditambah.",
+        "file": "edit_pdf.svg"
+      },
+      "rotate": {
+        "name": "rotatepdf",
+        "title": "Putar PDF",
+        "description": "Putar PDF anda mengikut cara yang anda perlukan. Malah anda boleh memutar berbilang PDF sekaligus!",
+        "file": "rotate_pdf.svg"
+      }
+    },
+    "onlines": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "Gabungkan PDF",
+         "description": "Gabungkan PDF mengikut susunan yang anda inginkan dengan penggabungan PDF paling mudah tersedia",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "Pisah PDF",
+         "description": "Asingkan satu halaman atau satu set keseluruhan untuk penukaran mudah kepada fail PDF bebas",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "Mampatkan PDF",
+         "description": "Kurangkan saiz fail sambil mengoptimumkan kualiti PDF maksimum",
+        "file": "compress_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF ke Word",
+        "description": "Tukar fail PDF anda dengan mudah kepada dokumen DOC dan DOCX yang mudah untuk diedit. Dokumen WORD yang ditukar hampir 100% tepat.",
+        "file": "pdf_word.svg"
+      }
+    },
+    "other_features": {
+      "convert_pdf": { "title": "TUKAR PDF" },
+      "all_pdf_tools": { "title": "SEMUA ALAT PDF" }
+    },
+    "toolTip": {
+        "sel_google": "Pilih PDF daripada Google Drive",
+        "sel_dropBox": "Pilih PDF daripada Dropbox",
+        "upload_local": "Muat naik dari Komputer",
+        "save_dropBox": "Simpan ke Dropbox",
+        "save_google": "Simpan ke Google Drive",
+        "link": "Kongsi Pautan Fail atau Imbas QR",
+        "add_more": "Tambah lebih banyak fail"
+      }
+  }
+  

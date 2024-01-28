@@ -368,7 +368,7 @@ body {
 }
 
 .tool__sidebar {
-  min-width: 300px;
+  min-width: 400px;
   max-width: 400px;
   height: 100vh;
   background-color: #fff;

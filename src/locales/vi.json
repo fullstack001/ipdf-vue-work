@@ -1,0 +1,310 @@
+{
+    "nav-links": {
+        "login":"Đăng nhập",
+        "signup": "Đăng ký",
+        "about": "Giới thiệu",
+        "merge_pdf": "Hợp nhất PDF",
+        "split_pdf": "Tách PDF",
+        "compress_pdf": "Nén PDF",
+        "convert_pdf": "Chuyển đổi PDF",
+        "blog": "Blog",
+        "copyright": "Bản quyền PdfDen. Mọi quyền được bảo lưu."
+    },
+    "page_titles": {
+      "landing": {
+        "title1": "Mọi công cụ bạn cần để làm việc với tệp PDF ở cùng một nơi",
+         "text1": "Mọi công cụ bạn cần để sử dụng tệp PDF, đều nằm trong tầm tay bạn. Tất cả đều MIỄN PHÍ 100% và có thể sử dụng! Hợp nhất, Tách, Nén, Chuyển đổi, Xoay, Mở khóa và đóng dấu mờ các tệp PDF chỉ bằng vài cú nhấp chuột",
+        "section1": {
+            "title": "Tin tức mới nhất từ công ty chúng tôi",
+            "title1": "Lerem Ipsum chỉ là đồ ngốc",
+            "text1": "Lerem Ipsum chỉ đơn giản là văn bản giả của việc in và gõ indremm",
+            "title2": "Lorem Ipsum chỉ là một kẻ ngu ngốc",
+            "text2": "Lerem Ipsum chỉ đơn giản là văn bản giả của indremm và gõ indremm",
+            "title3": "Lerem Ipsum chỉ là đồ ngốc",
+            "text3": "Lerem Ipsum chỉ đơn giản là văn bản giả của việc in và gõ indremm"
+        },
+        "section2": {
+            "title": "Đăng ký tài khoản miễn phí",
+            "item1": "Tuổi thọ tệp được mở rộng",
+            "item2": "Quyền truy cập tải xuống ưu tiên",
+            "item3": "Tất cả tập tin của bạn ở một nơi",
+            "button": "Nhận tài khoản miễn phí"
+        }
+      },
+      "signUp": {
+        "create": "Tạo tài khoản mới",
+         "name_req": "Trường tên là bắt buộc",
+         "fullName": "Tên đầy đủ",
+         "email": "Địa chỉ email",
+         "email_req": "Trường email là bắt buộc",
+         "email_type": "Vui lòng cung cấp email hợp lệ",
+         "email_exi": "Người dùng đã tồn tại",
+         "pass": "Tạo mật khẩu",
+         "pass_req": "Trường mật khẩu là bắt buộc",
+         "pass_length": "Mật khẩu phải dài ít nhất 6 ký tự",
+         "signUp": "Đăng ký",
+         "have_acc": "Có tài khoản?",
+         "login": "Đăng nhập",
+         "tool_title": "Công cụ PDF dành cho người làm việc hiệu quả",
+         "tool_des": " PDFDen giúp bạn chuyển đổi, chỉnh sửa, ký điện tử và bảo vệ tệp PDF một cách nhanh chóng và dễ dàng. Tận hưởng bộ công cụ đầy đủ để quản lý tài liệu một cách hiệu quả —bất kể bạn đang làm việc ở đâu."
+      },
+      "merge_page": {
+        "title": "Hợp nhất các tập tin PDF",
+         "description": "Kết hợp các tệp PDF theo thứ tự bạn muốn với cách hợp nhất PDF dễ dàng nhất hiện có.",
+         "selectBtn": "Chọn tập tin PDF",
+         "dropFiles": "Hoặc thả tệp PDF vào đây",
+         "mergePdf": "Hợp nhấtPDF",
+         "one_des": "Để thay đổi thứ tự các tệp PDF của bạn, hãy kéo và thả các tệp theo ý muốn.",
+         "more_des": "Xin vui lòng chọn thêm tệp PDF bằng cách nhấp lại vào `Chọn tệp PDF'.",
+         "mere_des_a": "Chọn nhiều tập tin bằng cách tiếp tục nhấn `Ctrl'",
+         "multi": "Xin vui lòng chọn thêm file PDF",
+         "actionBtn": "Hợp nhất PDF",
+        "howSection": {
+            "title": "Cách kết hợp các tập tin PDF",
+            "description": "Hãy làm theo các bước đơn giản sau để kết hợp các tài liệu PDF thành một tệp:",
+            "list1": "Nhấp vào nút Chọn tệp ở trên hoặc kéo và thả tệp vào vùng thả.",
+            "list2": "Chọn tập tin bạn muốn hợp nhất bằng công cụ kết hợp Acrobat PDF.",
+            "list3": "Sắp xếp lại các tập tin nếu cần.",
+            "list4": "Nhấp vào Hợp nhất các tập tin.",
+            "list5": "Đăng nhập để tải xuống hoặc chia sẻ tập tin đã hợp nhất. Bạn cũng có thể sắp xếp các trang."
+        },
+        "trySection": {
+            "title": "Hãy thử công cụ hợp nhất PDF của chúng tôi",
+            "title1": "Kết hợp các tệp PDF thành một tệp",
+            "title2": "Đơn giản hóa bằng PDF kết hợp",
+            "title3": "Sắp xếp bản PDF trực tuyến của bạn",
+            "title4": "Tải tập tin của bạn xuống hoặc chia sẻ nó",
+            "title5": "Làm việc trên mọi trình duyệt web",
+            "title6": "Sử dụng trình kết hợp PDF tốt nhất",
+            "description1": "Việc hợp nhất các tệp PDF thành một tài liệu duy nhất bằng công cụ trực tuyến Adobe Acrobat thật nhanh chóng và dễ dàng. Chỉ cần thêm tệp, hợp nhất chúng và bạn đã hoàn tất.",
+            "description2": "Việc hợp nhất nhiều tệp thành một tệp PDF cho phép bạn lưu trữ và xem lại chúng dễ dàng hơn. Bạn cũng có thể chia sẻ tệp với người khác hiệu quả hơn bằng cách gửi liên kết đến một tệp PDF đã hợp nhất qua email.",
+            "description3": "Sau khi bạn kết hợp các tệp PDF, chỉ cần đăng nhập để sắp xếp từng trang riêng lẻ. Bạn có thể di chuyển, thêm, xóa hoặc xoay các trang PDF nếu cần cho đến khi bạn tạo được tài liệu hoàn hảo.",
+            "description4": "Bạn có thể tải xuống tệp PDF đã hợp nhất bằng một cú nhấp chuột hoặc bằng cách đăng nhập. Bạn cũng có thể chia sẻ tệp mới của mình với bạn bè hoặc đồng nghiệp khi đăng nhập.",
+            "description5": "Sử dụng công cụ trực tuyến sáp nhập PDF của chúng tôi trong bất kỳ trình duyệt web nào, chẳng hạn như Microsoft Edge hoặc Google Chrome. Công cụ này cũng hoạt động trên các hệ điều hành Mac, Windows và Linux.",
+            "description6": "Adobe đã phát minh ra định dạng tệp PDF, khiến các công cụ PDF của chúng tôi có độ tin cậy cao. Hãy sử dụng trình kết hợp PDF của chúng tôi để hợp nhất các tệp và giúp công việc của bạn được di chuyển từ mọi nơi."
+        },
+        "articleSection": {
+            "title": "Hợp nhất các bài viết blog PDF",
+            "title1": "Lorem Ipsum chỉ là đồ ngu",
+            "title2": "Lorem Ipsum chỉ là một kẻ ngu ngốc",
+            "title3": "Lorem Ipsum chỉ là một gã ngu ngốc",
+            "description1": "Lorem Ipsum chỉ đơn giản là văn bản giả của việc in và đánh máy indremm có ..",
+            "description2": "Lorem Ipsum chỉ đơn giản là văn bản giả của việc in và đánh máy indremm có ..",
+            "description3": "Lorem Ipsum chỉ đơn giản là văn bản giả của việc in và đánh máy indremm có .."
+        },
+        "qaSection": {
+            "title": "Câu hỏi? Chúng tôi có câu trả lời."
+        },
+        "rateSection": {
+          "title": "Đánh giá trải nghiệm của bạn",
+          "vote": "phiếu bầu"
+        },
+        "onlineSection": {
+            "title": "Hãy thử các công cụ trực tuyến Acrobat này",
+            "title1": "Hợp nhất PDF",
+            "title2": "Tách PDF",
+            "title3": "Nén PDF",
+            "title4": "Chuyển đổi PDF ",
+            "description1": "Kết hợp các tệp PDF theo thứ tự bạn muốn bằng cách hợp nhất PDF dễ dàng nhất hiện có.",
+            "description2": "Tách một trang hoặc cả bộ để dễ dàng chuyển đổi thành các tệp PDF độc lập.",
+            "description3": "Giảm kích thước tệp trong khi tối ưu hóa chất lượng PDF tối đa.",
+            "description4": "Dễ dàng chuyển đổi tập tin PDF của bạn thành tài liệu DOC và DOCX dễ chỉnh sửa. Tài liệu WORD được chuyển đổi gần như chính xác 100%."
+        },
+        "securitySection": {
+            "title": "Các tệp của bạn sẽ được máy chủ Adobe xử lý an toàn và bị xóa trừ khi bạn đăng nhập để lưu chúng. Bằng cách sử dụng dịch vụ này, bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư của Adobe.",
+            "description1": "Hợp nhất nhiều tệp PDF thành một trong vài giây.",
+            "description2": "Kéo và thả các tệp PDF của bạn để bắt đầu—dễ dàng!",
+            "description3": "Hoạt động trên Mac, Windows, Android và iOS."
+        }
+      },
+      "rotate_page": {
+        "title": "Xoay PDF",
+        "description": "Xoay tệp PDF theo cách bạn cần. Bạn thậm chí có thể xoay nhiều tệp PDF cùng một lúc!",
+        "selectBtn": "Chọn tập tin PDF",
+        "dropFiles": "Hoặc thả tệp PDF vào đây",
+        "rotatePdf": "Xoay PDF",
+        "info_a": "Chuột qua tập tin PDF bên dưới và a",
+        "info_b": "biểu tượng sẽ xuất hiện, nhấp vào mũi tên để xoay tệp PDF.",
+        "set_rotate": "Chọn tập tin để xoay:",
+        "reset": "Đặt lại tất cả",
+        "all":"tất cả",
+        "portrait": "Chân dung",
+        "landscape": "Cảnh quan",
+        "rotation": "Xoay",
+        "right": "đúng",
+        "left": "Trái",
+        "actionBtn": "Xoay PDF"
+      },
+      "edit_page": {
+        "title": "Trình chỉnh sửa PDF",
+        "description": "Xoay tệp PDF theo cách bạn cần. Bạn thậm chí có thể xoay nhiều tệp PDF cùng một lúc!",
+        "selectBtn": "Chọn tập tin PDF",
+        "dropFiles": "Hoặc thả tệp PDF vào đây",
+        "editPdf": "Chỉnh sửa PDF",
+        "element": "Thành phần",
+        "ele_des": "Từ thanh công cụ này, bạn có thể sắp xếp lại các thành phần để di chuyển chúng trở lại hoặc phía trước tài liệu.",
+        "actionBtn": "Chỉnh sửa PDF"
+      },
+  
+      "pdf_word": {
+        "title": "Chuyển đổi PDF sang WORD",
+        "description": " Chuyển đổi tài liệu PDF sang WORD của bạn với độ chính xác đáng kinh ngạc.",
+        "selectBtn": "Chọn tập tin WORD",
+        "dropFiles": "Hoặc thả tệp PDF vào đây",
+        "actionBtn": "Chuyển sang PDF"
+      },
+      "word_pdf": {
+        "title": "Chuyển WORD sang PDF",
+        "description": " Làm cho tập tin DOC và DOCX trở nên dễ dàng sẵn sàng bằng cách chuyển đổi chúng sang PDF.",
+        "selectBtn": "Chọn tập tin PDF",
+        "dropFiles": "Hoặc thả tệp PDF vào đây",
+        "actionBtn": "Chuyển sang WORD"
+      },
+      "split_page": {
+        "title": "Tách tập tin PDF",
+         "description": "Chỉnh sửa PDF bằng cách thêm văn bản, hình dạng, nhận xét và đánh dấu. Việc chỉnh sửa của bạn cũng an toàn và đơn giản.",
+         "selectBtn": "Chọn tập tin PDF",
+         "dropFiles": "Hoặc thả tệp PDF vào đây",
+         "range": "phạm vi",
+         "split": "Tách",
+         "allRange": "Hợp nhất tất cả các phạm vi vào một tệp PDF.",
+         "actionBtn": "Tách PDF",
+         "down_btn_title": "Đã chia tách thành công",
+         "rangeMode": "Chế độ phạm vi:",
+         "customRange": "Phạm vi tùy chỉnh",
+         "fixedRange": "Phạm vi cố định",
+         "fromPage": "Từ Trang",
+         "to": "Tới",
+         "addRange": "+ Thêm phạm vi",
+         "split_des_b": "PDF này sẽ được chia thành các tập tin",
+         "split_des_a": " Các tệp PDF sẽ được tạo",
+         "extractMode": "Chế độ trích xuất",
+         "extractAll": "Trích xuất tất cả các trang",
+         "selectPage": "Chọn trang",
+         "extract_des_b": "Các trang được chọn sẽ được chuyển đổi thành các tệp PDF riêng biệt.",
+         "extract_des_a": "Pdf sẽ được tạo",
+         "split_by_range": "Tách theo phạm vi",
+         "extract_pages": "TRÍCH XUẤT TRANG"
+      },
+      "compress_page": {
+        "title": "Nén tập tin PDF",
+         "description": "Giảm kích thước tệp trong khi tối ưu hóa chất lượng PDF tối đa.",
+         "selectBtn": "Chọn tập tin PDF",
+         "dropFiles": "Hoặc thả tệp PDF vào đây",
+         "level": "Mức nén",
+         "extreme": "SỨC MẠNH TUYỆT VỜI",
+         "extreme_des": "(Chất lượng kém hơn, độ nén cao)",
+         "recommended": "ĐỀ XUẤT NÉN",
+         "recommened_des": "(Chất lượng tốt, độ nén tốt)",
+         "less": "ÍT NÉN",
+         "less_des": "(Chất lượng cao, ít nén hơn)",
+         "actionBtn": "Nén PDF"
+      },
+      "sign_page": {
+        "title": "Ký PDF",
+         "des": "Công cụ ký điện tử cho tài liệu của bạn. Tự ký vào tài liệu hoặc gửi yêu cầu chữ ký cho người khác.",
+         "selectBtn": "Chọn tập tin PDF",
+         "dropFiles": "Hoặc thả tệp PDF vào đây",
+         "sign_options": "Tùy chọn ký",
+         "name": "tên",
+         "date": "Ngày",
+         "text": "Văn bản",
+         "actionBtn": "ký PDF",
+         "fullName": "Tên đầy đủ: ",
+         "initials": "Chữ viết tắt: ",
+         "signature": "Chữ ký",
+         "initial": "ban đầu",
+         "stamp": "Con dấu công ty"
+      }
+    },
+    "features": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "Hợp nhất PDF",
+        "description": "Kết hợp các tệp PDF theo thứ tự bạn muốn bằng cách hợp nhất PDF dễ dàng nhất hiện có",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "Tách PDF",
+          "description": "Tách một trang hoặc cả bộ để dễ dàng chuyển đổi thành các file PDF độc lập",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "Nén PDF",
+        "description": "Giảm kích thước tệp trong khi tối ưu hóa chất lượng PDF tối đa",
+        "file": "compress_pdf.svg"
+      },
+      "word_pdf": {
+        "name": "wordtopdf",
+        "title": "Word sang PDF",
+        "description": "Làm cho các tập tin DOC và DOCX trở nên dễ đọc bằng cách chuyển đổi chúng sang PDF.",
+        "file": "word_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF sang Word",
+         "description": "Dễ dàng chuyển đổi tập tin PDF của bạn thành tài liệu DOC và DOCX dễ chỉnh sửa. Tài liệu WORD được chuyển đổi gần như chính xác 100%.",
+        "file": "pdf_word.svg"
+      },
+      "sign": {
+        "name": "signpdf",
+        "title": "Ký PDF",
+         "description": "Tự ký hoặc yêu cầu chữ ký điện tử từ người khác.",
+        "file": "sign_pdf.svg"
+      },
+      "edit": {
+        "name": "editpdf",
+        "title": "Chỉnh sửa PDF",
+         "description": "Thêm văn bản, hình ảnh, hình dạng hoặc chú thích tự do vào tài liệu PDF. Chỉnh sửa kích thước, phông chữ và màu sắc của nội dung được thêm vào.",
+        "file": "edit_pdf.svg"
+      },
+      "rotate": {
+        "name": "rotatepdf",
+        "title": "Xoay PDF",
+         "description": "Xoay tệp PDF theo cách bạn cần. Bạn thậm chí có thể xoay nhiều tệp PDF cùng một lúc!",
+        "file": "rotate_pdf.svg"
+      }
+    },
+    "onlines": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "Hợp nhất PDF",
+         "description": "Kết hợp các tệp PDF theo thứ tự bạn muốn bằng cách hợp nhất PDF dễ dàng nhất hiện có",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "Tách PDF",
+         "description": "Tách một trang hoặc cả bộ để dễ dàng chuyển đổi thành các file PDF độc lập",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "Nén PDF",
+         "description": "Giảm kích thước tệp trong khi tối ưu hóa chất lượng PDF tối đa",
+        "file": "compress_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF sang Word",
+         "description": "Dễ dàng chuyển đổi tập tin PDF của bạn thành tài liệu DOC và DOCX dễ chỉnh sửa. Tài liệu WORD được chuyển đổi gần như chính xác 100%.",
+        "file": "pdf_word.svg"
+      }
+    },
+    "other_features": {
+      "convert_pdf": { "title": "CHUYỂN ĐỔI PDF" },
+      "all_pdf_tools": { "title": "TẤT CẢ CÔNG CỤ PDF" }
+    },
+    "toolTip": {
+        "sel_google": "Chọn PDF từ Google Drive",
+        "sel_dropBox": "Chọn PDF từ Dropbox",
+        "upload_local": "Tải lên từ máy tính",
+        "save_dropBox": "Lưu vào Dropbox",
+        "save_google": "Lưu vào Google Drive",
+        "link": "Chia sẻ liên kết tệp hoặc quét QR",
+        "add_more": "Thêm nhiều tập tin hơn"
+    }
+  }
+  

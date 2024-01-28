@@ -1,86 +1,310 @@
 {
-  "page_titles": {
-    "landing": {
-      "title1": "كل الأدوات التي تحتاجها للعمل مع ملفات PDF في مكان واحد",
-      "text1": "كل أداة تحتاجها لاستخدام ملفات PDF، في متناول يدك. كلها مجانية 100% وسهلة الاستخدام! يمكنك دمج ملفات PDF وتقسيمها وضغطها وتحويلها وتدويرها وفتحها ووضع علامة مائية عليها ببضع نقرات فقط",
-      "section1": {
-        "title": "Latest News From Our Company",
-        "title1": "Lerem Ipsum is simply dummy",
-        "text1": "Lerem Ipsum is simply dummy text of the printing and typing indremm has",
-        "title2": "Lorem Ipsum is simply dummy",
-        "text2": "Lerem Ipsum is simply dummy text of the printing and typing indremm has",
-        "title3": "Lerem Ipsum is simply dummy",
-        "text3": "Lerem Ipsum is simply dummy text of the printing and typing indremm has"
+    "nav-links": {
+        "login": "دخول",
+        "signup": "التسجيل",
+        "about": "حول",
+        "merge_pdf": "دمج ملف PDF",
+        "split_pdf": "تقسيم ملف PDF",
+        "compress_pdf": "ضغط ملف PDF",
+        "convert_pdf": "تحويل PDF",
+        "blog": "مدونة",
+        "copyright": "حقوق الطبع والنشر لـ PdfDen. جميع الحقوق محفوظة."
+    },
+    "page_titles": {
+      "landing": {
+        "title1": "كل الأدوات التي تحتاجها للتعامل مع ملفات PDF في مكان واحد",
+        "text1": "كل أداة تحتاجها لاستخدام ملفات PDF، في متناول يدك. جميعها مجانية 100% وسهلة الاستخدام! يمكنك دمج ملفات PDF وتقسيمها وضغطها وتحويلها وتدويرها وفتحها ووضع علامة مائية عليها ببضع نقرات فقط",
+        "section1": {
+            "title": "آخر الأخبار من شركتنا",
+            "title1": "ليريم إيبسوم هو ببساطة دمية",
+            "text1": "Lerem Ipsum هو ببساطة نص وهمي للطباعة والكتابة التي قام بها indremm",
+            "title2": "لوريم إيبسوم هو مجرد وهمي",
+            "text2": "Lerem Ipsum هو ببساطة نص وهمي للطباعة والكتابة التي قام بها indremm",
+            "title3": "ليريم إيبسوم هو ببساطة دمية",
+            "text3": "Lerem Ipsum هو ببساطة نص وهمي للطباعة والكتابة التي يحتوي عليها indremm"
+        },
+        "section2": {
+            "title": "التسجيل للحصول على حساب مجاني",
+            "item1": "مدة صلاحية الملف ممتدة",
+            "item2": "أولوية الوصول للتنزيل",
+            "item3": "جميع ملفاتك في مكان واحد",
+            "button": "الحصول على حساب مجاني"
+        }
       },
-      "section2": {
-        "title": "Register For Free Account",
-        "item1": "Extended File Life",
-        "item2": "Priority Download Access",
-        "item3": "All your files in one place",
-        "button": "Get Free Account"
+      "signUp": {
+        "create": "إنشاء حساب جديد",
+        "name_req": "حقل الاسم مطلوب",
+        "fullName": "الاسم الكامل",
+        "email": "عنوان البريد الإلكتروني",
+        "email_req": "حقل البريد الإلكتروني مطلوب",
+        "email_type": "يُرجى تقديم بريد إلكتروني صالح",
+        "email_exi": "المستخدم موجود بالفعل",
+        "pass": "إنشاء كلمة مرور",
+        "pass_req": "حقل كلمة المرور مطلوب",
+        "pass_length": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
+        "signUp": "تسجيل",
+        "have_acc": "هل لديك حساب؟",
+        "login": "دخول",
+        "tool_title": "أدوات PDF للأشخاص المنتجين",
+        "tool_des": " يساعدك PDFDen على تحويل ملفات PDF وتحريرها وتوقيعها إلكترونيًا وحمايتها بسرعة وسهولة. استمتع بمجموعة كاملة من الأدوات لإدارة المستندات بفعالية - بغض النظر عن مكان عملك."
+      },
+      "merge_page": {
+        "title": "دمج ملفات PDF",
+         "description": "قم بدمج ملفات PDF بالترتيب الذي تريده مع أسهل عملية دمج PDF متاحة.",
+         "selectBtn": "اختر ملفات PDF",
+         "dropFiles": "أو قم بإسقاط ملفات PDF هنا",
+         "mergePdf": "دمجPDF",
+         "one_des": "لتغيير ترتيب ملفات PDF الخاصة بك، قم بسحب الملفات وإسقاطها كما تريد.",
+         "more_des": "من فضلك، حدد المزيد من ملفات PDF بالنقر مرة أخرى على ’تحديد ملفات PDF‘.",
+         "mere_des_a": "حدد ملفات متعددة بالضغط المستمر على 'Ctrl'",
+         "multi": "من فضلك، اختر المزيد من ملفات PDF",
+         "actionBtn": "دمج ملفات PDF",
+        "howSection": {
+            "title": "كيفية دمج ملفات PDF",
+            "description": "اتبع هذه الخطوات السهلة لدمج مستندات PDF في ملف واحد:",
+            "list1": "انقر فوق الزر تحديد ملف بالأعلى، أو قم بسحب الملفات وإسقاطها في منطقة الإفلات.",
+            "list2": "حدد الملفات التي تريد دمجها باستخدام أداة دمج Acrobat PDF.",
+            "list3": "أعد ترتيب الملفات إذا لزم الأمر.",
+            "list4": "انقر على دمج الملفات.",
+            "list5": "قم بتسجيل الدخول لتنزيل الملف المدمج أو مشاركته. ويمكنك تنظيم الصفحات أيضًا."
+        },
+        "trySection": {
+            "title": "جرّب أداة دمج ملفات PDF الخاصة بنا",
+            "title1": "دمج ملفات PDF في ملف واحد",
+            "title2": "التبسيط باستخدام ملف PDF مدمج",
+            "title3": "تنظيم ملف PDF الخاص بك على الإنترنت",
+            "title4": "قم بتنزيل ملفك أو مشاركته",
+            "title5": "العمل في أي متصفح ويب",
+            "title6": "استخدم أفضل أداة دمج PDF",
+            "description1": "من السهل والسريع دمج ملفات PDF في مستند واحد باستخدام أداة Adobe Acrobat عبر الإنترنت. ما عليك سوى إضافة الملفات ودمجها، وستكون بذلك قد انتهيت.",
+            "description2": "يتيح لك دمج ملفات متعددة في ملف PDF واحد تخزينها ومراجعتها بسهولة أكبر. ويمكنك أيضًا مشاركة الملفات مع الآخرين بشكل أكثر كفاءة عن طريق إرسال رابط عبر البريد الإلكتروني إلى ملف PDF واحد مدمج.",
+            "description3": "بعد دمج ملفات PDF، ما عليك سوى تسجيل الدخول لتنظيم الصفحات الفردية. ويمكنك نقل صفحات PDF أو إضافتها أو حذفها أو تدويرها حسب الحاجة حتى تقوم بإنشاء المستند المثالي.",
+            "description4": "يمكنك تنزيل ملف PDF المدمج بنقرة واحدة أو عن طريق تسجيل الدخول. ويمكنك أيضًا مشاركة ملفك الجديد مع صديق أو زميل عند تسجيل الدخول.",
+            "description5": "استخدم أداة دمج PDF عبر الإنترنت في أي متصفح ويب، مثل Microsoft Edge أو Google Chrome. وهي تعمل أيضًا على أنظمة التشغيل Mac، وWindows، وLinux.",
+            "description6": "اخترع Adobe تنسيق ملف PDF، مما يجعل أدوات PDF الخاصة بنا موثوقة للغاية. استخدم أداة دمج PDF الخاصة بنا لدمج الملفات والاستمرار في نقل عملك من أي مكان."
+        },
+        "articleSection": {
+            "title": "دمج مقالات مدونة PDF",
+            "title1": "لوريم إيبسوم هو مجرد وهمي",
+            "title2": "لوريم إيبسوم هو مجرد وهمي",
+            "title3": "لوريم إيبسوم هو مجرد وهمي",
+            "description1": "لوريم إيبسوم هو ببساطة نص وهمي للطباعة والكتابه لدى indremm ..",
+            "description2": "لوريم إيبسوم هو ببساطة نص وهمي للطباعة والكتابه لدى indremm ..",
+            "description3": "لوريم إيبسوم هو ببساطة نص وهمي للطباعة والكتابه لدى indremm .."
+        },
+        "qaSection": {
+          "title": "أسئلة؟ لدينا إجابات."
+        },
+        "rateSection": {
+          "title": "قيم تجربتك",
+          "vote": "الأصوات"
+        },
+        "onlineSection": {
+            "title": "جرب أدوات Acrobat عبر الإنترنت هذه",
+            "title1": "دمج ملف PDF",
+            "title2": "تقسيم ملف PDF",
+            "title3": "ضغط ملف PDF",
+            "title4": "تحويل PDF",
+            "description1": "قم بدمج ملفات PDF بالترتيب الذي تريده باستخدام أسهل عملية دمج PDF متاحة.",
+            "description2": "افصل صفحة واحدة أو مجموعة كاملة لتسهيل تحويلها إلى ملفات PDF مستقلة.",
+            "description3": "تقليل حجم الملف مع تحسين جودة PDF القصوى.",
+            "description4": "قم بتحويل ملفات PDF الخاصة بك بسهولة إلى مستندات DOC وDOCX سهلة التحرير. وثيقة WORD المحولة دقيقة بنسبة 100% تقريبًا."
+        },
+        "securitySection": {
+            "title": "ستتم معالجة ملفاتك بشكل آمن بواسطة خوادم Adobe وسيتم حذفها ما لم تقم بتسجيل الدخول لحفظها. باستخدام هذه الخدمة، فإنك توافق على شروط الاستخدام وسياسة الخصوصية الخاصة بـ Adobe.",
+            "description1": "دمج عدة ملفات PDF في ملف واحد في ثوانٍ.",
+            "description2": "اسحب وأسقط ملفات PDF الخاصة بك للبدء — سهل!",
+            "description3": "يعمل على أنظمة Mac، وWindows، وAndroid، وiOS."
+        }
+      },
+      "rotate_page": {
+        "title": "تدوير ملف PDF",
+         "description": "قم بتدوير ملفات PDF الخاصة بك بالطريقة التي تريدها. ويمكنك أيضًا تدوير ملفات PDF متعددة في وقت واحد!",
+         "selectBtn": "اختر ملفات PDF",
+         "dropFiles": "أو قم بإسقاط ملفات PDF هنا",
+         "rotatePdf": "تدوير ملف PDF",
+         "info_a": "ضع الفأرة فوق ملف PDF بالأسفل وأ",
+         "info_b": "ستظهر أيقونة، انقر على الأسهم لتدوير ملفات PDF.",
+         "set_rotate": "اختر الملفات المراد تدويرها:",
+         "reset": "إعادة ضبط الكل",
+         "all": "الكل",
+         "portrait": "صورة شخصية",
+         "landscape": "منظر طبيعي",
+         "rotation": "الدوران",
+        "right": "صحيح",
+         "left":"الأيسر",
+         "actionBtn": "تدوير ملف PDF"
+      },
+      "edit_page": {
+        "title": "محرر PDF",
+        "description": "قم بتدوير ملفات PDF الخاصة بك بالطريقة التي تريدها. ويمكنك أيضًا تدوير ملفات PDF متعددة في وقت واحد!",
+        "selectBtn": "اختر ملفات PDF",
+        "dropFiles": "أو قم بإسقاط ملفات PDF هنا",
+        "editPdf": "تحرير ملف PDF",
+        "elements": "العناصر",
+        "ele_des": "من شريط الأدوات هذا، يمكنك إعادة ترتيب العناصر لنقلها إلى الخلف أو إلى أمام المستند.",
+        "actionBtn": "تحرير ملف PDF"
+      },
+  
+      "pdf_word": {
+        "title": "محول PDF إلى WORD",
+        "description": " قم بتحويل مستندات PDF إلى WORD بدقة مذهلة.",
+        "selectBtn": "اختر ملفات WORD",
+        "dropFiles": "أو قم بإسقاط ملفات PDF هنا",
+        "actionBtn": "التحويل إلى PDF"
+      },
+      "word_pdf": {
+        "title": "تحويل WORD إلى PDF",
+         "description": " اجعل ملف DOC وDOCX سهل التجهيز عن طريق تحويلهما إلى PDF.",
+         "selectBtn": "اختر ملفات PDF",
+         "dropFiles": "أو قم بإسقاط ملفات PDF هنا",
+         "actionBtn": "التحويل إلى WORD"
+      },
+      "split_page": {
+        "title": "تقسيم ملف PDF",
+        "description": "قم بتحرير ملف PDF عن طريق إضافة نص وأشكال وتعليقات وإبرازات. التعديل آمن وسهل أيضًا.",
+        "selectBtn": "اختر ملفات PDF",
+        "dropFiles": "أو قم بإسقاط ملفات PDF هنا",
+        "range": "النطاق",
+        "split": "انقسام",
+        "allRange": "دمج كافة النطاقات في ملف PDF واحد.",
+        "actionBtn": "تقسيم ملف PDF",
+        "down_btn_title": "تم التقسيم بنجاح",
+        "rangeMode": "وضع النطاق:",
+        "customRange": "نطاق مخصص",
+        "fixedRange": "نطاق ثابت",
+        "fromPage": "من الصفحة",
+        "to": "إلى",
+        "addRange": "+ إضافة نطاق",
+        "split_des_b": "سيتم تقسيم ملف PDF هذا إلى ملفات",
+        "split_des_a": " سيتم إنشاء ملفات PDF",
+        "extractMode": "وضع الاستخراج",
+        "extractAll": "استخراج كافة الصفحات",
+        "selectPage": "اختر صفحة",
+        "extract_des_b": "سيتم تحويل الصفحات المحددة إلى ملفات PDF منفصلة.",
+        "extract_des_a": "سيتم إنشاء ملف PDF",
+        "split_by_range": "تقسيم حسب النطاق",
+        "extract_pages": "الصفحات المستخرجة"
+      },
+      "compress_page": {
+        "title": "ضغط ملف PDF",
+        "description": "تقليل حجم الملف مع تحسين جودة PDF القصوى.",
+        "selectBtn": "اختر ملفات PDF",
+        "dropFiles": "أو قم بإسقاط ملفات PDF هنا",
+        "level": "مستوى الضغط",
+        "extreme": "الضغط الشديد",
+        "extreme_des": "(جودة أقل، ضغط عالي)",
+        "recommended": "الضغط الموصى به",
+        "recommated_des": "(جودة جيدة، ضغط جيد)",
+        "less": "ضغط أقل",
+        "less_des": "(جودة عالية، ضغط أقل)",
+        "actionBtn": "ضغط ملف PDF"
+      },
+      "sign_page": {
+        "title": "توقيع PDF",
+        "des": "أداتك للتوقيع الإلكتروني على المستندات. قم بتوقيع مستند بنفسك أو أرسل طلب توقيع إلى الآخرين.",
+        "selectBtn": "اختر ملفات PDF",
+        "dropFiles": "أو قم بإسقاط ملفات PDF هنا",
+        "sign_options": "خيارات التوقيع",
+        "name": "اسم",
+        "date": "التاريخ",
+        "text": "نص",
+        "actionBtn": "توقيع PDF",
+        "fullName": "الاسم الكامل: ",
+        "initials": "الأحرف الأولى: ",
+        "signature": "التوقيع",
+        "initial": "الأولي",
+        "stamp": "ختم الشركة"
       }
+    },
+    "features": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "دمج ملف PDF",
+        "description": "قم بدمج ملفات PDF بالترتيب الذي تريده مع أسهل عملية دمج PDF متاحة",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "تقسيم ملف PDF",
+        "description": "افصل صفحة واحدة أو مجموعة كاملة لتسهيل تحويلها إلى ملفات PDF مستقلة",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "ضغط ملف PDF",
+         "description": "تقليل حجم الملف مع تحسين جودة PDF القصوى",
+        "file": "compress_pdf.svg"
+      },
+      "word_pdf": {
+        "name": "wordtopdf",
+        "title": "كلمة إلى PDF",
+         "description": "اجعل ملفات DOC وDOCX سهلة القراءة عن طريق تحويلها إلى PDF.",
+        "file": "word_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "تحويل PDF إلى Word",
+         "description": "قم بتحويل ملفات PDF الخاصة بك بسهولة إلى مستندات DOC وDOCX سهلة التحرير. وثيقة WORD المحولة دقيقة بنسبة 100% تقريبًا.",
+        "file": "pdf_word.svg"
+      },
+      "sign": {
+        "name": "signpdf",
+        "title": "توقيع PDF",
+        "description": "قم بالتوقيع بنفسك أو اطلب توقيعًا إلكترونيًا من الآخرين.",
+        "file": "sign_pdf.svg"
+      },
+      "edit": {
+        "name": "editpdf",
+        "title": "تحرير ملف PDF",
+         "description": "أضف نصًا أو صورًا أو أشكالًا أو تعليقات توضيحية يدوية إلى مستند PDF. قم بتحرير الحجم والخط واللون للمحتوى المضاف.",
+        "file": "edit_pdf.svg"
+      },
+      "rotate": {
+        "name": "rotatepdf",
+        "title": "تدوير ملف PDF",
+         "description": "قم بتدوير ملفات PDF الخاصة بك بالطريقة التي تريدها. ويمكنك أيضًا تدوير ملفات PDF متعددة في وقت واحد!",
+        "file": "rotate_pdf.svg"
+      }
+    },
+    "onlines": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "دمج ملف PDF",
+         "description": "قم بدمج ملفات PDF بالترتيب الذي تريده مع أسهل عملية دمج PDF متاحة",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "تقسيم ملف PDF",
+        "description": "افصل صفحة واحدة أو مجموعة كاملة لتسهيل تحويلها إلى ملفات PDF مستقلة",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "ضغط ملف PDF",
+        "description": "تقليل حجم الملف مع تحسين جودة PDF القصوى",
+        "file": "compress_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "تحويل PDF إلى Word",
+        "description": "قم بتحويل ملفات PDF الخاصة بك بسهولة إلى مستندات DOC وDOCX سهلة التحرير. وثيقة WORD المحولة دقيقة بنسبة 100% تقريبًا.",
+        "file": "pdf_word.svg"
+      }
+    },
+    "other_features": {
+      "convert_pdf": { "title": "تحويل قوات الدفاع الشعبي" },
+      "all_pdf_tools": { "title": "جميع أدوات PDF" }
+    },
+    "toolTip": {
+        "sel_google": "اختر ملف PDF من Google Drive",
+        "sel_dropBox": "اختر ملف PDF من Dropbox",
+        "upload_local": "التحميل من الكمبيوتر",
+        "save_dropBox": "الحفظ في Dropbox",
+        "save_google": "الحفظ في Google Drive",
+        "link": "مشاركة رابط الملف أو مسح QR",
+        "add_more": "أضف المزيد من الملفات"
     }
-  },
-  "features": {
-    "merge": {
-      "name": "mergepdf",
-      "title": "PDF دمج",
-      "description": "Combine PDFs in the order you want with the easiest PDF merger available",
-      "file": "merge_pdf.svg"
-    },
-    "split": {
-      "name": "splitpdf",
-      "title": "PDF ينقسم",
-      "description": "Separate one page or a whole set for easy conversion into independent PDF files",
-      "file": "split_pdf.svg"
-    },
-    "compress": {
-      "name": "compresspdf",
-      "title": "Compress PDF",
-      "description": "Reduce file size while optimizing for maximal PDF quality",
-      "file": "compress_pdf.svg"
-    },
-    "word_pdf": {
-      "name": "word_pdf",
-      "title": "Word to PDF",
-      "description": "Make DOC and DOCX files easy to read by converting them to PDF.",
-      "file": "word_pdf.svg"
-    },
-    "pdf_word": {
-      "name": "pdf_word",
-      "title": "PDF to Word",
-      "description": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",
-      "file": "pdf_word.svg"
-    },
-    "sign": {
-      "name": "signpdf",
-      "title": "Sign PDF",
-      "description": "Sign yourself or request electronic signatures from others.",
-      "file": "sign_pdf.svg"
-    },
-    "edit": {
-      "name": "edit_pdf",
-      "title": "Edit PDF",
-      "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
-      "file": "edit_pdf.svg"
-    },
-    "rotate": {
-      "name": "rotatepdf",
-      "title": "Rotate PDF",
-      "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
-      "file": "rotate_pdf.svg"
-    }
-  },
-  "other_features": {
-    "convert_pdf": { "title": "CONVERT PDF" },
-    "all_pdf_tools": { "title": "ALL PDF TOOLS" }
-  },
-  "toolTip": {
-    "sel_google": "Select PDF from Google Drive",
-    "sel_dropBox": "Select PDF from Dropbox",
-    "upload_local": "Upload from Computer",
-    "save_dropBox": "Save to Dropbox",
-    "save_google": "Save to Google Drive",
-    "link": "Share File Link or Scan QR"
   }
-}
+  

@@ -1,0 +1,310 @@
+{
+    "nav-links": {
+      "login": "Login",
+      "signup": "Aanmelden",
+      "about": "Over",
+      "merge_pdf": "PDF samenvoegen",
+      "split_pdf": "PDF splitsen",
+      "compress_pdf": "PDF comprimeren",
+      "convert_pdf": "PDF converteren",
+      "blog": "Bloggen",
+      "copyright": "Copyright PdfDen. Alle rechten voorbehouden."
+    },
+    "page_titles": {
+      "landing": {
+        "title1": "Elk hulpmiddel dat u nodig heeft om met PDF's te werken op één plek",
+         "text1": "Elke tool die u nodig heeft om PDF's te gebruiken, binnen handbereik. Ze zijn allemaal 100% GRATIS en gemakkelijk te gebruiken! PDF's samenvoegen, splitsen, comprimeren, converteren, roteren, ontgrendelen en van een watermerk voorzien met slechts een paar klikken",
+        "section1": {
+            "title": "Laatste nieuws van ons bedrijf",
+            "title1": "Lerem Ipsum is gewoon een dummy",
+            "text1": "Lerem Ipsum is eenvoudigweg een proeftekst van de druk- en typwijze die indremm heeft",
+            "title2": "Lorem Ipsum is gewoon een dummy",
+            "text2": "Lerem Ipsum is eenvoudigweg een proeftekst van de druk- en typwijze die indremm heeft",
+            "title3": "Lerem Ipsum is gewoon een dummy",
+            "text3": "Lerem Ipsum is eenvoudigweg een proeftekst van de druk- en typwijze die indremm heeft"
+        },
+        "section2": {
+            "title": "Registreer gratis account",
+            "item1": "Verlengde levensduur van bestanden",
+            "item2": "Prioriteit downloadtoegang",
+            "item3": "Al uw bestanden op één plek",
+            "button": "Krijg een gratis account"
+        }
+      },
+      "signUp": {
+        "create": "Nieuw account aanmaken",
+        "name_req": "Naamveld is verplicht",
+        "fullName": "Volledige naam",
+        "e-mail": "E-mailadres",
+        "email_req": "E-mailveld is verplicht",
+        "email_type": "Geef een geldig e-mailadres op",
+        "email_exi": "Gebruiker bestaat al",
+        "pass": "Wachtwoord aanmaken",
+        "pass_req": "Wachtwoordveld is vereist",
+        "pass_length": "Wachtwoord moet minimaal 6 tekens lang zijn",
+        "signUp": "Aanmelden",
+        "have_acc": "Heeft u een account?",
+        "login": "Login",
+        "tool_title": "PDF-hulpmiddelen voor productieve mensen",
+        "tool_des": "PDFDen helpt u PDF-bestanden snel en eenvoudig te converteren, bewerken, elektronisch te ondertekenen en te beschermen. Geniet van een volledige reeks tools om documenten effectief te beheren, waar u ook werkt."
+      },
+      "merge_page": {
+        "title": "PDF-bestanden samenvoegen",
+        "description": "Combineer PDF's in de gewenste volgorde met de eenvoudigste PDF-samenvoeging die beschikbaar is.",
+        "selectBtn": "Selecteer PDF-bestanden",
+        "dropFiles": "Of zet hier PDF's neer",
+        "mergePdf": "PDF samenvoegen",
+        "one_des": "Om de volgorde van uw PDF's te wijzigen, sleept u de bestanden naar wens.",
+        "more_des": "Selecteer meer PDF-bestanden door nogmaals op ’Selecteer PDF-bestanden’ te klikken.",
+        "mere_des_a": "Selecteer meerdere bestanden door ’Ctrl’ ingedrukt te houden",
+        "multi": "Selecteer alstublieft meer PDF-bestanden",
+        "actionBtn": "PDF samenvoegen",
+        "howSection": {
+            "title": "Hoe PDF-bestanden combineren",
+            "description": "Volg deze eenvoudige stappen om PDF-documenten in één bestand te combineren:",
+            "list1": "Klik op de knop Selecteer een bestand hierboven, of sleep bestanden naar de dropzone.",
+            "list2": "Selecteer de bestanden die u wilt samenvoegen met behulp van de Acrobat PDF-combineertool.",
+            "list3": "Herschik de bestanden indien nodig.",
+            "list4": "Klik op Bestanden samenvoegen.",
+            "list5": "Meld u aan om het samengevoegde bestand te downloaden of te delen. U kunt de pagina's ook ordenen."
+        },
+        "trySection": {
+            "title": "Probeer onze PDF-fusietool",
+            "title1": "Combineer PDF's in één bestand",
+            "title2": "Vereenvoudig met een gecombineerde PDF",
+            "title3": "Organiseer uw online PDF",
+            "title4": "Download uw bestand of deel het",
+            "title5": "Werkt in elke webbrowser",
+            "title6": "Gebruik de beste PDF-combinator",
+            "description1": "Met de online tool Adobe Acrobat kunt u snel en eenvoudig PDF-bestanden samenvoegen tot één document. Voeg gewoon bestanden toe, voeg ze samen en u bent klaar.",
+            "description2": "Door meerdere bestanden samen te voegen tot één PDF kunt u ze gemakkelijker opslaan en bekijken. U kunt bestanden ook efficiënter met anderen delen door een link naar één enkel samengevoegd PDF-bestand te e-mailen.",
+            "description3": "Nadat u PDF-bestanden hebt gecombineerd, logt u eenvoudig in om individuele pagina's te ordenen. U kunt indien nodig PDF-pagina's verplaatsen, toevoegen, verwijderen of roteren totdat u het perfecte document hebt gemaakt.",
+            "description4": "U kunt het samengevoegde PDF-bestand downloaden met een klik of door u aan te melden. U kunt uw nieuwe bestand ook delen met een vriend of collega wanneer u zich aanmeldt.",
+            "description5": "Gebruik onze online tool voor het samenvoegen van PDF's in elke webbrowser, zoals Microsoft Edge of Google Chrome. Het werkt ook op Mac-, Windows- en Linux-besturingssystemen.",
+            "description6": "Adobe heeft het PDF-bestandsformaat uitgevonden, waardoor onze PDF-tools zeer betrouwbaar zijn. Gebruik onze PDF-combinator om bestanden samen te voegen en uw werk overal te laten bewegen."
+        },
+        "articleSection": {
+            "title": "PDF-blogartikelen samenvoegen",
+            "title1": "Lorem Ipsum is gewoon een dummy",
+            "title2": "Lorem Ipsum is gewoon een dummy",
+            "title3": "Lorem Ipsum is gewoon een dummy",
+            "description1": "Lorem Ipsum is eenvoudigweg een proeftekst van de druk- en type-indremm heeft ..",
+            "description2": "Lorem Ipsum is eenvoudigweg een proeftekst van de druk- en type-indremm heeft ..",
+            "description3": "Lorem Ipsum is eenvoudigweg een proeftekst van de druk- en typwijze die indremm heeft .."
+        },
+        "qaSection": {
+            "title": "Vragen? Wij hebben antwoorden."
+        },
+        "rateSection": {
+          "title": "Beoordeel uw ervaring",
+          "vote": "stemmen"
+        },
+        "onlineSection": {
+            "title": "Probeer deze online Acrobat-hulpmiddelen",
+            "title1": "PDF samenvoegen",
+            "title2": "PDF splitsen",
+            "title3": "PDF comprimeren",
+            "title4": "PDF converteren ",
+            "description1": "Combineer PDF's in de gewenste volgorde met de eenvoudigste PDF-samenvoeging die beschikbaar is.",
+            "description2": "Scheid één pagina of een hele set voor eenvoudige conversie naar onafhankelijke PDF-bestanden. ",
+            "description3": "Verklein de bestandsgrootte terwijl u optimaliseert voor maximale PDF-kwaliteit.",
+            "description4": "Converteer uw PDF-bestanden eenvoudig naar eenvoudig te bewerken DOC- en DOCX-documenten. Het geconverteerde WORD-document is bijna 100% nauwkeurig."
+        },
+        "securitySection": {
+            "title": "Uw bestanden worden veilig behandeld door Adobe-servers en verwijderd, tenzij u zich aanmeldt om ze op te slaan. Door deze service te gebruiken, gaat u akkoord met de gebruiksvoorwaarden en het privacybeleid van Adobe.",
+            "description1": "Meerdere PDF's samenvoegen tot één binnen enkele seconden.",
+            "description2": "Drag & drop uw PDF's om te beginnen - eenvoudig!",
+            "description3": "Werkt op Mac, Windows, Android en iOS."
+        }
+      },
+      "rotate_page": {
+        "title": "PDF roteren",
+        "description": "Roteer uw PDF's zoals u ze nodig heeft. U kunt zelfs meerdere PDF's tegelijk roteren!",
+        "selectBtn": "Selecteer PDF-bestanden",
+        "dropFiles": "Of zet hier PDF's neer",
+        "rotatePdf": "PDF roteren",
+        "info_a": "Beweeg de muis over het PDF-bestand hieronder en een",
+        "info_b": "pictogram verschijnt, klik op de pijlen om PDF's te roteren.",
+        "set_rotate": "Selecteer bestanden om te roteren:",
+        "reset": "Alles resetten",
+        "all": "Alles",
+        "portrait": "Portret",
+        "landscape": "Landschap",
+        "rotation": "Rotatie",
+        "right": "Rechts",
+        "left": "links",
+        "actionBtn": "PDF roteren"
+      },
+      "edit_page": {
+        "title": "PDF-editor",
+        "description": "Roteer uw PDF's zoals u ze nodig heeft. U kunt zelfs meerdere PDF's tegelijk roteren!",
+        "selectBtn": "Selecteer PDF-bestanden",
+        "dropFiles": "Of zet hier PDF's neer",
+        "editPdf": "PDF bewerken",
+        "elementen": "Elementen",
+        "ele_des": "Vanuit deze werkbalk kunt u de volgorde van elementen wijzigen om ze naar achteren of vóór het document te verplaatsen.",
+        "actionBtn": "PDF bewerken"
+      },
+  
+      "pdf_word": {
+        "title": "PDF naar WORD-converter",
+         "description": " Converteer uw PDF naar WORD-documenten met ongelooflijke nauwkeurigheid.",
+         "selectBtn": "Selecteer WORD-bestanden",
+         "dropFiles": "Of zet hier PDF's neer",
+         "actionBtn": "Converteren naar PDF"
+      },
+      "word_pdf": {
+        "title": "WORD naar PDF converteren",
+        "description": "Maak DOC- en DOCX-bestanden eenvoudig klaar door ze naar PDF te converteren.",
+        "selectBtn": "Selecteer PDF-bestanden",
+        "dropFiles": "Of zet hier PDF's neer",
+        "actionBtn": "Converteren naar WORD"
+      },
+      "split_page": {
+        "title": "PDF-bestand splitsen",
+         "description": "Bewerk PDF door tekst, vormen, opmerkingen en markeringen toe te voegen. U kunt deze veilig en eenvoudig bewerken.",
+         "selectBtn": "Selecteer PDF-bestanden",
+         "dropFiles": "Of zet hier PDF's neer",
+         "range": "bereik",
+         "split": "Splitsen",
+         "allRange": "Alle bereiken samenvoegen in één PDF-bestand.",
+         "actionBtn": "PDF splitsen",
+         "down_btn_title": "Succesvol gesplitst",
+         "rangeMode": "Bereikmodus:",
+         "customRange": "Aangepast bereik",
+         "fixedRange": "Vast bereik",
+         "fromPage": "Van pagina",
+         "to": "Aan",
+         "addRange": "+ Bereik toevoegen",
+         "split_des_b": "Deze PDF wordt opgesplitst in bestanden van",
+         "split_des_a": "PDF's worden gemaakt",
+         "extractMode": "Extractmodus",
+         "extractAll": "Alle pagina's extraheren",
+         "selectPage": "Selecteer pagina",
+         "extract_des_b": "Geselecteerde pagina's worden geconverteerd naar afzonderlijke PDF-bestanden.",
+         "extract_des_a": "Pdf wordt gemaakt",
+         "split_by_range": "SPLITSEN OP BEREIK",
+         "extract_pages": "PAGINA'S EXTRACEREN"
+      },
+      "compress_page": {
+        "title": "PDF-bestand comprimeren",
+        "description": "Verklein de bestandsgrootte terwijl u optimaliseert voor maximale PDF-kwaliteit.",
+        "selectBtn": "Selecteer PDF-bestanden",
+        "dropFiles": "Of zet hier PDF's neer",
+        "level": "Compressieniveau",
+        "extreme": "EXTREME COMPRESSIE",
+        "extreme_des": "(Minder kwaliteit, hoge compressie)",
+        "recommended": "AANBEVOLEN COMPRESSIE",
+        "recommended_des": "(Goede kwaliteit, goede compressie)",
+        "less": "MINDER COMPRESSIE",
+        "less_des": "(Hoge kwaliteit, minder compressie)",
+        "actionBtn": "PDF comprimeren"
+      },
+      "sign_page": {
+        "title": "PDF ondertekenen",
+         "des": "Uw hulpmiddel om documenten elektronisch te ondertekenen. Onderteken zelf een document of stuur een handtekeningverzoek naar anderen.",
+         "selectBtn": "Selecteer PDF-bestanden",
+         "dropFiles": "Of zet hier PDF's neer",
+         "sign_options": "Ondertekenopties",
+         "name": "naam",
+         "date": "Datum",
+         "text": "Tekst",
+         "actionBtn": "PDF ondertekenen",
+         "fullName": "Volledige naam: ",
+         "initials": "Initialen: ",
+         "signature": "Handtekening",
+         "initial": "Initieel",
+         "stamp": "Bedrijfsstempel"
+      }
+    },
+    "features": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "PDF samenvoegen",
+        "description": "Combineer PDF's in de gewenste volgorde met de eenvoudigste PDF-samenvoeging die beschikbaar is",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "PDF splitsen",
+         "description": "Scheid één pagina of een hele set voor eenvoudige conversie naar onafhankelijke PDF-bestanden",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "PDF comprimeren",
+        "description": "Verklein de bestandsgrootte terwijl u optimaliseert voor maximale PDF-kwaliteit",
+        "file": "compress_pdf.svg"
+      },
+      "word_pdf": {
+        "name": "wordtopdf",
+        "title": "Word naar PDF",
+         "description": "Maak DOC- en DOCX-bestanden gemakkelijk leesbaar door ze naar PDF te converteren.",
+        "file": "word_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF naar Word",
+        "description": "Converteer uw PDF-bestanden eenvoudig naar eenvoudig te bewerken DOC- en DOCX-documenten. Het geconverteerde WORD-document is bijna 100% nauwkeurig.",
+        "file": "pdf_word.svg"
+      },
+      "sign": {
+        "name": "signpdf",
+        "title": "PDF ondertekenen",
+        "description": "Onderteken uzelf of vraag elektronische handtekeningen aan bij anderen.",
+        "file": "sign_pdf.svg"
+      },
+      "edit": {
+        "name": "editpdf",
+        "title": "PDF bewerken",
+         "description": "Voeg tekst, afbeeldingen, vormen of annotaties uit de vrije hand toe aan een PDF-document. Bewerk de grootte, het lettertype en de kleur van de toegevoegde inhoud.",
+        "file": "edit_pdf.svg"
+      },
+      "rotate": {
+        "name": "rotatepdf",
+        "title": "PDF roteren",
+         "description": "Roteer uw PDF's zoals u ze nodig heeft. U kunt zelfs meerdere PDF's tegelijk roteren!",
+        "file": "rotate_pdf.svg"
+      }
+    },
+    "onlines": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "PDF samenvoegen",
+         "description": "Combineer PDF's in de gewenste volgorde met de eenvoudigste PDF-samenvoeging die beschikbaar is",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "PDF splitsen",
+         "description": "Scheid één pagina of een hele set voor eenvoudige conversie naar onafhankelijke PDF-bestanden",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "PDF comprimeren",
+         "description": "Verklein de bestandsgrootte terwijl u optimaliseert voor maximale PDF-kwaliteit",
+        "file": "compress_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF naar Word",
+         "description": "Converteer uw PDF-bestanden eenvoudig naar eenvoudig te bewerken DOC- en DOCX-documenten. Het geconverteerde WORD-document is bijna 100% nauwkeurig.",
+        "file": "pdf_word.svg"
+      }
+    },
+    "other_features": {
+      "convert_pdf": { "title": "CONVERTEER PDF" },
+      "all_pdf_tools": { "title": "ALLE PDF-HULPMIDDELEN" }
+    },
+    "toolTip": {
+        "sel_google": "Selecteer PDF uit Google Drive",
+        "sel_dropBox": "Selecteer PDF uit Dropbox",
+        "upload_local": "Uploaden vanaf computer",
+        "save_dropBox": "Opslaan in Dropbox",
+        "save_google": "Opslaan in Google Drive",
+        "link": "Bestandslink delen of QR scannen",
+        "add_more": "Meer bestanden toevoegen"
+    }
+  }
+  

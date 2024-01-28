@@ -1,0 +1,310 @@
+{
+    "nav-links": {
+        "login": "Iniciar sessió",
+        "signup": "Registreu-vos",
+        "about": "Quant a",
+        "merge_pdf": "Combina PDF",
+        "split_pdf": "Dividir PDF",
+        "compress_pdf": "Comprimir PDF",
+        "convert_pdf": "Converteix PDF",
+        "blog": "Blog",
+        "copyright": "Dret d'autor PdfDen. Tots els drets reservats."
+    },
+    "page_titles": {
+      "landing": {
+        "title1": "Totes les eines que necessiteu per treballar amb PDF en un sol lloc",
+        "text1": "Totes les eines que necessiteu per utilitzar PDF, al vostre abast. Totes són 100% GRATUÏTES i fàcils d'utilitzar! Combina, divideix, comprimeix, converteix, gira, desbloqueja i PDF amb filigrana amb només uns quants clics",
+        "section1": {
+            "title": "Últimes notícies de la nostra empresa",
+            "title1": "Lerem Ipsum és simplement un simulacre",
+            "text1": "Lerem Ipsum és simplement un text simulat de la impressió i mecanografia que té indremm",
+            "title2": "Lorem Ipsum és simplement un simulacre",
+            "text2": "Lerem Ipsum és simplement un text simulat de la impressió i mecanografia que té indremm",
+            "title3": "Lerem Ipsum és simplement un simulacre",
+            "text3": "Lerem Ipsum és simplement un text simulat de la impressió i mecanografia que té indremm"
+        },
+        "section2": {
+            "title": "Registreu-vos per al compte gratuït",
+            "item1": "Vida allargada del fitxer",
+            "item2": "Accés de baixada prioritari",
+            "item3": "Tots els vostres fitxers en un sol lloc",
+            "button": "Obteniu un compte gratuït"
+        }
+      },
+      "signUp": {
+        "create": "Create New Account",
+        "name_req": "Name field is required",
+        "fullName": "Full name",
+        "email": "Email address",
+        "email_req": "Email field is required",
+        "email_type": "Please provide valid email",
+        "email_exi": "User already exist",
+        "pass": "Create password",
+        "pass_req": "Password field is required",
+        "pass_length": "Password should be at least 6 characters long",
+        "signUp": "Sign Up",
+        "have_acc": "Have an account?",
+        "login": "Log IN",
+        "tool_title": "PDF tools for productive people",
+        "tool_des": " PDFDen helps you convert, edit, e-sign, and protect PDF files quickly and easily. Enjoy a full suite of tools to effectively manage documents —no matter where you’re working."
+      },
+      "merge_page": {
+        "title": "Combina fitxers PDF",
+        "description": "Combina els PDF en l'ordre que vulguis amb la combinació de PDF més fàcil disponible.",
+        "selectBtn": "Seleccioneu fitxers PDF",
+        "dropFiles": "O deixeu PDF aquí",
+        "mergePdf": "Combina PDF",
+        "one_des": "Per canviar l'ordre dels vostres PDF, arrossegueu i deixeu anar els fitxers com vulgueu.",
+        "more_des": "Si us plau, seleccioneu més fitxers PDF fent clic de nou a ‘Seleccioneu fitxers PDF’.",
+        "mere_des_a": "Seleccioneu diversos fitxers mantenint premut ’Ctrl’",
+        "multi": "Si us plau, seleccioneu més fitxers PDF",
+        "actionBtn": "Combina PDF",
+        "howSection": {
+            "title": "Com combinar fitxers PDF",
+            "description": "Seguiu aquests senzills passos per combinar documents PDF en un sol fitxer:",
+            "list1": "Feu clic al botó Selecciona un fitxer de dalt o arrossegueu i deixeu anar fitxers a la zona de llançament.",
+            "list2": "Seleccioneu els fitxers que voleu combinar amb l'eina de combinació de PDF d'Acrobat.",
+            "list3": "Reordena els fitxers si cal.",
+            "list4": "Feu clic a Combina fitxers.",
+            "list5": "Inicieu la sessió per baixar o compartir el fitxer combinat. També podeu organitzar les pàgines."
+        },
+        "trySection": {
+            "title": "Prova la nostra eina de fusió de PDF",
+            "title1": "Combina PDF en un sol fitxer",
+            "title2": "Simplifica amb un PDF combinat",
+            "title3": "Organitza el teu PDF en línia",
+            "title4": "Baixa el teu fitxer o comparteix-lo",
+            "title5": "Funciona en qualsevol navegador web",
+            "title6": "Utilitza el millor combinador de PDF",
+            "description1": "És ràpid i fàcil combinar fitxers PDF en un sol document amb l'eina en línia d'Adobe Acrobat. Només cal afegir fitxers, combinar-los i ja està.",
+            "description2": "La fusió de diversos fitxers en un sol PDF us permet emmagatzemar-los i revisar-los més fàcilment. També podeu compartir fitxers amb altres de manera més eficient enviant un enllaç per correu electrònic a un únic fitxer PDF combinat.",
+            "description3": "Després de combinar fitxers PDF, només cal que inicieu la sessió per organitzar pàgines individuals. Podeu moure, afegir, suprimir o girar pàgines PDF segons calgui fins que hàgiu creat el document perfecte.",
+            "description4": "Podeu baixar el fitxer PDF combinat amb un clic o iniciant la sessió. També podeu compartir el vostre fitxer nou amb un amic o un company quan inicieu la sessió.",
+            "description5": "Utilitzeu la nostra eina en línia de fusió de PDF en qualsevol navegador web, com ara Microsoft Edge o Google Chrome. També funciona amb sistemes operatius Mac, Windows i Linux.",
+            "description6": "Adobe va inventar el format de fitxer PDF, fent que les nostres eines PDF fossin molt fiables. Utilitzeu el nostre combinador de PDF per combinar fitxers i mantenir el vostre treball en moviment des de qualsevol lloc."
+        },
+        "articleSection": {
+            "title": "Combina els articles del bloc PDF",
+            "title1": "Lorem Ipsum és simplement un simulacre",
+            "title2": "Lorem Ipsum és simplement un simulacre",
+            "title3": "Lorem Ipsum és simplement un simulacre",
+            "description1": "Lorem Ipsum és simplement un text simulat de la impressió i mecanografia que indremm té ..",
+            "description2": "Lorem Ipsum és simplement un text simulat de la impressió i mecanografia que indremm té ..",
+            "description3": "Lorem Ipsum és simplement un text simulat de la impressió i mecanografia que indremm té .."
+        },
+        "qaSection": {
+            "title": "Preguntes? Tenim respostes."
+        },
+        "rateSection": {
+            "title": "Valora la teva experiència",
+            "vote": "vots"
+        },
+        "onlineSection": {
+            "title": "Prova aquestes eines en línia d'Acrobat",
+            "title1": "Combina PDF",
+            "title2": "Dividir PDF",
+            "title3": "Comprimir PDF",
+            "title4": "Convertir PDF",
+            "description1": "Combina els PDF en l'ordre que vulguis amb la fusió de PDF més fàcil disponible.",
+            "description2": "Separa una pàgina o un conjunt sencer per a una conversió fàcil en fitxers PDF independents. ",
+            "description3": "Redueix la mida del fitxer alhora que optimitza per obtenir la màxima qualitat de PDF.",
+            "description4": "Convertiu fàcilment els vostres fitxers PDF en documents DOC i DOCX fàcils d'editar. El document WORD convertit és gairebé 100% precís."
+        },
+        "securitySection": {
+            "title": "Els servidors d'Adobe gestionaran els vostres fitxers de manera segura i se suprimiran tret que inicieu sessió per desar-los. En utilitzar aquest servei, accepteu les Condicions d'ús i la Política de privadesa d'Adobe.",
+            "description1": "Combina diversos PDF en un en qüestió de segons.",
+            "description2": "Arrossegueu i deixeu anar els vostres PDF per començar, fàcil!",
+            "description3": "Funciona a Mac, Windows, Android i iOS."
+        }
+      },
+      "rotate_page": {
+        "title": "Gira PDF",
+         "description": "Gira els teus PDF com els necessitis. Fins i tot pots girar diversos PDF alhora!",
+         "selectBtn": "Seleccioneu fitxers PDF",
+         "dropFiles": "O deixeu PDF aquí",
+         "rotatePdf": "Gira PDF",
+         "info_a": "Passa el ratolí sobre el fitxer PDF a continuació i a",
+         "info_b": "Apareixerà la icona, feu clic a les fletxes per girar els PDF.",
+         "set_rotate": "Seleccioneu els fitxers per girar:",
+         "reset": "Restablir-ho tot",
+         "all": "Tots",
+         "portrait": "Retrat",
+         "landscape": "Paisatge",
+         "rotation": "Rotació",
+         "right": "Correcte",
+         "left": "Esquerra",
+         "actionBtn": "Gira PDF"
+      },
+      "edit_page": {
+        "title": "Editor de PDF",
+        "description": "Gira els teus PDF com els necessites. Fins i tot pots girar diversos PDF alhora!",
+        "selectBtn": "Seleccioneu fitxers PDF",
+        "dropFiles": "O deixeu PDF aquí",
+        "editPdf": "Edita PDF",
+        "elements": "Elements",
+        "ele_des": "Des d'aquesta barra d'eines podeu reordenar els elements per moure'ls cap enrere o davant del document.",
+        "actionBtn": "Edita PDF"
+      },
+  
+      "pdf_word": {
+        "title": "Conversor de PDF a WORD",
+        "description": "Converteix els teus documents PDF a WORD amb una precisió increïble.",
+        "selectBtn": "Seleccioneu fitxers WORD",
+        "dropFiles": "O deixeu PDF aquí",
+        "actionBtn": "Converteix a PDF"
+      },
+      "word_pdf": {
+        "title": "Converteix WORD a PDF",
+        "description": "Feu que els fitxers DOC i DOCX siguin fàcils de preparar convertint-los a PDF.",
+        "selectBtn": "Seleccioneu fitxers PDF",
+        "dropFiles": "O deixeu PDF aquí",
+        "actionBtn": "Converteix a WORD"
+      },
+      "split_page": {
+        "title": "Dividir fitxer PDF",
+        "description": "Edita PDF afegint text, formes, comentaris i ressaltats. També pots editar-lo segur i senzill.",
+        "selectBtn": "Seleccioneu fitxers PDF",
+        "dropFiles": "O deixeu PDF aquí",
+        "range": "interval",
+        "split": "Dividir",
+        "allRange": "Combina tots els intervals en un sol fitxer PDF.",
+        "actionBtn": "Dividir PDF",
+        "down_btn_title": "Divisió amb èxit",
+        "rangeMode": "Mode d'interval:",
+        "customRange": "Interval personalitzat",
+        "fixedRange": "Interval fix",
+        "fromPage": "Des de la pàgina",
+        "to": "A",
+        "addRange": "+ Afegeix un interval",
+        "split_des_b": "Aquest PDF es dividirà en fitxers de",
+        "split_des_a": "Es crearan PDF",
+        "extractMode": "Mode d'extracció",
+        "extractAll": "Extreu totes les pàgines",
+        "selectPage": "Selecciona la pàgina",
+        "extract_des_b": "Les pàgines seleccionades es convertiran en fitxers PDF separats.",
+        "extract_des_a": "Es crearà un PDF",
+        "split_by_range": "DIVISIÓ PER RANGE",
+        "extract_pages": "EXTRAIG PÀGINES"
+      },
+      "compress_page": {
+        "title": "Comprimir fitxer PDF",
+         "description": "Redueix la mida del fitxer alhora que optimitza per obtenir la màxima qualitat de PDF.",
+         "selectBtn": "Seleccioneu fitxers PDF",
+         "dropFiles": "O deixeu PDF aquí",
+         "level": "Nivell de compressió",
+         "extreme": "COMPRESSIÓ EXTREMA",
+         "extreme_des": "(Menys qualitat, alta compressió)",
+         "recommended": "COMPRESSIÓ RECOMANADA",
+         "recommended_des": "(Bona qualitat, bona compressió)",
+         "less": "MENY COMPRESSIÓ",
+         "less_des": "(Alta qualitat, menys compressió)",
+         "actionBtn": "Comprimir PDF"
+      },
+      "sign_page": {
+        "title": "Sign PDF",
+        "des": "Your tool to eSign documents. Sign a document yourself or send a signature request to others.",
+        "selectBtn": "Select PDF Files",
+        "dropFiles": "Or Drop PDFs Here",
+        "sign_options": "Signing options",
+        "name": "Name",
+        "date": "Date",
+        "text": "Text",
+        "actionBtn": "sign PDF",
+        "fullName": "Full Name: ",
+        "initials": "Initials: ",
+        "signature": "Signature",
+        "initial": "Initial",
+        "stamp": "Company Stamp"
+      }
+    },
+    "features": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "Combina PDF",
+         "description": "Combina els PDF en l'ordre que vulguis amb la fusió de PDF més fàcil disponible",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "Dividir PDF",
+         "description": "Separa una pàgina o un conjunt sencer per a una conversió fàcil en fitxers PDF independents",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "Comprimir PDF",
+        "description": "Redueix la mida del fitxer alhora que optimitza per obtenir la màxima qualitat de PDF",
+        "file": "compress_pdf.svg"
+      },
+      "word_pdf": {
+        "name": "wordtopdf",
+        "title": "Paraula a PDF",
+        "description": "Feu que els fitxers DOC i DOCX siguin fàcils de llegir convertint-los a PDF.",
+        "file": "word_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF a Word",
+         "description": "Convertiu fàcilment els vostres fitxers PDF en documents DOC i DOCX fàcils d'editar. El document WORD convertit és gairebé 100% precís.",
+        "file": "pdf_word.svg"
+      },
+      "sign": {
+        "name": "signpdf",
+        "title": "Firma PDF",
+        "description": "Firma tu mateix o sol·licita signatures electròniques d'altres persones.",
+        "file": "sign_pdf.svg"
+      },
+      "edit": {
+        "name": "editpdf",
+        "title": "Edita PDF",
+        "description": "Afegiu text, imatges, formes o anotacions a mà alçada a un document PDF. Editeu la mida, el tipus de lletra i el color del contingut afegit.",
+        "file": "edit_pdf.svg"
+      },
+      "rotate": {
+        "name": "rotatepdf",
+        "title": "Gira PDF",
+        "description": "Gira els teus PDF com els necessitis. Fins i tot pots girar diversos PDF alhora!",
+        "file": "rotate_pdf.svg"
+      }
+    },
+    "onlines": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "Combina PDF",
+        "description": "Combina els PDF en l'ordre que vulguis amb la fusió de PDF més fàcil disponible",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "Dividir PDF",
+        "description": "Separa una pàgina o un conjunt sencer per a una conversió fàcil en fitxers PDF independents",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "Comprimir PDF",
+        "description": "Redueix la mida del fitxer alhora que optimitza per obtenir la màxima qualitat de PDF",
+        "file": "compress_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF a Word",
+         "description": "Convertiu fàcilment els vostres fitxers PDF en documents DOC i DOCX fàcils d'editar. El document WORD convertit és gairebé 100% precís.",
+        "file": "pdf_word.svg"
+      }
+    },
+    "other_features": {
+      "convert_pdf": { "title": "CONVERTIR PDF" },
+      "all_pdf_tools": { "title": "TOTES LES EINES PDF" }
+    },
+    "toolTip": {
+        "sel_google": "Seleccioneu PDF de Google Drive",
+        "sel_dropBox": "Seleccioneu PDF de Dropbox",
+        "upload_local": "Penja des de l'ordinador",
+        "save_dropBox": "Desa a Dropbox",
+        "save_google": "Desa a Google Drive",
+        "link": "Comparteix l'enllaç de fitxers o escaneja QR",
+        "add_more": "Afegeix més fitxers"
+    }
+  }
+  

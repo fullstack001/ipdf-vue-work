@@ -461,6 +461,26 @@ export default {
   },
 };
 </script>
+<style>
+.timer {
+  display: inline-flex;
+  text-align: center;
+}
+
+.timer-item {
+  margin: 20px 40px;
+}
+
+.timer-count {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.timer-label {
+  font-size: 16px;
+  font-weight: 500;
+}
+</style>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
@@ -654,25 +674,6 @@ body {
 
 .download-more img {
   width: 30px;
-}
-
-.timer {
-  display: inline-flex;
-  text-align: center;
-}
-
-.timer-item {
-  margin: 20px 40px;
-}
-
-.timer-count {
-  font-size: 22px;
-  margin-bottom: 20px;
-}
-
-.timer-label {
-  font-size: 16px;
-  font-weight: 500;
 }
 
 .chart_area {

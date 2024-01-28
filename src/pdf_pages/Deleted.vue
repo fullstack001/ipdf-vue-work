@@ -4,7 +4,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <div class="page-title">This task has already been deleted.</div>
+    <div class="delete-page-title">This task has already been deleted.</div>
     <div class="deleted_btn">
       <a class="md-icon-button back-btn" @click="back_page">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16">
@@ -42,6 +42,11 @@ body {
 }
 .deleted-page {
   text-align: center;
+  padding-top: 50px;
+}
+.delete-page-title {
+  font-size: 26px;
+  font-weight: 500;
 }
 
 .deleted__btn {
@@ -74,6 +79,7 @@ body {
   -ms-flex-order: 1;
   order: 1;
   max-width: 60vw;
+  margin-top: 50px;
 }
 
 .deleted__btn:hover {

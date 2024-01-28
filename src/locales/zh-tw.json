@@ -1,0 +1,310 @@
+{
+    "nav-links": {
+      "login": "登入",
+      "signup": "註冊",
+      "about": "關於",
+      "merge_pdf": "合併 PDF",
+      "split_pdf": "分割 PDF",
+      "compress_pdf": "壓縮 PDF",
+      "convert_pdf": "轉換 PDF",
+      "blog": "博客",
+      "copyright": "版權所有 PdfDen。保留所有權利。"
+    },
+    "page_titles": {
+      "landing": {
+        "title1": "在一個地方處理 PDF 所需的所有工具",
+        "text1": "使用PDF 所需的每個工具，觸手可及。全部都是100% 免費且易於使用！只需點擊幾下即可合併、分割、壓縮、轉換、旋轉、解鎖和添加水印PDF ",
+        "section1": {
+            "title": "我們公司最新消息",
+            "title1": "Lerem Ipsum 簡直是假的",
+            "text1": "Lerem Ipsum 只是列印和打字 indremm 的虛擬文字",
+            "title2": "Lorem Ipsum 簡直是假的",
+            "text2": "Lerem Ipsum 只是列印和打字 indremm 的虛擬文字",
+            "title3": "Lerem Ipsum 簡直是假的",
+            "text3": "Lerem Ipsum 只是列印和打字 indremm 的虛擬文字"
+        },
+        "section2": {
+            "title": "註冊免費帳戶",
+            "item1": "延長檔案壽命",
+            "item2": "優先下載權限",
+            "item3": "所有檔案都集中在一處",
+            "button": "取得免費帳戶"
+        }
+      },
+      "signUp": {
+        "create": "建立新帳戶",
+        "name_req": "姓名欄位為必填項目",
+        "fullName": "全名",
+        "email": "電子郵件地址",
+        "email_req": "電子郵件欄位為必填項目",
+        "email_type": "請提供有效的電子郵件",
+        "email_exi": "使用者已存在",
+        "pass": "建立密碼",
+        "pass_req": "密碼欄位為必填項",
+        "pass_length": "密碼長度應至少為 6 個字元",
+        "signUp": "註冊",
+        "have_acc": "有帳戶嗎？",
+        "login": "登入",
+        "tool_title": "提供給高效率人士的 PDF 工具",
+        "tool_des": "PDFDen 可協助您快速輕鬆地轉換、編輯、電子簽名和保護 PDF 檔案。無論您在哪裡工作，都可以使用全套工具來有效管理文件。"
+      },
+      "merge_page": {
+        "title": "合併 PDF 檔案",
+        "description": "使用最簡單的 PDF 合併功能，按照您想要的順序合併 PDF。",
+        "selectBtn": "選擇 PDF 檔案",
+        "dropFiles": "或在此處放置 PDF",
+        "mergePdf": "合併PDF",
+        "one_des": "要更改 PDF 的順序，請根據需要拖放檔案。",
+        "more_des": "請再次點選「選擇 PDF 檔案」來選擇更多 PDF 檔案。",
+        "mere_des_a": "按住 'Ctrl' 選擇多個檔案",
+        "multi": "請選擇更多 PDF 檔案",
+        "actionBtn": "合併 PDF",
+        "howSection": {
+            "title": "如何合併PDF檔案",
+            "description": "按照這些簡單的步驟將 PDF 文件合併到一個文件中：",
+            "list1": "點選上面的選擇檔案按鈕，或將檔案拖曳到放置區域。",
+            "list2": "選擇要使用 Acrobat PDF 合併工具合併的文件。",
+            "list3": "如果需要，對檔案重新排序。",
+            "list4": "點選合併檔案。",
+            "list5": "登入下載或分享合併的檔案。您也可以組織頁面。"
+        },
+        "trySection": {
+            "title": "嘗試我們的 PDF 合併工具",
+            "title1": "將 PDF 合併為一個檔案",
+            "title2": "使用合併的 PDF 簡化",
+            "title3": "組織您的線上 PDF",
+            "title4": "下載您的檔案或共用它",
+            "title5": "在任何網頁瀏覽器工作",
+            "title6": "使用最好的PDF合併器",
+            "description1": "使用 Adob​​e Acrobat 線上工具可以快速輕鬆地將 PDF 文件合併為單一文件。只需添加文件、合併它們，然後就完成了。",
+            "description2": "將多個檔案合併到一個PDF 中可以讓您更輕鬆地儲存和檢視它們。您也可以透過電子郵件傳送指向單一合併PDF 檔案的連結來更有效地與其他人共用檔案。 ",
+            "description3": "合併 PDF 檔案後，只需登入即可組織各個頁面。您可以根據需要移動、新增、刪除或旋轉 PDF 頁面，直到建立完美的文件。",
+            "description4": "您可以透過點擊或登入下載合併的 PDF 檔案。您也可以在登入時與朋友或同事分享您的新檔案。",
+            "description5": "在任何網頁瀏覽器中使用我們的 PDF 合併線上工具，例如 Microsoft Edge 或 Google Chrome。它也適用於 Mac、Windows 和 Linux 作業系統。",
+            "description6": "Adobe 發明了 PDF 文件格式，使我們的 PDF 工具高度可信。使用我們的 PDF 組合器合併文件，讓您的工作隨時隨地進行。"
+        },
+        "articleSection": {
+            "title": "合併 PDF 部落格文章",
+            "title1": "Lorem Ipsum 簡直是假的",
+            "title2": "Lorem Ipsum 簡直是假的",
+            "title3": "Lorem Ipsum 簡直是假的",
+            "description1": "Lorem Ipsum 只是列印和鍵入 indremm 的虛擬文字..",
+            "description2": "Lorem Ipsum 只是列印和鍵入 indremm 的虛擬文字..",
+            "description3": "Lorem Ipsum 只是列印和打字 indremm 的虛擬文字.."
+        },
+        "qaSection": {
+            "title": "有問題嗎？我們有答案。"
+        },
+        "rateSection": {
+          "title": "評價您的體驗",
+          "vote": "投票"
+        },
+        "onlineSection": {
+            "title": "嘗試這些 Acrobat 線上工具",
+            "title1": "合併 PDF",
+            "title2": "分割 PDF",
+            "title3": "壓縮 PDF",
+            "title4": "轉換 PDF",
+            "description1": "使用最簡單的 PDF 合併功能，按照您想要的順序合併 PDF。",
+            "description2": "單獨一頁或整套，方便轉換為獨立的 PDF 文件。",
+            "description3": "減少檔案大小，同時最佳化以獲得最大 PDF 品質。",
+            "description4": "輕鬆將您的 PDF 文件轉換為易於編輯的 DOC 和 DOCX 文件。轉換後的 WORD 文件幾乎 100% 準確。"
+        },
+        "securitySection": {
+            "title": "您的檔案將由 Adob​​e 伺服器安全地處理並刪除，除非您登入儲存它們。使用此服務即表示您同意 Adob​​e 使用條款和隱私權政策。",
+            "description1": "在幾秒鐘內將多個 PDF 合併為一個。",
+            "description2": "拖曳 PDF 即可開始 — 簡單！",
+            "description3": "適用於 Mac、Windows、Android 和 iOS。"
+        }
+      },
+      "rotate_page": {
+        "title": "旋轉 PDF",
+        "description": "按照您需要的方式旋轉 PDF。您甚至可以一次旋轉多個 PDF！",
+        "selectBtn": "選擇 PDF 檔案",
+        "dropFiles": "或在此處放置 PDF",
+        "rotatePdf": "旋轉 PDF",
+        "info_a": "將滑鼠停留在下面的 PDF 檔案上和 a",
+        "info_b": "將會出現圖標，點擊箭頭即可旋轉 PDF。",
+        "set_rotate": "選擇要旋轉的檔案：",
+        "reset": "全部重置",
+        "all": "全部",
+        "portrait": "肖像",
+        "landscape": "風景",
+        "rotation": "旋轉",
+        "right": "右",
+        "left": "左",
+        "actionBtn": "旋轉 PDF"
+      },
+      "edit_page": {
+        "title": "PDF 編輯器",
+        "description": "按照您需要的方式旋轉 PDF。您甚至可以一次旋轉多個 PDF！",
+        "selectBtn": "選擇 PDF 檔案",
+        "dropFiles": "或在此處放置 PDF",
+        "editPdf": "編輯 PDF",
+        "elements": "元素",
+        "ele_des": "透過此工具列，您可以對元素重新排序，將它們移到文件的後面或前面。",
+        "actionBtn": "編輯 PDF"
+      },
+  
+      "pdf_word": {
+        "title": "PDF 到 WORD 轉換器",
+        "description": "以令人難以置信的準確性將您的 PDF 轉換為 WORD 文件。",
+        "selectBtn": "選擇 WORD 檔案",
+        "dropFiles": "或在此處放置 PDF",
+        "actionBtn": "轉換為 PDF"
+      },
+      "word_pdf": {
+        "title": "將 WORD 轉換為 PDF",
+        "description": "將 DOC 和 DOCX 檔案轉換為 PDF，使它們易於準備。",
+        "selectBtn": "選擇 PDF 檔案",
+        "dropFiles": "或在此處放置 PDF",
+        "actionBtn": "轉換為 WORD"
+      },
+      "split_page": {
+        "title": "分割 PDF 檔案",
+        "description": "透過新增文字、形狀、註解和反白來編輯 PDF。編輯起來既安全又簡單。",
+        "selectBtn": "選擇 PDF 檔案",
+        "dropFiles": "或在此處放置 PDF",
+        "range": "範圍",
+        "split": "分裂",
+        "allRange": "將所有範圍合併到一個 PDF 檔案中。",
+        "actionBtn": "分割 PDF",
+        "down_btn_title": "分割成功",
+        "rangeMode": "範圍模式：",
+        "customRange": "自訂範圍",
+        "fixedRange": "固定範圍",
+        "fromPage": "來自頁面",
+        "to": "至",
+        "addRange": "+ 新增範圍",
+        "split_des_b": "此 PDF 將會分割成下列檔案",
+        "split_des_a": "將建立 PDF",
+        "extractMode": "擷取模式",
+        "extractAll": "提取所有頁面",
+        "selectPage": "選擇頁面",
+        "extract_des_b": "所選頁面將會轉換為單獨的 PDF 檔案。",
+        "extract_des_a": "將會建立 PDF",
+        "split_by_range": "依範圍分割",
+        "extract_pages": "提取頁面"
+      },
+      "compress_page": {
+        "title": "壓縮 PDF 檔案",
+         "description": "減少檔案大小，同時最佳化以獲得最高 PDF 品質。",
+         "selectBtn": "選擇 PDF 檔案",
+         "dropFiles": "或在此處放置 PDF",
+         "level": "壓縮等級",
+         "extreme": "極度壓縮",
+         "extreme_des": "(品質較低，壓縮較高)",
+         "recommended": "推薦壓縮",
+         "recommended_des": "(品質好，壓縮好)",
+         "less": "較少壓縮",
+         "less_des": "(高品質，較少壓縮)",
+         "actionBtn": "壓縮 PDF"
+      },
+      "sign_page": {
+        "title": "簽署 PDF",
+         "des": "您的電子簽名文件工具。您自己簽署文件或向其他人發送簽名請求。",
+         "selectBtn": "選擇 PDF 檔案",
+         "dropFiles": "或在此處放置 PDF",
+         "sign_options": "簽章選項",
+         "name": "姓名",
+         "date": "日期",
+         "text": "文本",
+         "actionBtn": "簽署 PDF",
+         "fullName": "全名：",
+         "縮寫": "縮寫：",
+         "簽名": "簽名",
+         "初始": "初始",
+         "stamp": "公司印章"
+      }
+    },
+    "features": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "合併PDF",
+         "description": "使用最簡單的 PDF 合併功能，依照您想要的順序合併 PDF",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "分割 PDF",
+        "description": "單獨一頁或整套以便輕鬆轉換為獨立的 PDF 文件",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "壓縮 PDF",
+         "description": "減少檔案大小，同時最佳化以獲得最大 PDF 品質",
+        "file": "compress_pdf.svg"
+      },
+      "word_pdf": {
+        "name": "wordtopdf",
+        "title": "Word 轉 PDF",
+        "description": "將 DOC 和 DOCX 檔案轉換為 PDF，使它們易於閱讀。",
+        "file": "word_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF 轉 Word",
+        "description": "輕鬆將您的 PDF 文件轉換為易於編輯的 DOC 和 DOCX 文件。轉換後的 WORD 文件幾乎 100% 準確。",
+        "file": "pdf_word.svg"
+      },
+      "sign": {
+        "name": "signpdf",
+        "title": "簽署 PDF",
+        "description": "自己簽名或請求他人電子簽名。",
+        "file": "sign_pdf.svg"
+      },
+      "edit": {
+        "name": "editpdf",
+        "title": "編輯PDF",
+         "description": "在 PDF 文件中新增文字、圖像、形狀或手繪註釋。編輯新增內容的大小、字體和顏色。",
+        "file": "edit_pdf.svg"
+      },
+      "rotate": {
+        "name": "rotatepdf",
+        "title": "旋轉 PDF",
+        "description": "按照您需要的方式旋轉 PDF。您甚至可以一次旋轉多個 PDF！",
+        "file": "rotate_pdf.svg"
+      }
+    },
+    "onlines": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "合併PDF",
+        "description": "使用最簡單的 PDF 合併功能，依照您想要的順序合併 PDF",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "分割 PDF",
+        "description": "單獨一頁或整套以便輕鬆轉換為獨立的 PDF 文件",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "壓縮 PDF",
+        "description": "減少檔案大小，同時最佳化以獲得最大 PDF 品質",
+        "file": "compress_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF 轉 Word",
+         "description": "輕鬆將您的 PDF 文件轉換為易於編輯的 DOC 和 DOCX 文件。轉換後的 WORD 文件幾乎 100% 準確。",
+        "file": "pdf_word.svg"
+      }
+    },
+    "other_features": {
+      "convert_pdf": { "title": "轉換PDF" },
+      "all_pdf_tools": { "title": "所有 PDF 工具" }
+    },
+    "toolTip": {
+        "sel_google": "從 Google 雲端硬碟選擇 PDF",
+        "sel_dropBox": "從 Dropbox 選擇 PDF",
+        "upload_local": "從電腦上傳",
+        "save_dropBox": "儲存到 Dropbox",
+        "save_google": "儲存到 Google 雲端硬碟",
+        "link": "分享檔案連結或掃描二維碼",
+        "add_more": "新增更多檔案"
+    }
+  }
+  

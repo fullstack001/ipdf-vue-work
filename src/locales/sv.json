@@ -1,0 +1,310 @@
+{
+    "nav-links": {
+        "login": "Logga in",
+        "signup": "Registrera dig",
+        "about": "Om",
+        "merge_pdf": "Sammanfoga PDF",
+        "split_pdf": "Dela PDF",
+        "compress_pdf": "Komprimera PDF",
+        "convert_pdf": "Konvertera PDF",
+        "blog": "Blogg",
+        "copyright": "Copyright PdfDen. Alla rättigheter reserverade."
+    },
+    "page_titles": {
+      "landing": {
+        "title1": "Varje verktyg du behöver för att arbeta med PDF-filer på ett ställe",
+         "text1": "Varje verktyg du behöver för att använda PDF-filer, till hands. Alla är 100 % GRATIS och lätta att använda! Slå ihop, dela, komprimera, konvertera, rotera, låsa upp och vattenstämpla PDF-filer med bara några klick",
+        "section1": {
+            "title": "Senaste nyheterna från vårt företag",
+            "title1": "Lerem Ipsum är helt enkelt dummy",
+            "text1": "Lerem Ipsum är helt enkelt dummy text av utskrift och skrivning indremm har",
+            "title2": "Lorem Ipsum är helt enkelt dummy",
+            "text2": "Lerem Ipsum är helt enkelt dummy text för utskrift och skrivning indremm har",
+            "title3": "Lerem Ipsum är helt enkelt dummy",
+            "text3": "Lerem Ipsum är helt enkelt dummy text av utskrift och skrivning indremm har"
+        },
+        "section2": {
+            "title": "Registrera dig gratis konto",
+            "item1": "Förlängd fillivslängd",
+            "item2": "Prioritetsåtkomst för nedladdning",
+            "item3": "Alla dina filer på ett ställe",
+            "button": "Få ett gratis konto"
+        }
+      },
+      "signUp": {
+        "create": "Skapa nytt konto",
+        "name_req": "Namnfält krävs",
+        "fullName": "Fullständigt namn",
+        "email": "E-postadress",
+        "email_req": "E-postfält krävs",
+        "email_type": "Ange giltig e-post",
+        "email_exi": "Användaren finns redan",
+        "pass": "Skapa lösenord",
+        "pass_req": "Lösenordsfält krävs",
+        "pass_length": "Lösenordet bör vara minst 6 tecken långt",
+        "signUp": "Registrera dig",
+        "have_acc": "Har du ett konto?",
+        "login": "Logga IN",
+        "tool_title": "PDF-verktyg för produktiva människor",
+        "tool_des": " PDFDen hjälper dig konvertera, redigera, e-signera och skydda PDF-filer snabbt och enkelt. Njut av en komplett uppsättning verktyg för att effektivt hantera dokument — oavsett var du arbetar."
+      },
+      "merge_page": {
+        "title": "Sammanfoga PDF-filer",
+        "description": "Kombinera PDF-filer i den ordning du vill ha med den enklaste PDF-sammanslagning som finns tillgänglig.",
+        "selectBtn": "Välj PDF-filer",
+        "dropFiles": "Eller släpp PDF-filer här",
+        "mergePdf": "MergePDF",
+        "one_des": "För att ändra ordningen på dina PDF-filer, dra och släpp filerna som du vill.",
+        "more_des": "Välj fler PDF-filer genom att klicka igen på 'Välj PDF-filer'.",
+        "mere_des_a": "Välj flera filer genom att hålla ned 'Ctrl'",
+        "multi": "Välj fler PDF-filer",
+        "actionBtn": "Sammanfoga PDF",
+        "howSection": {
+            "title": "Hur man kombinerar PDF-filer",
+            "description": "Följ dessa enkla steg för att kombinera PDF-dokument till en fil:",
+            "list1": "Klicka på knappen Välj en fil ovan, eller dra och släpp filer i släppzonen.",
+            "list2": "Välj de filer du vill sammanfoga med hjälp av Acrobat PDF-kombineringsverktyget.",
+            "list3": "Ordna om filerna om det behövs.",
+            "list4": "Klicka på Sammanfoga filer.",
+            "list5": "Logga in för att ladda ner eller dela den sammanslagna filen. Du kan organisera sidorna också."
+        },
+        "trySection": {
+            "title": "Prova vårt PDF-fusionsverktyg",
+            "title1": "Kombinera PDF-filer till en fil",
+            "title2": "Förenkla med en kombinerad PDF",
+            "title3": "Ordna din online-PDF",
+            "title4": "Ladda ner din fil eller dela den",
+            "title5": "Fungerar i vilken webbläsare som helst",
+            "title6": "Använd den bästa PDF-kombineraren",
+            "description1": "Det är snabbt och enkelt att slå samman PDF-filer till ett enda dokument med onlineverktyget Adobe Acrobat. Lägg bara till filer, slå samman dem och du är klar.",
+            "description2": "Om du slår samman flera filer till en PDF kan du lagra och granska dem enklare. Du kan också dela filer med andra mer effektivt genom att e-posta en länk till en enstaka sammanslagen PDF-fil.",
+            "description3": "När du har kombinerat PDF-filer, logga helt enkelt in för att organisera enskilda sidor. Du kan flytta, lägga till, ta bort eller rotera PDF-sidor efter behov tills du har skapat det perfekta dokumentet.",
+            "description4": "Du kan ladda ner den sammanslagna PDF-filen med ett klick eller genom att logga in. Du kan också dela din nya fil med en vän eller kollega när du loggar in.",
+            "description5": "Använd vårt onlineverktyg för PDF-fusion i vilken webbläsare som helst, som Microsoft Edge eller Google Chrome. Det fungerar även på operativsystemen Mac, Windows och Linux.",
+            "description6": "Adobe uppfann PDF-filformatet, vilket gör våra PDF-verktyg mycket pålitliga. Använd vår PDF-kombinerare för att slå samman filer och hålla ditt arbete i rörelse var som helst."
+        },
+        "articleSection": {
+            "title": "Slå samman PDF-bloggartiklar",
+            "title1": "Lorem Ipsum är helt enkelt dummy",
+            "title2": "Lorem Ipsum är helt enkelt dummy",
+            "title3": "Lorem Ipsum är helt enkelt dummy",
+            "description1": "Lorem Ipsum är helt enkelt dummy text av utskrift och skrivning indremm har ..",
+            "description2": "Lorem Ipsum är helt enkelt en dummy text för utskrift och skrivning indremm har ..",
+            "description3": "Lorem Ipsum är helt enkelt dummy text för utskrift och skrivning indremm har .."
+        },
+        "qaSection": {
+            "title": "Frågor? Vi har svar."
+        },
+        "rateSection": {
+          "title": "Betygsätt din upplevelse",
+          "vote": "röster"
+        },
+        "onlineSection": {
+            "title": "Prova dessa Acrobat onlineverktyg",
+            "title1": "Sammanfoga PDF",
+            "title2": "Dela PDF",
+            "title3": "Komprimera PDF",
+            "title4": "Konvertera PDF",
+            "description1": "Kombinera PDF-filer i den ordning du vill ha med den enklaste PDF-sammanslagningen som finns tillgänglig.",
+            "description2": "Separera en sida eller en hel uppsättning för enkel konvertering till oberoende PDF-filer. ",
+            "description3": "Minska filstorleken samtidigt som du optimerar för maximal PDF-kvalitet.",
+            "description4": "Konvertera enkelt dina PDF-filer till lättredigerade DOC- och DOCX-dokument. Det konverterade WORD-dokumentet är nästan 100 % korrekt."
+        },
+        "securitySection": {
+            "title": "Dina filer kommer att hanteras säkert av Adobes servrar och raderas om du inte loggar in för att spara dem. Genom att använda den här tjänsten godkänner du Adobes användarvillkor och sekretesspolicy.",
+            "description1": "Slå samman flera PDF-filer till en på några sekunder.",
+            "description2": "Dra och släpp dina PDF-filer för att starta – enkelt!",
+            "description3": "Fungerar på Mac, Windows, Android och iOS."
+        }
+      },
+      "rotate_page": {
+        "title": "Rotera PDF",
+        "description": "Rotera dina PDF-filer som du behöver dem. Du kan till och med rotera flera PDF-filer samtidigt!",
+        "selectBtn": "Välj PDF-filer",
+        "dropFiles": "Eller släpp PDF-filer här",
+        "rotatePdf": "Rotera PDF",
+        "info_a": "För musen över PDF-filen nedan och en",
+        "info_b": "ikonen kommer att visas, klicka på pilarna för att rotera PDF-filer.",
+        "set_rotate": "Välj filer att rotera:",
+        "reset": "Återställ alla",
+        "all": "Alla",
+        "portrait": "Porträtt",
+        "landscape": "Landskap",
+        "rotation": "Rotation",
+        "right": "Höger",
+        "left": "Vänster",
+        "actionBtn": "Rotera PDF"
+      },
+      "edit_page": {
+        "title": "PDF-redigerare",
+        "description": "Rotera dina PDF-filer som du behöver dem. Du kan till och med rotera flera PDF-filer samtidigt!",
+        "selectBtn": "Välj PDF-filer",
+        "dropFiles": "Eller släpp PDF-filer här",
+        "editPdf": "Redigera PDF",
+        "elements": "Element",
+        "ele_des": "Från det här verktygsfältet kan du ändra ordning på element för att flytta dem bakåt eller framför dokumentet.",
+        "actionBtn": "Redigera PDF"
+      },
+  
+      "pdf_word": {
+        "title": "PDF till WORD-konverterare",
+         "description": " Konvertera dina PDF-dokument till WORD-dokument med otrolig noggrannhet.",
+         "selectBtn": "Välj WORD-filer",
+         "dropFiles": "Eller släpp PDF-filer här",
+         "actionBtn": "Konvertera till PDF"
+      },
+      "word_pdf": {
+        "title": "Konvertera WORD till PDF",
+        "description": " Gör DOC- och DOCX-filer lätta att förbereda genom att konvertera dem till PDF.",
+        "selectBtn": "Välj PDF-filer",
+        "dropFiles": "Eller släpp PDF-filer här",
+        "actionBtn": "Konvertera till WORD"
+      },
+      "split_page": {
+        "title": "Dela PDF-fil",
+         "description": "Redigera PDF genom att lägga till text, former, kommentarer och höjdpunkter. Du är säker och enkel att redigera.",
+         "selectBtn": "Välj PDF-filer",
+         "dropFiles": "Eller släpp PDF-filer här",
+         "range": "range",
+         "split": "Dela",
+         "allRange": "Sammanfoga alla intervall i en PDF-fil.",
+         "actionBtn": "Dela PDF",
+         "down_btn_title": "Delat upp",
+         "rangeMode": "Räckviddsläge:",
+         "customRange": "Anpassat intervall",
+         "fixedRange": "Fast intervall",
+         "fromPage": "Från sida",
+         "to": "till",
+         "addRange": "+ Lägg till intervall",
+         "split_des_b": "Denna PDF kommer att delas upp i filer av",
+         "split_des_a": " PDF-filer kommer att skapas",
+         "extractMode": "Extrahera läge",
+         "extractAll": "Extrahera alla sidor",
+         "selectPage": "Välj sida",
+         "extract_des_b": "Utvalda sidor kommer att konverteras till separata PDF-filer.",
+         "extract_des_a": "Pdf kommer att skapas",
+         "split_by_range": "DELA EFTER RANGE",
+         "extract_pages": "EXTRAHERA SIDOR"
+      },
+      "compress_page": {
+        "title": "Komprimera PDF-fil",
+        "description": "Minska filstorleken samtidigt som du optimerar för maximal PDF-kvalitet.",
+        "selectBtn": "Välj PDF-filer",
+        "dropFiles": "Eller släpp PDF-filer här",
+        "level": "Kompressionsnivå",
+        "extreme": "EXTREM KOMPRESSION",
+        "extreme_des": "(Mindre kvalitet, hög komprimering)",
+        "recommended": "REKOMMENDERAD KOMPRESSION",
+        "recommended_des": "(Bra kvalitet, bra komprimering)",
+        "less": "MINDRE KOMPRESSION",
+        "less_des": "(Hög kvalitet, mindre komprimering)",
+        "actionBtn": "Komprimera PDF"
+      },
+      "sign_page": {
+        "title": "Skriv under PDF",
+        "des": "Ditt verktyg för att e-signera dokument. Signera ett dokument själv eller skicka en signaturförfrågan till andra.",
+        "selectBtn": "Välj PDF-filer",
+        "dropFiles": "Eller släpp PDF-filer här",
+        "sign_options": "Signeringsalternativ",
+        "name": "Namn",
+        "date": "Datum",
+        "text": "Text",
+        "actionBtn": "signera PDF",
+        "fullName": "Fullständigt namn: ",
+        "initials": "Initialer: ",
+        "signature": "Signatur",
+        "initial": "Initial",
+        "stamp": "Företagsstämpel"
+      }
+    },
+    "features": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "Sammanfoga PDF",
+         "description": "Kombinera PDF-filer i den ordning du vill ha med den enklaste PDF-sammanslagningen som finns tillgänglig",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "Dela PDF",
+         "description": "Separera en sida eller en hel uppsättning för enkel konvertering till oberoende PDF-filer",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "Komprimera PDF",
+         "description": "Minska filstorleken samtidigt som du optimerar för maximal PDF-kvalitet",
+        "file": "compress_pdf.svg"
+      },
+      "word_pdf": {
+        "name": "wordtopdf",
+        "title": "Word till PDF",
+         "description": "Gör DOC- och DOCX-filer lätta att läsa genom att konvertera dem till PDF.",
+        "file": "word_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF till Word",
+        "description": "Konvertera enkelt dina PDF-filer till lättredigerade DOC- och DOCX-dokument. Det konverterade WORD-dokumentet är nästan 100 % korrekt.",
+        "file": "pdf_word.svg"
+      },
+      "sign": {
+        "name": "signpdf",
+        "title": "Skriv under PDF",
+         "description": "Signera dig själv eller begär elektroniska signaturer från andra.",
+        "file": "sign_pdf.svg"
+      },
+      "edit": {
+        "name": "editpdf",
+        "title": "Redigera PDF",
+         "description": "Lägg till text, bilder, former eller frihandsanteckningar till ett PDF-dokument. Redigera storleken, teckensnittet och färgen på det tillagda innehållet.",
+        "file": "edit_pdf.svg"
+      },
+      "rotate": {
+        "name": "rotatepdf",
+        "title": "Rotera PDF",
+        "description": "Rotera dina PDF-filer som du behöver dem. Du kan till och med rotera flera PDF-filer samtidigt!",
+        "file": "rotate_pdf.svg"
+      }
+    },
+    "onlines": {
+      "merge": {
+        "name": "mergepdf",
+        "title": "Sammanfoga PDF",
+         "description": "Kombinera PDF-filer i den ordning du vill ha med den enklaste PDF-sammanslagningen som finns tillgänglig",
+        "file": "merge_pdf.svg"
+      },
+      "split": {
+        "name": "splitpdf",
+        "title": "Dela PDF",
+        "description": "Separera en sida eller en hel uppsättning för enkel konvertering till oberoende PDF-filer",
+        "file": "split_pdf.svg"
+      },
+      "compress": {
+        "name": "compresspdf",
+        "title": "Komprimera PDF",
+         "description": "Minska filstorleken samtidigt som du optimerar för maximal PDF-kvalitet",
+        "file": "compress_pdf.svg"
+      },
+      "pdf_word": {
+        "name": "pdftoword",
+        "title": "PDF till Word",
+         "description": "Konvertera enkelt dina PDF-filer till lättredigerade DOC- och DOCX-dokument. Det konverterade WORD-dokumentet är nästan 100 % korrekt.",
+        "file": "pdf_word.svg"
+      }
+    },
+    "other_features": {
+      "convert_pdf": { "title": "KONVERTERA PDF" },
+      "all_pdf_tools": { "title": "ALLA PDF-VERKTYG" }
+    },
+    "toolTip": {
+        "sel_google": "Välj PDF från Google Drive",
+        "sel_dropBox": "Välj PDF från Dropbox",
+        "upload_local": "Ladda upp från dator",
+        "save_dropBox": "Spara till Dropbox",
+        "save_google": "Spara på Google Drive",
+        "link": "Dela fillänk eller skanna QR",
+        "add_more": "Lägg till fler filer"
+    }
+}
+  
