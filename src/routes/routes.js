@@ -60,14 +60,14 @@ const routes = [
           ),
         name: "mergepdf",
       },
-      // {
-      //   path: "/:locale/rotatepdf",
-      //   component: () =>
-      //     import(
-      //       /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/RotatePdf.vue"
-      //     ),
-      //   name: "rotatepdf",
-      // },
+      {
+        path: "/:locale/rotatepdf",
+        component: () =>
+          import(
+            /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/RotatePdf.vue"
+          ),
+        name: "rotatepdf",
+      },
       {
         path: "/:locale/download/:param",
         component: () =>

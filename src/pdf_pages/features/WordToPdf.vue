@@ -180,7 +180,7 @@
     <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
         <h3 class="text-center">Word to PDF</h3>
-        <div class="option__panel option__panel--active" id="merge-options">
+        <div class="option__panel option__panel--active" id="convert-options">
           <button class="option__panel__title" @click="convertToPdf">
             {{ $t("page_titles.word_pdf.actionBtn") }}
           </button>
@@ -550,6 +550,9 @@ body {
   margin: auto;
   position: relative;
   cursor: pointer;
+}
+#convert-options {
+  margin-top: 70vh;
 }
 
 .upload_btn .md-button-content {

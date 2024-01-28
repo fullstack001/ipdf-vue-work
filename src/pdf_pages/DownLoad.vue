@@ -462,7 +462,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
 html,
 body {
@@ -550,6 +550,9 @@ body {
 .dropbox-icon {
   height: 40px;
   margin-right: 5px;
+}
+.dropbox {
+  margin-top: 10px;
 }
 .md-dialog .md-dialog-container {
   max-width: 768px;

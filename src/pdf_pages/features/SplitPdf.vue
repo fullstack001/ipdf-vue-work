@@ -524,7 +524,7 @@ export default {
         .then((response) => {
           const obj = {
             id: response.data,
-            button_title: this.$t("page_titles.split_page.appRange"),
+            button_title: this.$t("page_titles.split_page.down_btn_title"),
             dis_text: "PDF has been Splited!",
             down_name: "splited_pdf.pdf",
             file_type: "application/pdf",
@@ -577,7 +577,7 @@ export default {
             .then((response) => {
               const obj = {
                 id: response.data,
-                button_title: this.$t("page_titles.split_page.appRange"),
+                button_title: this.$t("page_titles.split_page.down_btn_title"),
                 dis_text: "PDF has been split!",
                 down_name: "splited_pdf.zip",
                 file_type: "application/zip",

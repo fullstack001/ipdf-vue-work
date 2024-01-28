@@ -255,6 +255,7 @@ export default {
 html,
 body {
   font-family: "Montserrat", sans-serif;
+  background-color: #eee !important;
 }
 .md-radio {
   display: flex;
@@ -267,6 +268,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  background-color: #eee !important;
 }
 
 .page-title {

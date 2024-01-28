@@ -144,7 +144,8 @@
 
     <div v-show="file_objs.length > 0">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <div class="option__panel option__panel--active" id="merge-options">
+        <h3 class="text-center">PDF to Word</h3>
+        <div class="option__panel option__panel--active" id="convert-options">
           <button class="option__panel__title" @click="convertToWord">
             {{ $t("page_titles.pdf_word.actionBtn") }}
           </button>
@@ -166,6 +167,7 @@ import draggable from "vuedraggable";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import AddMoreDropDown from "./components/AddMoreDropDown.vue";
+import CryptoJS from "crypto-js";
 
 export default {
   components: {
@@ -342,6 +344,10 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+#convert-options {
+  margin-top: 70vh;
 }
 
 .page-title {
