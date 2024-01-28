@@ -125,6 +125,7 @@
 import store from "@/store/index.js";
 import { required, email, minLength } from "vuelidate/lib/validators";
 import VueJwtDecode from "vue-jwt-decode";
+import LocalizedLink from "@/components/LocalizedLink";
 
 export default {
   data() {
@@ -137,6 +138,9 @@ export default {
       isSubmitted: false,
       userExit: false,
     };
+  },
+  components: {
+    LocalizedLink,
   },
   computed: {
     user() {

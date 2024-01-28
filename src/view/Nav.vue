@@ -8,7 +8,7 @@
         <md-icon>menu</md-icon>
       </div>
       <ul class="nav-lists">
-        <li class="nav-item" style="position: relative; right: 200px">
+        <li class="nav-item" style="position: relative; right: 10%">
           <ul class="nav-list">
             <li>
               <LocalizedLink
@@ -71,7 +71,7 @@
                 md-direction="bottom"
                 style="padding: 0; position: absolute; right: -140px"
               >
-                <button class="nav-btn" md-menu-trigger>
+                <button class="nav-btn" md-menu-trigger style="min-width: 38px">
                   {{ $t("other_features.convert_pdf.title") }}
                 </button>
 
@@ -98,6 +98,7 @@
                   </md-menu-item> -->
                 </md-speed-dial-content>
               </md-speed-dial>
+              {{ user && user.name }}
             </li>
           </ul>
         </li>
@@ -176,6 +177,7 @@ export default {
       isOpen: false,
     };
   },
+
   components: { LocalizedLink },
   computed: {
     user() {
@@ -323,7 +325,7 @@ a {
 }
 @media (max-width: 1570px) {
   .nav-btn {
-    padding: 13px 5px;
+    padding: 10px 5px;
   }
   .block__container {
     max-width: 100%;
@@ -334,7 +336,6 @@ a {
   .navbar-toggle {
     display: flex;
     position: absolute;
-    right: 10px;
     cursor: pointer;
   }
 

@@ -109,7 +109,10 @@
                 </a>
               </div>
               <div :id="'id' + index" :style="'id' + index">
-                <PdfViewer :fileUrl="getURL(file_obj)" />
+                <PdfViewer
+                  :fileUrl="getURL(file_obj)"
+                  style="margin-top: 25px"
+                />
               </div>
               <div class="prew_title">
                 {{

@@ -367,7 +367,7 @@ body {
   height: 100vh;
 }
 .dropzone-container {
-  padding: 4rem;
+  padding: 1rem 4rem;
   /* background: #f7fafc;
   border: 1px solid #e2e8f0; */
 }

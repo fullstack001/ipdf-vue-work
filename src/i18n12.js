@@ -15,6 +15,7 @@ export const languages = {
   fr: "Français",
   ja: "日本語",
   it: "Italiano",
+
   //"es": "Español",
   //"gr": "Deutsche",
   // "ru": "Pусский"

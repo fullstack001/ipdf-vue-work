@@ -38,7 +38,6 @@
               </label>
               <input
                 type="file"
-                multiple
                 name="file"
                 id="fileInput"
                 class="hidden-input"

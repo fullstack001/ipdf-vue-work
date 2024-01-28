@@ -482,7 +482,7 @@
                 }}
               </div>
               <md-tooltip md-direction="top"
-                >{{ (file_obj.file.size / 1024).toFixed(2) }} Kbyte
+                >{{ (file_obj.file.size / 1024).toFixed(2) }} KB -
                 {{ file_obj.page }} pages
               </md-tooltip>
             </div>
