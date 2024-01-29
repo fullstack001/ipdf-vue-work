@@ -66,7 +66,7 @@ export default {
         this.dropboxChooserIsSupported = window.Dropbox.isBrowserSupported();
 
         if (!this.dropboxChooserIsSupported) {
-          console.warn("VueDropboxPicker: This browser is not supported");
+          // console.warn("VueDropboxPicker: This browser is not supported");
         }
       };
       dropBoxScript.setAttribute(
@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     clickButton() {
-      console.log(342342);
+      // console.log(342342);
       this.buttonType == "chooser"
         ? this.dropboxIconClicked()
         : this.dropboxSaverIconClicked();
@@ -104,7 +104,7 @@ export default {
         },
 
         cancel: function () {
-          console.log("dropbox_canceled");
+          // console.log("dropbox_canceled");
         },
 
         linkType: this.linkType,
@@ -121,26 +121,25 @@ export default {
       window.Dropbox.choose(options);
     },
     dropboxSaverIconClicked() {
-      console.log(this.uploadFiles);
       let options = {
         files: [
           {
-            // url: `https://api.pdfden.com/uploads/${this.uploadFiles[0]}`,
-            url: `http://127.0.0.1:5000/uploads/${this.uploadFiles[0]}`,
+            url: `https://api.pdfden.com/uploads/${this.uploadFiles[0]}`,
+            // url: `http://127.0.0.1:5000/uploads/${this.uploadFiles[0]}`,
             filename: "merged_pdf.pdf",
           },
         ],
         success: function () {
           // Handle successful save
-          console.log("File saved to Dropbox successfully");
+          // console.log("File saved to Dropbox successfully");
         },
         cancel: function () {
           // Handle cancelation of the save
-          console.log("Save to Dropbox canceled");
+          // console.log("Save to Dropbox canceled");
         },
         error: function (errorMessage) {
           // Handle error during save
-          console.error("Error saving to Dropbox:", errorMessage);
+          // console.error("Error saving to Dropbox:", errorMessage);
         },
       };
       // if (this.extensions.length) {

@@ -108,22 +108,6 @@ export default {
 .locale-item {
   cursor: pointer;
 }
-
-.md-layout-item {
-  // height: 40px;
-
-  // &:nth-child(1) {
-  //   background: md-get-palette-color(grey, 300);
-  // }
-
-  // &:nth-child(2) {
-  //   background: md-get-palette-color(grey, 400);
-  // }
-
-  // &:nth-child(3) {
-  //   background: md-get-palette-color(grey, 500);
-  // }
-}
 </style>
 
 <style scoped>

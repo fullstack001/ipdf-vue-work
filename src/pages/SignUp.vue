@@ -182,7 +182,7 @@ export default {
           const decoded = VueJwtDecode.decode(res.data.token);
           const user = decoded.user;
 
-          console.log(user);
+          // console.log(user);
           this.setUser(user);
           this.$router.push("/");
         })

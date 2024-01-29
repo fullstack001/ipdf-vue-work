@@ -177,7 +177,6 @@ export default {
   },
   methods: {
     toggleNavbar() {
-      console.log("toggle");
       this.isOpen = !this.isOpen;
     },
     isActive(route) {
