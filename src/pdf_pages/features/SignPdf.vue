@@ -1,10 +1,5 @@
 <template>
   <div class="main row">
-    <div v-if="files.length" class="col-md-2">
-      <div id="sidebar" class="tool__sidebar">
-        <PdfPreviewList :url="getURL(files[0])" @set_img="set_image_url" />
-      </div>
-    </div>
     <div v-if="files.length" class="col-md-10">
       <SignComponent
         :pdfUrl="getURL(files[0])"
@@ -24,7 +19,9 @@
     >
       <div class="upload_btn_area">
         <div v-show="!files.length" class="upload-buttons">
-          <div class="page-title">{{ $t("page_titles.sign_page.title") }}</div>
+          <div class="page-title">
+            {{ $t("page_titles.sign_page.title") }}
+          </div>
           <div class="page-description">
             {{ $t("page_titles.sign_page.des") }}
           </div>
@@ -89,14 +86,12 @@ import CryptoJS from "crypto-js";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import SignatureModal from "@/pdf_pages/features/components/SignatureModal.vue";
-import PdfPreviewList from "./components/PdfPreviewList.vue";
 import SignComponent from "./components/SignComponent.vue";
-import addImagesToPDF from "../services/add_img_to_pdf";
 import addImagesToPDF1 from "../services/add_img_to_pdf1";
 
 export default {
   components: {
-    PdfPreviewList,
+    // PdfPreviewList,
     SignComponent,
     VueDropboxPicker,
     GDriveSelector,
@@ -122,9 +117,6 @@ export default {
         this.modalValidate = true;
       }
     },
-  },
-  destroyed() {
-    window.location.href = "";
   },
 
   methods: {

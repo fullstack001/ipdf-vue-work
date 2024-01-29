@@ -305,7 +305,7 @@ canvas {
 .sign-option {
   border: 1px solid;
   border-color: #9e9e9e;
-  padding: 0px 0px 0px 10px;
+  padding: 15px 0px 10px 10px;
 }
 .name-initial {
   display: grid;

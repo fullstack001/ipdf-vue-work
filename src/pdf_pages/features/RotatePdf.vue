@@ -456,7 +456,7 @@
                     >
                       <g
                         transform="translate(-1260.000000, -324.000000)"
-                        fill="#75A9FF"
+                        fill="#fefefe"
                         fill-rule="nonzero"
                       >
                         <path
@@ -488,7 +488,7 @@
                     >
                       <g
                         transform="translate(-1129.000000, -324.000000)"
-                        fill="#75A9FF"
+                        fill="#fff"
                         fill-rule="nonzero"
                       >
                         <path
@@ -702,7 +702,7 @@
                     >
                       <g
                         transform="translate(-1208.000000, -509.000000)"
-                        fill="#161616"
+                        fill="#fefefe"
                         fill-rule="nonzero"
                       >
                         <path
@@ -739,7 +739,7 @@
                     >
                       <g
                         transform="translate(-1335.000000, -513.000000)"
-                        fill="#969696"
+                        fill="#fefefe"
                         fill-rule="nonzero"
                       >
                         <path
@@ -804,6 +804,7 @@ import GDriveSelector from "@/components/GDriveSelector.vue";
 import draggable from "vuedraggable";
 import generateURL from "@/pdf_pages/services/generateURL";
 import getPageType from "@/pdf_pages/services/getPagetype";
+import getPageNumber from "@/pdf_pages/services/getPageNumber";
 import faq from "@/components/Faq.vue";
 import FeatureTitle from "./components/FeatureTitle.vue";
 import { online_names } from "../services/online_name";
@@ -934,16 +935,38 @@ export default {
     async onPickedDropbox(data) {
       for (let i = 0; i < data.length; i++) {
         let type = await getPageType(data[i]);
-        this.file_objs.push({ file: data[i], degree: 0, type: type });
-        this.origin_file_objs.push({ file: data[i], degree: 0, type: type });
+        let pageNum = await getPageNumber(data[i]);
+        this.file_objs.push({
+          file: data[i],
+          degree: 0,
+          type: type,
+          page: pageNum,
+        });
+        this.origin_file_objs.push({
+          file: data[i],
+          degree: 0,
+          type: type,
+          page: pageNum,
+        });
       }
       console.log(this.file_objs);
     },
     async onPickedGoogleDriver(data) {
       for (let i = 0; i < data.length; i++) {
         let type = await getPageType(data[i]);
-        this.file_objs.push({ file: data[i], degree: 0, type: type });
-        this.origin_file_objs.push({ file: data[i], degree: 0, type: type });
+        let pageNum = await getPageNumber(data[i]);
+        this.file_objs.push({
+          file: data[i],
+          degree: 0,
+          type: type,
+          page: pageNum,
+        });
+        this.origin_file_objs.push({
+          file: data[i],
+          degree: 0,
+          type: type,
+          page: pageNum,
+        });
       }
       console.log(this.file_objs);
     },
@@ -953,7 +976,8 @@ export default {
         i = 0;
       for (i = 0; i < data.length; i++) {
         let type = await getPageType(data[i]);
-        add_objs.push({ file: data[i], degree: 0, type: type });
+        let pageNum = await getPageNumber(data[i]);
+        add_objs.push({ file: data[i], degree: 0, type: type, page: pageNum });
       }
 
       this.file_objs = [...this.file_objs, ...add_objs];

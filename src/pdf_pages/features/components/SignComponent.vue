@@ -1,6 +1,9 @@
 <template>
   <div class="edit-pdf-content row">
-    <div class="col-md-9 mx-0">
+    <div id="sidebar" class="tool__sidebar col-md-2">
+      <PdfPreviewList :url="pdfUrl" />
+    </div>
+    <div class="col-md-8 sign_right">
       <div class="toolbar"></div>
       <div
         id="pdf-container-annotate"
@@ -8,7 +11,8 @@
         @mouseover="get_objects"
       ></div>
     </div>
-    <div class="col-md-3">
+    <div class="sign_tool col-md-2">
+      <div class="toolbar"></div>
       <h3 class="mt-3 mb-5">{{ $t("page_titles.sign_page.sign_options") }}</h3>
       <div class="furniture" v-show="sign_obj">
         <div class="sign_item p-1" draggable="true">
@@ -634,6 +638,8 @@ import { PDFAnnotate } from "@/assets/js/pdfsign.js";
 import convert from "@/pdf_pages/services/convertTextToImg.js";
 import DateFormatModal from "./DateFormatModal.vue";
 import TextModal from "./TextModal.vue";
+
+import PdfPreviewList from "./PdfPreviewList.vue";
 const today = new Date();
 
 // Get the components of the date (year, month, day)
@@ -648,13 +654,13 @@ export default {
   components: {
     DateFormatModal,
     TextModal,
+    PdfPreviewList,
   },
   created() {
     window.addEventListener("keydown", this.keyDownHandler);
   },
   destroyed() {
     window.removeEventListener("keydown", this.keyDownHandler);
-    window.location.reload();
   },
   async mounted() {
     this.loadScripts();
@@ -808,9 +814,9 @@ export default {
   },
 };
 </script>
-<style scoped>
-/* @import "~bootstrap/scss/bootstrap"; */
-@import "~bootstrap/dist/css/bootstrap.min.css";
+<style lang="scss" scoped>
+@import "~bootstrap/scss/bootstrap";
+/* @import "~bootstrap/dist/css/bootstrap.min.css"; */
 </style>
 
 <style scoped>
@@ -924,5 +930,18 @@ img {
 .sign_draggable_actions :hover {
   color: red;
   cursor: pointer;
+}
+.sign_right {
+  padding: 0;
+}
+.tool__sidebar {
+  padding: 0;
+}
+.sign_tool {
+  background: #fefefe;
+  padding: 0;
+}
+.furniture {
+  margin: 10px 14px;
 }
 </style>
