@@ -1,309 +1,309 @@
 {
-    "nav-links": {
+  "nav-links": {
+    "login": "Einloggen",
+    "signup": "Melden Sie sich an",
+    "about": "Um",
+    "merge_pdf": "PDF zusammenführen",
+    "split_pdf": "PDF Spaltt",
+    "compress_pdf": "PDF komprimieren",
+    "convert_pdf": "PDF konvertieren",
+    "blog": "Blog",
+    "copyright": "Copyright PdfDen. Alle Rechte vorbehalten."
+  },
+  "page_titles": {
+    "landing": {
+      "title1": "Alle Tools, die Sie zum Arbeiten mit PDFs benötigen, an einem Ort",
+      "text1": "Alle Tools, die Sie zum Verwenden von PDFs benötigen, immer zur Hand. Alle sind 100 % KOSTENLOS und einfach zu verwenden! PDFs mit nur wenigen Klicks zusammenführen, teilen, komprimieren, konvertieren, drehen, entsperren und mit Wasserzeichen versehen",
+      "section1": {
+        "title": "Neueste Nachrichten aus unserem Unternehmen",
+        "title1": "Lerem Ipsum ist einfach dumm",
+        "text1": "Lerem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen verwendet",
+        "title2": "Lerem Ipsum ist einfach dumm",
+        "text2": "Lerem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen verwendet",
+        "title3": "Lerem Ipsum ist einfach dumm",
+        "text3": "Lerem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen verwendet"
+      },
+      "section2": {
+        "title": "Für kostenloses Konto registrieren",
+        "item1": "Verlängerte Dateilebensdauer",
+        "item2": "Prioritärer Download-Zugriff",
+        "item3": "Alle Ihre Dateien an einem Ort",
+        "button": "Kostenloses Konto erhalten"
+      }
+    },
+    "signUp": {
+      "create": "Neues Konto erstellen",
+      "name_req": "Namensfeld ist erforderlich",
+      "fullName": "Vollständiger Name",
+      "email": "E-Mail-Adresse",
+      "email_req": "E-Mail-Feld ist erforderlich",
+      "email_type": "Bitte geben Sie eine gültige E-Mail-Adresse an",
+      "email_exi": "Benutzer existiert bereits",
+      "pass": "Passwort erstellen",
+      "pass_req": "Passwortfeld ist erforderlich",
+      "pass_length": "Passwort sollte mindestens 6 Zeichen lang sein",
+      "signUp": "Anmelden",
+      "have_acc": "Haben Sie ein Konto?",
       "login": "Einloggen",
-      "signup": "Melden Sie sich an",
-      "about": "Um",
-      "merge_pdf": "PDF zusammenführen",
-      "split_pdf": "PDF Spaltt",
-      "compress_pdf": "PDF komprimieren",
-      "convert_pdf": "PDF konvertieren",
-      "blog": "Blog",
-      "copyright": "Copyright PdfDen. Alle Rechte vorbehalten."
+      "tool_title": "PDF-Tools für produktive Menschen",
+      "tool_des": "PDFDen hilft Ihnen, PDF-Dateien schnell und einfach zu konvertieren, zu bearbeiten, elektronisch zu signieren und zu schützen. Genießen Sie eine vollständige Suite von Tools zur effektiven Verwaltung von Dokumenten – egal, wo Sie arbeiten"
     },
-    "page_titles": {
-      "landing": {
-        "title1": "Alle Tools, die Sie zum Arbeiten mit PDFs benötigen, an einem Ort",
-        "text1": "Alle Tools, die Sie zum Verwenden von PDFs benötigen, immer zur Hand. Alle sind 100 % KOSTENLOS und einfach zu verwenden! PDFs mit nur wenigen Klicks zusammenführen, teilen, komprimieren, konvertieren, drehen, entsperren und mit Wasserzeichen versehen",
-        "section1": {
-          "title": "Neueste Nachrichten aus unserem Unternehmen",
-          "title1": "Lerem Ipsum ist einfach dumm",
-          "text1": "Lerem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen verwendet",
-          "title2": "Lerem Ipsum ist einfach dumm",
-          "text2": "Lerem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen verwendet",
-          "title3": "Lerem Ipsum ist einfach dumm",
-          "text3": "Lerem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen verwendet"
-        },
-        "section2": {
-          "title": "Für kostenloses Konto registrieren",
-          "item1": "Verlängerte Dateilebensdauer",
-          "item2": "Prioritärer Download-Zugriff",
-          "item3": "Alle Ihre Dateien an einem Ort",
-          "button": "Kostenloses Konto erhalten"
-        }
+    "merge_page": {
+      "title": "PDF-Dateien zusammenführen",
+      "description": "Kombinieren Sie PDFs in der gewünschten Reihenfolge mit der einfachsten verfügbaren PDF-Zusammenführung.",
+      "selectBtn": "PDF-Dateien auswählen",
+      "dropFiles": "Oder PDFs hier ablegen",
+      "mergePdf": "PDF zusammenführen",
+      "one_des": "Um die Reihenfolge Ihrer PDFs zu ändern, ziehen Sie die Dateien per Drag-and-Drop nach Ihren Wünschen.",
+      "more_des": "Bitte wählen Sie weitere PDF-Dateien aus, indem Sie erneut auf ‚PDF-Dateien auswählen‘ klicken.",
+      "more_des_a": "Wählen Sie mehrere Dateien aus, indem Sie die ‚Strg‘-Taste gedrückt halten",
+      "multi": "Bitte wählen Sie weitere PDF-Dateien aus",
+      "actionBtn": "PDF zusammenführen",
+      "howSection": {
+        "title": "So kombinieren Sie PDF-Dateien",
+        "description": "Folgen Sie diesen einfachen Schritten, um PDF-Dokumente in einer Datei zusammenzufassen:",
+        "list1": "Klicken Sie oben auf die Schaltfläche Datei auswählen oder ziehen Sie Dateien per Drag-and-Drop in die Drop-Zone.",
+        "list2": "Wählen Sie die Dateien aus, die Sie mit dem Acrobat PDF Combiner-Tool zusammenführen möchten.",
+        "list3": "Ordnen Sie die Dateien bei Bedarf neu an.",
+        "list4": "Klicken Sie auf Dateien zusammenführen.",
+        "list5": "Melden Sie sich an, um die zusammengeführte Datei herunterzuladen oder zu teilen. Sie können die Seiten auch organisieren."
       },
-      "signUp": {
-        "create": "Neues Konto erstellen",
-        "name_req": "Namensfeld ist erforderlich",
-        "fullName": "Vollständiger Name",
-        "email": "E-Mail-Adresse",
-        "email_req": "E-Mail-Feld ist erforderlich",
-        "email_type": "Bitte geben Sie eine gültige E-Mail-Adresse an",
-        "email_exi": "Benutzer existiert bereits",
-        "pass": "Passwort erstellen",
-        "pass_req": "Passwortfeld ist erforderlich",
-        "pass_length": "Passwort sollte mindestens 6 Zeichen lang sein",
-        "signUp": "Anmelden",
-        "have_acc": "Haben Sie ein Konto?",
-        "login": "Einloggen",
-        "tool_title": "PDF-Tools für produktive Menschen",
-        "tool_des": "PDFDen hilft Ihnen, PDF-Dateien schnell und einfach zu konvertieren, zu bearbeiten, elektronisch zu signieren und zu schützen. Genießen Sie eine vollständige Suite von Tools zur effektiven Verwaltung von Dokumenten – egal, wo Sie arbeiten"
+      "trySection": {
+        "title": "Probieren Sie unser PDF-Merge-Tool aus",
+        "title1": "PDFs zu einer Datei zusammenfügen",
+        "title2": "Mit einem kombinierten PDF vereinfachen",
+        "title3": "Organisieren Sie Ihr Online-PDF",
+        "title4": "Laden Sie Ihre Datei herunter oder teilen Sie sie",
+        "title5": "In jedem Webbrowser arbeiten",
+        "title6": "Verwenden Sie den besten PDF-Kombinierer",
+        "description1": "Mit dem Online-Tool Adobe Acrobat können Sie PDF-Dateien schnell und einfach zu einem einzigen Dokument zusammenführen. Fügen Sie einfach Dateien hinzu, führen Sie sie zusammen und fertig.",
+        "description2": "Durch das Zusammenführen mehrerer Dateien in einer PDF-Datei können Sie diese einfacher speichern und überprüfen. Sie können Dateien auch effizienter mit anderen teilen, indem Sie einen Link zu einer einzelnen, zusammengeführten PDF-Datei per E-Mail senden.",
+        "description3": "Nachdem Sie PDF-Dateien kombiniert haben, melden Sie sich einfach an, um einzelne Seiten zu organisieren. Sie können PDF-Seiten nach Bedarf verschieben, hinzufügen, löschen oder drehen, bis Sie das perfekte Dokument erstellt haben.",
+        "description4": "Sie können die zusammengeführte PDF-Datei mit einem Klick oder durch Anmeldung herunterladen. Sie können Ihre neue Datei auch mit einem Freund oder Kollegen teilen, wenn Sie sich anmelden.",
+        "description5": "Verwenden Sie unser Online-Tool zum Zusammenführen von PDF-Dateien in jedem Webbrowser wie Microsoft Edge oder Google Chrome. Es funktioniert auch auf Mac-, Windows- und Linux-Betriebssystemen.",
+        "description6": "Adobe hat das PDF-Dateiformat erfunden, wodurch unsere PDF-Tools sehr vertrauenswürdig sind. Verwenden Sie unseren PDF-Combiner, um Dateien zusammenzuführen und Ihre Arbeit von überall aus voranzutreiben."
       },
-      "merge_page": {
-        "title": "PDF-Dateien zusammenführen",
-        "description": "Kombinieren Sie PDFs in der gewünschten Reihenfolge mit der einfachsten verfügbaren PDF-Zusammenführung.",
-        "selectBtn": "PDF-Dateien auswählen",
-        "dropFiles": "Oder PDFs hier ablegen",
-        "mergePdf": "PDF zusammenführen",
-        "one_des": "Um die Reihenfolge Ihrer PDFs zu ändern, ziehen Sie die Dateien per Drag-and-Drop nach Ihren Wünschen.",
-        "more_des": "Bitte wählen Sie weitere PDF-Dateien aus, indem Sie erneut auf ‚PDF-Dateien auswählen‘ klicken.",
-        "mere_des_a": "Wählen Sie mehrere Dateien aus, indem Sie die ‚Strg‘-Taste gedrückt halten",
-        "multi": "Bitte wählen Sie weitere PDF-Dateien aus",
-        "actionBtn": "PDF zusammenführen",
-        "howSection": {
-            "title": "So kombinieren Sie PDF-Dateien",
-            "description": "Folgen Sie diesen einfachen Schritten, um PDF-Dokumente in einer Datei zusammenzufassen:",
-            "list1": "Klicken Sie oben auf die Schaltfläche Datei auswählen oder ziehen Sie Dateien per Drag-and-Drop in die Drop-Zone.",
-            "list2": "Wählen Sie die Dateien aus, die Sie mit dem Acrobat PDF Combiner-Tool zusammenführen möchten.",
-            "list3": "Ordnen Sie die Dateien bei Bedarf neu an.",
-            "list4": "Klicken Sie auf Dateien zusammenführen.",
-            "list5": "Melden Sie sich an, um die zusammengeführte Datei herunterzuladen oder zu teilen. Sie können die Seiten auch organisieren."
-        },
-        "trySection": {
-            "title": "Probieren Sie unser PDF-Merge-Tool aus",
-            "title1": "PDFs zu einer Datei zusammenfügen",
-            "title2": "Mit einem kombinierten PDF vereinfachen",
-            "title3": "Organisieren Sie Ihr Online-PDF",
-            "title4": "Laden Sie Ihre Datei herunter oder teilen Sie sie",
-            "title5": "In jedem Webbrowser arbeiten",
-            "title6": "Verwenden Sie den besten PDF-Kombinierer",
-            "description1": "Mit dem Online-Tool Adobe Acrobat können Sie PDF-Dateien schnell und einfach zu einem einzigen Dokument zusammenführen. Fügen Sie einfach Dateien hinzu, führen Sie sie zusammen und fertig.",
-            "description2": "Durch das Zusammenführen mehrerer Dateien in einer PDF-Datei können Sie diese einfacher speichern und überprüfen. Sie können Dateien auch effizienter mit anderen teilen, indem Sie einen Link zu einer einzelnen, zusammengeführten PDF-Datei per E-Mail senden.",
-            "description3": "Nachdem Sie PDF-Dateien kombiniert haben, melden Sie sich einfach an, um einzelne Seiten zu organisieren. Sie können PDF-Seiten nach Bedarf verschieben, hinzufügen, löschen oder drehen, bis Sie das perfekte Dokument erstellt haben.",
-            "description4": "Sie können die zusammengeführte PDF-Datei mit einem Klick oder durch Anmeldung herunterladen. Sie können Ihre neue Datei auch mit einem Freund oder Kollegen teilen, wenn Sie sich anmelden.",
-            "description5": "Verwenden Sie unser Online-Tool zum Zusammenführen von PDF-Dateien in jedem Webbrowser wie Microsoft Edge oder Google Chrome. Es funktioniert auch auf Mac-, Windows- und Linux-Betriebssystemen.",
-            "description6": "Adobe hat das PDF-Dateiformat erfunden, wodurch unsere PDF-Tools sehr vertrauenswürdig sind. Verwenden Sie unseren PDF-Combiner, um Dateien zusammenzuführen und Ihre Arbeit von überall aus voranzutreiben."
-        },
-        "articleSection": {
-            "title": "PDF-Blogartikel zusammenführen",
-            "title1": "Lorem Ipsum ist einfach ein Idiot",
-            "title2": "Lorem Ipsum ist einfach ein Idiot",
-            "title3": "Lorem Ipsum ist einfach ein Idiot",
-            "description1": "Lorem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen hat..",
-            "description2": "Lorem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen hat..",
-            "description3": "Lorem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen hat.."
-        },
-        "qaSection": {
-          "title": "Fragen? Wir haben Antworten."
-        },
-        "rateSection": {
-          "title": "Bewerten Sie Ihre Erfahrung",
-          "vote": "votes"
-        },
-        "onlineSection": {
-            "title": "Probieren Sie diese Acrobat-Online-Tools aus",
-            "title1": "PDF zusammenführen",
-            "title2": "PDF teilen",
-            "title3": "PDF komprimieren",
-            "title4": "PDF konvertieren",
-            "description1": "Kombinieren Sie PDFs in der gewünschten Reihenfolge mit der einfachsten verfügbaren PDF-Zusammenführung.",
-            "description2": "Trennen Sie eine Seite oder einen ganzen Satz zur einfachen Konvertierung in unabhängige PDF-Dateien.",
-            "description3": "Dateigröße reduzieren und gleichzeitig für maximale PDF-Qualität optimieren.",
-            "description4": "Konvertieren Sie Ihre PDF-Dateien ganz einfach in einfach zu bearbeitende DOC- und DOCX-Dokumente. Das konvertierte WORD-Dokument ist fast 100 % genau."
-        },
-        "securitySection": {
-            "title": "Ihre Dateien werden von Adobe-Servern sicher verarbeitet und gelöscht, es sei denn, Sie melden sich zum Speichern an. Durch die Nutzung dieses Dienstes stimmen Sie den Nutzungsbedingungen und Datenschutzrichtlinien von Adobe zu.",
-            "description1": "Mehrere PDFs in Sekundenschnelle zu einem zusammenführen.",
-            "description2": "Ziehen Sie Ihre PDFs per Drag & Drop zum Start – ganz einfach!",
-            "description3": "Funktioniert auf Mac, Windows, Android und iOS."
-        }
+      "articleSection": {
+        "title": "PDF-Blogartikel zusammenführen",
+        "title1": "Lorem Ipsum ist einfach ein Idiot",
+        "title2": "Lorem Ipsum ist einfach ein Idiot",
+        "title3": "Lorem Ipsum ist einfach ein Idiot",
+        "description1": "Lorem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen hat..",
+        "description2": "Lorem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen hat..",
+        "description3": "Lorem Ipsum ist einfach ein Blindtext, den Indremm beim Drucken und Tippen hat.."
       },
-      "rotate_page": {
-        "title": "PDF drehen",
-         "description": "Drehen Sie Ihre PDFs so, wie Sie sie benötigen. Sie können sogar mehrere PDFs gleichzeitig drehen!",
-         "selectBtn": "PDF-Dateien auswählen",
-         "dropFiles": "Oder PDFs hier ablegen",
-         "rotatePdf": "PDF drehen",
-         "info_a": "Maus über PDF-Datei unten und a",
-         "info_b": "Das Symbol wird angezeigt. Klicken Sie auf die Pfeile, um PDFs zu drehen.",
-         "set_rotate": "Zu drehende Dateien auswählen:",
-         "reset": "Alles zurücksetzen",
-         "all": "alles",
-         "portrait": "Porträt",
-         "landscape": "LandScape",
-         "rotation": "Rotation",
-         "right": "richtig",
-         "left": "Links",
-         "actionBtn": "PDF drehen"
+      "qaSection": {
+        "title": "Fragen? Wir haben Antworten."
       },
-      "edit_page": {
-        "title": "PDF-Editor",
-        "description": "Drehen Sie Ihre PDFs so, wie Sie sie benötigen. Sie können sogar mehrere PDFs gleichzeitig drehen!",
-        "selectBtn": "PDF-Dateien auswählen",
-        "dropFiles": "Oder PDFs hier ablegen",
-        "editPdf": "PDF bearbeiten",
-        "elements": "Elemente",
-        "ele_des": "Über diese Symbolleiste können Sie Elemente neu anordnen, um sie nach hinten oder vor das Dokument zu verschieben.",
-        "actionBtn": "PDF bearbeiten"
+      "rateSection": {
+        "title": "Bewerten Sie Ihre Erfahrung",
+        "vote": "votes"
       },
-  
-      "pdf_word": {
-        "title": "PDF-zu-WORD-Konverter",
-        "description": "Konvertieren Sie Ihre PDF-Dokumente mit unglaublicher Genauigkeit in WORD-Dokumente.",
-        "selectBtn": "WORD-Dateien auswählen",
-        "dropFiles": "Oder PDFs hier ablegen",
-        "actionBtn": "In PDF konvertieren"
+      "onlineSection": {
+        "title": "Probieren Sie diese Acrobat-Online-Tools aus",
+        "title1": "PDF zusammenführen",
+        "title2": "PDF teilen",
+        "title3": "PDF komprimieren",
+        "title4": "PDF konvertieren",
+        "description1": "Kombinieren Sie PDFs in der gewünschten Reihenfolge mit der einfachsten verfügbaren PDF-Zusammenführung.",
+        "description2": "Trennen Sie eine Seite oder einen ganzen Satz zur einfachen Konvertierung in unabhängige PDF-Dateien.",
+        "description3": "Dateigröße reduzieren und gleichzeitig für maximale PDF-Qualität optimieren.",
+        "description4": "Konvertieren Sie Ihre PDF-Dateien ganz einfach in einfach zu bearbeitende DOC- und DOCX-Dokumente. Das konvertierte WORD-Dokument ist fast 100 % genau."
       },
-      "word_pdf": {
-        "title": "WORD in PDF konvertieren",
-        "description": "Erleichtern Sie die Vorbereitung von DOC- und DOCX-Dateien, indem Sie sie in PDF konvertieren.",
-        "selectBtn": "PDF-Dateien auswählen",
-        "dropFiles": "Oder PDFs hier ablegen",
-        "actionBtn": "In WORD konvertieren"
-      },
-      "split_page": {
-        "title": "PDF-Datei teilen",
-         "description": "Bearbeiten Sie PDFs, indem Sie Text, Formen, Kommentare und Hervorhebungen hinzufügen. Ihr sicheres und einfach zu bearbeitendes Tool.",
-         "selectBtn": "PDF-Dateien auswählen",
-         "dropFiles": "Oder PDFs hier ablegen",
-         "range": "Bereich",
-         "split": "Split",
-         "allRange": "Alle Bereiche in einer PDF-Datei zusammenführen.",
-         "actionBtn": "PDF teilen",
-         "down_btn_title": "Erfolgreich geteilt",
-         "rangeMode": "Bereichsmodus:",
-         "customRange": "Benutzerdefinierter Bereich",
-         "fixedRange": "Fester Bereich",
-         "fromPage": "Von Seite",
-         "to": "An",
-         "addRange": "+ Bereich hinzufügen",
-         "split_des_b": "Dieses PDF wird in Dateien aufgeteilt von",
-         "split_des_a": "PDFs werden erstellt",
-         "extractMode": "Extrahierungsmodus",
-         "extractAll": "Alle Seiten extrahieren",
-         "selectPage": "Seite auswählen",
-         "extract_des_b": "Ausgewählte Seiten werden in separate PDF-Dateien konvertiert.",
-         "extract_des_a": "PDF wird erstellt",
-         "split_by_range": "TEILUNG NACH BEREICH",
-         "extract_pages": "SEITEN EXTRAHIEREN"
-      },
-      "compress_page": {
-        "title": "PDF-Datei komprimieren",
-         "description": "Dateigröße reduzieren und gleichzeitig für maximale PDF-Qualität optimieren.",
-         "selectBtn": "PDF-Dateien auswählen",
-         "dropFiles": "Oder PDFs hier ablegen",
-         "level": "Komprimierungsstufe",
-         "extreme": "EXTREME KOMPRESSION",
-         "extreme_des": "(Geringere Qualität, hohe Komprimierung)",
-         "empfohlen": "EMPFOHLENE KOMPRIMIERUNG",
-         "recommended_des": "(Gute Qualität, gute Komprimierung)",
-         "less": "WENIGER KOMPRESSION",
-         "less_des": "(Hohe Qualität, weniger Komprimierung)",
-         "actionBtn": "PDF komprimieren"
-      },
-      "sign_page": {
-        "title": "PDF signieren",
-        "des": "Ihr Tool zum elektronischen Signieren von Dokumenten. Signieren Sie ein Dokument selbst oder senden Sie eine Signaturanfrage an andere.",
-        "selectBtn": "PDF-Dateien auswählen",
-        "dropFiles": "Oder PDFs hier ablegen",
-        "sign_options": "Signaturoptionen",
-        "name": "Name",
-        "date": "datum",
-        "text": "Text",
-        "actionBtn": "PDF signieren",
-        "fullName": "Vollständiger Name:",
-        "initials": "Initialen: ",
-        "signature": "Signatur",
-        "initial": "Anfänglich",
-        "stamp": "Firmenstempel"
+      "securitySection": {
+        "title": "Ihre Dateien werden von Adobe-Servern sicher verarbeitet und gelöscht, es sei denn, Sie melden sich zum Speichern an. Durch die Nutzung dieses Dienstes stimmen Sie den Nutzungsbedingungen und Datenschutzrichtlinien von Adobe zu.",
+        "description1": "Mehrere PDFs in Sekundenschnelle zu einem zusammenführen.",
+        "description2": "Ziehen Sie Ihre PDFs per Drag & Drop zum Start – ganz einfach!",
+        "description3": "Funktioniert auf Mac, Windows, Android und iOS."
       }
     },
-    "features": {
-      "merge": {
-        "name": "mergepdf",
-        "title": "Merge PDF",
-        "description": "Combine PDFs in the order you want with the easiest PDF merger available",
-        "file": "merge_pdf.svg"
-      },
-      "split": {
-        "name": "splitpdf",
-        "title": "Split PDF",
-        "description": "Separate one page or a whole set for easy conversion into independent PDF files",
-        "file": "split_pdf.svg"
-      },
-      "compress": {
-        "name": "compresspdf",
-        "title": "Compress PDF",
-        "description": "Reduce file size while optimizing for maximal PDF quality",
-        "file": "compress_pdf.svg"
-      },
-      "word_pdf": {
-        "name": "wordtopdf",
-        "title": "Word to PDF",
-        "description": "Make DOC and DOCX files easy to read by converting them to PDF.",
-        "file": "word_pdf.svg"
-      },
-      "pdf_word": {
-        "name": "pdftoword",
-        "title": "PDF to Word",
-        "description": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",
-        "file": "pdf_word.svg"
-      },
-      "sign": {
-        "name": "signpdf",
-        "title": "Sign PDF",
-        "description": "Sign yourself or request electronic signatures from others.",
-        "file": "sign_pdf.svg"
-      },
-      "edit": {
-        "name": "editpdf",
-        "title": "Edit PDF",
-        "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
-        "file": "edit_pdf.svg"
-      },
-      "rotate": {
-        "name": "rotatepdf",
-        "title": "Rotate PDF",
-        "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
-        "file": "rotate_pdf.svg"
-      }
+    "rotate_page": {
+      "title": "PDF drehen",
+      "description": "Drehen Sie Ihre PDFs so, wie Sie sie benötigen. Sie können sogar mehrere PDFs gleichzeitig drehen!",
+      "selectBtn": "PDF-Dateien auswählen",
+      "dropFiles": "Oder PDFs hier ablegen",
+      "rotatePdf": "PDF drehen",
+      "info_a": "Maus über PDF-Datei unten und a",
+      "info_b": "Das Symbol wird angezeigt. Klicken Sie auf die Pfeile, um PDFs zu drehen.",
+      "set_rotate": "Zu drehende Dateien auswählen:",
+      "reset": "Alles zurücksetzen",
+      "all": "alles",
+      "portrait": "Porträt",
+      "landscape": "LandScape",
+      "rotation": "Rotation",
+      "right": "richtig",
+      "left": "Links",
+      "actionBtn": "PDF drehen"
     },
-    "onlines": {
-      "merge": {
-        "name": "mergepdf",
-        "title": "Merge PDF",
-        "description": "Combine PDFs in the order you want with the easiest PDF merger available",
-        "file": "merge_pdf.svg"
-      },
-      "split": {
-        "name": "splitpdf",
-        "title": "Split PDF",
-        "description": "Separate one page or a whole set for easy conversion into independent PDF files",
-        "file": "split_pdf.svg"
-      },
-      "compress": {
-        "name": "compresspdf",
-        "title": "Compress PDF",
-        "description": "Reduce file size while optimizing for maximal PDF quality",
-        "file": "compress_pdf.svg"
-      },
-      "pdf_word": {
-        "name": "pdftoword",
-        "title": "PDF to Word",
-        "description": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",
-        "file": "pdf_word.svg"
-      }
+    "edit_page": {
+      "title": "PDF-Editor",
+      "description": "Drehen Sie Ihre PDFs so, wie Sie sie benötigen. Sie können sogar mehrere PDFs gleichzeitig drehen!",
+      "selectBtn": "PDF-Dateien auswählen",
+      "dropFiles": "Oder PDFs hier ablegen",
+      "editPdf": "PDF bearbeiten",
+      "elements": "Elemente",
+      "ele_des": "Über diese Symbolleiste können Sie Elemente neu anordnen, um sie nach hinten oder vor das Dokument zu verschieben.",
+      "actionBtn": "PDF bearbeiten"
     },
-    "other_features": {
-      "convert_pdf": { "title": "CONVERT PDF" },
-      "all_pdf_tools": { "title": "ALL PDF TOOLS" }
+
+    "pdf_word": {
+      "title": "PDF-zu-WORD-Konverter",
+      "description": "Konvertieren Sie Ihre PDF-Dokumente mit unglaublicher Genauigkeit in WORD-Dokumente.",
+      "selectBtn": "WORD-Dateien auswählen",
+      "dropFiles": "Oder PDFs hier ablegen",
+      "actionBtn": "In PDF konvertieren"
     },
-    "toolTip": {
-      "sel_google": "Select PDF from Google Drive",
-      "sel_dropBox": "Select PDF from Dropbox",
-      "upload_local": "Upload from Computer",
-      "save_dropBox": "Save to Dropbox",
-      "save_google": "Save to Google Drive",
-      "link": "Share File Link or Scan QR",
-      "add_more": "Add more files"
+    "word_pdf": {
+      "title": "WORD in PDF konvertieren",
+      "description": "Erleichtern Sie die Vorbereitung von DOC- und DOCX-Dateien, indem Sie sie in PDF konvertieren.",
+      "selectBtn": "PDF-Dateien auswählen",
+      "dropFiles": "Oder PDFs hier ablegen",
+      "actionBtn": "In WORD konvertieren"
+    },
+    "split_page": {
+      "title": "PDF-Datei teilen",
+      "description": "Bearbeiten Sie PDFs, indem Sie Text, Formen, Kommentare und Hervorhebungen hinzufügen. Ihr sicheres und einfach zu bearbeitendes Tool.",
+      "selectBtn": "PDF-Dateien auswählen",
+      "dropFiles": "Oder PDFs hier ablegen",
+      "range": "Bereich",
+      "split": "Split",
+      "allRange": "Alle Bereiche in einer PDF-Datei zusammenführen.",
+      "actionBtn": "PDF teilen",
+      "down_btn_title": "Erfolgreich geteilt",
+      "rangeMode": "Bereichsmodus:",
+      "customRange": "Benutzerdefinierter Bereich",
+      "fixedRange": "Fester Bereich",
+      "fromPage": "Von Seite",
+      "to": "An",
+      "addRange": "+ Bereich hinzufügen",
+      "split_des_b": "Dieses PDF wird in Dateien aufgeteilt von",
+      "split_des_a": "PDFs werden erstellt",
+      "extractMode": "Extrahierungsmodus",
+      "extractAll": "Alle Seiten extrahieren",
+      "selectPage": "Seite auswählen",
+      "extract_des_b": "Ausgewählte Seiten werden in separate PDF-Dateien konvertiert.",
+      "extract_des_a": "PDF wird erstellt",
+      "split_by_range": "TEILUNG NACH BEREICH",
+      "extract_pages": "SEITEN EXTRAHIEREN"
+    },
+    "compress_page": {
+      "title": "PDF-Datei komprimieren",
+      "description": "Dateigröße reduzieren und gleichzeitig für maximale PDF-Qualität optimieren.",
+      "selectBtn": "PDF-Dateien auswählen",
+      "dropFiles": "Oder PDFs hier ablegen",
+      "level": "Komprimierungsstufe",
+      "extreme": "EXTREME KOMPRESSION",
+      "extreme_des": "(Geringere Qualität, hohe Komprimierung)",
+      "recommended": "EMPFOHLENE KOMPRIMIERUNG",
+      "recommended_des": "(Gute Qualität, gute Komprimierung)",
+      "less": "WENIGER KOMPRESSION",
+      "less_des": "(Hohe Qualität, weniger Komprimierung)",
+      "actionBtn": "PDF komprimieren"
+    },
+    "sign_page": {
+      "title": "PDF signieren",
+      "des": "Ihr Tool zum elektronischen Signieren von Dokumenten. Signieren Sie ein Dokument selbst oder senden Sie eine Signaturanfrage an andere.",
+      "selectBtn": "PDF-Dateien auswählen",
+      "dropFiles": "Oder PDFs hier ablegen",
+      "sign_options": "Signaturoptionen",
+      "name": "Name",
+      "date": "datum",
+      "text": "Text",
+      "actionBtn": "PDF signieren",
+      "fullName": "Vollständiger Name:",
+      "initials": "Initialen: ",
+      "signature": "Signatur",
+      "initial": "Anfänglich",
+      "stamp": "Firmenstempel"
     }
+  },
+  "features": {
+    "merge": {
+      "name": "mergepdf",
+      "title": "Samenvoegen",
+      "description": "Combine PDFs in the order you want with the easiest PDF merger available",
+      "file": "merge_pdf.svg"
+    },
+    "split": {
+      "name": "splitpdf",
+      "title": "Splitsen",
+      "description": "Separate one page or a whole set for easy conversion into independent PDF files",
+      "file": "split_pdf.svg"
+    },
+    "compress": {
+      "name": "compresspdf",
+      "title": "Samendrukken",
+      "description": "Reduce file size while optimizing for maximal PDF quality",
+      "file": "compress_pdf.svg"
+    },
+    "word_pdf": {
+      "name": "wordtopdf",
+      "title": "Word naar PDF",
+      "description": "Make DOC and DOCX files easy to read by converting them to PDF.",
+      "file": "word_pdf.svg"
+    },
+    "pdf_word": {
+      "name": "pdftoword",
+      "title": "PDF naar Word",
+      "description": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",
+      "file": "pdf_word.svg"
+    },
+    "sign": {
+      "name": "signpdf",
+      "title": "Ondertekenen",
+      "description": "Sign yourself or request electronic signatures from others.",
+      "file": "sign_pdf.svg"
+    },
+    "edit": {
+      "name": "editpdf",
+      "title": "Bewerking",
+      "description": "Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.",
+      "file": "edit_pdf.svg"
+    },
+    "rotate": {
+      "name": "rotatepdf",
+      "title": "Draaien",
+      "description": "Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!",
+      "file": "rotate_pdf.svg"
+    }
+  },
+  "onlines": {
+    "merge": {
+      "name": "mergepdf",
+      "title": "Samenvoegen",
+      "description": "Combine PDFs in the order you want with the easiest PDF merger available",
+      "file": "merge_pdf.svg"
+    },
+    "split": {
+      "name": "splitpdf",
+      "title": "Splitsen",
+      "description": "Separate one page or a whole set for easy conversion into independent PDF files",
+      "file": "split_pdf.svg"
+    },
+    "compress": {
+      "name": "compresspdf",
+      "title": "Samendrukken",
+      "description": "Reduce file size while optimizing for maximal PDF quality",
+      "file": "compress_pdf.svg"
+    },
+    "pdf_word": {
+      "name": "pdftoword",
+      "title": "PDF naar Word",
+      "description": "Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.",
+      "file": "pdf_word.svg"
+    }
+  },
+  "other_features": {
+    "convert_pdf": { "title": "PDF converteren" },
+    "all_pdf_tools": { "title": "ALL PDF TOOLS" }
+  },
+  "toolTip": {
+    "sel_google": "Selecteer PDF uit Google Drive",
+    "sel_dropBox": "Selecteer PDF uit Dropbox",
+    "upload_local": "Uploaden vanaf computer",
+    "save_dropBox": "Opslaan in Dropbox",
+    "save_google": "Opslaan in Google Drive",
+    "link": "Bestandslink delen of QR scannen",
+    "add_more": "Meer bestanden toevoegen"
   }
+}

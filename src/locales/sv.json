@@ -56,7 +56,7 @@
         "mergePdf": "MergePDF",
         "one_des": "För att ändra ordningen på dina PDF-filer, dra och släpp filerna som du vill.",
         "more_des": "Välj fler PDF-filer genom att klicka igen på 'Välj PDF-filer'.",
-        "mere_des_a": "Välj flera filer genom att hålla ned 'Ctrl'",
+        "more_des_a": "Välj flera filer genom att hålla ned 'Ctrl'",
         "multi": "Välj fler PDF-filer",
         "actionBtn": "Sammanfoga PDF",
         "howSection": {
@@ -220,25 +220,25 @@
     "features": {
       "merge": {
         "name": "mergepdf",
-        "title": "Sammanfoga PDF",
+        "title": "Sammanfoga",
          "description": "Kombinera PDF-filer i den ordning du vill ha med den enklaste PDF-sammanslagningen som finns tillgänglig",
         "file": "merge_pdf.svg"
       },
       "split": {
         "name": "splitpdf",
-        "title": "Dela PDF",
+        "title": "Dela",
          "description": "Separera en sida eller en hel uppsättning för enkel konvertering till oberoende PDF-filer",
         "file": "split_pdf.svg"
       },
       "compress": {
         "name": "compresspdf",
-        "title": "Komprimera PDF",
+        "title": "Komprimera",
          "description": "Minska filstorleken samtidigt som du optimerar för maximal PDF-kvalitet",
         "file": "compress_pdf.svg"
       },
       "word_pdf": {
         "name": "wordtopdf",
-        "title": "Word till PDF",
+        "title": "Word till",
          "description": "Gör DOC- och DOCX-filer lätta att läsa genom att konvertera dem till PDF.",
         "file": "word_pdf.svg"
       },
@@ -250,19 +250,19 @@
       },
       "sign": {
         "name": "signpdf",
-        "title": "Skriv under PDF",
+        "title": "Skriv under",
          "description": "Signera dig själv eller begär elektroniska signaturer från andra.",
         "file": "sign_pdf.svg"
       },
       "edit": {
         "name": "editpdf",
-        "title": "Redigera PDF",
+        "title": "Redigera",
          "description": "Lägg till text, bilder, former eller frihandsanteckningar till ett PDF-dokument. Redigera storleken, teckensnittet och färgen på det tillagda innehållet.",
         "file": "edit_pdf.svg"
       },
       "rotate": {
         "name": "rotatepdf",
-        "title": "Rotera PDF",
+        "title": "Rotera",
         "description": "Rotera dina PDF-filer som du behöver dem. Du kan till och med rotera flera PDF-filer samtidigt!",
         "file": "rotate_pdf.svg"
       }

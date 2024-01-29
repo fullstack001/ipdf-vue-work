@@ -56,7 +56,7 @@
         "mergePdf": "MergePDF",
         "one_des": "PDF'lerinizin sırasını değiştirmek için dosyaları istediğiniz gibi sürükleyip bırakın.",
         "more_des": "Lütfen 'PDF dosyalarını seç' seçeneğini tekrar tıklayarak daha fazla PDF dosyası seçin.",
-        "mere_des_a": "'Ctrl'ye basılı tutarak birden fazla dosya seçin",
+        "more_des_a": "'Ctrl'ye basılı tutarak birden fazla dosya seçin",
         "multi": "Lütfen daha fazla PDF dosyası seçin",
         "actionBtn": "PDF'yi Birleştir",
         "howSection": {
@@ -192,7 +192,7 @@
         "selectBtn": "PDF Dosyalarını Seç",
         "dropFiles": "Veya PDF'leri Buraya Bırakın",
         "level": "Sıkıştırma Seviyesi",
-        "ekstrem": "AŞIRI SIKIŞTIRMA",
+        "extreme": "AŞIRI SIKIŞTIRMA",
         "extreme_des": "(Daha az kalite, yüksek sıkıştırma)",
         "recommended": "ÖNERİLEN SIKIŞTIRMA",
         "recommended_des": "(İyi kalite, iyi sıkıştırma)",

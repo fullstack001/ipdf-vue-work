@@ -4,7 +4,7 @@
       "signup": "Εγγραφή",
       "about": "Σχετικά",
       "merge_pdf": "Συγχώνευση PDF",
-      "split_pdf": "Split PDF",
+      "split_pdf": "Διαχωρισμός PDF",
       "compress_pdf": "Συμπίεση PDF",
       "convert_pdf": "Μετατροπή PDF",
       "blog": "Ιστότοπος",
@@ -53,10 +53,10 @@
         "description": "Συνδυάστε αρχεία PDF με τη σειρά που θέλετε με την ευκολότερη διαθέσιμη συγχώνευση PDF.",
         "selectBtn": "Επιλογή αρχείων PDF",
         "dropFiles": "Ή απόθεση PDF εδώ",
-        "mergePdf": "MergePDF",
+        "mergePdf": "συγχώνευση PDF",
         "one_des": "Για να αλλάξετε τη σειρά των PDF σας, σύρετε και αποθέστε τα αρχεία όπως θέλετε.",
         "more_des": "Παρακαλώ, επιλέξτε περισσότερα αρχεία PDF κάνοντας ξανά κλικ στο 'Επιλογή αρχείων PDF'.",
-        "mere_des_a": "Επιλέξτε πολλά αρχεία διατηρώντας πατημένο το 'Ctrl'",
+        "more_des_a": "Επιλέξτε πολλά αρχεία διατηρώντας πατημένο το 'Ctrl'",
         "multi": "Παρακαλώ, επιλέξτε περισσότερα αρχεία PDF",
         "actionBtn": "Συγχώνευση PDF",
         "howSection": {
@@ -166,7 +166,7 @@
          "selectBtn": "Επιλογή αρχείων PDF",
          "dropFiles": "Ή απόθεση PDF εδώ",
          "εύρος": "εύρος",
-         "split": "Split",
+         "split": "διαχωρισμός PDF",
          "allRange": "Συγχώνευση όλων των σειρών σε ένα αρχείο PDF.",
          "actionBtn": "Διαίρεση PDF",
          "down_btn_title": "Επιτυχής διαχωρισμός",
@@ -183,8 +183,8 @@
          "selectPage": "Επιλογή σελίδας",
          "extract_des_b": "Οι επιλεγμένες σελίδες θα μετατραπούν σε ξεχωριστά αρχεία PDF.",
          "extract_des_a": "Θα δημιουργηθεί PDF",
-         "split_by_range": "SPLIT BY RANGE",
-         "exttract_pages": "EXTRACT PAGES"
+         "split_by_range": "ΔΙΑΙΡΩΣΗ ΚΑΤΑ ΕΜΒΑΔΑ",
+         "exttract_pages": "ΑΠΟΣΠΑΣΜΑ ΣΕΛΙΔΩΝ"
       },
       "compress_page": {
         "title": "Συμπίεση αρχείου PDF",
@@ -220,19 +220,19 @@
     "features": {
       "merge": {
         "name": "mergepdf",
-        "title": "Merge PDF",
+        "title": "συγχώνευση",
          "description": "Συνδυάστε αρχεία PDF με τη σειρά που θέλετε με την ευκολότερη διαθέσιμη συγχώνευση PDF",
         "file": "merge_pdf.svg"
       },
       "split": {
         "name": "splitpdf",
-        "title": "Split PDF",
+        "title": "διαχωρισμός",
         "description": "Διαχωρίστε μία σελίδα ή ένα ολόκληρο σύνολο για εύκολη μετατροπή σε ανεξάρτητα αρχεία PDF",
         "file": "split_pdf.svg"
       },
       "compress": {
         "name": "compresspdf",
-        "title": "Συμπίεση PDF",
+        "title": "Συμπίεση",
         "description": "Μειώστε το μέγεθος του αρχείου ενώ κάνετε βελτιστοποίηση για μέγιστη ποιότητα PDF",
         "file": "compress_pdf.svg"
       },
@@ -250,19 +250,19 @@
       },
       "sign": {
         "name": "signpdf",
-        "title": "Υπογραφή PDF",
+        "title": "Υπογραφή",
         "description": "Υπογράψτε εσείς ή ζητήστε ηλεκτρονικές υπογραφές από άλλους.",
         "file": "sign_pdf.svg"
       },
       "edit": {
         "name": "editpdf",
-        "title": "Επεξεργασία PDF",
+        "title": "Επεξεργασία",
          "description": "Προσθέστε κείμενο, εικόνες, σχήματα ή ελεύθερους σχολιασμούς σε ένα έγγραφο PDF. Επεξεργαστείτε το μέγεθος, τη γραμματοσειρά και το χρώμα του προστιθέμενου περιεχομένου.",
         "file": "edit_pdf.svg"
       },
       "rotate": {
         "name": "rotatepdf",
-        "title": "Περιστροφή PDF",
+        "title": "Περιστροφή",
         "description": "Περιστροφή των PDF σας όπως τα χρειάζεστε. Μπορείτε ακόμη και να περιστρέψετε πολλά PDF ταυτόχρονα!",
         "file": "rotate_pdf.svg"
       }
@@ -270,19 +270,19 @@
     "onlines": {
       "merge": {
         "name": "mergepdf",
-        "title": "Merge PDF",
+        "title": "συγχώνευση",
         "description": "Συνδυάστε αρχεία PDF με τη σειρά που θέλετε με την ευκολότερη διαθέσιμη συγχώνευση PDF",
         "file": "merge_pdf.svg"
       },
       "split": {
         "name": "splitpdf",
-        "title": "Split PDF",
+        "title": "διαχωρισμός",
          "description": "Διαχωρίστε μία σελίδα ή ένα ολόκληρο σύνολο για εύκολη μετατροπή σε ανεξάρτητα αρχεία PDF",
         "file": "split_pdf.svg"
       },
       "compress": {
         "name": "compresspdf",
-        "title": "Συμπίεση PDF",
+        "title": "Συμπίεση",
         "description": "Μειώστε το μέγεθος του αρχείου ενώ κάνετε βελτιστοποίηση για μέγιστη ποιότητα PDF",
         "file": "compress_pdf.svg"
       },

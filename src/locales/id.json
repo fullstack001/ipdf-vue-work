@@ -28,7 +28,7 @@
             "item1": "Masa Berkas Diperpanjang",
             "item2": "Akses Unduhan Prioritas",
             "item3": "Semua file Anda di satu tempat",
-            "tombol": "Dapatkan Akun Gratis"
+            "button": "Dapatkan Akun Gratis"
         }
       },
       "signUp": {
@@ -56,7 +56,7 @@
         "mergePdf": "GabungPDF",
         "one_des": "Untuk mengubah urutan PDF Anda, seret dan letakkan file sesuai keinginan Anda.",
         "more_des": "Silakan pilih lebih banyak berkas PDF dengan mengeklik lagi ’Pilih berkas PDF’.",
-        "mere_des_a": "Pilih beberapa berkas dengan terus menekan 'Ctrl'",
+        "more_des_a": "Pilih beberapa berkas dengan terus menekan 'Ctrl'",
         "multi": "Silakan pilih lebih banyak berkas PDF",
         "actionBtn": "Gabungkan PDF",
         "howSection": {
@@ -141,7 +141,7 @@
         "selectBtn": "Pilih File PDF",
         "dropFiles": "Atau Letakkan PDF di Sini",
         "editPdf": "Edit PDF",
-        "elemen": "Elemen",
+        "elements": "Elemen",
         "ele_des": "Dari toolbar ini Anda dapat menyusun ulang elemen untuk memindahkannya ke belakang atau ke depan dokumen.",
         "actionBtn": "Edit PDF"
       },

@@ -56,7 +56,7 @@
          "mergePdf": "Scal PDF",
          "one_des": "Aby zmienić kolejność plików PDF, przeciągnij i upuść pliki w dowolny sposób.",
          "more_des": "Wybierz więcej plików PDF, klikając ponownie opcję „Wybierz pliki PDF”.",
-         "mere_des_a": "Wybierz wiele plików, przytrzymując wciśnięty klawisz Ctrl",
+         "more_des_a": "Wybierz wiele plików, przytrzymując wciśnięty klawisz Ctrl",
          "multi": "Proszę wybrać więcej plików PDF",
          "actionBtn": "Scal PDF",
         "howSection": {
@@ -192,7 +192,7 @@
         "selectBtn": "Wybierz pliki PDF",
         "dropFiles": "Lub upuść tutaj pliki PDF",
         "level": "Poziom kompresji",
-        "ekstremalny": "EKSTREMALNA KOMPRESJA",
+        "extreme": "EKSTREMALNA KOMPRESJA",
         "extreme_des": "(Niska jakość, wysoka kompresja)",
         "recommended": "ZALECANA KOMPRESJA",
         "recommended_des": "(Dobra jakość, dobra kompresja)",

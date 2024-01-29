@@ -56,7 +56,7 @@
          "mergePdf": "Hợp nhấtPDF",
          "one_des": "Để thay đổi thứ tự các tệp PDF của bạn, hãy kéo và thả các tệp theo ý muốn.",
          "more_des": "Xin vui lòng chọn thêm tệp PDF bằng cách nhấp lại vào `Chọn tệp PDF'.",
-         "mere_des_a": "Chọn nhiều tập tin bằng cách tiếp tục nhấn `Ctrl'",
+         "more_des_a": "Chọn nhiều tập tin bằng cách tiếp tục nhấn `Ctrl'",
          "multi": "Xin vui lòng chọn thêm file PDF",
          "actionBtn": "Hợp nhất PDF",
         "howSection": {

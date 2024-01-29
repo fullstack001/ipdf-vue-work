@@ -56,7 +56,7 @@
         "mergePdf": "合并PDF",
         "one_des": "要更改 PDF 的顺序，请根据需要拖放文件。",
         "more_des": "请再次单击“选择 PDF 文件”来选择更多 PDF 文件。",
-        "mere_des_a": "通过按住 'Ctrl' 选择多个文件",
+        "more_des_a": "通过按住 'Ctrl' 选择多个文件",
         "multi": "请选择更多 PDF 文件",
         "actionBtn": "合并 PDF",
         "howSection": {

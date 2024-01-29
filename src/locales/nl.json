@@ -56,7 +56,7 @@
         "mergePdf": "PDF samenvoegen",
         "one_des": "Om de volgorde van uw PDF's te wijzigen, sleept u de bestanden naar wens.",
         "more_des": "Selecteer meer PDF-bestanden door nogmaals op ’Selecteer PDF-bestanden’ te klikken.",
-        "mere_des_a": "Selecteer meerdere bestanden door ’Ctrl’ ingedrukt te houden",
+        "more_des_a": "Selecteer meerdere bestanden door ’Ctrl’ ingedrukt te houden",
         "multi": "Selecteer alstublieft meer PDF-bestanden",
         "actionBtn": "PDF samenvoegen",
         "howSection": {
@@ -141,7 +141,7 @@
         "selectBtn": "Selecteer PDF-bestanden",
         "dropFiles": "Of zet hier PDF's neer",
         "editPdf": "PDF bewerken",
-        "elementen": "Elementen",
+        "elements": "Elementen",
         "ele_des": "Vanuit deze werkbalk kunt u de volgorde van elementen wijzigen om ze naar achteren of vóór het document te verplaatsen.",
         "actionBtn": "PDF bewerken"
       },
@@ -220,19 +220,19 @@
     "features": {
       "merge": {
         "name": "mergepdf",
-        "title": "PDF samenvoegen",
+        "title": "samenvoegen",
         "description": "Combineer PDF's in de gewenste volgorde met de eenvoudigste PDF-samenvoeging die beschikbaar is",
         "file": "merge_pdf.svg"
       },
       "split": {
         "name": "splitpdf",
-        "title": "PDF splitsen",
+        "title": "splitsen",
          "description": "Scheid één pagina of een hele set voor eenvoudige conversie naar onafhankelijke PDF-bestanden",
         "file": "split_pdf.svg"
       },
       "compress": {
         "name": "compresspdf",
-        "title": "PDF comprimeren",
+        "title": "comprimeren",
         "description": "Verklein de bestandsgrootte terwijl u optimaliseert voor maximale PDF-kwaliteit",
         "file": "compress_pdf.svg"
       },
@@ -250,19 +250,19 @@
       },
       "sign": {
         "name": "signpdf",
-        "title": "PDF ondertekenen",
+        "title": "ondertekenen",
         "description": "Onderteken uzelf of vraag elektronische handtekeningen aan bij anderen.",
         "file": "sign_pdf.svg"
       },
       "edit": {
         "name": "editpdf",
-        "title": "PDF bewerken",
+        "title": "bewerken",
          "description": "Voeg tekst, afbeeldingen, vormen of annotaties uit de vrije hand toe aan een PDF-document. Bewerk de grootte, het lettertype en de kleur van de toegevoegde inhoud.",
         "file": "edit_pdf.svg"
       },
       "rotate": {
         "name": "rotatepdf",
-        "title": "PDF roteren",
+        "title": "roteren",
          "description": "Roteer uw PDF's zoals u ze nodig heeft. U kunt zelfs meerdere PDF's tegelijk roteren!",
         "file": "rotate_pdf.svg"
       }
@@ -270,19 +270,19 @@
     "onlines": {
       "merge": {
         "name": "mergepdf",
-        "title": "PDF samenvoegen",
+        "title": "samenvoegen",
          "description": "Combineer PDF's in de gewenste volgorde met de eenvoudigste PDF-samenvoeging die beschikbaar is",
         "file": "merge_pdf.svg"
       },
       "split": {
         "name": "splitpdf",
-        "title": "PDF splitsen",
+        "title": "splitsen",
          "description": "Scheid één pagina of een hele set voor eenvoudige conversie naar onafhankelijke PDF-bestanden",
         "file": "split_pdf.svg"
       },
       "compress": {
         "name": "compresspdf",
-        "title": "PDF comprimeren",
+        "title": "comprimeren",
          "description": "Verklein de bestandsgrootte terwijl u optimaliseert voor maximale PDF-kwaliteit",
         "file": "compress_pdf.svg"
       },

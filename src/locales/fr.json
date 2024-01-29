@@ -217,19 +217,19 @@
   "features": {
     "merge": {
       "name": "mergepdf",
-      "title": "Fusionner PDF",
+      "title": "Fusionner",
       "description": "Combinez des PDF dans l'ordre que vous souhaitez grâce à la fusion de PDF la plus simple qui soit.",
       "file": "merge_pdf.svg"
     },
     "split": {
       "name": "splitpdf",
-      "title": "Diviser le PDF",
+      "title": "Diviser",
       "description": "Séparer une page ou un ensemble de pages pour les convertir facilement en fichiers PDF indépendants.",
       "file": "split_pdf.svg"
     },
     "compress": {
       "name": "compresspdf",
-      "title": "Compresser le PDF",
+      "title": "Compresser",
       "description": "Réduire la taille des fichiers tout en optimisant la qualité des PDF",
       "file": "compress_pdf.svg"
     },
@@ -247,19 +247,19 @@
     },
     "sign": {
       "name": "signpdf",
-      "title": "Signer le PDF",
+      "title": "Signer",
       "description": "Signez vous-même ou demandez des signatures électroniques à d'autres personnes.",
       "file": "sign_pdf.svg"
     },
     "edit": {
       "name": "editpdf",
-      "title": "Editer le PDF",
+      "title": "Editer",
       "description": "Ajoutez du texte, des images, des formes ou des annotations à main levée à un document PDF. Modifiez la taille, la police et la couleur du contenu ajouté.",
       "file": "edit_pdf.svg"
     },
     "rotate": {
       "name": "rotatepdf",
-      "title": "Rotation du PDF",
+      "title": "Rotation",
       "description": "Faites pivoter vos PDF comme vous le souhaitez. Vous pouvez même faire pivoter plusieurs PDF à la fois !",
       "file": "rotate_pdf.svg"
     }
@@ -267,19 +267,19 @@
   "onlines": {
     "merge": {
       "name": "mergepdf",
-      "title": "Fusionner PDF",
+      "title": "Fusionner",
       "description": "Combinez des PDF dans l'ordre que vous souhaitez grâce à la fusion de PDF la plus simple qui soit.",
       "file": "merge_pdf.svg"
     },
     "split": {
       "name": "splitpdf",
-      "title": "Diviser le PDF",
+      "title": "Diviser",
       "description": "Séparer une page ou un ensemble de pages pour les convertir facilement en fichiers PDF indépendants.",
       "file": "split_pdf.svg"
     },
     "compress": {
       "name": "compresspdf",
-      "title": "Compresser le PDF",
+      "title": "Compresser",
       "description": "Réduire la taille des fichiers tout en optimisant la qualité des PDF",
       "file": "compress_pdf.svg"
     },
