@@ -982,7 +982,7 @@ h3 {
 
 @media (max-width: 640px) {
   .drop-area {
-    width: 80%;
+    width: 100%;
   }
 
   .uploader__btn {

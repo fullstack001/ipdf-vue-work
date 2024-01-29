@@ -235,4 +235,21 @@ input {
   font-size: 30px;
   font-weight: bold;
 }
+
+@media (max-width: 960px) {
+  .sign-right[data-v-a3068648] {
+    padding: 40px;
+    background-color: #f2f3f8;
+  }
+
+  .sign_panel[data-v-a3068648] {
+    background-color: #fffdfd;
+    padding: 30px;
+    padding-top: 30px;
+  }
+  img {
+    margin: 0rem !important;
+    width: 235px;
+  }
+}
 </style>

@@ -1,17 +1,56 @@
 <template>
   <div class="locale-switcher">
-    <label for="mySelect"
-      ><img
+    <div>
+      <img
         src="@/assets/img/globe16.png"
         srcset="@/assets/img/globe16.png"
         alt="language selector icon"
         class="langSelector__img"
-    /></label>
-    <select :value="$i18n.locale" @change.prevent="changeLocale">
+      />
+    </div>
+    <!-- <select :value="$i18n.locale" @change.prevent="changeLocale">
       <option :value="locale.code" v-for="locale in locales" :key="locale.code">
         {{ locale.name }}
       </option>
-    </select>
+    </select> -->
+    <div @mouseover="showLan = true" class="current_language">
+      {{ getName($i18n.locale) }}
+    </div>
+    <div class="md-layout" v-show="showLan" @mouseleave="showLan = false">
+      <div class="md-layout-item">
+        <div
+          v-for="number in 9"
+          :key="number"
+          @click="selLocale(locales[number - 1].code)"
+          class="locale-item"
+          :class="{ active: isActive(locales[number - 1].code) }"
+        >
+          {{ locales[number - 1].name }}
+        </div>
+      </div>
+      <div class="md-layout-item">
+        <div
+          v-for="number in 7"
+          :key="number"
+          @click="selLocale(locales[number + 8].code)"
+          class="locale-item"
+          :class="{ active: isActive(locales[number + 8].code) }"
+        >
+          {{ locales[number + 8].name }}
+        </div>
+      </div>
+      <div class="md-layout-item">
+        <div
+          v-for="number in 8"
+          :key="number"
+          @click="selLocale(locales[number + 16].code)"
+          class="locale-item"
+          :class="{ active: isActive(locales[number + 16].code) }"
+        >
+          {{ locales[number + 16].name }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,26 +58,90 @@
 import { getSupportedLocales } from "@/util/i18n/supported-locales";
 
 export default {
-  data: () => ({ locales: getSupportedLocales() }),
+  data() {
+    return {
+      locales: getSupportedLocales(),
+      showLan: false,
+    };
+  },
 
   methods: {
+    getName(locale) {
+      let name = "";
+      for (let i = 0; i < this.locales.length; i++) {
+        if (this.locales[i].code == locale) {
+          name = this.locales[i].name;
+        }
+      }
+      return name;
+    },
     changeLocale(e) {
       const locale = e.target.value;
 
       this.$router.push(`/${locale}`);
     },
+    selLocale(locale) {
+      this.$router.push(`/${locale}`);
+    },
+    isActive(locale) {
+      return this.$i18n.locale == locale;
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "~vue-material/dist/theme/engine";
+.md-layout {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: absolute;
+  width: 450px;
+  top: -200px;
+  min-height: 200px;
+  border-radius: 10px;
+  // border: solid 1px;
+  z-index: 500;
+  background: #fefefe;
+  box-shadow: 0 5px 5px 2px #6e6c6c;
+}
+.locale-item {
+  cursor: pointer;
+}
+
+.md-layout-item {
+  // height: 40px;
+
+  // &:nth-child(1) {
+  //   background: md-get-palette-color(grey, 300);
+  // }
+
+  // &:nth-child(2) {
+  //   background: md-get-palette-color(grey, 400);
+  // }
+
+  // &:nth-child(3) {
+  //   background: md-get-palette-color(grey, 500);
+  // }
+}
+</style>
 
 <style scoped>
 .locale-switcher {
   margin-top: 10px;
   margin-right: 15px;
+  display: flex;
 }
 
-select {
+.current_language {
   border: none;
   background-color: transparent;
+  margin-left: 10px;
+}
+.current_language {
+  cursor: pointer;
+}
+.active {
+  color: #ff7c03;
 }
 </style>

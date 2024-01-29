@@ -1425,12 +1425,13 @@ h3 {
     margin-left: -50px;
   }
   .drop-area {
-    margin-left: 80px !important;
+    margin-left: 0% !important;
+    width: 85%;
   }
 
   .page-title,
   .page-description {
-    margin-left: 30px !important;
+    margin-left: 10% !important;
   }
 }
 @media (max-width: 440px) {

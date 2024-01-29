@@ -118,48 +118,39 @@
         </li>
       </ul>
       <div :class="{ 'navbar-open': isOpen }">
-        <ul class="mobile-nav-list">
+        <ul class="mobile-nav-list" @mouseleave="isOpen = false">
           <li>
-            <LocalizedLink
-              to="/mergepdf"
-              class="nav-btn"
-              :class="{ 'active-link': isActive('/mergepdf') }"
-            >
+            <LocalizedLink to="/"> HOME </LocalizedLink>
+          </li>
+          <li>
+            <LocalizedLink to="/mergepdf">
               {{ $t("features.merge.title") }}
             </LocalizedLink>
           </li>
           <li>
-            <LocalizedLink
-              to="/splitpdf"
-              class="nav-btn"
-              :class="{ 'active-link': isActive('/splitpdf') }"
-            >
+            <LocalizedLink to="/splitpdf">
               {{ $t("features.split.title") }}
             </LocalizedLink>
           </li>
           <li>
-            <LocalizedLink
-              to="/compresspdf"
-              class="nav-btn"
-              :class="{ 'active-link': isActive('/compresspdf') }"
-            >
+            <LocalizedLink to="/compresspdf">
               {{ $t("features.compress.title") }}
             </LocalizedLink>
           </li>
 
           <li>
-            <LocalizedLink to="wordtopdf" class="nav-btn">
+            <LocalizedLink to="wordtopdf">
               {{ $t("other_features.convert_pdf.title") }}
             </LocalizedLink>
           </li>
           <li>
-            <LocalizedLink to="login" class="login-btn">
-              <div class="nav-btn">{{ $t("nav-links.login") }}</div>
+            <LocalizedLink to="login">
+              {{ $t("nav-links.login") }}
             </LocalizedLink>
           </li>
           <li>
-            <LocalizedLink to="signup" class="signup-btn">
-              <div class="nav-btn">{{ $t("nav-links.signup") }}</div>
+            <LocalizedLink to="signup">
+              {{ $t("nav-links.signup") }}
             </LocalizedLink>
           </li>
         </ul>
@@ -337,6 +328,7 @@ a {
     display: flex;
     position: absolute;
     cursor: pointer;
+    right: 18px;
   }
 
   .navbar-open {
@@ -369,21 +361,25 @@ a {
 
   .navbar-open .mobile-nav-list {
     display: block;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     position: absolute;
     top: 20px;
-    left: 0;
-    width: 100%;
-    background-color: #fff; /* Material Design Blue */
+    right: 0;
+    width: 40%;
+    background-color: #fff;
     list-style: none;
   }
   .mobile-nav-list li {
-    margin: 30px 0;
+    margin: 15px 0;
   }
 
   .nav-btn {
     margin-left: 0;
     width: fit-content;
+    border: none;
   }
 
   .signup-btn {

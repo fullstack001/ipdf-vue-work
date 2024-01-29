@@ -23,4 +23,5 @@ export default {
   vi: "Tiếng Việt",
   zh_cn: "中文(简体)",
   zh_tw: "中文(繁體)",
+  bg: "Български",
 };
