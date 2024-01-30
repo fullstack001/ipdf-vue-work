@@ -3,7 +3,21 @@
     class="main"
     :style="file_objs.length ? 'display: flex' : 'display: inline-block'"
   >
-    <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
+    <Processing :progress="'Merging'" v-if="page_load == 'processing'" />
+    <Uploading
+      :progress="progress"
+      :number="1"
+      :total="1"
+      :size="size"
+      :file_name="'pdfden_merged.pdf'"
+      v-if="page_load == 'uploading'"
+    />
+    <div
+      class="dropzone-container"
+      @dragover.prevent
+      @drop="handleDrop"
+      v-if="page_load == 'default'"
+    >
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
           <div class="page-title">
@@ -554,36 +568,36 @@
       </div>
     </div>
 
-    <div v-show="file_objs.length > 0">
-      <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3>{{ $t("page_titles.merge_page.mergePdf") }}</h3>
+    <div
+      id="sidebar"
+      class="tool__sidebar"
+      style="overflow-y: auto"
+      v-show="file_objs.length > 0"
+      v-if="page_load == 'default'"
+    >
+      <h3>{{ $t("page_titles.merge_page.mergePdf") }}</h3>
 
-        <div class="option__panel option__panel--active" id="merge-options">
-          <div class="option__panel__content">
-            <div
-              class="info drag"
-              style="display: none"
-              v-show="file_objs.length == 1"
-            >
-              {{ $t("page_titles.merge_page.one_des") }}
-            </div>
-            <div class="info multiple" v-show="file_objs.length > 1">
-              {{ $t("page_titles.merge_page.more_des") }}
-              <br />
-              {{ $t("page_titles.merge_page.more_des_a") }}
-            </div>
-            <div class="multiple hidden">
-              {{ $t("page_titles.merge_page.multi") }}
-            </div>
+      <div class="option__panel option__panel--active" id="merge-options">
+        <div class="option__panel__content">
+          <div class="info drag" v-show="file_objs.length == 1">
+            {{ $t("page_titles.merge_page.one_des") }}
           </div>
-          <button
-            class="option__panel__title"
-            @click="mergePDFs"
-            :disabled="file_objs.length == 1"
-          >
-            {{ $t("page_titles.merge_page.actionBtn") }}
-          </button>
+          <div class="info multiple" v-show="file_objs.length > 1">
+            {{ $t("page_titles.merge_page.more_des") }}
+            <br />
+            {{ $t("page_titles.merge_page.more_des_a") }}
+          </div>
+          <div class="multiple hidden">
+            {{ $t("page_titles.merge_page.multi") }}
+          </div>
         </div>
+        <button
+          class="option__panel__title"
+          @click="mergePDFs"
+          :disabled="file_objs.length == 1"
+        >
+          {{ $t("page_titles.merge_page.actionBtn") }}
+        </button>
       </div>
     </div>
   </div>
@@ -602,6 +616,8 @@ import faq from "@/components/Faq.vue";
 import FeatureTitle from "./components/FeatureTitle.vue";
 import { online_names } from "../services/online_name";
 import AddMoreDropDown from "./components/AddMoreDropDown.vue";
+import Processing from "./components/Processing.vue";
+import Uploading from "./components/Uploading.vue";
 
 export default {
   components: {
@@ -612,13 +628,17 @@ export default {
     FeatureTitle,
     GDriveSelector,
     AddMoreDropDown,
-    // GDrivePicker,
+    Processing,
+    Uploading,
   },
   data() {
     return {
       show_file_action: null,
       isDragging: false,
       files: [],
+      page_load: "default",
+      progress: 0,
+      size: 0,
       file_objs: [],
       sorted: false,
       online_names: online_names,
@@ -764,7 +784,7 @@ export default {
 
     //mergePDFs
     async mergePDFs() {
-      this.$isLoading(true); // show loading screen
+      this.page_load = "processing";
       const mergedPdf = await PDFDocument.create();
       for (let i = 0; i < this.file_objs.length; i++) {
         const file = this.file_objs[i]["file"];
@@ -799,7 +819,7 @@ export default {
       const mergedPdfFile = await mergedPdf.save();
 
       //upload to server
-
+      this.page_load = "uploading";
       const formData = new FormData();
       const blob = new Blob([mergedPdfFile], { type: "application/pdf" });
       console.log(blob);
@@ -807,7 +827,17 @@ export default {
       formData.append("pdf", blob);
 
       this.$axios
-        .post("/pdf/pdf_upload", formData)
+        .post("/pdf/pdf_upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: function (progressEvent) {
+            this.progress = parseInt(
+              Math.round((progressEvent.loaded / progressEvent.total) * 100)
+            );
+            this.size = progressEvent.total;
+          }.bind(this),
+        })
         .then((response) => {
           const obj = {
             id: response.data,
@@ -833,10 +863,7 @@ export default {
           });
         })
         .catch((e) => {
-          console.log(e);
-        })
-        .finally(() => {
-          this.$isLoading(false); // hide loading screen
+          this.page_load = "default";
         });
     },
   },
@@ -1012,6 +1039,8 @@ body {
 .tool__sidebar {
   height: 100vh;
   background-color: #fff;
+  max-width: 415px !important;
+  min-width: 415px !important;
 }
 
 .draggable-item {

@@ -3,12 +3,22 @@
     class="main"
     :style="file ? 'display: flex;' : 'display: inline-block;  width: 100%;'"
   >
+    <Processing :progress="'Splitting'" v-if="page_load == 'processing'" />
+    <Uploading
+      :progress="progress"
+      :number="1"
+      :total="1"
+      :size="size"
+      :file_name="file_name"
+      v-if="page_load == 'uploading'"
+    />
     <div
       class="dropzone-container"
       @dragover.prevent
       @drop="handleDrop"
       :style="pages.length ? 'width: 113%' : 'width: 100%'"
       ref="dropzone"
+      v-if="page_load == 'default'"
     >
       <div class="upload_btn_area">
         <div v-show="!pages.length" class="upload-buttons">
@@ -110,7 +120,12 @@
       </div>
     </div>
 
-    <div v-show="pages.length" style="width: 30%" class="sidebar-area">
+    <div
+      v-show="pages.length"
+      style="width: 30%"
+      class="sidebar-area"
+      v-if="page_load == 'default'"
+    >
       <div
         id="sidebar"
         class="tool__sidebar"
@@ -184,6 +199,8 @@ import { GlobalWorkerOptions, getDocument } from "pdfjs-dist/legacy/build/pdf";
 import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 GlobalWorkerOptions.workerSrc = PDFJSWorker;
 import GDriveSelector from "@/components/GDriveSelector.vue";
+import Processing from "./components/Processing.vue";
+import Uploading from "./components/Uploading.vue";
 
 export default {
   components: {
@@ -193,6 +210,8 @@ export default {
     SplitExtra,
     SpiltRange,
     GDriveSelector,
+    Processing,
+    Uploading,
   },
   data() {
     return {
@@ -206,6 +225,10 @@ export default {
       merge_selected: false,
       show_checkBox: true,
       myStyleObject: {},
+      page_load: "default",
+      progress: 0,
+      size: 0,
+      file_name: "",
     };
   },
   mounted() {
@@ -421,7 +444,7 @@ export default {
     },
 
     splitPDF() {
-      this.$isLoading(true); // show loading screen
+      this.page_load = "processing";
       let planPages = [];
       if (this.extractEdit) {
         planPages = this.extractPages;
@@ -514,13 +537,25 @@ export default {
     },
 
     uploadPdf(pdfFile) {
+      this.page_load = "uploading";
+      this.file_name = "splited_pdf.pdf";
       const formData = new FormData();
       const blob = new Blob(pdfFile, { type: "application/pdf" });
 
       formData.append("pdf", blob);
 
       this.$axios
-        .post("/pdf/pdf_upload", formData)
+        .post("/pdf/pdf_upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: function (progressEvent) {
+            this.progress = parseInt(
+              Math.round((progressEvent.loaded / progressEvent.total) * 100)
+            );
+            this.size = progressEvent.total;
+          }.bind(this),
+        })
         .then((response) => {
           const obj = {
             id: response.data,
@@ -546,10 +581,7 @@ export default {
           });
         })
         .catch((e) => {
-          console.log(e);
-        })
-        .finally(() => {
-          this.$isLoading(false); // hide loading screen
+          this.page_load = "default";
         });
     },
 
@@ -569,11 +601,22 @@ export default {
           //upload zip file to server
           const formData = new FormData();
           const blob = new Blob([content], { type: "application/zip" });
+          this.page_load = "uploading";
 
           formData.append("file", blob);
 
           this.$axios
-            .post("/pdf/zip_upload", formData)
+            .post("/pdf/zip_upload", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              onUploadProgress: function (progressEvent) {
+                this.progress = parseInt(
+                  Math.round((progressEvent.loaded / progressEvent.total) * 100)
+                );
+                this.size = progressEvent.total;
+              }.bind(this),
+            })
             .then((response) => {
               const obj = {
                 id: response.data,
@@ -604,9 +647,7 @@ export default {
             })
             .catch((e) => {
               console.log(e);
-            })
-            .finally(() => {
-              this.$isLoading(false); // hide loading screen
+              this.page_load = "default";
             });
         });
       });

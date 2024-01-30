@@ -26,7 +26,7 @@
             {{ $t("page_titles.sign_page.des") }}
           </div>
           <div class="drop-area">
-            <div class="drop-img mb-4">
+            <div class="drop-img" style="margin-bottom: 40px">
               <img src="@/assets/feature_img/sign_pdf.svg" alt="" />
             </div>
             <div class="upload_btn">
@@ -88,10 +88,11 @@ import GDriveSelector from "@/components/GDriveSelector.vue";
 import SignatureModal from "@/pdf_pages/features/components/SignatureModal.vue";
 import SignComponent from "./components/SignComponent.vue";
 import addImagesToPDF1 from "../services/add_img_to_pdf1";
+import Processing from "./components/Processing.vue";
+import Uploading from "./components/Uploading.vue";
 
 export default {
   components: {
-    // PdfPreviewList,
     SignComponent,
     VueDropboxPicker,
     GDriveSelector,
