@@ -3,7 +3,7 @@
     <div id="sidebar" class="tool__sidebar col-md-2">
       <PdfPreviewList :url="pdfUrl" />
     </div>
-    <div class="col-md-8 sign_right">
+    <div class="col-md-7 sign_right">
       <div class="toolbar"></div>
       <div
         id="pdf-container-annotate"
@@ -11,7 +11,7 @@
         @mouseover="get_objects"
       ></div>
     </div>
-    <div class="sign_tool col-md-2">
+    <div class="sign_tool col-md-3">
       <div class="toolbar"></div>
       <h3 class="mt-3 mb-5">{{ $t("page_titles.sign_page.sign_options") }}</h3>
       <div class="furniture" v-show="sign_obj">

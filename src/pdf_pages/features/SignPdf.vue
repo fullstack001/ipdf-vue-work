@@ -1,6 +1,15 @@
 <template>
   <div class="main row">
-    <div v-if="files.length" class="col-md-10">
+    <Processing :progress="'Signing'" v-if="page_load == 'processing'" />
+    <Uploading
+      :progress="progress"
+      :number="1"
+      :total="1"
+      :size="size"
+      :file_name="'pdfden_signed.pdf'"
+      v-if="page_load == 'uploading'"
+    />
+    <div v-if="files.length && page_load == 'default'" class="col-md-10">
       <SignComponent
         :pdfUrl="getURL(files[0])"
         :get_pdf="get_result"
@@ -15,7 +24,7 @@
       class="dropzone-container col-md-12"
       @dragover.prevent
       @drop="handleDrop"
-      v-if="!files.length"
+      v-if="!files.length && page_load == 'default'"
     >
       <div class="upload_btn_area">
         <div v-show="!files.length" class="upload-buttons">
@@ -97,6 +106,8 @@ export default {
     VueDropboxPicker,
     GDriveSelector,
     SignatureModal,
+    Processing,
+    Uploading,
   },
   data() {
     return {
@@ -110,6 +121,9 @@ export default {
       get_result: false,
       sign_obj: null,
       sign_name: null,
+      page_load: "default",
+      progress: 0,
+      size: 0,
     };
   },
   watch: {
@@ -180,6 +194,7 @@ export default {
     },
 
     async upload_png(data) {
+      this.page_load = "processing";
       let added = data[0];
       let matched = data[1];
       const pdf = await addImagesToPDF1(
@@ -188,28 +203,29 @@ export default {
         matched
       );
       await this.upload_pdf(pdf);
-      // let images = data.appendImages;
-      // this.$isLoading(true); // show loading screen
-      // const formData = new FormData();
-      // for (let i = 0; i < images.length; i++) {
-      //   formData.append("files", images[i]);
-      // }
 
-      // this.$axios.post("/pdf/png_upload", formData).then(async (res) => {
-      //   const pdf = await addImagesToPDF(this.getURL(this.files[0]), res.data);
-      //   this.upload_pdf(pdf, res.data);
-      // });
       this.get_result = false;
     },
-    upload_pdf(pdf, data) {
+    upload_pdf(pdf) {
       // const deletes = data.map((item) => {
       //   return item.filename;
       // });
       const formData = new FormData();
       formData.append("pdf", pdf);
+      this.page_load = "uploading";
       // formData.append("deletes", deletes);
       this.$axios
-        .post("/pdf/pdf_upload", formData)
+        .post("/pdf/pdf_upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: function (progressEvent) {
+            this.progress = parseInt(
+              Math.round((progressEvent.loaded / progressEvent.total) * 100)
+            );
+            this.size = progressEvent.total;
+          }.bind(this),
+        })
         .then((response) => {
           const obj = {
             id: response.data,
@@ -233,10 +249,7 @@ export default {
           });
         })
         .catch((e) => {
-          console.log(e);
-        })
-        .finally(() => {
-          this.$isLoading(false); // hide loading screen
+          this.page_load = "default";
         });
     },
   },
