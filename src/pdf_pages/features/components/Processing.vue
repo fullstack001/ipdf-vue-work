@@ -20,6 +20,8 @@ export default {
   background: #fefefe;
   width: 100%;
   height: 100vh;
+  margin: auto;
+  text-align: center;
 }
 .progress-logo {
   margin-top: 30px;
