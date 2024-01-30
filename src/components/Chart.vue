@@ -3,7 +3,7 @@
     <radial-progress-bar
       :diameter="200"
       :completed-steps="completedSteps"
-      :total-steps="originSize"
+      :total-steps="100"
       :startColor="'red'"
       :stopColor="'red'"
       :innerStrokeColor="'white'"
@@ -12,11 +12,23 @@
       style="margin: auto"
     >
       <h2>
-        <b>{{ rate }}%</b>
+        <b>{{ disRate }} %</b>
       </h2>
     </radial-progress-bar>
-    <p>Origin Size: {{ originSize }} KByte</p>
-    <p>Result Size: {{ resultSize }} KByte</p>
+    <p>
+      Origin Size:
+      {{
+        originSize > 1024
+          ? (originSize / 1024).toFixed(2) + " MB"
+          : originSize + "KB"
+      }}
+    </p>
+    <p>
+      Result Size:
+      {{
+        resultSize ? (resultSize / 1024).toFixed(2) + " MB" : resultSize + "KB"
+      }}
+    </p>
   </div>
 </template>
 
@@ -32,23 +44,26 @@ export default {
     return {
       completedSteps: 0,
       rate: 0,
+      disRate: 0,
     };
   },
   created() {
+    this.rate = (
+      ((this.originSize - this.resultSize) / this.originSize) *
+      100
+    ).toFixed(0);
     this.setStep();
   },
 
   methods: {
     setStep() {
-      let i = 0;
       let intervalId = setInterval(() => {
         this.completedSteps = this.completedSteps + 1;
-        this.rate = ((this.completedSteps / this.originSize) * 100).toFixed(0);
-        i = i + 15;
-        if (this.completedSteps >= this.resultSize) {
+        this.disRate = this.completedSteps.toFixed(0);
+        if (this.completedSteps >= this.rate) {
           clearInterval(intervalId);
         }
-      }, 0.1);
+      }, 10);
     },
   },
 };
