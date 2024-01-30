@@ -25,111 +25,123 @@ Vue.use(VueRouter);
 const { locale } = i18n;
 // console.log(locale);
 
-const routes = [
+const children = (hasLocale = true) => [
   {
-    path: "/",
-    redirect: locale,
+    path: "",
+    component: AllFeatures,
+    name: hasLocale ? "en_allFeatures" : "allFeature",
   },
-  {
-    path: "/:locale",
-    component: Root,
-    children: [
-      {
-        path: "",
-        component: AllFeatures,
-        name: "allfertures",
-      },
 
-      {
-        path: "/:locale/signup",
-        component: () =>
-          import(/* webpackChunkName: "login" */ "@/pages/SignUp.vue"),
-        name: "signup",
-      },
-      // {
-      //   path: "/:locale/login",
-      //   component: () =>
-      //     import(/* webpackChunkName: "login" */ "@/pages/Login.vue"),
-      //   name: "login",
-      // },
-      {
-        path: "/:locale/mergepdf",
-        component: () =>
-          import(
-            /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/MergePdf.vue"
-          ),
-        name: "mergepdf",
-      },
-      {
-        path: "/:locale/rotatepdf",
-        component: () =>
-          import(
-            /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/RotatePdf.vue"
-          ),
-        name: "rotatepdf",
-      },
-      {
-        path: "/:locale/download/:param",
-        component: () =>
-          import(/* webpackChunkName: "download" */ "@/pdf_pages/DownLoad.vue"),
-        name: "download",
-      },
-      {
-        path: "/:locale/splitpdf",
-        component: () =>
-          import(
-            /* webpackChunkName: "splitpdf" */ "@/pdf_pages/features/SplitPdf.vue"
-          ),
-        name: "splitpdf",
-      },
-      {
-        path: "/:locale/compresspdf",
-        component: () =>
-          import(
-            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/CompressPdf.vue"
-          ),
-        name: "compresspdf",
-      },
-      {
-        path: "/:locale/deleted",
-        component: () =>
-          import(/* webpackChunkName: "deleted" */ "@/pdf_pages/Deleted.vue"),
-        name: "deleted",
-      },
-      {
-        path: "/:locale/wordtopdf",
-        component: () =>
-          import(
-            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/WordToPdf.vue"
-          ),
-        name: "wordtopdf",
-      },
-      {
-        path: "/:locale/pdftoword",
-        component: () =>
-          import(
-            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/PdfToWord.vue"
-          ),
-        name: "pdftoword",
-      },
-      {
-        path: "/:locale/editpdf",
-        component: () =>
-          import(
-            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/EditPdfFeature.vue"
-          ),
-        name: "editpdf",
-      },
-      {
-        path: "/:locale/signpdf",
-        component: () =>
-          import(
-            /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/SignPdf.vue"
-          ),
-        name: "signpdf",
-      },
-    ],
+  {
+    path: (hasLocale ? "/:locale" : "") + "/signup",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "@/pages/SignUp.vue"),
+    name: hasLocale ? "en_signup" : "signup",
   },
+  // {
+  //   path: "/:locale/login",
+  //   component: () =>
+  //     import(/* webpackChunkName: "login" */ "@/pages/Login.vue"),
+  //   name: "en_login",
+  // },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/mergepdf",
+    component: () =>
+      import(
+        /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/MergePdf.vue"
+      ),
+    name: hasLocale ? "en_mergepdf" : "mergepdf",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/rotatepdf",
+    component: () =>
+      import(
+        /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/RotatePdf.vue"
+      ),
+    name: hasLocale ? "en_rotatepdf" : "rotatepdf",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/download/:param",
+    component: () =>
+      import(/* webpackChunkName: "download" */ "@/pdf_pages/DownLoad.vue"),
+    name: hasLocale ? "en_download" : "download",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/splitpdf",
+    component: () =>
+      import(
+        /* webpackChunkName: "splitpdf" */ "@/pdf_pages/features/SplitPdf.vue"
+      ),
+    name: hasLocale ? "en_splitpdf" : "splitpdf",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/compresspdf",
+    component: () =>
+      import(
+        /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/CompressPdf.vue"
+      ),
+    name: hasLocale ? "en_compresspdf" : "compresspdf",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/deleted",
+    component: () =>
+      import(/* webpackChunkName: "deleted" */ "@/pdf_pages/Deleted.vue"),
+    name: hasLocale ? "en_deleted" : "deleted",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/wordtopdf",
+    component: () =>
+      import(
+        /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/WordToPdf.vue"
+      ),
+    name: hasLocale ? "en_wordtopdf" : "wordtopd",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/pdftoword",
+    component: () =>
+      import(
+        /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/PdfToWord.vue"
+      ),
+    name: hasLocale ? "en_pdftoword" : "pdftoword",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/editpdf",
+    component: () =>
+      import(
+        /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/EditPdfFeature.vue"
+      ),
+    name: hasLocale ? "en_editpdf" : "editpdf",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/signpdf",
+    component: () =>
+      import(
+        /* webpackChunkName: "compresspdf" */ "@/pdf_pages/features/SignPdf.vue"
+      ),
+    name: hasLocale ? "en_signpdf" : "signpdf",
+  },
+];
+
+const routes = [
+  locale === "en"
+    ? { path: "/", component: AllFeatures }
+    : {
+        path: "/",
+        redirect: locale,
+      },
+  {
+    path: "/:locale([a-zA-Z]{2}|[a-zA-Z]{2}_[a-zA-Z]{2})",
+    beforeEnter: (to, from, next) => {
+      if (to.params.locale.length === 2 || to.params.locale.length === 5) {
+        next();
+      } else {
+        next(false);
+      }
+    },
+    component: Root,
+    children: [...children(true)],
+  },
+  ...children(false),
   {
     path: "/profile",
     component: DashboardLayout,
@@ -189,13 +201,15 @@ router.beforeEach((to, from, next) => {
     return;
   }
   // console.log(to.params.locale);
-  const { locale } = to.params;
+  let { locale } = to.params;
   // if (locale === "en") {
   //   // Redirect to the same route without the 'en' prefix
   //   const pathWithoutLocale = to.fullPath.replace(/^\/en/, "");
   //   next({ path: pathWithoutLocale });
   //   return;
   // }
+
+  if (locale == undefined) locale = "en";
 
   loadLocaleMessagesAsync(locale).then(() => {
     setDocumentLang(locale);

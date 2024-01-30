@@ -75,13 +75,17 @@ export default {
       }
       return name;
     },
-    changeLocale(e) {
-      const locale = e.target.value;
+    // changeLocale(e) {
+    //   const locale = e.target.value;
 
-      this.$router.push(`/${locale}`);
-    },
+    //   this.$router.push(`/${locale}`);
+    // },
     selLocale(locale) {
-      this.$router.push(`/${locale}`);
+      if (locale === "en") {
+        this.$router.push(`/`);
+      } else {
+        this.$router.push(`/${locale}`);
+      }
     },
     isActive(locale) {
       return this.$i18n.locale == locale;

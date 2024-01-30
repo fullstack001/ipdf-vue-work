@@ -18,8 +18,11 @@ export default {
       // we strip leading and trailing slashes and prefix
 
       // the current locale
-
-      return `/${locale}/${this.to.replace(/^\/|\/$/g, "")}`;
+      const path =
+        locale === undefined
+          ? `/${this.to.replace(/^\/|\/$/g, "")}`
+          : `/${locale}/${this.to.replace(/^\/|\/$/g, "")}`;
+      return path;
     },
   },
 };

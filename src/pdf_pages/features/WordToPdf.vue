@@ -7,7 +7,21 @@
         : 'display: inline-block; width: 100%;'
     "
   >
-    <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
+    <Processing :progress="'Converting'" v-if="page_load == 'processing'" />
+    <Uploading
+      :progress="progress"
+      :number="1"
+      :total="file_objs.length"
+      :size="size"
+      :file_name="file_name"
+      v-if="page_load == 'uploading'"
+    />
+    <div
+      class="dropzone-container"
+      @dragover.prevent
+      @drop="handleDrop"
+      v-if="page_load == 'default'"
+    >
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
           <div class="page-title">
@@ -177,7 +191,7 @@
       </div>
     </div>
 
-    <div v-show="file_objs.length > 0">
+    <div v-show="file_objs.length > 0" v-if="page_load == 'default'">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
         <h3 class="text-center">Word to PDF</h3>
         <div class="option__panel option__panel--active" id="convert-options">
@@ -196,6 +210,8 @@ import draggable from "vuedraggable";
 import CryptoJS from "crypto-js";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import AddMoreDropDown from "./components/AddMoreDropDown.vue";
+import Processing from "./components/Processing.vue";
+import Uploading from "./components/Uploading.vue";
 
 export default {
   components: {
@@ -203,6 +219,8 @@ export default {
     draggable,
     GDriveSelector,
     AddMoreDropDown,
+    Processing,
+    Uploading,
   },
   data() {
     return {
@@ -211,6 +229,11 @@ export default {
       file_objs: [],
       second: false,
       show_file_action: null,
+      page_load: "default",
+      progress: 0,
+      size: 0,
+      file_name: "",
+      first_file: 0,
     };
   },
 
@@ -286,7 +309,7 @@ export default {
     },
 
     async convertToPdf() {
-      this.$isLoading(true); // show loading screen
+      this.page_load = "uploading";
       const formData = new FormData();
       let degrees = [];
       for (let i = 0; i < this.file_objs.length; i++) {
@@ -296,7 +319,31 @@ export default {
       console.log(degrees);
       formData.append("degrees", degrees);
       this.$axios
-        .post("/pdf/wordtopdf", formData)
+        .post("/pdf/wordtopdf", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: function (progressEvent) {
+            this.progress = parseInt(
+              Math.round((progressEvent.loaded / progressEvent.total) * 100)
+            );
+            this.size = progressEvent.total;
+            let sum = 0;
+
+            for (let i = 0; i < this.file_objs.length; i++) {
+              sum += this.file_objs[i].file.size;
+              if (sum >= progressEvent.loaded) {
+                this.first_file = i;
+                console.log(this.first_file);
+                break;
+              }
+            }
+            this.file_name = this.file_objs[this.first_file].file.name;
+            if (progressEvent.progress == 1) {
+              this.page_load = "processing";
+            }
+          }.bind(this),
+        })
         .then((response) => {
           const type = response.data.split(".")[1];
           const obj = {
@@ -317,15 +364,18 @@ export default {
           const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
 
           this.$router.push({
-            name: "download",
+            name:
+              this.$route.params.locale == undefined
+                ? "download"
+                : "en_download",
             params: {
               param: encrypted,
             },
           });
         })
-        .catch((err) => console.log(err))
-        .finally(() => {
-          this.$isLoading(false); // hide loading screen
+        .catch((error) => {
+          this.page_load = "default";
+          this.$swal("Server Error!", "Please check your Network.", "Warning");
         });
     },
   },

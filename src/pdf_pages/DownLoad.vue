@@ -283,12 +283,20 @@ export default {
             this.fetch_file();
           } else {
             console.log("success redirect");
-            this.$router.replace({ name: "deleted" });
+            this.$router.replace({
+              name:
+                this.$route.params.locale == undefined
+                  ? "deleted"
+                  : "en_deleted",
+            });
           }
         })
         .catch((err) => {
           console.log("return deleted page in created");
-          this.$router.replace({ name: "deleted" });
+          this.$router.replace({
+            name:
+              this.$route.params.locale == undefined ? "deleted" : "en_deleted",
+          });
         });
     },
 
@@ -374,7 +382,10 @@ export default {
           this.active = true;
         })
         .catch((err) => {
-          this.$router.push({ name: "deleted" });
+          this.$router.push({
+            name:
+              this.$route.params.locale == undefined ? "deleted" : "en_deleted",
+          });
           console.log(err);
         });
     },
@@ -382,7 +393,10 @@ export default {
       await this.$axios
         .get(`/pdf/delete/${this.id}`)
         .then((res) => {
-          this.$router.replace({ name: "deleted" });
+          this.$router.replace({
+            name:
+              this.$route.params.locale == undefined ? "deleted" : "en_deleted",
+          });
           this.go_deleted_page = true;
         })
         .catch((err) => console.log(err));
@@ -403,7 +417,8 @@ export default {
     },
     go_merge() {
       this.$router.push({
-        name: "mergepdf",
+        name:
+          this.$route.params.locale == undefined ? "mergepdf" : "en_mergepdf",
         params: {
           file: this.files,
         },
@@ -412,7 +427,8 @@ export default {
     go_split() {
       if (this.file_type == "application/pdf") {
         this.$router.push({
-          name: "splitpdf",
+          name:
+            this.$route.params.locale == undefined ? "splitpdf" : "en_splitpdf",
           params: {
             file: this.files,
           },
@@ -421,7 +437,10 @@ export default {
     },
     go_compress() {
       this.$router.push({
-        name: "compresspdf",
+        name:
+          this.$route.params.locale == undefined
+            ? "compresspdf"
+            : "en_compresspdf",
         params: {
           file: this.files,
         },
@@ -429,7 +448,8 @@ export default {
     },
     go_convert() {
       this.$router.push({
-        name: "wordtopdf",
+        name:
+          this.$route.params.locale == undefined ? "pdftoword" : "en_pdftoword",
         params: {
           file: this.files,
         },

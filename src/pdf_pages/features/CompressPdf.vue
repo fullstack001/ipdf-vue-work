@@ -414,7 +414,10 @@ export default {
             ).toString();
 
             this.$router.push({
-              name: "download",
+              name:
+                this.$route.params.locale == undefined
+                  ? "download"
+                  : "en_download",
               params: {
                 param: encrypted,
               },
@@ -422,6 +425,11 @@ export default {
           })
           .catch((error) => {
             this.page_load = "default";
+            this.$swal(
+              "Server Error!",
+              "Please check your Network.",
+              "Warning"
+            );
           });
       } else {
         this.second = true;

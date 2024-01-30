@@ -47,7 +47,7 @@ export default {
 }
 
 .bar {
-  background: linear-gradient(to right, #b993d6, #ff7c03);
+  background: linear-gradient(to right, #ff7c03, #ff7c03);
   height: 20px;
   width: 15px;
   border-radius: 9px;

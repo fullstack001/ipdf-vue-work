@@ -218,7 +218,7 @@
   },
   "features": {
     "merge": {
-      "name": "uniscipdf",
+      "name": "mergepdf",
       "title": "Unisci PDF",
       "description": "Combina i PDF nell'ordine desiderato con la fusione PDF più semplice disponibile",
       "file": "merge_pdf.svg"
