@@ -602,6 +602,7 @@ export default {
           const formData = new FormData();
           const blob = new Blob([content], { type: "application/zip" });
           this.page_load = "uploading";
+          this.file_name = "pdfden_splited.zip";
 
           formData.append("file", blob);
 
@@ -646,7 +647,6 @@ export default {
               });
             })
             .catch((e) => {
-              console.log(e);
               this.page_load = "default";
             });
         });

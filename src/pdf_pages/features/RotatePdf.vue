@@ -3,7 +3,21 @@
     class="main"
     :style="file_objs.length ? 'display: flex' : 'display: inline-block'"
   >
-    <div class="dropzone-container" @dragover.prevent @drop="handleDrop">
+    <Processing :progress="'Rotating'" v-if="page_load == 'processing'" />
+    <Uploading
+      :progress="progress"
+      :number="1"
+      :total="1"
+      :size="size"
+      :file_name="file_name"
+      v-if="page_load == 'uploading'"
+    />
+    <div
+      class="dropzone-container"
+      @dragover.prevent
+      @drop="handleDrop"
+      v-if="page_load == 'default'"
+    >
       <div class="upload_btn_area">
         <div v-show="!file_objs.length" class="upload-buttons">
           <div class="page-title">
@@ -602,7 +616,7 @@
       </div>
     </div>
 
-    <div v-show="file_objs.length > 0">
+    <div v-show="file_objs.length > 0" v-if="page_load == 'default'">
       <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
         <h3>{{ $t("page_titles.rotate_page.rotatePdf") }}</h3>
 
@@ -810,6 +824,8 @@ import FeatureTitle from "./components/FeatureTitle.vue";
 import { online_names } from "../services/online_name";
 import AddMoreDropDown from "./components/AddMoreDropDown.vue";
 import JSZip from "jszip";
+import Processing from "./components/Processing.vue";
+import Uploading from "./components/Uploading.vue";
 
 export default {
   components: {
@@ -820,7 +836,8 @@ export default {
     FeatureTitle,
     GDriveSelector,
     AddMoreDropDown,
-    // GDrivePicker,
+    Processing,
+    Uploading,
   },
   data() {
     return {
@@ -831,6 +848,10 @@ export default {
       sorted: false,
       optionSelect: null,
       online_names: online_names,
+      page_load: "default",
+      progress: 0,
+      size: 0,
+      file_name: "",
       faqItems: [
         {
           q: "In what order will my merged PDF files appear?",
@@ -1125,7 +1146,8 @@ export default {
 
     //rotatePdfs
     async rotatePdfs() {
-      this.$isLoading(true); // show loading screen
+      this.page_load = "processing";
+
       const results = [];
       for (let i = 0; i < this.file_objs.length; i++) {
         const rotatedPdf = await PDFDocument.create();
@@ -1167,10 +1189,23 @@ export default {
       const formData = new FormData();
       const blob = new Blob(pdfFile, { type: "application/pdf" });
 
+      this.page_load = "uploading";
+      this.file_name =
+        this.file_objs[0].file.name.split(".")[0] + "_rotate.pdf";
       formData.append("pdf", blob);
 
       this.$axios
-        .post("/pdf/pdf_upload", formData)
+        .post("/pdf/pdf_upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: function (progressEvent) {
+            this.progress = parseInt(
+              Math.round((progressEvent.loaded / progressEvent.total) * 100)
+            );
+            this.size = progressEvent.total;
+          }.bind(this),
+        })
         .then((response) => {
           const obj = {
             id: response.data,
@@ -1197,10 +1232,7 @@ export default {
           });
         })
         .catch((e) => {
-          console.log(e);
-        })
-        .finally(() => {
-          this.$isLoading(false); // hide loading screen
+          this.page_load = "default";
         });
     },
 
@@ -1225,9 +1257,21 @@ export default {
           const blob = new Blob([content], { type: "application/zip" });
 
           formData.append("file", blob);
+          this.page_load = "uploading";
+          this.file_name = "pdfden_rotated.zip";
 
           this.$axios
-            .post("/pdf/zip_upload", formData)
+            .post("/pdf/zip_upload", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              onUploadProgress: function (progressEvent) {
+                this.progress = parseInt(
+                  Math.round((progressEvent.loaded / progressEvent.total) * 100)
+                );
+                this.size = progressEvent.total;
+              }.bind(this),
+            })
             .then((response) => {
               const obj = {
                 id: response.data,
@@ -1257,10 +1301,7 @@ export default {
               });
             })
             .catch((e) => {
-              console.log(e);
-            })
-            .finally(() => {
-              this.$isLoading(false); // hide loading screen
+              this.page_load = "default";
             });
         });
       });

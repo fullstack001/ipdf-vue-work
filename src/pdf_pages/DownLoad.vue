@@ -14,17 +14,12 @@
       {{ down_name }}
     </div>
     <div class="download_btn">
-      <div
-        id="link"
-        class="download__btn md-raised md-danger"
-        @click="download_file"
-      >
-        Download PDF File
-
-        <span class="material-icons" style="margin-left: 10px; font-size: 30px">
+      <a id="link" class="download__btn md-raised md-danger">
+        DownLoad PDF
+        <span class="material-icons" style="margin-left: 10px">
           arrow_circle_down
         </span>
-      </div>
+      </a>
       <div class="add-more">
         <div>
           <md-dialog-confirm
@@ -307,8 +302,10 @@ export default {
           this.gDriveFile = response.data;
           // Create a link and trigger the download
           const url = window.URL.createObjectURL(new Blob([response.data]));
-          console.log(url);
           this.url = url;
+          const link = document.getElementById("link");
+          link.download = this.down_name;
+          link.href = url;
           if (this.file_type == "application/pdf") {
             this.files = [
               {
@@ -357,22 +354,10 @@ export default {
           }
         })
         .catch((err) => {
-          console.log("file not existed");
           this.$router.replace({ name: "deleted" });
         });
     },
 
-    download_file() {
-      // Create a download link
-      const link = document.createElement("a");
-      link.href = this.url;
-      link.download = this.down_name;
-
-      // Append the link to the document and trigger the download
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    },
     async calc_del_time() {
       await this.$axios
         .get(`/pdf/time/${this.id}`)
