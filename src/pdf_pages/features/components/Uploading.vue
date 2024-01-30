@@ -3,11 +3,13 @@
     <img src="@/assets/img/vue-logo.png" class="progress-logo" width="200px" />
     <div class="process_title">Uploading file {{ number }} of {{ total }}</div>
     <div class="file-name">
-      {{ file_name }}({{
+      {{ file_name }} (
+      {{
         size > 1000000
           ? (size / 1024000).toFixed(2) + "MB"
           : (size / 1024).toFixed(2) + "KB"
-      }})
+      }}
+      )
     </div>
 
     <div class="shell">
