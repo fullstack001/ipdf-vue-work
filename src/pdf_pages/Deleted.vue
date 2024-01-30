@@ -6,16 +6,21 @@
     />
     <div class="delete-page-title">This task has already been deleted.</div>
     <div class="deleted_btn">
-      <!-- <a class="md-icon-button back-btn" @click="back_page">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16">
-          <path
-            d="M6.533 15.065L.438 8.968c-.116-.116-.208-.255-.27-.4a1.27 1.27 0 0 1 .009-.971c.066-.155.16-.296.277-.415l6.21-6.21A1.27 1.27 0 0 1 8.461.947c.49.49.485 1.295-.017 1.797l-4.02 4.02 10.47-.097a1.24 1.24 0 0 1 1.258 1.258 1.3 1.3 0 0 1-1.282 1.282L4.4 9.305l3.947 3.947c.49.492.485 1.295-.017 1.797s-1.306.508-1.797.017z"
-            fill="#fff"
-            fill-rule="nonzero"
-          ></path>
-        </svg>
-      </a> -->
       <a id="link" class="deleted__btn md-raised md-danger" @click="go_home">
+        <div class="md-icon-button back-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="17"
+            height="16"
+            style="margin-top: 13px"
+          >
+            <path
+              d="M6.533 15.065L.438 8.968c-.116-.116-.208-.255-.27-.4a1.27 1.27 0 0 1 .009-.971c.066-.155.16-.296.277-.415l6.21-6.21A1.27 1.27 0 0 1 8.461.947c.49.49.485 1.295-.017 1.797l-4.02 4.02 10.47-.097a1.24 1.24 0 0 1 1.258 1.258 1.3 1.3 0 0 1-1.282 1.282L4.4 9.305l3.947 3.947c.49.492.485 1.295-.017 1.797s-1.306.508-1.797.017z"
+              fill="#fff"
+              fill-rule="nonzero"
+            ></path>
+          </svg>
+        </div>
         Back to homepage
       </a>
     </div>
