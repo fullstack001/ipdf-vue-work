@@ -4,16 +4,17 @@
       :diameter="200"
       :completed-steps="completedSteps"
       :total-steps="100"
-      :startColor="'red'"
-      :stopColor="'red'"
+      :startColor="'#ff7c03'"
+      :stopColor="'#ff7c03'"
       :innerStrokeColor="'white'"
       :stroke-width="20"
       :inner-stroke-width="20"
       style="margin: auto"
     >
-      <h2>
+      <h2 style="margin-bottom: 0">
         <b>{{ disRate }} %</b>
       </h2>
+      <h2 style="margin-top: -10px; margin-bottom: 20px"><b>Saved</b></h2>
     </radial-progress-bar>
     <p>
       Origin Size:
@@ -26,7 +27,9 @@
     <p>
       Result Size:
       {{
-        resultSize ? (resultSize / 1024).toFixed(2) + " MB" : resultSize + "KB"
+        resultSize > 1024
+          ? (resultSize / 1024).toFixed(2) + " MB"
+          : resultSize + "KB"
       }}
     </p>
   </div>

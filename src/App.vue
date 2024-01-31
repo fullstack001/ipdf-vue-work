@@ -20,6 +20,9 @@ export default {
     Nav,
     Footer,
   },
+  beforeDestroy() {
+    window.removeEventListener("beforeunload", this.handleBeforeUnload);
+  },
   data() {
     return {
       isLoading: true,
@@ -28,6 +31,13 @@ export default {
   mounted() {
     EventBus.$on("i18n-load-start", () => (this.isLoading = true));
     EventBus.$on("i18n-load-complete", () => (this.isLoading = false));
+    window.addEventListener("beforeunload", this.handleBeforeUnload);
+  },
+  methods: {
+    handleBeforeUnload() {
+      // Remove the localStorage item when the website is closed
+      localStorage.removeItem("token");
+    },
   },
 };
 </script>

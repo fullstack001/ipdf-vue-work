@@ -98,12 +98,12 @@
                   </md-menu-item> -->
                 </md-speed-dial-content>
               </md-speed-dial>
-              {{ user && user.name }}
             </li>
           </ul>
         </li>
         <li class="nav-item">
-          <ul class="nav-list">
+          <img class="user_avatar" :src="user.avatar" alt="" v-if="user" />
+          <ul class="nav-list" v-if="!user">
             <li class="md-list-item login-btn">
               <LocalizedLink to="login">
                 {{ $t("nav-links.login") }}
@@ -190,6 +190,12 @@ export default {
 html,
 body {
   font-family: "Montserrat", sans-serif;
+}
+.user_avatar {
+  width: 40px;
+  position: absolute;
+  right: 15%;
+  top: 15%;
 }
 .block__container {
   width: 100%;

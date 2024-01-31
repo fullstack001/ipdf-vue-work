@@ -458,82 +458,54 @@ export default {
     },
 
     async splitingPDF(planPages) {
-      let splited_temp = [];
+      let splitted_temp = [];
+      const file = this.file;
+      let pdfBytes = null;
+      if (file.link) {
+        //dropdown file
+        const response = await fetch(file.link);
+        const arrayBuffer = await response.arrayBuffer();
+        pdfBytes = new Uint8Array(arrayBuffer);
+      } else {
+        //local upload
+        pdfBytes = await this.readFileAsync(file);
+      }
+
+      const pdf = await PDFDocument.load(
+        pdfBytes
+        // , {
+        // ignoreEncryption: true,
+        // }
+      );
+
       if (this.merge_selected || planPages.length == 1) {
-        const mergedPdf = await PDFDocument.create();
-        const file = this.file;
-        let pdfBytes = null;
-        if (file.link) {
-          //dropdown file
-          const response = await fetch(file.link);
-          const arrayBuffer = await response.arrayBuffer();
-          pdfBytes = new Uint8Array(arrayBuffer);
-        } else {
-          //local upload
-          pdfBytes = await this.readFileAsync(file);
-        }
-
-        const pdf = await PDFDocument.load(pdfBytes, {
-          ignoreEncryption: true,
-        });
-        const copiedPages = await mergedPdf.copyPages(
-          pdf,
-          pdf.getPageIndices()
-        );
-        planPages.forEach((planpage) => {
-          if (planpage[0] == planpage[1]) {
-            mergedPdf.addPage(copiedPages[planpage[0] - 1]);
-          } else {
-            let number = [];
-            for (let i = planpage[0]; i <= planpage[1]; i++) {
-              number.push(i);
-            }
-            number.forEach((page) => {
-              mergedPdf.addPage(copiedPages[page - 1]);
-            });
+        const newPdf = await PDFDocument.create();
+        // const copiedPages = await newPdf.copyPages(pdf, pdf.getPageIndices());
+        planPages.forEach(async (planPage) => {
+          console.log(planPage);
+          for (let i = planPage[0]; i <= planPage[1]; i++) {
+            const [page] = await newPdf.copyPages(pdf, [i - 1]);
+            await newPdf.addPage(page);
           }
         });
-        let temp = await mergedPdf.save();
-        splited_temp.push(temp);
+        let temp = await newPdf.save();
+        splitted_temp.push(temp);
       } else {
-        splited_temp = planPages.map(async (planPage) => {
-          const mergedPdf = await PDFDocument.create();
-          const file = this.file;
-          let pdfBytes = null;
+        splitted_temp = planPages.map(async (planPage) => {
+          const newPdf = await PDFDocument.create();
+          // const copiedPages = await newPdf.copyPages(pdf, pdf.getPageIndices());
 
-          if (file.link) {
-            //dropdown file
-            const response = await fetch(file.link);
-            const arrayBuffer = await response.arrayBuffer();
-            pdfBytes = new Uint8Array(arrayBuffer);
-          } else {
-            //local upload
-            pdfBytes = await this.readFileAsync(file);
+          for (let i = planPage[0]; i <= planPage[1]; i++) {
+            const [page] = await newPdf.copyPages(pdf, [i - 1]);
+            await newPdf.addPage(page);
           }
 
-          const pdf = await PDFDocument.load(pdfBytes, {
-            ignoreEncryption: true,
-          });
-          const copiedPages = await mergedPdf.copyPages(
-            pdf,
-            pdf.getPageIndices()
-          );
-
-          if (planPage[0] == planPage[1]) {
-            mergedPdf.addPage(copiedPages[planPage[0] - 1]);
-          } else {
-            for (let i = planPage[0] - 1; i < planPage[1]; i++) {
-              mergedPdf.addPage(copiedPages[i]);
-            }
-          }
-          return mergedPdf.save();
+          return newPdf.save();
         });
       }
-      if (splited_temp.length == 1) {
-        this.uploadPdf(splited_temp);
-      } else {
-        this.generateZip(splited_temp);
-      }
+      splitted_temp.length == 1
+        ? this.uploadPdf(splitted_temp)
+        : this.generateZip(splitted_temp);
     },
 
     uploadPdf(pdfFile) {

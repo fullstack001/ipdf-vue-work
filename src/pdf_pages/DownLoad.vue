@@ -15,7 +15,7 @@
     </div>
     <div class="download_btn">
       <a id="link" class="download__btn md-raised md-danger">
-        DownLoad PDF
+        Download
         <span class="material-icons" style="margin-left: 10px">
           arrow_circle_down
         </span>

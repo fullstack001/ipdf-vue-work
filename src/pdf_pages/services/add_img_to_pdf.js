@@ -7,8 +7,8 @@ async function addImagesToPDF(pdfPath, imagePaths) {
 
   for (let i = 0; i < Math.min(pdfDoc.getPageCount(), imagePaths.length); i++) {
     const response = await fetch(
-      // `http://127.0.0.1:5000/uploads/${imagePaths[i].filename}`
-      `https://api.pdfden.com/uploads/${imagePaths[i].filename}`
+      `http://127.0.0.1:5000/uploads/${imagePaths[i].filename}`
+      // `https://api.pdfden.com/uploads/${imagePaths[i].filename}`
     );
     // const response = await fetch(imagePaths[i]);
     const arrayBuffer = await response.arrayBuffer();
