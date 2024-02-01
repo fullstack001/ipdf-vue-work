@@ -444,7 +444,6 @@ export default {
     },
 
     splitPDF() {
-      this.page_load = "processing";
       let planPages = [];
       if (this.extractEdit) {
         planPages = this.extractPages;
@@ -458,66 +457,16 @@ export default {
     },
 
     async splitingPDF(planPages) {
-      let splitted_temp = [];
-      const file = this.file;
-      let pdfBytes = null;
-      if (file.link) {
-        //dropdown file
-        const response = await fetch(file.link);
-        const arrayBuffer = await response.arrayBuffer();
-        pdfBytes = new Uint8Array(arrayBuffer);
-      } else {
-        //local upload
-        pdfBytes = await this.readFileAsync(file);
-      }
-
-      const pdf = await PDFDocument.load(
-        pdfBytes
-        // , {
-        // ignoreEncryption: true,
-        // }
-      );
-
-      if (this.merge_selected || planPages.length == 1) {
-        const newPdf = await PDFDocument.create();
-        // const copiedPages = await newPdf.copyPages(pdf, pdf.getPageIndices());
-        planPages.forEach(async (planPage) => {
-          console.log(planPage);
-          for (let i = planPage[0]; i <= planPage[1]; i++) {
-            const [page] = await newPdf.copyPages(pdf, [i - 1]);
-            await newPdf.addPage(page);
-          }
-        });
-        let temp = await newPdf.save();
-        splitted_temp.push(temp);
-      } else {
-        splitted_temp = planPages.map(async (planPage) => {
-          const newPdf = await PDFDocument.create();
-          // const copiedPages = await newPdf.copyPages(pdf, pdf.getPageIndices());
-
-          for (let i = planPage[0]; i <= planPage[1]; i++) {
-            const [page] = await newPdf.copyPages(pdf, [i - 1]);
-            await newPdf.addPage(page);
-          }
-
-          return newPdf.save();
-        });
-      }
-      splitted_temp.length == 1
-        ? this.uploadPdf(splitted_temp)
-        : this.generateZip(splitted_temp);
-    },
-
-    uploadPdf(pdfFile) {
-      this.page_load = "uploading";
-      this.file_name = "splited_pdf.pdf";
       const formData = new FormData();
-      const blob = new Blob(pdfFile, { type: "application/pdf" });
+      let items = { pages: planPages, merge_flag: this.merge_selected };
+      items = JSON.stringify(items);
 
-      formData.append("pdf", blob);
+      formData.append("file", this.file);
+      formData.append("items", items);
 
+      this.page_load = "uploading";
       this.$axios
-        .post("/pdf/pdf_upload", formData, {
+        .post("/pdf/pdf_split", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -526,15 +475,20 @@ export default {
               Math.round((progressEvent.loaded / progressEvent.total) * 100)
             );
             this.size = progressEvent.total;
+            if (progressEvent.progress == 1) {
+              this.page_load = "processing";
+            }
           }.bind(this),
         })
         .then((response) => {
+          console.log(response.data);
+          const type = response.data.split(".")[1];
           const obj = {
             id: response.data,
-            button_title: this.$t("page_titles.split_page.down_btn_title"),
-            dis_text: "PDF has been Splited!",
-            down_name: "splited_pdf.pdf",
-            file_type: "application/pdf",
+            button_title: "Download SPlitted PDF",
+            dis_text: "PDF has been Splitted!",
+            down_name: `pdfden_splitted.${type}`,
+            file_type: `application/${type}`,
             before: "splitpdf",
           };
           // Your secret message
@@ -556,87 +510,11 @@ export default {
             },
           });
         })
-        .catch((e) => {
-          console.log(e);
+        .catch((error) => {
+          console.log(error);
           this.page_load = "default";
           this.$swal("Server Error!", "Please check your Network.", "Warning");
         });
-    },
-
-    //create Zip file for download
-    async generateZip(pdfFiles) {
-      const zip = new JSZip();
-
-      const promises = pdfFiles.map(async (data, i) => {
-        // Add the PDF file to the ZIP
-        zip.file(`splited_pdf${i}.pdf`, data);
-      });
-
-      Promise.all(promises).then(() => {
-        zip.generateAsync({ type: "blob" }).then((content) => {
-          //save on vuex
-
-          //upload zip file to server
-          const formData = new FormData();
-          const blob = new Blob([content], { type: "application/zip" });
-          this.page_load = "uploading";
-          this.file_name = "pdfden_splited.zip";
-
-          formData.append("file", blob);
-
-          this.$axios
-            .post("/pdf/zip_upload", formData, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-              onUploadProgress: function (progressEvent) {
-                this.progress = parseInt(
-                  Math.round((progressEvent.loaded / progressEvent.total) * 100)
-                );
-                this.size = progressEvent.total;
-              }.bind(this),
-            })
-            .then((response) => {
-              const obj = {
-                id: response.data,
-                button_title: this.$t("page_titles.split_page.down_btn_title"),
-                dis_text: "PDF has been split!",
-                down_name: "splited_pdf.zip",
-                file_type: "application/zip",
-                before: "splitpdf",
-              };
-              // Your secret message
-              const message = JSON.stringify(obj);
-
-              // Your secret key (should be kept private)
-              const secretKey = "mySecretKey123";
-
-              // Encrypt the message using AES encryption with the secret key
-              const encrypted = CryptoJS.AES.encrypt(
-                message,
-                secretKey
-              ).toString();
-
-              this.$router.push({
-                name:
-                  this.$route.params.locale == undefined
-                    ? "download"
-                    : "en_download",
-                params: {
-                  param: encrypted,
-                },
-              });
-            })
-            .catch((e) => {
-              this.page_load = "default";
-              this.$swal(
-                "Server Error!",
-                "Please check your Network.",
-                "Warning"
-              );
-            });
-        });
-      });
     },
   },
 };
