@@ -81,6 +81,7 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
               $(el).attr("id", "page-" + (index + 1) + "-canvas");
             });
             inst.pages_rendered++;
+            console.log(inst.pages_rendered);
             if (inst.pages_rendered == inst.number_of_pages) inst.initFabric();
           });
         });
