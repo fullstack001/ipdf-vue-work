@@ -11,15 +11,28 @@
     />
     <div
       class="main"
-      :style="file ? 'display: flex' : 'display: inline-block; width: 100%;'"
+      :style="
+        file
+          ? 'display: flex;justify-content:flex-end'
+          : 'display: inline-block; width: 100%;'
+      "
       v-if="page_load == 'default'"
     >
-      <div v-if="file">
+      <div class="shell" v-if="file" v-show="rendering_page">
+        <div
+          class="bar"
+          :style="{
+            width:
+              (rendering_progress * 100) / (timePerPage * totalPageNum) + '%',
+          }"
+        ></div>
+      </div>
+      <div v-if="file" v-show="!rendering_page">
         <div id="sidebar" class="tool__sidebar">
           <PdfPreviewList :url="getURL(file)" @set_img="set_image_url" />
         </div>
       </div>
-      <div class="files-list" v-if="file">
+      <div class="files-list" v-if="file" v-show="!rendering_page">
         <EditPdf
           :pdfUrl="getURL(file)"
           :get_pdf="get_result"
@@ -136,6 +149,7 @@ import EditPdf from "./components/EditPdf.vue";
 import addImagesToPDF from "../services/add_img_to_pdf";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
+import getPageNumber from "@/pdf_pages/services/getPageNumber";
 
 export default {
   components: {
@@ -150,21 +164,38 @@ export default {
     return {
       isDragging: false,
       file: null,
-      currentPageImage: null,
       currentPageNum: 0,
       totalPageNum: 0,
       get_result: false,
       page_load: "default",
+      rendering_page: true,
       progress: 0,
       size: 0,
+      rendering_progress: 0,
+      timePerPage: 152,
     };
+  },
+  watch: {
+    totalPageNum(newValue) {
+      console.log("End convert");
+      this.count_render_page_time();
+    },
   },
 
   methods: {
+    count_render_page_time() {
+      console.log(this.totalPageNum);
+      let intervalId = setInterval(() => {
+        this.rendering_progress = this.rendering_progress + 1;
+
+        if (this.rendering_progress >= this.timePerPage * this.totalPageNum) {
+          clearInterval(intervalId);
+          this.rendering_page = false;
+        }
+      }, 1);
+    },
     set_image_url(data) {
-      this.currentPageImage = data.url;
       this.currentPageNum = data.pageNum;
-      this.totalPageNum = data.totalPageNum;
     },
     //click add from local button
     open_add_local() {
@@ -191,16 +222,20 @@ export default {
       }
     },
     //download from dropbox
-    onPickedDropbox(data) {
+    async onPickedDropbox(data) {
       this.file = data[0];
+      this.totalPageNum = await getPageNumber(data[0]);
     },
-    onPickedGoogleDriver(data) {
+    async onPickedGoogleDriver(data) {
       this.file = data[0];
+      this.totalPageNum = await getPageNumber(data[0]);
     },
 
-    onChange() {
+    async onChange() {
       const data = this.$refs.file.files;
       this.file = data[0];
+      this.totalPageNum = await getPageNumber(data[0]);
+      console.log("start convert");
     },
 
     getURL(file) {
@@ -221,7 +256,6 @@ export default {
       this.get_result = true;
     },
 
-    //convertToWord
     async upload_png(data) {
       this.page_load = "processing";
       const formData = new FormData();
@@ -294,6 +328,26 @@ export default {
 html,
 body {
   font-family: "Montserrat", sans-serif;
+}
+
+.shell {
+  height: 5px;
+  width: 79%;
+  border: none;
+  border-radius: 13px;
+  padding: 0px;
+  margin: auto;
+  margin-top: 10px;
+  position: absolute;
+  left: 0;
+  top: 52px;
+}
+
+.bar {
+  background: linear-gradient(to right, #ff7c03, #ff7c03);
+  height: 5px;
+  width: 15px;
+  border-radius: 9px;
 }
 .md-radio {
   display: flex;

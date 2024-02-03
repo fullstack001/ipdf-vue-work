@@ -120,6 +120,13 @@ export default {
   },
   mounted() {
     this.loadScripts();
+    console.log(Date.now());
+  },
+  onMounted() {
+    console.log("aaaaaaa");
+  },
+  beforeUpdate() {
+    console.log(Date.now());
   },
   props: {
     pdfUrl: {
@@ -182,11 +189,15 @@ export default {
       }
       // Your handler code here
     },
-    loadScripts() {
-      var pdf = new PDFAnnotate("pdf-container-annotate", this.pdfUrl, {
-        scale: 1,
-        pageImageCompression: "SLOW", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
+    async loadScripts() {
+      var pdf = await new PDFAnnotate("pdf-container-annotate", this.pdfUrl, {
+        scale: 1.3,
+        pageImageCompression: "FAST", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
       });
+      // this.$nextTick(() => {
+      //   console.log(123123123123123);
+      //   // Perform actions such as DOM manipulation or API calls
+      // });
       this.pdf = pdf;
     },
     setScrollbarPosition(position) {
@@ -397,6 +408,7 @@ export default {
 .edit-pdf-content {
   max-height: 100vh;
   overflow-y: scroll;
+  min-height: 100vh;
 }
 
 #colorpicker {

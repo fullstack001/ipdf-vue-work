@@ -23,6 +23,9 @@ export default {
     pageNumber: {
       default: 1,
     },
+    pdf: {
+      default: null,
+    },
   },
   data() {
     return {
@@ -47,19 +50,25 @@ export default {
 
   methods: {
     async getPdfDocument() {
-      getDocument({
-        url: this.url,
-        disableNativeImageDecoder: false,
-      }).promise.then(
-        (pdf) => {
-          this.numPages = pdf.numPages;
-          this.pdfDocument = pdf;
-          this.getPage(this.num);
-        },
-        (reason) => {
-          console.error(reason);
-        }
-      );
+      if (this.pdf) {
+        this.numPages = this.pdf.numPages;
+        this.pdfDocument = this.pdf;
+        this.getPage(this.num);
+      } else {
+        getDocument({
+          url: this.url,
+          disableNativeImageDecoder: false,
+        }).promise.then(
+          (pdf) => {
+            this.numPages = pdf.numPages;
+            this.pdfDocument = pdf;
+            this.getPage(this.num);
+          },
+          (reason) => {
+            console.error(reason);
+          }
+        );
+      }
     },
 
     getPage(num) {

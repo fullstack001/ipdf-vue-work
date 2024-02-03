@@ -3,15 +3,10 @@ import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 GlobalWorkerOptions.workerSrc = PDFJSWorker;
 import $ from "jquery";
 import { fabric } from "fabric";
-import jsPDF from "jspdf";
 import { Arrow } from "./arrow.fabric";
 import { DrawLine } from "./line.fabric";
 
 let fabric1 = fabric;
-// const customScript2 = document.createElement('script');
-// customScript2.src = '@/assets/annotations/arrow.fabric.js'; // Replace with your script file path
-// customScript2.async = false;
-// document.head.appendChild(customScript2);
 
 export const PDFAnnotate = function (container_id, url, options = {}) {
   this.toolObj1 = null;
@@ -54,7 +49,7 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
             typeof inst.format === "undefined" ||
             typeof inst.orientation === "undefined"
           ) {
-            var originalViewport = page.getViewport({ scale: 1 });
+            var originalViewport = page.getViewport({ scale: scale });
             inst.format = [originalViewport.width, originalViewport.height];
             inst.orientation =
               originalViewport.width > originalViewport.height
@@ -62,7 +57,7 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
                 : "portrait";
           }
 
-          var viewport = page.getViewport({ scale: scale });
+          var viewport = page.getViewport({ scale: 1.3 });
           var canvas = document.createElement("canvas");
           document.getElementById(inst.container_id).appendChild(canvas);
           canvas.className = "pdf-canvas";
@@ -78,10 +73,8 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
           renderTask.promise.then(function () {
             $(".pdf-canvas").each(function (index, el) {
               $(el).attr("id", "page-" + (index + 1) + "-canvas");
-              $(el).attr("id", "page-" + (index + 1) + "-canvas");
             });
             inst.pages_rendered++;
-            console.log(inst.pages_rendered);
             if (inst.pages_rendered == inst.number_of_pages) inst.initFabric();
           });
         });
@@ -337,7 +330,7 @@ PDFAnnotate.prototype.savePdf = async function (fileName) {
       const index = i - 1;
       pdf.getPage(i).then(async (page) => {
         // Create a new Fabric.js canvas
-        var originalViewport = page.getViewport({ scale: 1 });
+        var originalViewport = page.getViewport({ scale: 1.3 });
         var pageWidth = originalViewport.width;
         var pageHeight = originalViewport.height;
         const canvas = new fabric.Canvas(null, {
@@ -352,10 +345,6 @@ PDFAnnotate.prototype.savePdf = async function (fileName) {
         const imageDataUrl = canvas.toDataURL("image/png", 1.0);
 
         const byteString = atob(imageDataUrl.split(",")[1]);
-        const mimeString = imageDataUrl
-          .split(",")[0]
-          .split(":")[1]
-          .split(";")[0];
         const ab = new ArrayBuffer(byteString.length);
         const ia = new Uint8Array(ab);
 

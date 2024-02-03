@@ -34,7 +34,7 @@
         class="pdf-page"
         @click="set_current_page(page)"
       >
-        <PdfViewer :fileUrl="url" :pageNumber="page" />
+        <PdfViewer :fileUrl="url" :pageNumber="page" :pdf="pdfDocument" />
         {{ page }}
       </div>
     </div>
@@ -60,6 +60,11 @@ export default {
       pdfDocument: null,
     };
   },
+  watch: {
+    currentPage(newValue) {
+      this.setScrollbarPosition(newValue);
+    },
+  },
 
   mounted() {
     this.getPdfDocument();
@@ -71,54 +76,21 @@ export default {
         (pdf) => {
           this.numPages = pdf.numPages;
           this.pdfDocument = pdf;
-          this.getPage(this.currentPage);
         },
         (reason) => {
           window.console.error(reason);
         }
       );
     },
+
     set_current_page(page) {
       this.currentPage = page;
-      this.getPage(this.currentPage);
+      this.$emit("set_img", {
+        pageNum: currentPage,
+      });
     },
 
     getPage(currentPage) {
-      this.pdfDocument.getPage(currentPage).then((page) => {
-        const viewport = page.getViewport({ scale: 1 });
-
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-
-        const renderContext = {
-          canvasContext: context,
-          viewport: viewport,
-        };
-
-        const renderTask = page.render(renderContext);
-
-        renderTask.promise.then(() => {
-          // Convert the canvas content to a Blob
-          canvas.toBlob(() => {
-            // Create a Blob URL from the Blob
-            // const blobUrl = URL.createObjectURL(blob);
-
-            // Convert the canvas content to a data URL
-            const imageUrl = canvas.toDataURL("image/png");
-            this.$emit("set_img", {
-              url: imageUrl,
-              pageNum: currentPage,
-              totalPageNum: this.numPages,
-            });
-          }, "image/png");
-        });
-      });
-
-      const scrollableDiv = this.$refs.scrollableList;
-      const totalHeight =
-        scrollableDiv.scrollHeight - scrollableDiv.clientHeight;
       const scrollToPosition = (currentPage - 1) * 210 + 35;
       this.setScrollbarPosition(scrollToPosition);
     },
@@ -126,7 +98,9 @@ export default {
     previousPage() {
       this.currentPage =
         this.currentPage > 1 ? this.currentPage - 1 : this.currentPage;
-      this.getPage(this.currentPage);
+      this.$emit("set_img", {
+        pageNum: this.currentPage,
+      });
     },
 
     nextPage() {
@@ -134,11 +108,14 @@ export default {
         this.currentPage < this.numPages
           ? this.currentPage + 1
           : this.currentPage;
-      this.getPage(this.currentPage);
+      this.$emit("set_img", {
+        pageNum: this.currentPage,
+      });
     },
-    setScrollbarPosition(position) {
+    setScrollbarPosition(currentPage) {
+      const scrollToPosition = (currentPage - 1) * 210 + 35;
       // Set the scrollbar's location programmatically
-      this.$refs.scrollableList.scrollTop = position;
+      this.$refs.scrollableList.scrollTop = scrollToPosition;
     },
   },
 };

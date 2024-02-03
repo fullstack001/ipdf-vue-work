@@ -825,6 +825,7 @@ img {
 }
 #pdf-container-annotate {
   max-height: 100vh;
+  min-height: 100vh;
   overflow-y: scroll;
   margin-top: 10px;
   text-align: center;

@@ -664,8 +664,9 @@ export default {
   mounted() {
     if (this.$route.params.file) {
       console.log(this.$route.params.file);
-      this.file_objs = this.$route.params.file.map((file) => {
-        return { file: file, degree: 0 };
+      this.file_objs = this.$route.params.file.map(async (file) => {
+        let pageNum = await getPageNumber(files[i]);
+        return { file: file, degree: 0, page: pageNum };
       });
     }
   },
@@ -686,10 +687,11 @@ export default {
       const files = event.dataTransfer.files;
       this.handleFiles(files);
     },
-    handleFiles(files) {
+    async handleFiles(files) {
       // Process the dropped files
       for (let i = 0; i < files.length; i++) {
-        this.file_objs.push({ file: files[i], degree: 0 });
+        let pageNum = await getPageNumber(files[i]);
+        this.file_objs.push({ file: files[i], degree: 0, page: pageNum });
       }
     },
 
