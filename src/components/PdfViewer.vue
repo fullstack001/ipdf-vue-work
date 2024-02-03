@@ -3,7 +3,6 @@
     <canvas :id="idName"></canvas>
   </div>
 </template>
-
 <script>
 import "pdfjs-dist/web/pdf_viewer.css";
 import {
