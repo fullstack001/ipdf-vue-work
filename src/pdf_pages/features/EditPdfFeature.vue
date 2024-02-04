@@ -38,6 +38,7 @@
           :currentPage="currentPageNum"
           :totalPageNum="totalPageNum"
           @upload="upload_png"
+          @start_editing="page_load = 'processing'"
         />
       </div>
       <div
