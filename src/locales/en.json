@@ -294,7 +294,7 @@
     }
   },
   "other_features": {
-    "convert_pdf": { "title": "CONVERT PDF" },
+    "convert_pdf": { "title": "Convert PDF" },
     "all_pdf_tools": { "title": "ALL PDF TOOLS" }
   },
   "toolTip": {

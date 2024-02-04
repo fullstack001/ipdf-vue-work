@@ -85,9 +85,7 @@ export default {
 
     set_current_page(page) {
       this.currentPage = page;
-      this.$emit("set_img", {
-        pageNum: currentPage,
-      });
+      this.$emit("set_page", this.currentPage);
     },
 
     getPage(currentPage) {
@@ -98,9 +96,7 @@ export default {
     previousPage() {
       this.currentPage =
         this.currentPage > 1 ? this.currentPage - 1 : this.currentPage;
-      this.$emit("set_img", {
-        pageNum: this.currentPage,
-      });
+      this.$emit("set_page", this.currentPage);
     },
 
     nextPage() {
@@ -108,9 +104,7 @@ export default {
         this.currentPage < this.numPages
           ? this.currentPage + 1
           : this.currentPage;
-      this.$emit("set_img", {
-        pageNum: this.currentPage,
-      });
+      this.$emit("set_page", this.currentPage);
     },
     setScrollbarPosition(currentPage) {
       const scrollToPosition = (currentPage - 1) * 210 + 35;

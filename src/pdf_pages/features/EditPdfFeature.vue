@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Processing :progress="'Editing'" v-if="page_load == 'processing'" />
+    <Processing
+      :progress="page_load == 'processing' ? 'Editing' : 'Loading'"
+      v-if="page_load == 'processing' || rendering_page == 'rendering'"
+    />
     <Uploading
       :progress="progress"
       :number="1"
@@ -9,6 +12,11 @@
       :file_name="'pdfden_edited.pdf'"
       v-if="page_load == 'uploading'"
     />
+    <!-- <RendingProgress
+      :page="totalPageNum"
+      @stop_render="rendering_page = 'default'"
+      v-if="rendering_page == 'rendering'"
+    /> -->
     <div
       class="main"
       :style="
@@ -18,21 +26,12 @@
       "
       v-if="page_load == 'default'"
     >
-      <div class="shell" v-if="file" v-show="rendering_page">
-        <div
-          class="bar"
-          :style="{
-            width:
-              (rendering_progress * 100) / (timePerPage * totalPageNum) + '%',
-          }"
-        ></div>
-      </div>
-      <div v-if="file" v-show="!rendering_page">
+      <div v-if="file" v-show="rendering_page == 'default'">
         <div id="sidebar" class="tool__sidebar">
-          <PdfPreviewList :url="getURL(file)" @set_img="set_image_url" />
+          <PdfPreviewList :url="getURL(file)" @set_page="set_current_page" />
         </div>
       </div>
-      <div class="files-list" v-if="file" v-show="!rendering_page">
+      <div class="files-list" v-if="file" v-show="rendering_page == 'default'">
         <EditPdf
           :pdfUrl="getURL(file)"
           :get_pdf="get_result"
@@ -150,6 +149,8 @@ import addImagesToPDF from "../services/add_img_to_pdf";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
 import getPageNumber from "@/pdf_pages/services/getPageNumber";
+// import RendingProgress from "@/pages/RendingProgress.vue";
+import $ from "jquery";
 
 export default {
   components: {
@@ -159,6 +160,7 @@ export default {
     EditPdf,
     Processing,
     Uploading,
+    // RendingProgress,
   },
   data() {
     return {
@@ -168,34 +170,34 @@ export default {
       totalPageNum: 0,
       get_result: false,
       page_load: "default",
-      rendering_page: true,
+      rendering_page: null,
       progress: 0,
       size: 0,
-      rendering_progress: 0,
-      timePerPage: 152,
+      intervalID: null,
     };
   },
-  watch: {
-    totalPageNum(newValue) {
-      console.log("End convert");
-      this.count_render_page_time();
-    },
+  created() {
+    this.count_elements();
   },
-
+  destroyed() {
+    this.clear_count_elements();
+  },
   methods: {
-    count_render_page_time() {
-      console.log(this.totalPageNum);
-      let intervalId = setInterval(() => {
-        this.rendering_progress = this.rendering_progress + 1;
-
-        if (this.rendering_progress >= this.timePerPage * this.totalPageNum) {
-          clearInterval(intervalId);
-          this.rendering_page = false;
+    count_elements() {
+      this.intervalID = setInterval(() => {
+        let canvases = $(".pdf-canvas");
+        console.log(canvases.length);
+        if (this.totalPageNum > 0 && canvases.length > 0) {
+          this.clear_count_elements();
+          this.rendering_page = "default";
         }
-      }, 1);
+      }, 500);
     },
-    set_image_url(data) {
-      this.currentPageNum = data.pageNum;
+    clear_count_elements() {
+      clearInterval(this.intervalID);
+    },
+    set_current_page(data) {
+      this.currentPageNum = data;
     },
     //click add from local button
     open_add_local() {
@@ -233,9 +235,9 @@ export default {
 
     async onChange() {
       const data = this.$refs.file.files;
-      this.file = data[0];
       this.totalPageNum = await getPageNumber(data[0]);
-      console.log("start convert");
+      this.rendering_page = "rendering";
+      this.file = data[0];
     },
 
     getURL(file) {
@@ -330,7 +332,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.shell {
+/* .shell {
   height: 5px;
   width: 79%;
   border: none;
@@ -348,7 +350,7 @@ body {
   height: 5px;
   width: 15px;
   border-radius: 9px;
-}
+} */
 .md-radio {
   display: flex;
 }

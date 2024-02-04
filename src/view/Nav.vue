@@ -71,7 +71,15 @@
                 md-direction="bottom"
                 style="padding: 0; position: absolute; right: -140px"
               >
-                <button class="nav-btn" md-menu-trigger style="min-width: 38px">
+                <button
+                  class="nav-btn"
+                  md-menu-trigger
+                  style="
+                    min-width: 38px;
+                    font-weight: 600 !important;
+                    font-family: 'Montserrat';
+                  "
+                >
                   {{ $t("other_features.convert_pdf.title") }}
                 </button>
 
@@ -240,6 +248,9 @@ button {
   font-weight: 600;
 }
 a {
+  color: #000000 !important;
+}
+a:hover {
   color: #000000 !important;
 }
 

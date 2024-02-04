@@ -1,6 +1,9 @@
 <template>
   <div class="main row">
-    <Processing :progress="'Signing'" v-if="page_load == 'processing'" />
+    <Processing
+      :progress="page_load == 'processing' ? 'Signing' : 'Loading'"
+      v-if="page_load == 'processing' || rendering_page == 'rendering'"
+    />
     <Uploading
       :progress="progress"
       :number="1"
@@ -9,25 +12,26 @@
       :file_name="'pdfden_signed.pdf'"
       v-if="page_load == 'uploading'"
     />
-    <div v-if="files.length && page_load == 'default'" class="col-md-10">
+    <div v-if="file && page_load == 'default'" class="col-md-10">
       <SignComponent
-        :pdfUrl="getURL(files[0])"
+        :pdfUrl="getURL(file)"
         :get_pdf="get_result"
         :currentPage="currentPageNum"
         :totalPageNum="totalPageNum"
         @upload="upload_png"
         :sign_obj="sign_obj"
         @editSign="modalValidate = true"
+        v-show="rendering_page == 'default'"
       />
     </div>
     <div
       class="dropzone-container col-md-12"
       @dragover.prevent
       @drop="handleDrop"
-      v-if="!files.length && page_load == 'default'"
+      v-if="!file && page_load == 'default'"
     >
       <div class="upload_btn_area">
-        <div v-show="!files.length" class="upload-buttons">
+        <div v-show="!file" class="upload-buttons">
           <div class="page-title">
             {{ $t("page_titles.sign_page.title") }}
           </div>
@@ -98,7 +102,9 @@ import SignatureModal from "@/pdf_pages/features/components/SignatureModal.vue";
 import SignComponent from "./components/SignComponent.vue";
 import addImagesToPDF1 from "../services/add_img_to_pdf1";
 import Processing from "./components/Processing.vue";
+import getPageNumber from "@/pdf_pages/services/getPageNumber";
 import Uploading from "./components/Uploading.vue";
+import $ from "jquery";
 
 export default {
   components: {
@@ -113,6 +119,7 @@ export default {
     return {
       isDragging: false,
       files: [],
+      file: null,
       second: false,
       modalValidate: false,
       currentPageImage: null,
@@ -122,23 +129,40 @@ export default {
       sign_obj: null,
       sign_name: null,
       page_load: "default",
+      rendering_page: null,
       progress: 0,
       size: 0,
+      intervalID: null,
     };
   },
-  watch: {
-    files(newValue, oldValue) {
-      if ((oldValue.length == 0, newValue.length == 1)) {
-        this.modalValidate = true;
-      }
-    },
+  created() {
+    this.count_elements();
   },
+  destroyed() {
+    this.clear_count_elements();
+  },
+  // watch: {
+  //   file(newValue) {
+  //     if (newValue) {
+  //       this.modalValidate = true;
+  //     }
+  //   },
+  // },
 
   methods: {
-    set_image_url(data) {
-      this.currentPageImage = data.url;
-      this.currentPageNum = data.pageNum;
-      this.totalPageNum = data.totalPageNum;
+    count_elements() {
+      this.intervalID = setInterval(() => {
+        let canvases = $(".pdf-canvas");
+        console.log(canvases.length);
+        if (this.totalPageNum > 0 && canvases.length > 0) {
+          this.clear_count_elements();
+          this.rendering_page = "default";
+          this.modalValidate = true;
+        }
+      }, 500);
+    },
+    clear_count_elements() {
+      clearInterval(this.intervalID);
     },
     set_sign_items(data) {
       this.modalValidate = false;
@@ -166,26 +190,28 @@ export default {
         );
         return;
       } else {
-        this.handleFiles(files);
+        this.handleFiles(files[0]);
       }
     },
-    handleFiles(files) {
+    async handleFiles(file) {
       // Process the dropped files
-
-      this.files = [...files];
+      this.totalPageNum = await getPageNumber(file);
+      this.rendering_page = "rendering";
+      this.file = file;
     },
 
     //download from dropbox
     onPickedDropbox(data) {
-      this.files = [...this.files, ...data];
+      this.files = data[0];
     },
     onPickedGoogleDriver(data) {
-      this.files = [...this.files, ...data];
+      this.files = data[0];
     },
 
     onChange() {
-      const data = this.$refs.file.files;
-      this.files = [...this.files, ...data];
+      const data = this.$refs.file.files[0];
+      this.handleFiles(data);
+      // this.files = [...this.files, ...data];
     },
 
     getURL(file) {
@@ -197,11 +223,7 @@ export default {
       this.page_load = "processing";
       let added = data[0];
       let matched = data[1];
-      const pdf = await addImagesToPDF1(
-        this.getURL(this.files[0]),
-        added,
-        matched
-      );
+      const pdf = await addImagesToPDF1(this.getURL(this.file), added, matched);
       await this.upload_pdf(pdf);
 
       this.get_result = false;
