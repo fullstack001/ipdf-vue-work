@@ -95,7 +95,6 @@
 
 <script>
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
-import CryptoJS from "crypto-js";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import SignatureModal from "@/pdf_pages/features/components/SignatureModal.vue";
@@ -229,9 +228,6 @@ export default {
       this.get_result = false;
     },
     upload_pdf(pdf) {
-      // const deletes = data.map((item) => {
-      //   return item.filename;
-      // });
       const formData = new FormData();
       formData.append("pdf", pdf);
       this.page_load = "uploading";
@@ -257,12 +253,8 @@ export default {
             file_type: "application/pdf",
             before: "signpdf",
           };
-          // Your secret message
-          const message = JSON.stringify(obj);
-          // Your secret key (should be kept private)
-          const secretKey = "mySecretKey123";
-          // Encrypt the message using AES encryption with the secret key
-          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+
+          const encrypted = this.$encrypt(obj);
           this.$router.push({
             name:
               this.$route.params.locale == undefined

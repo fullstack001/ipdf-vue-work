@@ -215,14 +215,15 @@
 import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
-import CryptoJS from "crypto-js";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import AddMoreDropDown from "@/pdf_pages/features/components/AddMoreDropDown.vue";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
+import { fileHandlingMixin } from "@/fileHandlingMixin.js";
 
 export default {
+  mixins: [fileHandlingMixin],
   components: {
     PdfViewer,
     VueDropboxPicker,
@@ -249,21 +250,6 @@ export default {
   },
 
   methods: {
-    //click add from local button
-    open_add_local() {
-      this.$refs.file.click();
-    },
-    //click upload button
-    openFilePicker() {
-      // Trigger the file input click event when the custom button is clicked
-      this.$refs.file.click();
-    },
-
-    handleDrop(event) {
-      event.preventDefault();
-      const files = event.dataTransfer.files;
-      this.handleFiles(files);
-    },
     handleFiles(files) {
       // Process the dropped files
       for (let i = 0; i < files.length; i++) {
@@ -295,30 +281,6 @@ export default {
       };
     },
 
-    //download from dropbox
-    onPickedDropbox(data) {
-      const add_objs = data.map((item) => {
-        return { file: item, degree: 0 };
-      });
-      this.file_objs = [...this.file_objs, ...add_objs];
-    },
-    onPickedGoogleDriver(data) {
-      const add_objs = data.map((item) => {
-        return { file: item, degree: 0 };
-      });
-      this.file_objs = [...this.file_objs, ...add_objs];
-    },
-
-    onChange() {
-      const data = this.$refs.file.files;
-      this.$refs.file.values = "";
-      var add_objs = [],
-        i = 0;
-      for (i = 0; i < data.length; i++) {
-        add_objs.push({ file: data[i], degree: 0 });
-      }
-      this.file_objs = [...this.file_objs, ...add_objs];
-    },
     makeName(name) {
       return (
         name.split(".")[0].substring(0, 3) +
@@ -401,17 +363,8 @@ export default {
               originSize: (originSize / 1024).toFixed(2),
               resultSize: reSize.toFixed(2),
             };
-            // Your secret message
-            const message = JSON.stringify(obj);
 
-            // Your secret key (should be kept private)
-            const secretKey = "mySecretKey123";
-
-            // Encrypt the message using AES encryption with the secret key
-            const encrypted = CryptoJS.AES.encrypt(
-              message,
-              secretKey
-            ).toString();
+            const encrypted = this.$encrypt(obj);
 
             this.$router.push({
               name:

@@ -606,7 +606,6 @@
 <script>
 import { PDFDocument, degrees } from "pdf-lib";
 import PdfViewer from "@/components/PdfViewer.vue";
-import CryptoJS from "crypto-js";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import draggable from "vuedraggable";
@@ -618,8 +617,10 @@ import { online_names } from "../services/online_name";
 import AddMoreDropDown from "./components/AddMoreDropDown.vue";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
+import { fileHandlingMixin } from "@/fileHandlingMixin.js";
 
 export default {
+  mixins: [fileHandlingMixin],
   components: {
     PdfViewer,
     VueDropboxPicker,
@@ -672,21 +673,6 @@ export default {
   },
 
   methods: {
-    //click add from local button
-    open_add_local() {
-      this.$refs.file.click();
-    },
-    //click upload button
-    openFilePicker() {
-      // Trigger the file input click event when the custom button is clicked
-      this.$refs.file.click();
-    },
-
-    handleDrop(event) {
-      event.preventDefault();
-      const files = event.dataTransfer.files;
-      this.handleFiles(files);
-    },
     async handleFiles(files) {
       // Process the dropped files
       for (let i = 0; i < files.length; i++) {
@@ -720,31 +706,7 @@ export default {
     },
 
     //download from dropbox
-    async onPickedDropbox(data) {
-      for (let i = 0; i < data.length; i++) {
-        let pageNum = await getPageNumber(data[i]);
-        this.file_objs.push({ file: data[i], degree: 0, page: pageNum });
-      }
-      console.log(this.file_objs);
-    },
-    async onPickedGoogleDriver(data) {
-      for (let i = 0; i < data.length; i++) {
-        let pageNum = await getPageNumber(data[i]);
-        this.file_objs.push({ file: data[i], degree: 0, page: pageNum });
-      }
-      console.log(this.file_objs);
-    },
-    async onChange() {
-      const data = this.$refs.file.files;
-      var add_objs = [],
-        i = 0;
-      for (i = 0; i < data.length; i++) {
-        let pageNum = await getPageNumber(data[i]);
-        add_objs.push({ file: data[i], degree: 0, page: pageNum });
-      }
-      this.file_objs = [...this.file_objs, ...add_objs];
-      console.log(this.file_objs);
-    },
+
     getURL(file_obj) {
       const fileSrc = generateURL(file_obj.file);
       return fileSrc;
@@ -849,14 +811,9 @@ export default {
             file_type: "application/pdf",
             before: "mergepdf",
           };
-          // Your secret message
-          const message = JSON.stringify(obj);
 
-          // Your secret key (should be kept private)
-          const secretKey = "mySecretKey123";
+          const encrypted = this.$encrypt(obj);
 
-          // Encrypt the message using AES encryption with the secret key
-          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
           this.$router.push({
             name:
               this.$route.params.locale == undefined

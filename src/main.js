@@ -16,6 +16,8 @@ import router from "./routes/routes";
 import store from "./store/index.js";
 // Plugins
 import axios from "./plugins/axios";
+import CryptoPlugin from "./plugins/cryptoPlugin.js";
+
 import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
 import Notifications from "./components/NotificationPlugin";
@@ -32,6 +34,7 @@ Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
 Vue.use(axios);
+Vue.use(CryptoPlugin);
 Vue.use(Donut);
 Vue.use(VueSweetalert2);
 Vue.use(Vuelidate);

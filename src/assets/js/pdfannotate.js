@@ -344,15 +344,17 @@ PDFAnnotate.prototype.savePdf = async function (fileName) {
         // Convert the Fabric.js canvas to an image data URL
         const imageDataUrl = canvas.toDataURL("image/png", 1.0);
 
-        const byteString = atob(imageDataUrl.split(",")[1]);
-        const ab = new ArrayBuffer(byteString.length);
-        const ia = new Uint8Array(ab);
+        const base64String = imageDataUrl.split(",")[1];
+        const byteCharacters = atob(base64String);
+        const byteNumbers = new Array(byteCharacters.length);
 
-        for (let i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
 
-        const blob = new Blob([ab], { type: "image/png" });
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: "image/png" }); // Specify the appropriate MIME type based on the image format
+
         resultImages.push(blob);
       });
     }

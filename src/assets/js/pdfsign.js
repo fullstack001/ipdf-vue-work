@@ -293,10 +293,7 @@ PDFAnnotate.prototype.savePdf = async function (fileName) {
         const imageDataUrl = canvas.toDataURL("image/png", 1.0);
 
         const byteString = atob(imageDataUrl.split(",")[1]);
-        const mimeString = imageDataUrl
-          .split(",")[0]
-          .split(":")[1]
-          .split(";")[0];
+
         const ab = new ArrayBuffer(byteString.length);
         const ia = new Uint8Array(ab);
 

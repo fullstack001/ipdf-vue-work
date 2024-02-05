@@ -141,12 +141,11 @@
 
 <script>
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
-import CryptoJS from "crypto-js";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import PdfPreviewList from "./components/PdfPreviewList.vue";
 import EditPdf from "./components/EditPdf.vue";
-import addImagesToPDF from "../services/add_img_to_pdf";
+import addImagesToPDF2 from "../services/add_img_to_pdf2";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
 import getPageNumber from "@/pdf_pages/services/getPageNumber";
@@ -260,28 +259,15 @@ export default {
     },
 
     async upload_png(data) {
-      this.page_load = "processing";
-      const formData = new FormData();
-      for (let i = 0; i < data.length; i++) {
-        formData.append("files", data[i]);
-      }
-
-      this.$axios.post("/pdf/png_upload", formData).then(async (res) => {
-        const pdf = await addImagesToPDF(this.getURL(this.file), res.data);
-        this.upload_pdf(pdf, res.data);
-      });
-      this.get_result = false;
+      const pdf = await addImagesToPDF2(this.getURL(this.file), data);
+      await this.upload_pdf(pdf);
     },
-    upload_pdf(pdf, data) {
-      const deletes = data.map((item) => {
-        return item.filename;
-      });
+    upload_pdf(pdf) {
       const formData = new FormData();
-      formData.append("files", pdf);
-      formData.append("deletes", deletes);
+      formData.append("pdf", pdf);
       this.page_load = "uploading";
       this.$axios
-        .post("/pdf/edited_pdf_upload", formData, {
+        .post("/pdf/pdf_upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -301,12 +287,9 @@ export default {
             file_type: "application/pdf",
             before: "editpdf",
           };
-          // Your secret message
-          const message = JSON.stringify(obj);
-          // Your secret key (should be kept private)
-          const secretKey = "mySecretKey123";
-          // Encrypt the message using AES encryption with the secret key
-          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+
+          const encrypted = this.$encrypt(obj);
+
           this.$router.push({
             name:
               this.$route.params.locale == undefined

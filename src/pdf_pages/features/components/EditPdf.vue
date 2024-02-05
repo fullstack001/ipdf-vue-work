@@ -280,8 +280,9 @@ export default {
       this.pdf.clearActivePage();
     },
     async savePDF() {
-      const images = await this.pdf.savePdf("output.pdf");
-      this.$emit("upload", images);
+      const data = await this.pdf.savePdf("output.pdf");
+      console.log(data);
+      this.$emit("upload", data);
     },
 
     set_font_color(data) {

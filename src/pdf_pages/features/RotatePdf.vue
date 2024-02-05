@@ -812,7 +812,6 @@
 <script>
 import { PDFDocument, degrees } from "pdf-lib";
 import PdfViewer from "@/components/PdfViewer.vue";
-import CryptoJS from "crypto-js";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import draggable from "vuedraggable";
@@ -826,8 +825,10 @@ import AddMoreDropDown from "./components/AddMoreDropDown.vue";
 import JSZip from "jszip";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
+import { fileHandlingMixin } from "@/fileHandlingMixin.js";
 
 export default {
+  mixins: [fileHandlingMixin],
   components: {
     PdfViewer,
     VueDropboxPicker,
@@ -882,25 +883,22 @@ export default {
   },
 
   methods: {
-    //click add from local button
-    open_add_local() {
-      this.$refs.file.click();
-    },
-    //click upload button
-    openFilePicker() {
-      // Trigger the file input click event when the custom button is clicked
-      this.$refs.file.click();
-    },
-
-    handleDrop(event) {
-      event.preventDefault();
-      const files = event.dataTransfer.files;
-      this.handleFiles(files);
-    },
-    handleFiles(files) {
-      // Process the dropped files
+    async handleFiles(files) {
       for (let i = 0; i < files.length; i++) {
-        this.file_objs.push({ file: files[i], degree: 0 });
+        let type = await getPageType(files[i]);
+        let pageNum = await getPageNumber(files[i]);
+        this.file_objs.push({
+          file: files[i],
+          degree: 0,
+          type: type,
+          page: pageNum,
+        });
+        this.origin_file_objs.push({
+          file: files[i],
+          degree: 0,
+          type: type,
+          page: pageNum,
+        });
       }
     },
 
@@ -950,60 +948,6 @@ export default {
         degree: rotation,
         type: type,
       };
-    },
-
-    //download from dropbox
-    async onPickedDropbox(data) {
-      for (let i = 0; i < data.length; i++) {
-        let type = await getPageType(data[i]);
-        let pageNum = await getPageNumber(data[i]);
-        this.file_objs.push({
-          file: data[i],
-          degree: 0,
-          type: type,
-          page: pageNum,
-        });
-        this.origin_file_objs.push({
-          file: data[i],
-          degree: 0,
-          type: type,
-          page: pageNum,
-        });
-      }
-      console.log(this.file_objs);
-    },
-    async onPickedGoogleDriver(data) {
-      for (let i = 0; i < data.length; i++) {
-        let type = await getPageType(data[i]);
-        let pageNum = await getPageNumber(data[i]);
-        this.file_objs.push({
-          file: data[i],
-          degree: 0,
-          type: type,
-          page: pageNum,
-        });
-        this.origin_file_objs.push({
-          file: data[i],
-          degree: 0,
-          type: type,
-          page: pageNum,
-        });
-      }
-      console.log(this.file_objs);
-    },
-    async onChange() {
-      const data = this.$refs.file.files;
-      var add_objs = [],
-        i = 0;
-      for (i = 0; i < data.length; i++) {
-        let type = await getPageType(data[i]);
-        let pageNum = await getPageNumber(data[i]);
-        add_objs.push({ file: data[i], degree: 0, type: type, page: pageNum });
-      }
-
-      this.file_objs = [...this.file_objs, ...add_objs];
-      this.origin_file_objs = [...this.origin_file_objs, ...add_objs];
-      console.log(this.file_objs);
     },
     getURL(file_obj) {
       const fileSrc = generateURL(file_obj.file);
@@ -1216,14 +1160,9 @@ export default {
             file_type: "application/pdf",
             before: "rotatepdf",
           };
-          // Your secret message
-          const message = JSON.stringify(obj);
 
-          // Your secret key (should be kept private)
-          const secretKey = "mySecretKey123";
+          const encrypted = this.$encrypt(obj);
 
-          // Encrypt the message using AES encryption with the secret key
-          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
           this.$router.push({
             name:
               this.$route.params.locale == undefined
@@ -1284,17 +1223,8 @@ export default {
                 file_type: "application/zip",
                 before: "rotatepdf",
               };
-              // Your secret message
-              const message = JSON.stringify(obj);
 
-              // Your secret key (should be kept private)
-              const secretKey = "mySecretKey123";
-
-              // Encrypt the message using AES encryption with the secret key
-              const encrypted = CryptoJS.AES.encrypt(
-                message,
-                secretKey
-              ).toString();
+              const encrypted = this.$encrypt(obj);
 
               this.$router.push({
                 name:

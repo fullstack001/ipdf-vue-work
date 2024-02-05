@@ -109,26 +109,6 @@
                 class="file__actions"
                 v-show="show_file_action == file.file.name + index"
               >
-                <!-- <a
-                  class="file__btn rotate tooltip--top tooltip"
-                  data-rotate="0"
-                  title="Rotate"
-                  data-title="Rotate"
-                  @click="setRotationDegree(`id${index}`, index)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="16"
-                    viewBox="0 0 14 16"
-                  >
-                    <path
-                      d="M11.328 6.364l1.24-1.2c.79.98 1.283 2.113 1.433 3.288h-1.775c-.123-.735-.43-1.454-.896-2.088zm.896 3.778H14c-.15 1.175-.633 2.308-1.424 3.288l-1.24-1.2c.457-.634.765-1.344.888-2.088zm-.888 4.497C10.318 15.4 9.13 15.856 7.9 16v-1.716a5.31 5.31 0 0 0 2.162-.871l1.266 1.226zM6.152 2.595V0l4 3.846-4 3.76V4.302c-2.496.406-4.394 2.485-4.394 4.995s1.898 4.59 4.394 4.995V16C2.68 15.586 0 12.746 0 9.297s2.68-6.29 6.152-6.703z"
-                      fill="#fff"
-                      fill-rule="evenodd"
-                    ></path>
-                  </svg>
-                </a> -->
                 <a
                   class="file__btn remove tooltip--top tooltip"
                   title="Remove this file"
@@ -207,13 +187,14 @@
 <script>
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
-import CryptoJS from "crypto-js";
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import AddMoreDropDown from "./components/AddMoreDropDown.vue";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
+import { fileHandlingMixin } from "@/fileHandlingMixin.js";
 
 export default {
+  mixins: [fileHandlingMixin],
   components: {
     VueDropboxPicker,
     draggable,
@@ -238,74 +219,15 @@ export default {
   },
 
   methods: {
-    //click add from local button
-    open_add_local() {
-      this.$refs.file.click();
-    },
-    //click upload button
-    openFilePicker() {
-      // Trigger the file input click event when the custom button is clicked
-      this.$refs.file.click();
-    },
-
-    handleDrop(event) {
-      event.preventDefault();
-      const files = event.dataTransfer.files;
-      this.handleFiles(files);
-    },
     handleFiles(files) {
       // Process the dropped files
       for (let i = 0; i < files.length; i++) {
         this.file_objs.push({ file: files[i], degree: 0 });
       }
     },
-    onChange() {
-      const data = this.$refs.file.files;
-      var add_objs = [],
-        i = 0;
-      for (i = 0; i < data.length; i++) {
-        add_objs.push({ file: data[i], degree: 0 });
-      }
-      this.file_objs = [...this.file_objs, ...add_objs];
-      console.log(this.file_objs);
-    },
 
     remove(i) {
       this.file_objs.splice(i, 1);
-    },
-
-    //rotate thumbnail
-    setRotationDegree(tagId, index) {
-      const computedStyle = window.getComputedStyle(
-        document.getElementById(tagId)
-      );
-      const transformValue = computedStyle.getPropertyValue("transform");
-
-      // Extract rotation degree from the transform value
-      const matrix = new DOMMatrixReadOnly(transformValue);
-      let rotation = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI) + 90;
-      if (rotation == 360) rotation = 0;
-      document.getElementById(tagId).style.transform = `rotate(${rotation}deg)`;
-
-      //save rotation
-      this.file_objs[index] = {
-        file: this.file_objs[index]["file"],
-        degree: rotation,
-      };
-    },
-
-    //download from dropbox
-    onPickedDropbox(data) {
-      const add_objs = data.map((item) => {
-        return { file: item, degree: 0 };
-      });
-      this.file_objs = [...this.file_objs, ...add_objs];
-    },
-    onPickedGoogleDriver(data) {
-      const add_objs = data.map((item) => {
-        return { file: item, degree: 0 };
-      });
-      this.file_objs = [...this.file_objs, ...add_objs];
     },
 
     async convertToPdf() {
@@ -354,14 +276,8 @@ export default {
             file_type: `application/${type}`,
             before: "wordtopdf",
           };
-          // Your secret message
-          const message = JSON.stringify(obj);
 
-          // Your secret key (should be kept private)
-          const secretKey = "mySecretKey123";
-
-          // Encrypt the message using AES encryption with the secret key
-          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+          const encrypted = this.$encrypt(obj);
 
           this.$router.push({
             name:

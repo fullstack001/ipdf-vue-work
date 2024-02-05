@@ -187,14 +187,11 @@
   </div>
 </template>
 <script>
-import { PDFDocument } from "pdf-lib";
 import PdfViewer from "@/components/PdfViewer.vue";
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
-import CryptoJS from "crypto-js";
 import SplitExtra from "@/components/SplitExtra.vue";
 import SpiltRange from "@/components/SpiltRange.vue";
-import JSZip from "jszip";
 import { GlobalWorkerOptions, getDocument } from "pdfjs-dist/legacy/build/pdf";
 import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 GlobalWorkerOptions.workerSrc = PDFJSWorker;
@@ -268,6 +265,14 @@ export default {
       this.file = data[0];
       this.get_pages(data[0]);
     },
+    //download from dropbox
+    onPickedDropbox(data) {
+      this.file = data[0];
+      this.get_pages(data[0]);
+    },
+    open_add_driver() {
+      console.log("google driver");
+    },
 
     handleDrop(event) {
       event.preventDefault();
@@ -284,17 +289,13 @@ export default {
         this.file = files[0];
       }
     },
-
-    //download from dropbox
-    onPickedDropbox(data) {
-      this.file = data[0];
-      this.get_pages(data[0]);
+    handleFiles(files) {
+      this.file = files[0];
+      this.get_pages(files[0]);
     },
+
     changeRange(data) {
       this.pages = data;
-    },
-    open_add_driver() {
-      console.log("google driver");
     },
     get_pages(file) {
       console.log(file);
@@ -491,14 +492,8 @@ export default {
             file_type: `application/${type}`,
             before: "splitpdf",
           };
-          // Your secret message
-          const message = JSON.stringify(obj);
 
-          // Your secret key (should be kept private)
-          const secretKey = "mySecretKey123";
-
-          // Encrypt the message using AES encryption with the secret key
-          const encrypted = CryptoJS.AES.encrypt(message, secretKey).toString();
+          const encrypted = this.$encrypt(obj);
 
           this.$router.push({
             name:
