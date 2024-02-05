@@ -786,11 +786,11 @@ body {
 
 .add-more .md-icon-button {
   display: block;
-  background-color: #ff7c03 !important;
+  background-color: #fefefe;
   width: 40px;
   height: 40px;
   margin-bottom: 20px;
-  padding: 8px;
+  padding: 5px;
   border-radius: 50%;
   cursor: pointer;
   border: none;

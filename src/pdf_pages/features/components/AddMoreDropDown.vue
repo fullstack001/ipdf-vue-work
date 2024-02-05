@@ -37,7 +37,7 @@
             <md-tooltip md-direction="top"> </md-tooltip>
           </GDriveSelector>
         </md-button>
-        <md-button class="dropbox-btn">
+        <md-button class="dropbox-btn md-icon-button1">
           <VueDropboxPicker
             class="cloud dropbox"
             link-type="direct"
@@ -115,7 +115,7 @@ h3 {
   width: 40px;
   height: 40px;
   margin-bottom: 0px;
-  padding: 8px;
+  padding: 5px;
   border-radius: 50%;
   cursor: pointer;
   margin-left: 0px;
@@ -133,7 +133,9 @@ h3 {
 }
 
 .dropbox-btn,
-.md-icon-button1 {
+.md-icon-button1,
+.md-icon-button2,
+.md-icon-button3 {
   background-color: transparent !important;
   box-shadow: none !important;
   margin-top: 2px;

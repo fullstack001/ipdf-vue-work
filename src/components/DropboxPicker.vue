@@ -165,7 +165,10 @@ body {
   height: 40px;
   border-radius: 50%;
   border: solid 2px #ff7c03;
-  padding: 8px;
+  background-color: #fefefe;
+  opacity: 1;
+  border-radius: 50%;
+  padding: 10px 10px 8px 10px;
   cursor: pointer;
 }
 

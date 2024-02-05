@@ -434,14 +434,6 @@ body {
   width: fit-content;
 }
 
-.dropbox-icon {
-  background-color: #ff7c03;
-  opacity: 1;
-  border-radius: 50%;
-  padding: 10px 10px 5px 10px;
-  cursor: pointer;
-}
-
 .option__panel__content {
   margin: 10px;
   background: #def2ff;
@@ -481,11 +473,11 @@ body {
 
 .add-more .md-icon-button {
   display: block;
-  background-color: #ff7c03 !important;
+  background-color: #fefefe;
   width: 40px;
   height: 40px;
   margin-bottom: 20px;
-  padding: 8px;
+  padding: 5px;
   border-radius: 50%;
   cursor: pointer;
   margin-left: 5px;

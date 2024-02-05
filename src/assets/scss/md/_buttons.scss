@@ -1,3 +1,4 @@
+
 .md-button {
   border: none;
   border-radius: $border-radius-base;
@@ -233,5 +234,12 @@
     &.btn-white.btn-simple {
       color: $gray;
     }
+  }
+ 
+}
+ .add_button{
+  .md-ripple{
+    background-color:  #ff7c03 !important;
+    color:#000;
   }
 }
