@@ -1,8 +1,8 @@
 <template>
   <div>
     <Processing
-      :progress="page_load == 'processing' ? 'Editing' : 'Loading'"
-      v-if="page_load == 'processing' || rendering_page == 'rendering'"
+      :progress="page_load == 'Editing'"
+      v-if="page_load == 'processing'"
     />
     <Uploading
       :progress="progress"
@@ -12,11 +12,6 @@
       :file_name="'pdfden_edited.pdf'"
       v-if="page_load == 'uploading'"
     />
-    <!-- <RendingProgress
-      :page="totalPageNum"
-      @stop_render="rendering_page = 'default'"
-      v-if="rendering_page == 'rendering'"
-    /> -->
     <div
       class="main"
       :style="
@@ -26,21 +21,6 @@
       "
       v-if="page_load == 'default'"
     >
-      <div v-if="file" v-show="rendering_page == 'default'">
-        <div id="sidebar" class="tool__sidebar">
-          <PdfPreviewList :url="getURL(file)" @set_page="set_current_page" />
-        </div>
-      </div>
-      <div class="files-list" v-if="file" v-show="rendering_page == 'default'">
-        <EditPdf
-          :pdfUrl="getURL(file)"
-          :get_pdf="get_result"
-          :currentPage="currentPageNum"
-          :totalPageNum="totalPageNum"
-          @upload="upload_png"
-          @start_editing="page_load = 'processing'"
-        />
-      </div>
       <div
         v-show="!file"
         class="dropzone-container"
@@ -110,32 +90,13 @@
           </div>
         </div>
       </div>
-
-      <div v-if="file" id="sidebar">
-        <div class="tool__sidebar" style="overflow-y: auto">
-          <div class="edit-title">
-            <h3 class="text-center">
-              {{ $t("page_titles.edit_page.editPdf") }}
-            </h3>
-          </div>
-
-          <div class="edit-description">
-            <div class="edit-desc-title">
-              {{ $t("page_titles.edit_page.elements") }}
-            </div>
-            <div class="edit-desc-detail">
-              {{ $t("page_titles.edit_page.ele_des") }}
-            </div>
-          </div>
-
-          <div class="option__panel option__panel--active" id="merge-options">
-            <button class="option__panel__title" @click="get_edit_result">
-              {{ $t("page_titles.edit_page.actionBtn") }}
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
+    <EditPdfContent
+      :pdfUrl="getURL(file)"
+      :get_pdf="get_result"
+      @upload="upload_png"
+      v-if="file"
+    />
   </div>
 </template>
 
@@ -143,21 +104,18 @@
 import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import generateURL from "@/pdf_pages/services/generateURL";
 import GDriveSelector from "@/components/GDriveSelector.vue";
-import PdfPreviewList from "./components/PdfPreviewList.vue";
-import EditPdf from "./components/EditPdf.vue";
+import EditPdfContent from "./components/EditPdfContent.vue";
 import addImagesToPDF2 from "../services/add_img_to_pdf2";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
-import getPageNumber from "@/pdf_pages/services/getPageNumber";
-// import RendingProgress from "@/pages/RendingProgress.vue";
-import $ from "jquery";
+import { fileHandlingMixin } from "@/fileHandlingMixin.js";
 
 export default {
+  mixins: [fileHandlingMixin],
   components: {
     VueDropboxPicker,
-    PdfPreviewList,
     GDriveSelector,
-    EditPdf,
+    EditPdfContent,
     Processing,
     Uploading,
     // RendingProgress,
@@ -166,93 +124,27 @@ export default {
     return {
       isDragging: false,
       file: null,
-      currentPageNum: 0,
-      totalPageNum: 0,
       get_result: false,
       page_load: "default",
-      rendering_page: null,
-      progress: 0,
-      size: 0,
-      intervalID: null,
     };
   },
-  created() {
-    this.count_elements();
-  },
-  destroyed() {
-    this.clear_count_elements();
-  },
   methods: {
-    count_elements() {
-      this.intervalID = setInterval(() => {
-        let canvases = $(".pdf-canvas");
-        console.log(canvases.length);
-        if (this.totalPageNum > 0 && canvases.length > 0) {
-          this.clear_count_elements();
-          this.rendering_page = "default";
-        }
-      }, 500);
-    },
-    clear_count_elements() {
-      clearInterval(this.intervalID);
-    },
-    set_current_page(data) {
-      this.currentPageNum = data;
-    },
-    //click add from local button
-    open_add_local() {
-      this.$refs.file.click();
-    },
-    //click upload button
-    openFilePicker() {
-      // Trigger the file input click event when the custom button is clicked
-      this.$refs.file.click();
-    },
-
-    handleDrop(event) {
-      event.preventDefault();
-      const files = event.dataTransfer.files;
+    handleFiles(files) {
       if (files.length > 1) {
         this.$swal(
           "Sorry!",
-          "PDFden cannot process  more than one files in a task",
+          "PDFden cannot process  more than one files in a task. One file will process!",
           "warning"
         );
-        return;
+        this.file = files[0];
       } else {
-        this.handleFiles(files[0]);
+        this.file = files[0];
       }
-    },
-    //download from dropbox
-    async onPickedDropbox(data) {
-      this.file = data[0];
-      this.totalPageNum = await getPageNumber(data[0]);
-    },
-    async onPickedGoogleDriver(data) {
-      this.file = data[0];
-      this.totalPageNum = await getPageNumber(data[0]);
-    },
-
-    async onChange() {
-      const data = this.$refs.file.files;
-      this.totalPageNum = await getPageNumber(data[0]);
-      this.rendering_page = "rendering";
-      this.file = data[0];
     },
 
     getURL(file) {
       const fileSrc = generateURL(file);
       return fileSrc;
-    },
-    async readFileAsync(file) {
-      return new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.onload = () => {
-          resolve(reader.result);
-        };
-        reader.onerror = reject;
-        reader.readAsArrayBuffer(file);
-      });
     },
     get_edit_result() {
       this.get_result = true;

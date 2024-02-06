@@ -749,4 +749,10 @@ body {
   pointer-events: none;
   background: #8ac823 !important;
 }
+
+@media (max-width: 640px) {
+  .page-title{
+    font-size: 26px !important;
+  }
+}
 </style>

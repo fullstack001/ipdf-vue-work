@@ -144,7 +144,7 @@
             class="add-more"
             v-bind:style="
               file_objs.length
-                ? 'position: absolute; top: 0px; right: 50px'
+                ? 'position: absolute; top: 0px; right: 80px'
                 : 'position: relative; margin: auto; right: 0; top: 0;'
             "
           >

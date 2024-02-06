@@ -141,7 +141,7 @@
             class="add-more"
             v-bind:style="
               file_objs.length
-                ? 'position: absolute; top: 00px; right: 50px'
+                ? 'position: absolute; top: 00px; right: 80px'
                 : 'position: relative; margin: auto; right: 0; top: 0;'
             "
           >
@@ -331,17 +331,6 @@ export default {
   },
 };
 </script>
-
-<!-- <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
-html,
-body {
-  font-family: "Montserrat", sans-serif;
-}
-.md-radio {
-  display: flex;
-}
-</style> -->
 
 <style scoped>
 @import "../../assets/css/pdfToWord.css";

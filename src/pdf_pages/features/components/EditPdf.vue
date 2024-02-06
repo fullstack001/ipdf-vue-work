@@ -41,15 +41,6 @@
           Clear Page
         </button>
       </div>
-      <!-- <div class="tool">
-        <button class="btn btn-info btn-sm" @click="showPdfData()">{}</button>
-      </div> -->
-      <!-- <div class="tool">
-        <button class="btn btn-light btn-sm" @click="savePDF()">
-          <i class="fa fa-save"></i> Save
-        </button>
-      </div> -->
-      <!-- Replace other @click events similarly -->
     </div>
     <TextToolBar
       v-if="show_tools == 'text'"

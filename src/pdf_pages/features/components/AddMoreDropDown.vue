@@ -123,6 +123,11 @@ h3 {
   background-color: transparent !important;
   color: #000 !important;
 }
+
+.add-more .md-icon-button:hover {
+  background-color: #ff7c03 !important;
+}
+
 .add_button {
   background-color: #ff7c03 !important;
   padding: 0;

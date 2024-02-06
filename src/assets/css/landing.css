@@ -29,7 +29,7 @@ h2 {
   position: fixed;
   top: 0;
   background-position: center center;
-  background-size: 100% auto;
+  background-size: cover;
   background-image: url("../../assets/img/background.svg");
 }
 
@@ -70,7 +70,7 @@ h4 {
   flex-wrap: wrap;
   padding: 0 68px 42px;
   background-position: center center;
-  background-size: 100% auto;
+  background-size: cover;
   background-image: url("../../assets/img/background.svg");
 }
 
@@ -362,6 +362,23 @@ h4 {
   .md-layout-item {
     margin-top: 30px;
   }
+  .free-img img {
+    max-width: 260px;
+  }
+
+  .tools h2,
+  .solution-header,
+  .premium_title{
+    font-size: 26px !important;
+    font-weight: 500;
+  }
+
+  .premium_text{
+    font-size: 22px !important;
+  }
+
+
+  
 }
 
 @media (max-width: 440px) {

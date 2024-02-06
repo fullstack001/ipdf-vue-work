@@ -135,10 +135,6 @@ button:focus {
   box-shadow: 3px 4px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-.texttoolbar .tool:nth-last-child(1) {
-  /* float: right; */
-}
-
 .texttoolbar .tool .tool-button {
   background-color: #f5f5fa;
   border: 1px solid #f5f5fa;

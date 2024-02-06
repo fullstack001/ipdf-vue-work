@@ -258,4 +258,8 @@ export default {
 .gdrive_btn i {
   color: #000 !important;
 }
+
+.gdrive_btn:hover{
+  background-color: #ff7c03;
+}
 </style>

@@ -26,6 +26,7 @@
 .dropzone-container {
   width: 100%;
   min-height: 100vh;
+  padding: 1rem 0rem;
 }
 
 .upload_btn_area {
@@ -256,21 +257,7 @@
   cursor: pointer;
 }
 
-.add-more .md-icon-button {
-  display: block;
-  background-color: #fefefe ;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 20px;
-  padding: 5px;
-  border-radius: 50%;
-  cursor: pointer;
-  margin-left: 5px;
-}
 
-.add-more .md-icon-button:hover {
-  background-color: #ff7c03 !important;
-}
 
 .merge-descriptions {
   text-align: left;
@@ -410,7 +397,7 @@
   padding: 50px 0;
   text-align: center;
   background-position: center center;
-  background-size: 100% auto;
+  background-size: cover;
   background-image: url("../../assets/img/online-tools.png");
 }
 
@@ -578,6 +565,14 @@ h3 {
   .page-description {
     margin-left: 10% !important;
   }
+  
+  .md-layout {
+    max-height: unset;
+    overflow-y: auto;
+  }
+  .page-title{
+    font-size: 26px !important;
+  }
 }
 @media (max-width: 440px) {
   .tools__item {
@@ -605,4 +600,6 @@ h3 {
     margin: 8px auto 0;
     margin-left: 15%;
   }
+
+
 }

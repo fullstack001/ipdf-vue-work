@@ -164,8 +164,8 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: solid 2px #ff7c03;
-  background-color: #fefefe;
+  border: solid 2px #ff7c03 !important;
+  background-color: transparent;
   opacity: 1;
   border-radius: 50%;
   padding: 10px 10px 8px 10px;
@@ -175,5 +175,9 @@ body {
 .dropbox-icon i {
   color: #000 !important;
   font-size: 16px;
+}
+
+.dropbox-icon:hover{
+  background-color: #ff7c03;
 }
 </style>

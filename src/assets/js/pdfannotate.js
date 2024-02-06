@@ -73,6 +73,7 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
           renderTask.promise.then(function () {
             $(".pdf-canvas").each(function (index, el) {
               $(el).attr("id", "page-" + (index + 1) + "-canvas");
+              // $(el).css("display", "none"); // Adding style display: none
             });
             inst.pages_rendered++;
             if (inst.pages_rendered == inst.number_of_pages) inst.initFabric();

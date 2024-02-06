@@ -11,7 +11,7 @@
     <md-button
       class="md-raised range_btn"
       @click="fixedRangeEdit"
-      v-bind:class="custom_show ? '' : 'active_btn'"
+      v-bind:class="custom_show ? '' : 'active_btn'"    
     >
       {{ $t("page_titles.split_page.fixedRange") }}
     </md-button>
@@ -193,17 +193,19 @@ h3 {
   font-weight: 400;
 }
 
-.range_btn,
+
 .range_btn:hover,
-.range_btn:focus {
+.range_btn:focus{
   padding: 5px 0px;
   font-size: 14px;
-  margin: 10px 10px;
-  background-color: #f5f5fa !important;
+  margin: 10px 10px;  
   border-radius: 10px;
   color: #85858e !important;
   font-weight: 500;
+  background-color: #ff7c03 !important;
 }
+
+
 .file__btn {
   background: #fefefe;
   padding-left: 6px;
@@ -214,12 +216,6 @@ h3 {
   font-weight: bold;
   margin-top: -33px;
 }
-.active_btn {
-  background-color: #f5f5fa !important;
-  border: solid 2px #ff7c03;
-  color: #ff7c03 !important;
-}
-
 .remove {
   position: absolute;
   right: 10px;
@@ -253,7 +249,7 @@ h3 {
   border-radius: 5px;
   padding: 10px !important;
   height: 48px !important;
-  color: #ff7c03 !important;
+  /* color: #ff7c03 !important; */
 }
 
 .add_range_btn:hover,

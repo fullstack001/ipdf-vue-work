@@ -198,8 +198,12 @@ GlobalWorkerOptions.workerSrc = PDFJSWorker;
 import GDriveSelector from "@/components/GDriveSelector.vue";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
+import { fileHandlingMixin } from "@/fileHandlingMixin.js";
+
+import getPageNumber from "@/pdf_pages/services/getPageNumber";
 
 export default {
+  mixins: [fileHandlingMixin],
   components: {
     PdfViewer,
     VueDropboxPicker,
@@ -228,24 +232,18 @@ export default {
       file_name: "",
     };
   },
-  mounted() {
+  async mounted() {
     if (this.$route.params.file) {
       console.log(this.$route.params.file);
       this.file = this.$route.params.file[0];
       // Load the PDF document from the buffer
-      getDocument(this.file.link).promise.then(
-        (pdf) => {
-          let numPages = pdf.numPages;
-          this.pageCount = numPages;
-          this.pages = [{ id: 1, range: [1, numPages] }];
-          for (let i = 1; i <= numPages; i++) {
-            this.extractPages.push([i, i]);
-          }
-        },
-        (reason) => {
-          console.error(reason);
-        }
-      );
+
+      let numPages = await getPageNumber(this.file);
+      this.pageCount = numPages;
+      this.pages = [{ id: 1, range: [1, numPages] }];
+      for (let i = 1; i <= numPages; i++) {
+        this.extractPages.push([i, i]);
+      }
     }
   },
 
@@ -254,70 +252,32 @@ export default {
       this.show_checkBox = flag;
       this.merge_selected = false;
     },
-    //add merged pdf to vuex
 
-    //file from local
-    onChange() {
-      this.file = this.$refs.file.files[0];
-      this.get_pages(this.$refs.file.files[0]);
-    },
-    onPickedGoogleDriver(data) {
-      this.file = data[0];
-      this.get_pages(data[0]);
-    },
-    //download from dropbox
-    onPickedDropbox(data) {
-      this.file = data[0];
-      this.get_pages(data[0]);
-    },
-    open_add_driver() {
-      console.log("google driver");
-    },
-
-    handleDrop(event) {
-      event.preventDefault();
-      let files = event.dataTransfer.files;
+    handleFiles(files) {
       if (files.length > 1) {
         this.$swal(
           "Sorry!",
-          "PDFden cannot process  more than one files in a task",
+          "PDFden cannot process  more than one files in a task. One file will be process!",
           "warning"
         );
-        return;
-      } else {
-        this.get_pages(files[0]);
         this.file = files[0];
+        this.get_pages(files[0]);
+      } else {
+        this.file = files[0];
+        this.get_pages(files[0]);
       }
-    },
-    handleFiles(files) {
-      this.file = files[0];
-      this.get_pages(files[0]);
     },
 
     changeRange(data) {
       this.pages = data;
     },
-    get_pages(file) {
-      console.log(file);
-      let url = "";
-      if (file.link) {
-        url = file.link;
-      } else {
-        url = URL.createObjectURL(file);
+    async get_pages() {
+      let numPages = await getPageNumber(this.file);
+      this.pageCount = numPages;
+      this.pages = [{ id: 1, range: [1, numPages] }];
+      for (let i = 1; i <= numPages; i++) {
+        this.extractPages.push([i, i]);
       }
-      getDocument(url).promise.then(
-        (pdf) => {
-          let numPages = pdf.numPages;
-          this.pageCount = numPages;
-          this.pages = [{ id: 1, range: [1, numPages] }];
-          for (let i = 1; i <= numPages; i++) {
-            this.extractPages.push([i, i]);
-          }
-        },
-        (reason) => {
-          console.error(reason);
-        }
-      );
     },
 
     setExtract(newExtract) {
@@ -516,377 +476,5 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
-html,
-body {
-  font-family: "Montserrat", sans-serif;
-}
-.main {
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.page-title {
-  margin-top: 50px;
-  font-weight: 600;
-  font-size: 42px;
-  line-height: 52px;
-  color: #33333b;
-  text-align: center;
-}
-.md-badge {
-  position: absolute;
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  left: 9px;
-  top: 5px;
-  font-size: 18px;
-  font-style: revert;
-  font-weight: bold;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  color: #fff;
-  pointer-events: none;
-  z-index: 6;
-  background: green !important;
-}
-.page-description {
-  max-width: 800px;
-  margin: 8px auto 0;
-  line-height: 32px;
-  font-size: 22px;
-  font-weight: 400;
-  color: #47474f;
-}
-
-.dropzone-container {
-  width: 100%;
-  min-height: 100vh;
-  max-height: 100vh;
-  padding: 1rem;
-  overflow-y: scroll;
-}
-
-.drop-area {
-  border-radius: 8px;
-  border: 1px dotted #ff7c03;
-  width: 50%;
-  margin: auto;
-  padding: 50px 0;
-  margin-top: 20px;
-  background-color: #fffbf8;
-}
-
-.drop-img {
-  width: 96px;
-  margin: auto;
-  margin-bottom: 30px;
-}
-
-.upload_btn_area {
-  position: relative;
-}
-.hidden-input {
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  width: 1px;
-  height: 1px;
-}
-.file-label {
-  font-size: 20px;
-  display: block;
-  cursor: pointer;
-}
-.preview-container {
-  position: relative;
-  margin-top: 2rem;
-}
-
-.preview_area {
-  display: flex;
-}
-.preview-card {
-  cursor: grab;
-  flex: 1 1;
-  margin: 4px;
-  max-width: 165px;
-  height: 215px;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-line-pack: distribute;
-  align-content: space-around;
-  -ms-flex-pack: center;
-  justify-content: center;
-  position: relative;
-  border: 1px solid rgba(0, 0, 0, 0);
-  background: #fdfdfd;
-  border-radius: 8px;
-  -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
-}
-
-.preview-img {
-  width: 140px;
-  height: 180px;
-  border-radius: 5px;
-  border: 1px solid #a2a2a2;
-  background-color: #a2a2a2;
-}
-
-.file__actions {
-  top: 8px;
-  right: 8px;
-  position: absolute;
-  display: inline-flex;
-  /* display: none; */
-  z-index: 100;
-}
-.file__btn {
-  padding: 3px;
-  width: 24px;
-  height: 24px;
-  -ms-flex: 0 0 24px;
-  flex: 0 0 24px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.1);
-  background: #ff7c03;
-  margin-left: 4px;
-  z-index: 1030;
-  border-radius: 100%;
-  cursor: pointer;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-.downloader__btn,
-.uploader__btn {
-  cursor: pointer;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  min-height: 80px;
-  min-width: 330px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 24px 48px;
-  font-weight: 500;
-  font-size: 24px;
-  background: #ff7c03;
-  line-height: 28px;
-  vertical-align: middle;
-  color: #fff !important;
-  text-decoration: none;
-  margin-bottom: 12px;
-  -webkit-transition: background-color 0.1s linear;
-  -o-transition: background-color 0.1s linear;
-  transition: background-color 0.1s linear;
-  border: 0;
-  border-radius: 12px;
-  -webkit-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.14);
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.14);
-  -ms-flex-order: 1;
-  order: 1;
-  max-width: 60vw;
-  cursor: pointer;
-}
-
-#sidebar {
-  max-width: 400px !important;
-  min-height: 100vh;
-  max-height: 100vh;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 60px;
-  background-color: #fff;
-}
-
-.draggable-item {
-  margin: 5px;
-  padding: 10px;
-  background-color: lightblue;
-  cursor: move;
-}
-
-.upload_btn {
-  width: fit-content;
-  display: flex;
-  text-align: center;
-  margin: auto;
-  position: relative;
-  cursor: pointer;
-}
-
-.upload_btn .md-button-content {
-  font-size: 22px;
-  font-weight: 600;
-  padding: 0 30px;
-}
-
-.add-more {
-  width: fit-content;
-  position: absolute;
-  margin: auto;
-  right: -60px;
-  top: -10px;
-}
-
-.option__panel__content {
-  margin: 10px;
-  background: #def2ff;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 13px;
-}
-
-.option__panel__title {
-  font-size: 22px;
-  line-height: 26px;
-  min-height: 48px;
-  padding: 8px 12px;
-  color: #fff;
-  background-color: #ff7c03;
-  padding: 15px 40px;
-  border-radius: 10px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-}
-
-.option__panel__title:hover {
-  background-color: #e76d26;
-}
-
-#pickfiles {
-  display: block;
-  background-color: #ff7c03;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.add-more .md-icon-button {
-  display: block;
-  background-color: #fefefe;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 20px;
-  padding: 5px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  color: #fff;
-}
-.social_btn {
-  display: block;
-  background-color: #ff7c03 !important;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 20px;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  color: #fff;
-  margin-right: 10px;
-}
-
-.add-more .md-icon-button:hover,
-.social_btn:hover {
-  background-color: #dd6825 !important;
-}
-
-.range__container {
-  margin: 12px;
-  padding: 12px;
-  -ms-flex: 0 1 auto;
-  flex: 0 1 auto;
-  display: -ms-flexbox;
-  display: block;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  border: 1px dashed #707078;
-}
-
-.split_card {
-  display: inline-flex;
-}
-
-.page_number {
-  display: block;
-  margin-top: 10px;
-}
-
-.split_card_body {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-h3 {
-  font-weight: 500;
-  margin-bottom: 50px;
-}
-
-.social_btn i {
-  color: #fff !important;
-}
-
-.md-button-content,
-.md-button-content i {
-  color: #fff !important;
-}
-
-.badge {
-  width: 19px;
-  height: 19px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  background: #ff7c03;
-  border-radius: 100%;
-  color: #fff;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: -0.05em;
-  font-family: "Roboto Mono", monospace;
-}
-
-#merge-options {
-  padding-bottom: 30px;
-}
-
-@media (max-width: 640px) {
-  .drop-area {
-    width: 100%;
-  }
-
-  .uploader__btn {
-    min-width: auto;
-  }
-}
+@import "../../assets/css/split.css";
 </style>
