@@ -94,12 +94,6 @@
   max-width: 60vw;
 }
 
-.tool__sidebar {
-  min-width: 400px;
-  max-width: 400px;
-  height: 100vh;
-  background-color: #fff;
-}
 
 .edit-title {
   margin-top: 50px;

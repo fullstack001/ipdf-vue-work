@@ -29,6 +29,7 @@
             class="pdf-preview-item"
           >
             <img
+              class="thumbnail-img"
               :src="imageItem.img"
               alt="Image"
               @click="set_page(index + 1)"
@@ -58,28 +59,26 @@
         </div>
       </div>
     </div>
-    <div id="sidebar">
-      <div class="tool__sidebar" style="overflow-y: auto">
-        <div class="edit-title">
-          <h3 class="text-center">
-            {{ $t("page_titles.edit_page.editPdf") }}
-          </h3>
-        </div>
+    <div class="edit_tool_sidebar">
+      <div class="edit-title">
+        <h3 class="text-center">
+          {{ $t("page_titles.edit_page.editPdf") }}
+        </h3>
+      </div>
 
-        <div class="edit-description">
-          <div class="edit-desc-title">
-            {{ $t("page_titles.edit_page.elements") }}
-          </div>
-          <div class="edit-desc-detail">
-            {{ $t("page_titles.edit_page.ele_des") }}
-          </div>
+      <div class="edit-description">
+        <div class="edit-desc-title">
+          {{ $t("page_titles.edit_page.elements") }}
         </div>
+        <div class="edit-desc-detail">
+          {{ $t("page_titles.edit_page.ele_des") }}
+        </div>
+      </div>
 
-        <div class="option__panel option__panel--active" id="merge-options">
-          <button class="edit-btn" @click="edit_pdf">
-            {{ $t("page_titles.edit_page.actionBtn") }}
-          </button>
-        </div>
+      <div class="option__panel option__panel--active" id="merge-options">
+        <button class="edit-btn" @click="edit_pdf">
+          {{ $t("page_titles.edit_page.actionBtn") }}
+        </button>
       </div>
     </div>
     <div id="temp_canvas" style="display: none"></div>
@@ -157,6 +156,7 @@ export default {
         this.loadingPage = i;
       }
       this.$nextTick().then(() => {
+        this.loadScripts();
         // Now, the DOM has been updated, and you can safely execute the next statement
         this.observer = new IntersectionObserver(this.handleIntersection, {
           threshold: 0.5,
@@ -164,17 +164,15 @@ export default {
         this.imageElements.forEach((element) => {
           this.observer.observe(element);
         });
-        this.canvases.push(0);
-        this.loadScripts();
       });
     },
     async loadScripts() {
+      this.canvases.push(0);
       var pdf = await new PDFAnnotate("pdf-edit-list", this.pdfUrl, 0, {
         scale: 2,
         pageImageCompression: "FAST", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
       });
       this.pdf = pdf;
-      this.rendering = false;
     },
     keyDownHandler(e) {
       var activeObject =
@@ -194,15 +192,20 @@ export default {
         if (entry.isIntersecting) {
           if (this.pdf) {
             const pageNum = entry.target.id * 1;
-            if (this.canvases.indexOf(pageNum) < 0) {
-              this.canvases.push(pageNum);
-              this.pdf.addCanvas(pageNum);
+            let toPage =
+              pageNum + 100 > this.pages ? this.pages : pageNum + 100;
+            for (let i = pageNum; i < toPage; i++) {
+              if (this.canvases.indexOf(i) < 0) {
+                this.canvases.push(i);
+                this.pdf.addCanvas(i);
+              }
             }
           }
         } else {
           // console.log("Image scrolled out of view:", entry.target.id);
         }
       });
+      this.rendering = false;
     },
     scrollToTarget(scrollContainer, targetPosition, duration) {
       const start = scrollContainer.scrollTop;
@@ -224,6 +227,7 @@ export default {
       requestAnimationFrame(scrollAnimation);
     },
     async edit_pdf() {
+      this.$emit("edit_start");
       this.canvases.sort((a, b) => a - b);
       console.log(this.canvases);
       const items = await this.pdf.savePdf(this.canvases, this.imageItems);
@@ -246,6 +250,9 @@ export default {
 </script>
 
 <style scoped>
+.thumbnail-img {
+  height: 100%;
+}
 .pdf-preview-item {
   position: relative;
   text-align: center;
@@ -293,5 +300,11 @@ export default {
   width: 100%;
   overflow-y: auto;
   padding-top: 50px;
+}
+.edit_tool_sidebar {
+  min-width: 21%;
+  max-width: 21%;
+  height: 100vh;
+  background-color: #fff;
 }
 </style>

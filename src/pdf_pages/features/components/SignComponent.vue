@@ -21,6 +21,7 @@
             class="pdf-preview-item"
           >
             <img
+              class="thumbnail-img"
               :src="imageItem.img"
               alt="Image"
               @click="set_page(index + 1)"
@@ -789,18 +790,17 @@ export default {
         this.imageElements.forEach((element) => {
           this.observer.observe(element);
         });
-        this.canvases.push(0);
+        // this.rendering = false;
         this.loadScripts();
-        this.rendering = false;
       });
     },
     async loadScripts() {
+      this.canvases.push(0);
       var pdf = await new PDFAnnotate("pdf-edit-list", this.pdfUrl, 0, {
         scale: 1.5,
         pageImageCompression: "FAST", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
       });
       this.pdf = pdf;
-      this.rendering = false;
     },
     async set_text(data) {
       this.text = data;
@@ -828,17 +828,23 @@ export default {
     handleIntersection(entries) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log(this.canvases, entry.target.id);
           if (this.pdf) {
             const pageNum = entry.target.id * 1;
-            if (this.canvases.indexOf(pageNum) < 0) {
-              this.canvases.push(pageNum);
-              this.pdf.addCanvas(pageNum);
+
+            let toPage = pageNum + 30 > this.pages ? this.pages : pageNum + 29;
+            for (let i = pageNum; i < toPage; i++) {
+              if (this.canvases.indexOf(i) < 0) {
+                this.canvases.push(i);
+                this.pdf.addCanvas(i);
+              }
             }
           }
         } else {
           // console.log("Image scrolled out of view:", entry.target.id);
         }
+        this.$nextTick().then(() => {
+          this.rendering = false;
+        });
       });
     },
     scrollToTarget(scrollContainer, targetPosition, duration) {
@@ -933,6 +939,9 @@ export default {
 img {
   cursor: move;
 }
+.thumbnail-img {
+  height: 100%;
+}
 
 .pdf-preview-item {
   position: relative;
@@ -982,8 +991,8 @@ img {
   padding-top: 50px;
 }
 .sign_sidebar {
-  min-width: 400px;
-  max-width: 400px;
+  min-width: 21%;
+  max-width: 21%;
   height: 100vh;
   background-color: #fff;
   padding-top: 30px;

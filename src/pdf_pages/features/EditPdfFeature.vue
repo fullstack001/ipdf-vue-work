@@ -95,6 +95,7 @@
       :pdfUrl="getURL(file)"
       :pageNumProps="pdfPage"
       @upload="upload_png"
+      @edit_start="page_load = 'processing'"
       v-if="file"
     />
   </div>
