@@ -1,7 +1,7 @@
 <template>
-  <div class="main">
+  <div class="stamp-area">
     <div
-      class="dropzone-container"
+      class="stamp-dropzone-container"
       @dragover="dragover"
       @dragleave="dragleave"
       @drop="drop"
@@ -16,7 +16,7 @@
         type="file"
         :name="data"
         :id="data"
-        class="hidden-input"
+        hidden
         @change="onChange"
         :ref="data"
         accept=".jpg,.jpeg,.png"
@@ -26,19 +26,10 @@
         <div v-if="isDragging">Release to drop files here.</div>
         <div v-else>Drop files here or <u>click here</u> to upload.</div>
       </label>
-      <div class="preview-container mt-4" v-if="img">
-        <div class="preview-card">
-          <div><img class="preview-img" :src="generateURL(img)" /></div>
-          <div>
-            <button
-              class="ml-2"
-              type="button"
-              @click="remove"
-              title="Remove file"
-            >
-              <b>×</b>
-            </button>
-          </div>
+      <div class="stamp-preview-container" v-if="img">
+        <img class="stamp-preview-img" :src="generateURL(img)" width="100" />
+        <div class="stamp-remove-btn" @click="remove" title="Remove file">
+          <i class="fa fa-trash"></i>
         </div>
       </div>
     </div>
@@ -157,4 +148,38 @@ export default {
   },
 };
 </script>
-<style scoped src="@/assets/dropfile.css"></style>
+<style scoped>
+.stamp-area {
+  background-color: #e2d5d5;
+  margin: 25px;
+  text-align: center;
+}
+.file-label {
+  font-size: 20px;
+  display: block;
+  cursor: pointer;
+  margin-top: 80px;
+}
+.stamp-dropzone-container {
+  padding: 30px;
+  position: relative;
+}
+.stamp-remove-btn {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.stamp-remove-btn:hover {
+  color: #f00;
+}
+.stamp-preview-container {
+  height: 200px;
+}
+.stamp-preview-img {
+  position: absolute;
+  bottom: 80px;
+  right: 328px;
+}
+</style>

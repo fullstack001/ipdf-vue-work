@@ -4,11 +4,17 @@ GlobalWorkerOptions.workerSrc = PDFJSWorker;
 import $ from "jquery";
 import { fabric } from "fabric";
 
-export const PDFAnnotate = function (container_id, url, options = {}) {
+export const PDFAnnotate = function (
+  container_id,
+  url,
+  currentPage,
+  options = {}
+) {
   this.toolObj1 = null;
   this.number_of_pages = 0;
   this.pages_rendered = 0;
   this.active_tool = 1; // 1 - Free hand, 2 - Text, 3 - Arrow, 4 - Rectangle, 5 - Circle, 6-Line
+  this.currentPage = currentPage;
   this.fabricObjects = [];
   this.fabricObjectsData = [];
   this.color = "#212121";
@@ -32,162 +38,145 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
   this.orientation;
   var inst = this;
 
-  var loadingTask = getDocument(this.url);
-  this.originDoc = loadingTask;
-  loadingTask.promise.then(
-    function (pdf) {
-      var scale = options.scale ? options.scale : 1;
-      inst.number_of_pages = pdf.numPages;
+  // Get reference to the existing img element
+  const imgElement = document.getElementById("0").querySelector("img");
+  // Create a new canvas element
+  const canvasElement = document.createElement("canvas");
 
-      for (var i = 1; i <= pdf.numPages; i++) {
-        pdf.getPage(i).then(function (page) {
-          if (
-            typeof inst.format === "undefined" ||
-            typeof inst.orientation === "undefined"
-          ) {
-            var originalViewport = page.getViewport({ scale: 1 });
-            inst.format = [originalViewport.width, originalViewport.height];
-            inst.orientation =
-              originalViewport.width > originalViewport.height
-                ? "landscape"
-                : "portrait";
-          }
+  // Get the width and height from the style attribute of the div element
+  const width = parseInt(imgElement.parentElement.style.width);
+  const height = parseInt(imgElement.parentElement.style.height);
 
-          var viewport = page.getViewport({ scale: scale });
-          var canvas = document.createElement("canvas");
-          document.getElementById(inst.container_id).appendChild(canvas);
-          canvas.className = "pdf-canvas";
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
-          const context = canvas.getContext("2d");
+  // Set canvas width and height
+  canvasElement.width = width;
+  canvasElement.height = height;
+  canvasElement.id = `canvas${this.currentPage}`;
 
-          var renderContext = {
-            canvasContext: context,
-            viewport: viewport,
-          };
-          var renderTask = page.render(renderContext);
-          renderTask.promise.then(function () {
-            $(".pdf-canvas").each(function (index, el) {
-              $(el).attr("id", "page-" + (index + 1) + "-canvas");
-              $(el).attr("id", "page-" + (index + 1) + "-canvas");
-            });
-            inst.pages_rendered++;
-            if (inst.pages_rendered == inst.number_of_pages) inst.initFabric();
-          });
-        });
-      }
-    },
-    function (reason) {
-      console.error(reason);
-    }
-  );
+  // Get the 2d context of the canvas
+  const ctx = canvasElement.getContext("2d");
 
-  this.initFabric = function () {
+  // Create a new image object
+  const img = new Image();
+
+  // Set the source of the image object to the image source URL
+  img.src = imgElement.src;
+
+  // Define a callback function to execute after the image is loaded
+  function imageLoadedCallback() {
+    // Draw the image onto the canvas
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Replace the img element with the canvas element
+    imgElement.parentNode.replaceChild(canvasElement, imgElement);
+
+    // Call any additional code or functions here
+    inst.initFabric(0);
+  }
+
+  // Assign the callback function to the img.onload event
+  img.onload = imageLoadedCallback;
+
+  this.initFabric = function (page) {
     var inst = this;
-    let canvases = $("#" + inst.container_id + " canvas");
-    // console.log(canvases);
-    canvases.each(function (index, el) {
-      var canvasContainer = $(el).parent()[0];
-      var canvasObject = el;
-      var background = el.toDataURL("image/png");
-      var fabricObj = new fabric.Canvas(el.id, {
-        freeDrawingBrush: {
-          width: 1,
-          color: inst.color,
-        },
-      });
-      inst.fabricObjects.push(fabricObj);
-
-      fabricObj.setBackgroundImage(
-        background,
-        fabricObj.renderAll.bind(fabricObj)
-      );
-      $(fabricObj.upperCanvasEl).click(function (event) {
-        inst.active_canvas = index;
-        inst.fabricClickHandler(event, fabricObj);
-      });
-
-      var imageOffsetX, imageOffsetY;
-
-      function handleDragStart(e) {
-        [].forEach.call(images, function (img) {
-          img.classList.remove("img_dragging");
-        });
-        this.classList.add("img_dragging");
-
-        var imageOffset = $(this).offset();
-        imageOffsetX = e.clientX - imageOffset.left;
-        imageOffsetY = e.clientY - imageOffset.top;
-      }
-
-      function handleDragOver(e) {
-        if (e.preventDefault) {
-          e.preventDefault();
-        }
-        e.dataTransfer.dropEffect = "copy";
-        return false;
-      }
-
-      function handleDragEnter(e) {
-        this.classList.add("over");
-      }
-
-      function handleDragLeave(e) {
-        this.classList.remove("over");
-      }
-
-      function handleDrop(e) {
-        e = e || window.event;
-        if (e.preventDefault) {
-          e.preventDefault();
-        }
-        if (e.stopPropagation) {
-          e.stopPropagation();
-        }
-        var img = document.querySelector(".furniture img.img_dragging");
-
-        var offset = $(canvasObject).offset();
-        var y = e.clientY - (offset.top + imageOffsetY);
-        var x = e.clientX - (offset.left + imageOffsetX);
-
-        var newImage = new fabric.Image(img, {
-          width: img.width,
-          height: img.height,
-          left: x,
-          top: y,
-        });
-        fabricObj.add(newImage);
-        return false;
-      }
-
-      function handleDragEnd(e) {
-        [].forEach.call(images, function (img) {
-          img.classList.remove("img_dragging");
-        });
-      }
-
-      var images = document.querySelectorAll(".furniture img");
-      [].forEach.call(images, function (img) {
-        img.addEventListener("dragstart", handleDragStart, false);
-        img.addEventListener("dragend", handleDragEnd, false);
-      });
-      canvasContainer.addEventListener("dragenter", handleDragEnter, false);
-      canvasContainer.addEventListener("dragover", handleDragOver, false);
-      canvasContainer.addEventListener("dragleave", handleDragLeave, false);
-      canvasContainer.addEventListener("drop", handleDrop, false);
-
-      fabricObj.on("after:render", function () {
-        inst.fabricObjectsData[index] = fabricObj.toJSON();
-        fabricObj.off("after:render");
-      });
-
-      if (
-        index === canvases.length - 1 &&
-        typeof options.ready === "function"
-      ) {
-        options.ready();
-      }
+    let canvas = $("#" + page + " canvas");
+    let el = canvas[0];
+    var canvasContainer = $(el).parent()[0];
+    var canvasObject = el;
+    var background = el.toDataURL("image/png");
+    var fabricObj = new fabric.Canvas(el.id, {
+      freeDrawingBrush: {
+        width: 1,
+        color: inst.color,
+      },
     });
+    inst.fabricObjects.push(fabricObj);
+
+    fabricObj.setBackgroundImage(
+      background,
+      fabricObj.renderAll.bind(fabricObj)
+    );
+    $(fabricObj.upperCanvasEl).click(function (event) {
+      inst.active_canvas = page;
+      inst.fabricClickHandler(event, fabricObj);
+    });
+
+    var imageOffsetX, imageOffsetY;
+
+    function handleDragStart(e) {
+      [].forEach.call(images, function (img) {
+        img.classList.remove("img_dragging");
+      });
+      this.classList.add("img_dragging");
+
+      var imageOffset = $(this).offset();
+      imageOffsetX = e.clientX - imageOffset.left;
+      imageOffsetY = e.clientY - imageOffset.top;
+    }
+
+    function handleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = "copy";
+      return false;
+    }
+
+    function handleDragEnter(e) {
+      this.classList.add("over");
+    }
+
+    function handleDragLeave(e) {
+      this.classList.remove("over");
+    }
+
+    function handleDrop(e) {
+      e = e || window.event;
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+      var img = document.querySelector(".furniture img.img_dragging");
+
+      var offset = $(canvasObject).offset();
+      var y = e.clientY - (offset.top + imageOffsetY);
+      var x = e.clientX - (offset.left + imageOffsetX);
+
+      var newImage = new fabric.Image(img, {
+        width: img.width,
+        height: img.height,
+        left: x,
+        top: y,
+      });
+      fabricObj.add(newImage);
+      return false;
+    }
+
+    function handleDragEnd(e) {
+      [].forEach.call(images, function (img) {
+        img.classList.remove("img_dragging");
+      });
+    }
+
+    var images = document.querySelectorAll(".furniture img");
+    [].forEach.call(images, function (img) {
+      img.addEventListener("dragstart", handleDragStart, false);
+      img.addEventListener("dragend", handleDragEnd, false);
+    });
+    canvasContainer.addEventListener("dragenter", handleDragEnter, false);
+    canvasContainer.addEventListener("dragover", handleDragOver, false);
+    canvasContainer.addEventListener("dragleave", handleDragLeave, false);
+    canvasContainer.addEventListener("drop", handleDrop, false);
+
+    fabricObj.on("after:render", function () {
+      inst.fabricObjectsData[page] = fabricObj.toJSON();
+      fabricObj.off("after:render");
+    });
+
+    if (options.ready === "function") {
+      options.ready();
+    }
   };
 
   this.fabricClickHandler = function (event, fabricObj) {
@@ -251,63 +240,58 @@ PDFAnnotate.prototype.deleteSelectedObject = function () {
   }
 };
 
-PDFAnnotate.prototype.savePdf = async function (fileName) {
-  var inst = this;
+PDFAnnotate.prototype.savePdf = async function (canvases, originData) {
   var objects = this.fabricObjects;
   var resultImages = [];
   var added_items = [];
   let url = "";
   // var fabricObj = inst.fabricObjects[inst.active_canvas];
 
-  await this.originDoc.promise.then((pdf) => {
-    for (var i = 1; i <= pdf.numPages; i++) {
-      const index = i - 1;
-      pdf.getPage(i).then(async (page) => {
-        // Create a new Fabric.js canvas
-        var originalViewport = page.getViewport({ scale: 1 });
-        var pageWidth = originalViewport.width;
-        var pageHeight = originalViewport.height;
-        const canvas = new fabric.Canvas(null, {
-          width: pageWidth,
-          height: pageHeight,
+  for (var i = 1; i <= canvases.length; i++) {
+    const index = i - 1;
+    // Create a new Fabric.js canvas
+    var pageWidth = originData[index].width;
+    var pageHeight = originData[index].height;
+    const canvas = new fabric.Canvas(null, {
+      width: pageWidth,
+      height: pageHeight,
+    });
+    let imgObjects = objects[index]._objects;
+    var temp = [];
+    for (var j = 0; j < imgObjects.length; j++) {
+      var obj = imgObjects[j];
+      if (obj.top >= 0 && obj.top < pageHeight) {
+        temp.push({
+          top: obj.top,
+          left: obj.left,
+          scaleX: obj.scaleX,
+          scaleY: obj.scaleY,
+          url: obj._originalElement.currentSrc,
+          width: obj.width,
+          height: obj.height,
         });
-        let imgObjects = objects[index]._objects;
-        var temp = [];
-        for (var j = 0; j < imgObjects.length; j++) {
-          var obj = imgObjects[j];
-          if (obj.top >= 0 && obj.top < pageHeight) {
-            temp.push({
-              top: obj.top,
-              left: obj.left,
-              scaleX: obj.scaleX,
-              scaleY: obj.scaleY,
-              url: obj._originalElement.currentSrc,
-              width: obj.width,
-              height: obj.height,
-            });
-          }
-          // console.log(index, imgObjects[j]);
-          canvas.add(imgObjects[j]);
-        }
-        // Convert the Fabric.js canvas to an image data URL
-        const imageDataUrl = canvas.toDataURL("image/png", 1.0);
-
-        const byteString = atob(imageDataUrl.split(",")[1]);
-
-        const ab = new ArrayBuffer(byteString.length);
-        const ia = new Uint8Array(ab);
-
-        for (let i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-        }
-
-        const blob = new Blob([ab], { type: "image/png" });
-        resultImages.push(blob);
-        added_items.push(temp);
-        temp = [];
-      });
+      }
+      // console.log(index, imgObjects[j]);
+      canvas.add(imgObjects[j]);
     }
-  });
+    // Convert the Fabric.js canvas to an image data URL
+    const imageDataUrl = canvas.toDataURL("image/png", 1.0);
+
+    const base64String = imageDataUrl.split(",")[1];
+    const byteCharacters = atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: "image/png" }); // Specify the appropriate MIME type based on the image format
+
+    resultImages.push(blob);
+    added_items.push(temp);
+    temp = [];
+  }
   return added_items;
 };
 
@@ -375,4 +359,46 @@ PDFAnnotate.prototype.setDefaultTextForTextBox = function (text) {
 };
 PDFAnnotate.prototype.doubleClick = function (e) {
   console.log(e);
+};
+
+PDFAnnotate.prototype.addCanvas = function (page) {
+  var inst = this;
+  inst.currentPage = page;
+  // Get reference to the existing img element
+  const imgElement = document.getElementById(page).querySelector("img");
+  // Create a new canvas element
+  const canvasElement = document.createElement("canvas");
+
+  // Get the width and height from the style attribute of the div element
+  const width = parseInt(imgElement.parentElement.style.width);
+  const height = parseInt(imgElement.parentElement.style.height);
+
+  // Set canvas width and height
+  canvasElement.width = width;
+  canvasElement.height = height;
+  canvasElement.id = `canvas${inst.currentPage}`;
+
+  // Get the 2d context of the canvas
+  const ctx = canvasElement.getContext("2d");
+
+  // Create a new image object
+  const img = new Image();
+
+  // Set the source of the image object to the image source URL
+  img.src = imgElement.src;
+
+  // Define a callback function to execute after the image is loaded
+  function imageLoadedCallback() {
+    // Draw the image onto the canvas
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Replace the img element with the canvas element
+    imgElement.parentNode.replaceChild(canvasElement, imgElement);
+
+    // Call any additional code or functions here
+    inst.initFabric(page);
+  }
+
+  // Assign the callback function to the img.onload event
+  img.onload = imageLoadedCallback;
 };

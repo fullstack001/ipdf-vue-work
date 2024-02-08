@@ -309,7 +309,6 @@ PDFAnnotate.prototype.deleteSelectedObject = function () {
 };
 
 PDFAnnotate.prototype.savePdf = async function (canvases, originData) {
-  var inst = this;
   var objects = this.fabricObjects;
   var resultImages = [];
   let url = "";

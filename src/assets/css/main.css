@@ -1,10 +1,8 @@
-
 .main {
   flex-grow: 1;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #eee !important;
 }
 
 .page-title {
@@ -17,7 +15,6 @@
 }
 
 .page-description {
-  max-width: 800px;
   margin: 8px auto 0;
   line-height: 32px;
   font-size: 22px;
@@ -27,23 +24,68 @@
 
 .dropzone-container {
   width: 100%;
-  height: 100vh;
-  padding: 1rem;
-}
-.drop-area {
-  border-radius: 8px;
-  border: 1px dotted #ff7c03;
-  width: 50%;
-  margin: auto;
-  padding: 50px 0;
-  margin-top: 20px;
-  background-color: #fffbf8;
+  min-height: 100vh;
+  padding: 1rem 0rem;
 }
 
 .upload_btn_area {
   position: relative;
 }
+.hidden-input {
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+}
+.preview_area {
+  display: flex;
+}
+.preview-container {
+  position: relative;
+  margin-top: 2rem;
+  padding-left: 40px;
+}
+.preview-card {
+  cursor: grab;
+  flex: 1 1;
+  margin: 4px;
+  max-width: 215px;
+  min-width: 215px;
+  min-height: 230px;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: #fdfdfd;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+  padding-bottom: 10px;
+}
 
+.preview-card:focus,
+.preview-card:active,
+.preview-card:visited {
+  border: dotted 2px #e76d26;
+}
+.preview_img {
+  margin-top: 40px;
+}
+.preview-img {
+  width: 140px;
+  height: 180px;
+  border-radius: 5px;
+  border: 1px solid #a2a2a2;
+  background-color: #a2a2a2;
+}
+
+.file__actions {
+  top: 8px;
+  right: 8px;
+  position: absolute;
+  display: inline-flex;
+  /* display: none; */
+  z-index: 100;
+}
 .file__btn {
   padding: 3px;
   width: 24px;
@@ -74,7 +116,6 @@
   -ms-flex-pack: center;
   justify-content: center;
   min-height: 80px;
-  min-width: 330px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 24px 48px;
@@ -96,6 +137,13 @@
   -ms-flex-order: 1;
   order: 1;
   max-width: 60vw;
+  cursor: pointer;
+}
+.tool__sidebar {
+  height: 100vh;
+  background-color: #fff;
+  max-width: 415px !important;
+  min-width: 415px !important;
 }
 .sidebar-active .tool__sidebar {
   -ms-flex-preferred-size: 440px;
@@ -110,17 +158,29 @@
   position: relative;
 }
 
-.tool__sidebar {
-  height: 100vh;
-  background-color: #fff;
-  min-width: 300px;
-}
+
 
 .draggable-item {
   margin: 5px;
   padding: 10px;
   background-color: lightblue;
   cursor: move;
+}
+
+.drop-area {
+  border-radius: 8px;
+  border: 1px dotted #ff7c03;
+  width: 50%;
+  margin: auto;
+  padding: 50px 0;
+  margin-top: 20px;
+  background-color: #fffbf8;
+}
+
+.drop-img {
+  width: 96px;
+  margin: auto;
+  margin-bottom: 30px;
 }
 
 .upload_btn {
@@ -140,14 +200,26 @@
 
 .add-more {
   width: fit-content;
+  position: absolute;
+  margin: auto;
+  right: -50px;
+  top: -5px;
 }
+
+.add-more-area {
+  position: relative;
+  display: block;
+}
+
 
 .option__panel__content {
   margin: 10px;
-  background: #def2ff;
+  background: #fefefe;
   padding: 10px;
   border-radius: 5px;
   font-size: 13px;
+  margin-bottom: 130px;
+  text-align: left;
 }
 
 .option__panel__title {
@@ -156,63 +228,14 @@
   min-height: 48px;
   padding: 8px 12px;
   color: #fff;
-  background-color: #ff7c03;
+  border-radius: 8px;
+  border: 2px solid #ff7c03;
+  background: linear-gradient(180deg, #ff7c03 0%, #ff4f03 100%);
   padding: 15px 40px;
-  border-radius: 10px;
   font-weight: 600;
-  border: none;
   cursor: pointer;
 }
 
 .option__panel__title:hover {
-  background-color: #ff7c03;
-}
-
-#pickfiles {
-  display: block;
-  background-color: #ff7c03;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-
-
-.add-more .md-icon-button:hover {
-  background-color: #ff7c03 !important;
-}
-
-h3 {
-  font-weight: 500;
-}
-
-.tool__sidebar__inactive {
-  min-width: 400px;
-  padding: 10px;
-}
-
-.split_option {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  text-align: left;
-}
-
-.md-radio-label {
-  font-weight: 500 !important;
-}
-@media (max-width: 640px) {
-  .drop-area {
-    width: 100%;
-  }
-
-  .uploader__btn {
-    min-width: auto;
-  }
-
-  .page-title{
-    font-size: 26px !important;
-  }
+  background-color: #e76d26;
 }

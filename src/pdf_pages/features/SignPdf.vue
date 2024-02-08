@@ -1,5 +1,5 @@
 <template>
-  <div class="main row">
+  <div class="main">
     <Processing :progress="'Loading'" v-if="page_load == 'processing'" />
     <Uploading
       :progress="progress"
@@ -9,7 +9,7 @@
       :file_name="'pdfden_signed.pdf'"
       v-if="page_load == 'uploading'"
     />
-    <div v-if="file && page_load == 'default'" class="col-md-10">
+    <div v-if="file && page_load == 'default'">
       <SignComponent
         :pdfUrl="getURL(file)"
         :get_pdf="get_result"
@@ -21,7 +21,7 @@
       />
     </div>
     <div
-      class="dropzone-container col-md-12"
+      class="dropzone-container"
       @dragover.prevent
       @drop="handleDrop"
       v-if="!file && page_load == 'default'"
@@ -99,6 +99,7 @@ import addImagesToPDF1 from "../services/add_img_to_pdf1";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
 import { fileHandlingMixin } from "@/fileHandlingMixin.js";
+import getPageNumber from "../services/getPageNumber";
 
 export default {
   mixins: [fileHandlingMixin],
@@ -137,16 +138,18 @@ export default {
       this.sign_name = data.name_text;
     },
 
-    handleFiles(files) {
+    async handleFiles(files) {
       if (files.length > 1) {
         this.$swal(
           "Sorry!",
-          "PDFden cannot process  more than one files in a task. One file will process!",
+          "PDFden cannot process  more than one files in a task!",
           "warning"
         );
-        this.file = files[0];
+        return;
       } else {
+        this.totalPageNum = await getPageNumber(files[0]);
         this.file = files[0];
+        this.modalValidate = true;
       }
     },
 
@@ -156,6 +159,7 @@ export default {
     },
 
     async upload_png(data) {
+      console.log(data);
       this.page_load = "processing";
       let added = data[0];
       let matched = data[1];

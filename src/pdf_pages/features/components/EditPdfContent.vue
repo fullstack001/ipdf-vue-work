@@ -88,7 +88,7 @@ import { PDFAnnotate } from "@/assets/js/pdfannotate.js";
 import { GlobalWorkerOptions, getDocument } from "pdfjs-dist/legacy/build/pdf";
 import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
 GlobalWorkerOptions.workerSrc = PDFJSWorker;
-import $ from "jquery";
+
 export default {
   components: {
     EditToolBar,
@@ -109,6 +109,12 @@ export default {
       show_tools: false,
       activeObject: null,
     };
+  },
+  created() {
+    window.addEventListener("keydown", this.keyDownHandler);
+  },
+  destroyed() {
+    window.removeEventListener("keydown", this.keyDownHandler);
   },
   mounted() {
     this.loadPdf();
@@ -164,6 +170,16 @@ export default {
       });
       this.pdf = pdf;
       this.rendering = false;
+    },
+    keyDownHandler(e) {
+      var activeObject =
+        this.pdf.fabricObjects[this.pdf.active_canvas].getActiveObject();
+      if (e.key == "Delete" && activeObject) {
+        this.pdf.fabricObjects[this.pdf.active_canvas].remove(activeObject);
+        // this.pdf.fabricObjects[this.pdf.active_canvas].renderAll();
+        this.get_objects();
+      }
+      // Your handler code here
     },
     set_page(data) {
       this.currentPage = data;

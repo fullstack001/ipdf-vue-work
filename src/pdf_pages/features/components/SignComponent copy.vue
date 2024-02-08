@@ -1,52 +1,19 @@
 <template>
-  <div class="sign-container">
-    <div class="sign-edit">
-      <RendingProgressVue
-        :page="totalPageNum"
-        :loadingPage="loadingPage"
-        v-show="rendering"
-      />
-      <SignToolbar
-        :pages="pages"
-        :currentPageProps="currentPage"
-        @set_page="set_page"
-        v-if="!rendering"
-      />
-      <div class="sign-content" v-if="imageItems" v-show="!rendering">
-        <div id="pdf-preview-list" ref="list_scrollContainer">
-          <img
-            v-for="(imageItem, index) in imageItems"
-            :key="index"
-            :id="'list' + index"
-            :src="imageItem.img"
-            class="pdf-preview-item"
-            alt="Image"
-          />
-        </div>
-        <div
-          id="pdf-edit-list"
-          ref="scrollContainer"
-          @mouseover="get_objects"
-          v-show="!rendering"
-        >
-          <div
-            v-for="(imageItem, index) in imageItems"
-            :key="index"
-            :id="index"
-            class="pdf-edit-item-container"
-            :style="{
-              width: `${imageItem.width}px`,
-              height: `${imageItem.height}px`,
-            }"
-            ref="imageElement"
-          >
-            <img :src="imageItem.img" alt="Image" />
-          </div>
-        </div>
-      </div>
+  <div class="edit-pdf-content row">
+    <div id="sidebar" class="tool__sidebar col-md-2">
+      <PdfPreviewList :url="pdfUrl" />
     </div>
-    <div class="sign_sidebar">
-      <h3>{{ $t("page_titles.sign_page.sign_options") }}</h3>
+    <div class="col-md-7 sign_right">
+      <div class="toolbar"></div>
+      <div
+        id="pdf-container-annotate"
+        ref="scrollableDiv"
+        @mouseover="get_objects"
+      ></div>
+    </div>
+    <div class="sign_tool col-md-3">
+      <div class="toolbar"></div>
+      <h3 class="mt-3 mb-5">{{ $t("page_titles.sign_page.sign_options") }}</h3>
       <div class="furniture" v-show="sign_obj">
         <div class="sign_item p-1" draggable="true">
           <div class="sign_draggable_drag">
@@ -655,27 +622,24 @@
           </div>
         </div>
       </div>
-      <button class="sign_btn" @click="sign_pdf">
+      <button class="sign_btn" @click="savePDF">
         {{ $t("page_titles.sign_page.actionBtn") }}
       </button>
     </div>
     <DateFormatModal v-if="dateModalValidate" @close="set_date_format" />
     <TextModal v-if="textModalValidate" @close="set_text" :textProps="text" />
-    <div id="temp_canvas" style="display: none"></div>
   </div>
 </template>
 
 <script>
+import "@/assets/js/styles.css";
+import "@/assets/js/pdfannotate.css";
 import { PDFAnnotate } from "@/assets/js/pdfsign.js";
 import convert from "@/pdf_pages/services/convertTextToImg.js";
 import DateFormatModal from "./DateFormatModal.vue";
-import RendingProgressVue from "./RendingProgress.vue";
-import convertPDFImg from "../../services/convertPDFImg.js";
-import SignToolbar from "./SignToolbar.vue";
-import { GlobalWorkerOptions, getDocument } from "pdfjs-dist/legacy/build/pdf";
-import PDFJSWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
-GlobalWorkerOptions.workerSrc = PDFJSWorker;
 import TextModal from "./TextModal.vue";
+
+import PdfPreviewList from "./PdfPreviewList.vue";
 const today = new Date();
 
 // Get the components of the date (year, month, day)
@@ -690,14 +654,19 @@ export default {
   components: {
     DateFormatModal,
     TextModal,
-    SignToolbar,
-    RendingProgressVue,
+    PdfPreviewList,
   },
   created() {
     window.addEventListener("keydown", this.keyDownHandler);
   },
   destroyed() {
     window.removeEventListener("keydown", this.keyDownHandler);
+  },
+  async mounted() {
+    this.loadScripts();
+
+    this.date_img = await convert(this.date);
+    this.text_img = await convert(this.text);
   },
   props: {
     pdfUrl: {
@@ -707,6 +676,9 @@ export default {
     get_pdf: {
       default: false,
     },
+    currentPage: {
+      require: true,
+    },
     totalPageNum: {
       require: true,
     },
@@ -714,45 +686,33 @@ export default {
       type: Object,
     },
   },
-  async mounted() {
-    this.loadPdf();
-    this.date_img = await convert(this.date);
-    this.text_img = await convert(this.text);
-  },
-  computed: {
-    imageElements() {
-      return this.$refs.imageElement || [];
-    },
-  },
   watch: {
-    currentPage(newValue, oldValue) {
-      const index = newValue - 1;
-      const targetElement = document.getElementById(index);
-      const listTargetElement = document.getElementById(`list${index}`);
-      this.$refs.list_scrollContainer.scrollTop =
-        (listTargetElement.offsetHeight + 20) * (newValue - 1);
-
-      const targetPosition = (targetElement.offsetHeight + 20) * (newValue - 1);
-      const container = this.$refs.scrollContainer;
-      const duration = Math.abs(newValue - oldValue) * 100;
-      this.scrollToTarget(container, targetPosition, duration);
-      // this.$refs.scrollContainer.scrollTop =
-      //   (targetElement.offsetHeight + 20) * (newValue - 1);
+    get_pdf(newValue) {
+      if (newValue == true) {
+        this.savePDF();
+      }
+    },
+    currentPage(newValue) {
+      if (newValue != 0) {
+        const scrollableDiv = this.$refs.scrollableDiv;
+        const totalHeight =
+          scrollableDiv.scrollHeight - scrollableDiv.clientHeight;
+        // const scrollToPosition =
+        //   ((newValue - 1) / this.totalPageNum) * totalHeight * 1.2;
+        const targetElement = document.getElementById(
+          `page-${newValue}-canvas`
+        );
+        const elementHeight = targetElement.offsetHeight;
+        this.setScrollbarPosition((elementHeight + 25) * (newValue - 1));
+      }
     },
   },
   data() {
     return {
-      pages: 1,
-      imageItems: [],
-      currentPage: 1,
       pdf: null,
-      observer: null,
       show_img: null,
       date_img: null,
       text_img: null,
-      canvases: [],
-      rendering: true,
-      loadingPage: 0,
       date: formattedDate,
       text: "Text",
       dateModalValidate: false,
@@ -766,37 +726,6 @@ export default {
     };
   },
   methods: {
-    async loadPdf() {
-      this.pages = this.totalPageNum;
-      const pdf = await getDocument(this.pdfUrl).promise.then((pdf) => {
-        return pdf;
-      });
-      for (let i = 1; i <= this.pages; i++) {
-        const imageItem = await convertPDFImg(pdf, i);
-        await this.imageItems.push(imageItem);
-        this.loadingPage = i;
-      }
-      this.$nextTick().then(() => {
-        // Now, the DOM has been updated, and you can safely execute the next statement
-        this.observer = new IntersectionObserver(this.handleIntersection, {
-          threshold: 0.5,
-        });
-        this.imageElements.forEach((element) => {
-          this.observer.observe(element);
-        });
-        this.canvases.push(0);
-        this.loadScripts();
-        this.rendering = false;
-      });
-    },
-    async loadScripts() {
-      var pdf = await new PDFAnnotate("pdf-edit-list", this.pdfUrl, 0, {
-        scale: 1.5,
-        pageImageCompression: "FAST", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
-      });
-      this.pdf = pdf;
-      this.rendering = false;
-    },
     async set_text(data) {
       this.text = data;
       this.textModalValidate = false;
@@ -817,46 +746,15 @@ export default {
       }
       // Your handler code here
     },
-    set_page(data) {
-      this.currentPage = data;
-    },
-    handleIntersection(entries) {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          console.log(this.canvases, entry.target.id);
-          if (this.pdf) {
-            const pageNum = entry.target.id * 1;
-            if (this.canvases.indexOf(pageNum) < 0) {
-              this.canvases.push(pageNum);
-              this.pdf.addCanvas(pageNum);
-            }
-          }
-        } else {
-          // console.log("Image scrolled out of view:", entry.target.id);
-        }
+    loadScripts() {
+      var pdf = new PDFAnnotate("pdf-container-annotate", this.pdfUrl, {
+        scale: 1,
+        pageImageCompression: "SLOW", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
       });
-    },
-    scrollToTarget(scrollContainer, targetPosition, duration) {
-      const start = scrollContainer.scrollTop;
-      const distance = targetPosition - start;
-      const startTime = performance.now();
-
-      function scrollAnimation(currentTime) {
-        const elapsedTime = currentTime - startTime;
-        const scrollProgress = Math.min(1, elapsedTime / duration);
-        const newPosition = start + distance * scrollProgress;
-
-        scrollContainer.scrollTop = newPosition;
-
-        if (scrollProgress < 1) {
-          requestAnimationFrame(scrollAnimation);
-        }
-      }
-
-      requestAnimationFrame(scrollAnimation);
+      this.pdf = pdf;
     },
     async get_objects() {
-      const images = await this.pdf.savePdf(this.canvases, this.imageItems);
+      const images = await this.pdf.savePdf("output.pdf");
       this.set_counts(images);
     },
     setScrollbarPosition(position) {
@@ -905,8 +803,8 @@ export default {
       this.text_num = text_num;
       this.stamp_num = stamp_num;
     },
-    async sign_pdf() {
-      const images = await this.pdf.savePdf(this.canvases, this.imageItems);
+    async savePDF() {
+      const images = await this.pdf.savePdf("output.pdf");
       const matched = {
         text: [this.sign_obj.name_text, this.date, this.text],
         img: [this.sign_obj.name, this.date_img, this.text_img],
@@ -925,65 +823,24 @@ export default {
 img {
   cursor: move;
 }
+#pdf-container-annotate {
+  max-height: 100vh;
+  min-height: 100vh;
+  overflow-y: scroll;
+  margin-top: 10px;
+  text-align: center;
+}
 
-.pdf-preview-item {
-  width: 95px;
-  border: dotted 0.5px #ff7c03;
-  height: 135px;
-  margin: auto;
-  margin-top: 0px;
-  margin-bottom: 20px;
-  box-shadow: 0px 3px 3px 0px rgb(110, 110, 54);
+.canvas-container {
+  position: absolute !important;
 }
-.pdf-edit-item-container {
-  border: dotted 0.5px #ff7c03;
-  margin: auto;
-  margin-bottom: 20px;
-  box-shadow: 0px 3px 3px 0px rgb(110, 110, 54);
+.edit-pdf-content {
+  max-height: 100vh;
+  overflow-y: scroll;
 }
-.sign-container {
-  display: flex;
-}
-.sign-edit {
-  width: 79%;
-}
-.sign-content {
-  display: flex;
-}
-#pdf-preview-list {
-  min-width: 200px;
-  max-width: 200px;
-  height: 95vh;
-  background-color: #fff;
-  display: grid;
-  overflow-y: auto;
-  padding-top: 50px;
-}
-#pdf-edit-list {
-  height: 95vh;
-  width: 100%;
-  overflow-y: auto;
-  padding-top: 50px;
-}
-.sign_sidebar {
-  min-width: 400px;
-  max-width: 400px;
-  height: 100vh;
-  background-color: #fff;
-  padding-top: 30px;
-}
-.sign_btn {
-  font-size: 22px;
-  line-height: 26px;
-  min-height: 48px;
-  padding: 8px 12px;
-  color: #fff;
-  border-radius: 8px;
-  border: 2px solid #ff7c03;
-  background: linear-gradient(180deg, #ff7c03 0%, #ff4f03 100%);
-  padding: 15px 40px;
-  font-weight: 600;
-  cursor: pointer;
+
+#colorpicker {
+  height: 25px !important;
 }
 .sign_counters {
   background-color: #4a7aab;
@@ -991,6 +848,19 @@ img {
   padding-left: 9px;
   padding-right: 9px;
   color: white;
+}
+.sign_btn {
+  font-size: 22px;
+  line-height: 26px;
+  min-height: 48px;
+  padding: 8px 12px;
+  color: #fff;
+  background-color: #ff7c03;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
 }
 .sign_item {
   position: relative;
@@ -1073,7 +943,6 @@ img {
   padding: 0;
 }
 .furniture {
-  margin: 20px 14px;
-  min-height: 200px;
+  margin: 10px 14px;
 }
 </style>
