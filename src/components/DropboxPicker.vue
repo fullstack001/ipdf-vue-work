@@ -177,7 +177,7 @@ body {
   font-size: 16px;
 }
 
-.dropbox-icon:hover{
+.dropbox-icon:hover {
   background-color: #ff7c03;
 }
 </style>
