@@ -2,143 +2,306 @@
   <div class="toolbar">
     <div class="stepper">
       <div class="arrow">
-        <i class="fa-solid fa-chevron-up" style="font-size: medium"></i>
+        <i
+          class="fa-solid fa-chevron-up"
+          style="font-size: medium"
+          @click="$emit('set_page', currentPage == 1 ? 1 : currentPage - 1)"
+        ></i>
       </div>
       <div class="arrow">
-        <i class="fa-solid fa-chevron-down" style="font-size: medium"></i>
+        <i
+          class="fa-solid fa-chevron-down"
+          style="font-size: medium"
+          @click="
+            () => {
+              let newPage =
+                currentPage == pages ? currentPage : currentPage + 1;
+              $emit('set_page', newPage);
+            }
+          "
+        ></i>
       </div>
       <div class="info">
         <input
           type="number"
-          :max="34"
+          :max="pages"
           :min="1"
           style="width: 40px; height: 24px; margin-right: 3px"
-          value="4"
+          v-model="currentPage"
+          @change="() => $emit('set_page', currentPage * 1)"
         />
-        / 35
+        / {{ pages }}
       </div>
     </div>
 
     <div class="tool">
-      <button class="tool-button active">
+      <button
+        class="tool-button"
+        :class="{ active: toolShow == 'hand' }"
+        @click="enableSelector"
+      >
         <i class="fa-regular fa-hand" title="Free Hand" id="free_hand"></i>
       </button>
     </div>
     <div class="tool">
-      <button class="tool-button">
+      <button
+        class="tool-button"
+        @click="enablePencil"
+        :class="{ active: toolShow == 'brush' }"
+      >
         <i class="fa fa-pencil" title="Pencil"></i>
       </button>
     </div>
     <div class="tool">
-      <button class="tool-button">
+      <button
+        class="tool-button"
+        @click="enableText"
+        :class="{ active: toolShow == 'text' }"
+      >
         <i class="fa fa-font" title="Add Text"></i>
       </button>
     </div>
     <div class="tool">
-      <button class="tool-button">
+      <button
+        class="tool-button"
+        @click="toolShow = 'shape'"
+        :class="{ active: toolShow == 'shape' }"
+      >
         <i class="fa-solid fa-shapes"></i>
       </button>
     </div>
     <div class="tool">
-      <button class="tool-button">
+      <button class="tool-button" @click="$emit('addImage')">
         <i class="fa-regular fa-image" title="Add an Image"></i>
       </button>
     </div>
 
-    <div class="tool">
-      <button class="tool-button">
+    <div class="tool active">
+      <button class="tool-button" @click="$emit('deleteSelectedObject')">
         <i class="fa fa-trash"></i>
       </button>
     </div>
+    <TextToolBar
+      v-if="toolShow == 'text'"
+      @set_font_family="set_font_family"
+      @set_font_size="set_font_size"
+      @set_font_style="set_font_style"
+      @set_font_weight="set_font_weight"
+      @set_font_color="set_font_color"
+      @set_font_background_color="set_font_background_color"
+      @set_font_underline="set_font_underline"
+    />
+    <EditTextToolBar
+      v-show="toolShow == 'edit_text'"
+      @set_font_family="edit_set_font_family"
+      @set_font_size="edit_set_font_size"
+      @set_font_style="edit_set_font_style"
+      @set_font_weight="edit_set_font_weight"
+      @set_font_underline="edit_set_font_underline"
+      @set_font_color="edit_set_font_color"
+      @set_font_background_color="edit_set_font_background_color"
+      :fontFamilyProps="fontFamily"
+      :fontStyleProps="fontStyle"
+      :underlineProps="underline"
+      :fontWeightProps="fontWeight"
+    />
+    <ShapeToolBar
+      v-show="toolShow == 'shape'"
+      @enableAddArrow="enableAddArrow"
+      @enableRectangle="enableRectangle"
+      @enableCircle="enableCircle"
+      @enableLine="enableAddLine"
+      @set_color="set_color"
+    />
+    <BrushToolBar
+      v-show="toolShow == 'brush'"
+      @set_color="set_color"
+      @set_brushSize="(data) => $emit('set_brushSize', data)"
+    />
   </div>
 </template>
+<script>
+import EditTextToolBar from "./EditTextToolBar.vue";
+import TextToolBar from "./TextToolBar.vue";
+import ShapeToolBar from "./ShapeToolBar.vue";
+import BrushToolBar from "./BrushToolBar.vue";
+import $ from "jquery";
+export default {
+  components: {
+    EditTextToolBar,
+    TextToolBar,
+    ShapeToolBar,
+    BrushToolBar,
+  },
+  props: [
+    "pages",
+    "currentPageProps",
+    "show_tools",
+    "pdf",
+    "activeObjectProps",
+  ],
+  data() {
+    return {
+      currentPage: 1,
+      toolShow: null,
+      temp: null,
+      brushSize: 1,
+      fontFamily: "Arial",
+      fontSize: 16,
+      fontStyle: "normal",
+      fontWeight: "normal",
+      underline: false,
+      color_pallet: "#000",
+      activeObject: null,
+      firsted: false,
+    };
+  },
+  watch: {
+    currentPageProps(newValue) {
+      this.currentPage = newValue;
+    },
+    show_tools(newValue) {
+      this.toolShow = "edit_text";
+      this.activeObject = this.activeObjectProps;
+      console.log(newValue, this.toolShow);
+    },
+  },
+  methods: {
+    enablePencil() {
+      this.toolShow = "brush";
+      this.$emit("enablePencil");
+    },
+    enableSelector() {
+      this.toolShow = "hand";
+      this.$emit("enableSelector");
+    },
+
+    set_color(data) {
+      this.pdf.setColor(data);
+      this.color_pallet = data;
+    },
+    enableAddArrow() {
+      this.pdf.setColor(this.color_pallet);
+      this.pdf.enableAddArrow(function () {
+        $(".tool-button").first().find("i").click();
+      });
+    },
+    enableAddLine() {
+      this.pdf.setColor(this.color_pallet);
+      this.pdf.enableAddLine(function () {
+        $(".tool-button").first().find("i").click();
+      });
+    },
+    enableRectangle() {
+      this.pdf.setColor(this.color_pallet);
+      this.pdf.setBorderColor(this.color_pallet);
+      // this.pdf.enableRectangle();
+      this.pdf.enableRectangle(function () {
+        $(".tool-button").first().find("i").click();
+      });
+    },
+    enableCircle() {
+      this.pdf.setColor(this.color_pallet);
+      this.pdf.setBorderColor(this.color_pallet);
+      this.pdf.enableCircle();
+    },
+    enableText() {
+      this.toolShow = "text";
+      this.pdf.enableAddText();
+      this.pdf.defaultFontStyle();
+    },
+    set_font_size(data) {
+      this.fontSize = data;
+      this.pdf.setFontSize(data);
+    },
+    set_font_family(data) {
+      this.fontFamily = data;
+      this.pdf.setFontFamily(data);
+    },
+    set_font_weight(data) {
+      this.fontWeight = data;
+      this.pdf.setFontWeight(data);
+    },
+    set_font_style(data) {
+      this.fontStyle = data;
+      this.pdf.setFontStyle(data);
+    },
+    set_font_underline(data) {
+      this.underline = data;
+      this.pdf.setFontUnderline(data);
+    },
+    set_font_color(data) {
+      this.pdf.setFontColor(data);
+      this.color_pallet = data;
+    },
+    set_font_background_color(data) {
+      this.pdf.setFontBackgroundColor(data);
+    },
+    edit_set_font_color(data) {
+      this.firsted = !this.firsted;
+      this.activeObject.fill = data;
+      if (this.firsted) {
+        this.activeObject.fontSize = this.activeObject.fontSize + 1;
+      } else {
+        this.activeObject.fontSize = this.activeObject.fontSize - 1;
+      }
+      this.renderCanvas();
+    },
+    edit_set_font_background_color(data) {
+      this.firsted = !this.firsted;
+      this.activeObject.backgroundColor = data;
+      if (this.firsted) {
+        this.activeObject.fontSize = this.activeObject.fontSize + 1;
+      } else {
+        this.activeObject.fontSize = this.activeObject.fontSize - 1;
+      }
+      this.renderCanvas();
+    },
+    edit_set_font_underline(data) {
+      this.underline = data;
+      this.firsted = !this.firsted;
+      this.activeObject.underline = data;
+      if (this.firsted) {
+        this.activeObject.fontSize = this.activeObject.fontSize + 1;
+      } else {
+        this.activeObject.fontSize = this.activeObject.fontSize - 1;
+      }
+
+      this.renderCanvas();
+    },
+    edit_set_font_size(data) {
+      this.activeObject.fontSize = data;
+      this.renderCanvas();
+      this.fontSize = data;
+    },
+    edit_set_font_family(data) {
+      this.activeObject.fontFamily = data;
+      this.renderCanvas();
+      this.fontFamily = data;
+    },
+    edit_set_font_weight(data) {
+      this.activeObject.fontWeight = data;
+      this.renderCanvas();
+      this.fontWeight = data;
+    },
+    edit_set_font_style(data) {
+      this.activeObject.fontStyle = data;
+      this.renderCanvas();
+      this.fontStyle = data;
+    },
+    renderCanvas() {
+      var activeObject =
+        this.pdf.fabricObjects[this.pdf.active_canvas].getActiveObject();
+      if (activeObject.text) {
+        this.pdf.fabricObjects[this.pdf.active_canvas].remove(activeObject);
+        this.pdf.fabricObjects[this.pdf.active_canvas].add(this.activeObject);
+      }
+      // this.pdf.fabricObjects[this.pdf.active_canvas].renderAll();
+      // $(".tool-button").first().find("i").click();
+    },
+  },
+};
+</script>
 <style scoped>
-.toolbar {
-  width: 100%;
-  background-color: #f5f5fa;
-  height: 50px;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  box-shadow: 5px 0px 5px 0px rgba(87, 81, 81, 0.75);
-  display: flex;
-}
-.arrow {
-  background-color: white;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 1px;
-  color: black;
-  margin-left: 5px;
-}
-
-.stepper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0px;
-  height: 50px;
-  background-color: #f5f5fa;
-  color: rgb(50, 54, 57);
-  padding: 10px 0px;
-  margin-right: 100px;
-  margin-left: 50px;
-}
-
-.stepper .info {
-  padding-left: 10px;
-  padding-right: 10px;
-  display: flex;
-}
-
-button:focus {
-  outline: 0;
-}
-
-.toolbar .tool {
-  display: inline-block;
-  color: rgb(50, 54, 57);
-  height: 100%;
-  padding-top: 10px;
-  padding-left: 10px;
-  margin-right: 5px;
-}
-
-.toolbar .tool label,
-.toolbar .tool select,
-.toolbar .tool input {
-  display: inline-block;
-  width: auto;
-  height: auto !important;
-  padding: 0;
-}
-
-.toolbar .tool input {
-  width: 50px;
-}
-
-.toolbar .tool .color-tool {
-  height: 25px;
-  width: 25px;
-  border-radius: 25px;
-  border: 0;
-  cursor: pointer;
-  display: inline-block;
-}
-
-.toolbar .tool .tool-button {
-  background-color: #f5f5fa;
-  border: 0px solid rgb(50, 54, 57);
-  color: rgb(50, 54, 57);
-  cursor: pointer;
-  margin: 5px 4px;
-  font-size: 18px;
-}
-
-.toolbar .tool .tool-button:hover,
-.toolbar .tool .tool-button.active {
-  /* background-color: rgb(82, 86, 89); */
-  /* border-color: rgb(82, 86, 89); */
-  color: red;
-}
+@import "../../../assets/css/toolbar.css";
 </style>

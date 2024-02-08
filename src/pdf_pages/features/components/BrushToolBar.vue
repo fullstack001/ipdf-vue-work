@@ -1,5 +1,5 @@
 <template>
-  <div class="texttoolbar">
+  <div class="toolbar brush-toolbar">
     <div class="tool">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -36,11 +36,8 @@
 </template>
 
 <script>
-import "@/assets/js/styles.css";
-import "@/assets/js/pdfannotate.css";
-
 export default {
-  name: "TextToolBar",
+  name: "BrushTooBar",
   data() {
     return {
       brushSize: 1,
@@ -60,5 +57,10 @@ export default {
 <style scoped>
 #colorpicker {
   height: 25px !important;
+}
+.brush-toolbar {
+  position: absolute !important;
+  top: 50px !important;
+  padding-left: 20%;
 }
 </style>

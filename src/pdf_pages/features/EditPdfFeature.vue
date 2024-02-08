@@ -93,7 +93,7 @@
     </div>
     <EditPdfContent
       :pdfUrl="getURL(file)"
-      :get_pdf="get_result"
+      :pageNumProps="pdfPage"
       @upload="upload_png"
       v-if="file"
     />
@@ -109,6 +109,7 @@ import addImagesToPDF2 from "../services/add_img_to_pdf2";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
 import { fileHandlingMixin } from "@/fileHandlingMixin.js";
+import getPageNumber from "../services/getPageNumber";
 
 export default {
   mixins: [fileHandlingMixin],
@@ -118,7 +119,6 @@ export default {
     EditPdfContent,
     Processing,
     Uploading,
-    // RendingProgress,
   },
   data() {
     return {
@@ -126,18 +126,22 @@ export default {
       file: null,
       get_result: false,
       page_load: "default",
+      pdfPage: null,
+      size: 0,
+      progress: 0,
     };
   },
   methods: {
-    handleFiles(files) {
+    async handleFiles(files) {
       if (files.length > 1) {
         this.$swal(
           "Sorry!",
-          "PDFden cannot process  more than one files in a task. One file will process!",
+          "PDFden cannot process  more than one files in a task.",
           "warning"
         );
-        this.file = files[0];
+        return;
       } else {
+        this.pdfPage = await getPageNumber(files[0]);
         this.file = files[0];
       }
     },
@@ -151,6 +155,7 @@ export default {
     },
 
     async upload_png(data) {
+      console.log(data);
       const pdf = await addImagesToPDF2(this.getURL(this.file), data);
       await this.upload_pdf(pdf);
     },

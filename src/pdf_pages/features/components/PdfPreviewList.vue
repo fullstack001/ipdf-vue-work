@@ -83,14 +83,13 @@ export default {
       );
     },
 
-    set_current_page(page) {
-      this.currentPage = page;
-      this.$emit("set_page", this.currentPage);
-    },
-
     getPage(currentPage) {
       const scrollToPosition = (currentPage - 1) * 210 + 35;
       this.setScrollbarPosition(scrollToPosition);
+    },
+    set_current_page(page) {
+      this.currentPage = page;
+      this.$emit("set_page", this.currentPage);
     },
 
     previousPage() {

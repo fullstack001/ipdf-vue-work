@@ -44,7 +44,7 @@ async function addImagesToPDF(pdfPath, imagePaths) {
   const modifiedPdfBytes = await pdfDoc.save();
   //   console.log(modifiedPdfBytes);
   const blob = new Blob([modifiedPdfBytes], { type: "application/pdf" });
-  // Create a download link
+  // // Create a download link
   // const link = document.createElement("a");
   // link.href = URL.createObjectURL(blob);
   // link.download = "fileName.pdf";

@@ -279,7 +279,6 @@ export default {
         .post("/pdf/get_from_db", { name: this.id })
         .then((res) => {
           if (Object.keys(res.data).length > 0) {
-            console.log(res.data);
             this.fetch_file();
           } else {
             console.log("success redirect");
@@ -751,7 +750,7 @@ body {
 }
 
 @media (max-width: 640px) {
-  .page-title{
+  .page-title {
     font-size: 26px !important;
   }
 }

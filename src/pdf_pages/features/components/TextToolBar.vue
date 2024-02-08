@@ -1,5 +1,5 @@
 <template>
-  <div class="texttoolbar">
+  <div class="toolbar text-toolbar">
     <div class="tool">
       <i class="fa-solid fa-t" style="font-size: xx-small"></i>
       <i class="fa-solid fa-t" style="margin-right: 10px"></i>
@@ -87,8 +87,6 @@
 </template>
 
 <script>
-import "@/assets/js/styles.css";
-import "@/assets/js/pdfannotate.css";
 import { enableRipple } from "@syncfusion/ej2-base";
 
 enableRipple(true);
@@ -138,6 +136,7 @@ export default {
 };
 </script>
 <style scoped>
+@import "../../../assets/css/toolbar.css";
 #colorpicker {
   height: 25px !important;
   width: 25px;
@@ -145,5 +144,10 @@ export default {
 #colorpicker1 {
   height: 25px !important;
   width: 25px;
+}
+.text-toolbar {
+  position: absolute !important;
+  top: 50px !important;
+  padding-left: 20%;
 }
 </style>

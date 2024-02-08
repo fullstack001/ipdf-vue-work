@@ -3,7 +3,7 @@
     <div
       class="bar"
       :style="{
-        width: (rendering_progress * 100) / ((152 * page) / 2) + '%',
+        width: (loadingPage * 100) / page + '%',
       }"
     ></div>
   </div>
@@ -11,28 +11,7 @@
 
 <script>
 export default {
-  props: ["page"],
-  data() {
-    return {
-      rendering_progress: 0,
-    };
-  },
-  mounted() {
-    this.count_progress();
-  },
-  methods: {
-    count_progress() {
-      console.log(this.page);
-      let intervalId = setInterval(() => {
-        this.rendering_progress = this.rendering_progress + 1;
-
-        if (this.rendering_progress >= 100) {
-          clearInterval(intervalId);
-          this.$emit("stop_render");
-        }
-      }, 1);
-    },
-  },
+  props: ["page", "loadingPage"],
 };
 </script>
 <style scoped>
@@ -47,6 +26,7 @@ export default {
   position: absolute;
   left: 0;
   top: 52px;
+  z-index: 11;
 }
 
 .bar {
@@ -54,5 +34,6 @@ export default {
   height: 5px;
   width: 15px;
   border-radius: 9px;
+  max-width: 100% !important;
 }
 </style>

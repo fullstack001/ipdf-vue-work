@@ -1,5 +1,5 @@
 <template>
-  <div class="texttoolbar">
+  <div class="toolbar edit-text-toolbar">
     <div class="tool">
       <i class="fa-solid fa-t" style="font-size: xx-small"></i>
       <i class="fa-solid fa-t" style="margin-right: 10px"></i>
@@ -86,8 +86,6 @@
 </template>
 
 <script>
-import "@/assets/js/styles.css";
-import "@/assets/js/pdfannotate.css";
 export default {
   name: "TextToolBar",
   props: {
@@ -176,12 +174,14 @@ export default {
 };
 </script>
 <style scoped>
-#colorpicker {
-  height: 25px !important;
-  width: 25px;
-}
+#colorpicker,
 #colorpicker1 {
   height: 25px !important;
   width: 25px;
+}
+.edit-text-toolbar {
+  position: absolute !important;
+  top: 50px !important;
+  padding-left: 20%;
 }
 </style>

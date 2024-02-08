@@ -52,7 +52,7 @@
       @set_font_background_color="set_font_background_color"
       @set_font_underline="set_font_underline"
     />
-    <EidtTextToolBar
+    <EditTextToolBar
       v-show="show_tools == 'edit_text'"
       @set_font_family="edit_set_font_family"
       @set_font_size="edit_set_font_size"
@@ -93,14 +93,14 @@ import TextToolBar from "@/pdf_pages/features/components/TextToolBar.vue";
 import $ from "jquery";
 import { PDFAnnotate } from "@/assets/js/pdfannotate.js";
 import ShapeToolBar from "./ShapeToolBar.vue";
-import EidtTextToolBar from "./EidtTextToolBar.vue";
+import EditTextToolBar from "./EditTextToolBar.vue";
 import BrushToolBar from "./BrushToolBar.vue";
 
 export default {
   components: {
     TextToolBar,
     ShapeToolBar,
-    EidtTextToolBar,
+    EditTextToolBar,
     BrushToolBar,
   },
   created() {

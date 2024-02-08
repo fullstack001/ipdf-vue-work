@@ -1071,7 +1071,6 @@ export default {
         temp = temp.sort((a, b) => {
           const nameA = a.file.name.toLowerCase();
           const nameB = b.file.name.toLowerCase();
-          console.log(nameA, nameB, nameA > nameB);
 
           if (nameA < nameB) {
             return -1;

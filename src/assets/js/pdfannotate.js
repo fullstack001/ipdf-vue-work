@@ -8,15 +8,21 @@ import { DrawLine } from "./line.fabric";
 
 let fabric1 = fabric;
 
-export const PDFAnnotate = function (container_id, url, options = {}) {
+export const PDFAnnotate = function (
+  container_id,
+  url,
+  currentPage,
+  options = {}
+) {
   this.toolObj1 = null;
   this.number_of_pages = 0;
   this.pages_rendered = 0;
-  this.active_tool = 1; // 1 - Free hand, 2 - Text, 3 - Arrow, 4 - Rectangle, 5 - Circle, 6-Line
+  this.active_tool = 1; // 1 - Free hand, 2 - Text, 3 - Arrow, 4 - Rectangle, 5 - Circle, 6-Line\
+  this.currentPage = currentPage;
   this.fabricObjects = [];
   this.fabricObjectsData = [];
-  this.color = "#212121";
-  this.borderColor = "#000000";
+  this.color = "#000";
+  this.borderColor = "#000";
   this.borderSize = 1;
   this.font_size = 16;
   this.font_underline = false;
@@ -36,99 +42,82 @@ export const PDFAnnotate = function (container_id, url, options = {}) {
   this.orientation;
   var inst = this;
 
-  var loadingTask = getDocument(this.url);
-  this.originDoc = loadingTask;
-  loadingTask.promise.then(
-    function (pdf) {
-      var scale = options.scale ? options.scale : 1;
-      inst.number_of_pages = pdf.numPages;
+  // var loadingTask = getDocument(this.url);
+  // this.originDoc = loadingTask;
 
-      for (var i = 1; i <= pdf.numPages; i++) {
-        pdf.getPage(i).then(function (page) {
-          if (
-            typeof inst.format === "undefined" ||
-            typeof inst.orientation === "undefined"
-          ) {
-            var originalViewport = page.getViewport({ scale: scale });
-            inst.format = [originalViewport.width, originalViewport.height];
-            inst.orientation =
-              originalViewport.width > originalViewport.height
-                ? "landscape"
-                : "portrait";
-          }
+  // Get reference to the existing img element
+  const imgElement = document.getElementById("0").querySelector("img");
+  // Create a new canvas element
+  const canvasElement = document.createElement("canvas");
 
-          var viewport = page.getViewport({ scale: 1.3 });
-          var canvas = document.createElement("canvas");
-          document.getElementById(inst.container_id).appendChild(canvas);
-          canvas.className = "pdf-canvas";
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
-          const context = canvas.getContext("2d");
+  // Get the width and height from the style attribute of the div element
+  const width = parseInt(imgElement.parentElement.style.width);
+  const height = parseInt(imgElement.parentElement.style.height);
 
-          var renderContext = {
-            canvasContext: context,
-            viewport: viewport,
-          };
-          var renderTask = page.render(renderContext);
-          renderTask.promise.then(function () {
-            $(".pdf-canvas").each(function (index, el) {
-              $(el).attr("id", "page-" + (index + 1) + "-canvas");
-              // $(el).css("display", "none"); // Adding style display: none
-            });
-            inst.pages_rendered++;
-            if (inst.pages_rendered == inst.number_of_pages) inst.initFabric();
-          });
-        });
-      }
-    },
-    function (reason) {
-      console.error(reason);
-    }
-  );
+  // Set canvas width and height
+  canvasElement.width = width;
+  canvasElement.height = height;
+  canvasElement.id = `canvas${this.currentPage}`;
 
-  this.initFabric = function () {
+  // Get the 2d context of the canvas
+  const ctx = canvasElement.getContext("2d");
+
+  // Create a new image object
+  const img = new Image();
+
+  // Set the source of the image object to the image source URL
+  img.src = imgElement.src;
+
+  // Define a callback function to execute after the image is loaded
+  function imageLoadedCallback() {
+    // Draw the image onto the canvas
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Replace the img element with the canvas element
+    imgElement.parentNode.replaceChild(canvasElement, imgElement);
+
+    // Call any additional code or functions here
+    inst.initFabric(0);
+  }
+
+  // Assign the callback function to the img.onload event
+  img.onload = imageLoadedCallback;
+
+  this.initFabric = function (page) {
     var inst = this;
-    let canvases = $("#" + inst.container_id + " canvas");
-    canvases.each(function (index, el) {
-      var background = el.toDataURL("image/png");
-      var fabricObj = new fabric.Canvas(el.id, {
-        freeDrawingBrush: {
-          width: 1,
-          color: inst.color,
-        },
-      });
-      inst.fabricObjects.push(fabricObj);
-      if (typeof options.onPageUpdated == "function") {
-        fabricObj.on("object:added", function () {
-          var oldValue = Object.assign({}, inst.fabricObjectsData[index]);
-          inst.fabricObjectsData[index] = fabricObj.toJSON();
-          options.onPageUpdated(
-            index + 1,
-            oldValue,
-            inst.fabricObjectsData[index]
-          );
-        });
-      }
-      fabricObj.setBackgroundImage(
-        background,
-        fabricObj.renderAll.bind(fabricObj)
-      );
-      $(fabricObj.upperCanvasEl).click(function (event) {
-        inst.active_canvas = index;
-        inst.fabricClickHandler(event, fabricObj);
-      });
-      fabricObj.on("after:render", function () {
-        inst.fabricObjectsData[index] = fabricObj.toJSON();
-        fabricObj.off("after:render");
-      });
-
-      if (
-        index === canvases.length - 1 &&
-        typeof options.ready === "function"
-      ) {
-        options.ready();
-      }
+    let canvas = $("#" + page + " canvas");
+    let el = canvas[0];
+    var background = el.toDataURL("image/png");
+    var fabricObj = new fabric.Canvas(el.id, {
+      freeDrawingBrush: {
+        width: 1,
+        color: inst.color,
+      },
     });
+    inst.fabricObjects.push(fabricObj);
+    if (typeof options.onPageUpdated == "function") {
+      fabricObj.on("object:added", function () {
+        var oldValue = Object.assign({}, inst.fabricObjectsData[page]);
+        inst.fabricObjectsData[page] = fabricObj.toJSON();
+        options.onPageUpdated(page + 1, oldValue, inst.fabricObjectsData[page]);
+      });
+    }
+    fabricObj.setBackgroundImage(
+      background,
+      fabricObj.renderAll.bind(fabricObj)
+    );
+    $(fabricObj.upperCanvasEl).click(function (event) {
+      inst.active_canvas = page;
+      inst.fabricClickHandler(event, fabricObj);
+    });
+    fabricObj.on("after:render", function () {
+      inst.fabricObjectsData[page] = fabricObj.toJSON();
+      fabricObj.off("after:render");
+    });
+
+    if (typeof options.ready === "function") {
+      options.ready();
+    }
   };
 
   this.fabricClickHandler = function (event, fabricObj) {
@@ -319,47 +308,51 @@ PDFAnnotate.prototype.deleteSelectedObject = function () {
   }
 };
 
-PDFAnnotate.prototype.savePdf = async function (fileName) {
+PDFAnnotate.prototype.savePdf = async function (canvases, originData) {
   var inst = this;
   var objects = this.fabricObjects;
   var resultImages = [];
   let url = "";
   // var fabricObj = inst.fabricObjects[inst.active_canvas];
 
-  await this.originDoc.promise.then((pdf) => {
-    for (var i = 1; i <= pdf.numPages; i++) {
-      const index = i - 1;
-      pdf.getPage(i).then(async (page) => {
-        // Create a new Fabric.js canvas
-        var originalViewport = page.getViewport({ scale: 1.3 });
-        var pageWidth = originalViewport.width;
-        var pageHeight = originalViewport.height;
-        const canvas = new fabric.Canvas(null, {
-          width: pageWidth,
-          height: pageHeight,
-        });
-        let imgObjects = objects[index]._objects;
-        for (var j = 0; j < imgObjects.length; j++) {
-          canvas.add(imgObjects[j]);
-        }
-        // Convert the Fabric.js canvas to an image data URL
-        const imageDataUrl = canvas.toDataURL("image/png", 1.0);
+  for (var i = 1; i <= canvases.length; i++) {
+    const index = i - 1;
 
-        const base64String = imageDataUrl.split(",")[1];
-        const byteCharacters = atob(base64String);
-        const byteNumbers = new Array(byteCharacters.length);
-
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], { type: "image/png" }); // Specify the appropriate MIME type based on the image format
-
-        resultImages.push(blob);
-      });
+    var pageWidth = originData[index].width;
+    var pageHeight = originData[index].height;
+    const canvas = new fabric.Canvas(null, {
+      width: pageWidth,
+      height: pageHeight,
+    });
+    let imgObjects = objects[index]._objects;
+    for (var j = 0; j < imgObjects.length; j++) {
+      canvas.add(imgObjects[j]);
     }
-  });
+    // Convert the Fabric.js canvas to an image data URL
+    const imageDataUrl = canvas.toDataURL("image/png", 1.0);
+
+    const base64String = imageDataUrl.split(",")[1];
+    const byteCharacters = atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: "image/png" }); // Specify the appropriate MIME type based on the image format
+    // // Create a download link
+    // const link = document.createElement("a");
+    // link.href = URL.createObjectURL(blob);
+    // link.download = "fileName.png";
+
+    // // Append the link to the document and trigger the download
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+    resultImages.push(blob);
+  }
+
   return resultImages;
 };
 
@@ -486,4 +479,45 @@ PDFAnnotate.prototype.setDefaultTextForTextBox = function (text) {
 };
 PDFAnnotate.prototype.doubleClick = function (e) {
   console.log(e);
+};
+PDFAnnotate.prototype.addCanvas = function (page) {
+  var inst = this;
+  inst.currentPage = page;
+  // Get reference to the existing img element
+  const imgElement = document.getElementById(page).querySelector("img");
+  // Create a new canvas element
+  const canvasElement = document.createElement("canvas");
+
+  // Get the width and height from the style attribute of the div element
+  const width = parseInt(imgElement.parentElement.style.width);
+  const height = parseInt(imgElement.parentElement.style.height);
+
+  // Set canvas width and height
+  canvasElement.width = width;
+  canvasElement.height = height;
+  canvasElement.id = `canvas${inst.currentPage}`;
+
+  // Get the 2d context of the canvas
+  const ctx = canvasElement.getContext("2d");
+
+  // Create a new image object
+  const img = new Image();
+
+  // Set the source of the image object to the image source URL
+  img.src = imgElement.src;
+
+  // Define a callback function to execute after the image is loaded
+  function imageLoadedCallback() {
+    // Draw the image onto the canvas
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Replace the img element with the canvas element
+    imgElement.parentNode.replaceChild(canvasElement, imgElement);
+
+    // Call any additional code or functions here
+    inst.initFabric(page);
+  }
+
+  // Assign the callback function to the img.onload event
+  img.onload = imageLoadedCallback;
 };

@@ -170,8 +170,8 @@ export default {
       totalPageNum: 0,
       get_result: false,
       page_load: "default",
-      rendering_page: null,
       progress: 0,
+      rendering_page: null,
       size: 0,
       intervalID: null,
     };
