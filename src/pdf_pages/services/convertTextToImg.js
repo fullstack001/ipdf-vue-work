@@ -8,6 +8,7 @@ const convert = async (text) => {
   div.style.maxWidth = "max-content";
   div.style.fontSize = "20px";
   div.style.fontWeight = 500;
+  div.style.color = "#000";
   document.body.appendChild(div);
 
   // Use html2canvas to capture the div as a canvas

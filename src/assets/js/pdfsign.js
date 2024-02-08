@@ -240,7 +240,7 @@ PDFAnnotate.prototype.deleteSelectedObject = function () {
   }
 };
 
-PDFAnnotate.prototype.savePdf = async function (canvases, originData) {
+PDFAnnotate.prototype.getObjectCounter = async function (canvases, originData) {
   var objects = this.fabricObjects;
   var resultImages = [];
   var added_items = [];
@@ -269,6 +269,61 @@ PDFAnnotate.prototype.savePdf = async function (canvases, originData) {
           url: obj._originalElement.currentSrc,
           width: obj.width,
           height: obj.height,
+        });
+      }
+      // console.log(index, imgObjects[j]);
+      canvas.add(imgObjects[j]);
+    }
+    // Convert the Fabric.js canvas to an image data URL
+    const imageDataUrl = canvas.toDataURL("image/png", 1.0);
+
+    const base64String = imageDataUrl.split(",")[1];
+    const byteCharacters = atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: "image/png" }); // Specify the appropriate MIME type based on the image format
+
+    resultImages.push(blob);
+    added_items.push(temp);
+    temp = [];
+  }
+  return added_items;
+};
+
+PDFAnnotate.prototype.savePdf = async function (canvases, originData) {
+  var objects = this.fabricObjects;
+  var resultImages = [];
+  var added_items = [];
+  let url = "";
+  // var fabricObj = inst.fabricObjects[inst.active_canvas];
+
+  for (var i = 1; i <= canvases.length; i++) {
+    const index = i - 1;
+    // Create a new Fabric.js canvas
+    var pageWidth = originData[index].width / 1.5;
+    var pageHeight = originData[index].height / 1.5;
+    const canvas = new fabric.Canvas(null, {
+      width: pageWidth,
+      height: pageHeight,
+    });
+    let imgObjects = objects[index]._objects;
+    var temp = [];
+    for (var j = 0; j < imgObjects.length; j++) {
+      var obj = imgObjects[j];
+      if (obj.top >= 0 && obj.top < pageHeight) {
+        temp.push({
+          top: obj.top / 1.5,
+          left: obj.left / 1.5,
+          scaleX: obj.scaleX,
+          scaleY: obj.scaleY,
+          url: obj._originalElement.currentSrc,
+          width: obj.width / 1.5,
+          height: obj.height / 1.5,
         });
       }
       // console.log(index, imgObjects[j]);

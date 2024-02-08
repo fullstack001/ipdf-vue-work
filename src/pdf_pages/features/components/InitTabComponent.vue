@@ -68,8 +68,8 @@
           <span>color</span>
           <div
             class="color-tool active"
-            style="background-color: #212121"
-            @click="fontColor = '#212121'"
+            style="background-color: #000"
+            @click="fontColor = '#000'"
           ></div>
           <div
             class="color-tool"
@@ -125,8 +125,8 @@
           <span>color</span>
           <div
             class="color-tool active"
-            style="background-color: #212121"
-            @click="color = '#212121'"
+            style="background-color: #000"
+            @click="color = '#000'"
           ></div>
           <div
             class="color-tool"
@@ -207,8 +207,8 @@ export default {
         "Zeyada",
       ],
       active_btn: "init_text",
-      color: "#212121",
-      fontColor: "#212121",
+      color: "#000",
+      fontColor: "#000",
       init_picked_family: "Satisfy",
       init_png: null,
     };

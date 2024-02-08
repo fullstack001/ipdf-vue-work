@@ -22,14 +22,19 @@
       />
       <div class="edit-content" v-if="imageItems" v-show="!rendering">
         <div id="pdf-preview-list" ref="list_scrollContainer">
-          <img
+          <div
             v-for="(imageItem, index) in imageItems"
             :key="index"
             :id="'list' + index"
-            :src="imageItem.img"
             class="pdf-preview-item"
-            alt="Image"
-          />
+          >
+            <img
+              :src="imageItem.img"
+              alt="Image"
+              @click="set_page(index + 1)"
+            />
+            <span>{{ index + 1 }}</span>
+          </div>
         </div>
         <div
           id="pdf-edit-list"
@@ -242,6 +247,8 @@ export default {
 
 <style scoped>
 .pdf-preview-item {
+  position: relative;
+  text-align: center;
   width: 95px;
   border: dotted 0.5px #ff7c03;
   height: 135px;
@@ -249,6 +256,12 @@ export default {
   margin-top: 0px;
   margin-bottom: 20px;
   box-shadow: 0px 3px 3px 0px rgb(110, 110, 54);
+}
+.pdf-preview-item span {
+  position: absolute;
+  bottom: -21px;
+  right: 44px;
+  font-weight: 500;
 }
 .pdf-edit-item-container {
   border: dotted 0.5px #ff7c03;
@@ -274,6 +287,7 @@ export default {
   overflow-y: auto;
   padding-top: 50px;
 }
+
 #pdf-edit-list {
   height: 95vh;
   width: 100%;
