@@ -76,7 +76,7 @@
       </div>
 
       <div class="option__panel option__panel--active" id="merge-options">
-        <button class="edit-btn" @click="edit_pdf">
+        <button class="edit-btn" @click="edit_pdf" :disabled="rendering">
           {{ $t("page_titles.edit_page.actionBtn") }}
         </button>
       </div>

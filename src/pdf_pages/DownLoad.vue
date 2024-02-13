@@ -20,7 +20,7 @@
           arrow_circle_down
         </span>
       </a>
-      <div class="add-more">
+      <div class="continue">
         <div>
           <md-dialog-confirm
             :md-active.sync="active"
@@ -545,7 +545,7 @@ body {
   margin: auto;
 }
 
-.add-more {
+.continue {
   width: fit-content;
   /* position: absolute; */
   top: -5px;
@@ -553,11 +553,11 @@ body {
   margin: auto;
 }
 
-.add-more div {
+.continue div {
   display: flex;
 }
 
-.add-more div .md-icon-button {
+.continue div .md-icon-button {
   display: block;
   background-color: transparent !important;
   width: 40px;

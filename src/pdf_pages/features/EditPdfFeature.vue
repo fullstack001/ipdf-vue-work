@@ -1,9 +1,6 @@
 <template>
   <div>
-    <Processing
-      :progress="page_load == 'Editing'"
-      v-if="page_load == 'processing'"
-    />
+    <Processing :progress="'Editing'" v-if="page_load == 'processing'" />
     <Uploading
       :progress="progress"
       :number="1"

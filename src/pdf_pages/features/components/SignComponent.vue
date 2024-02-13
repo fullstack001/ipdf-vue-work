@@ -661,7 +661,7 @@
           </div>
         </div>
       </div>
-      <button class="sign_btn" @click="sign_pdf">
+      <button class="sign_btn" @click="sign_pdf" :disabled="rendering">
         {{ $t("page_titles.sign_page.actionBtn") }}
       </button>
     </div>

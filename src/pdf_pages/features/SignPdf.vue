@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <Processing :progress="'Loading'" v-if="page_load == 'processing'" />
+    <Processing :progress="'Signing'" v-if="page_load == 'processing'" />
     <Uploading
       :progress="progress"
       :number="1"
