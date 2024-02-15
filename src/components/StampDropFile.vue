@@ -18,7 +18,7 @@
         :id="data"
         hidden
         @change="onChange"
-        :ref="data"
+        :ref="file1"
         accept=".jpg,.jpeg,.png"
       />
 

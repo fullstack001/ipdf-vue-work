@@ -57,7 +57,6 @@ export default {
           this.data = res.data.data;
           this.disData =
             this.data.length > 10 ? this.data.slice(0, 10) : this.data;
-          console.log(this.data);
         })
         .catch((err) => {
           this.$router.replace("/admin");

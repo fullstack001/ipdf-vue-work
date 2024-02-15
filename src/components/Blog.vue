@@ -22,7 +22,8 @@
         </div>
         <div class="blog-social">
           <div>
-            
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+            sem sapien
           </div>
         </div>
       </div>
