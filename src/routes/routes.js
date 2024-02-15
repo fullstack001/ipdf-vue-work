@@ -10,6 +10,7 @@ import Typography from "@/pages/Typography.vue";
 import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Notifications from "@/pages/Notifications.vue";
+import Admin from "@/pages/admin/Admin.vue";
 
 import Root from "./Root";
 import i18n, { loadLocaleMessagesAsync } from "@/i18n";
@@ -142,6 +143,44 @@ const routes = [
     children: [...children(true)],
   },
   ...children(false),
+  {
+    path: "/admin",
+    component: Admin,
+    children: [
+      {
+        path: "liveview",
+        name: "liveview",
+        component: () =>
+          import(
+            /* webpackChunkName: "compresspdf" */ "@/pages/admin/LiveView.vue"
+          ),
+      },
+      {
+        path: "files",
+        name: "files",
+        component: () =>
+          import(
+            /* webpackChunkName: "compresspdf" */ "@/pages/admin/Files.vue"
+          ),
+      },
+      {
+        path: "blogcontent",
+        name: "blogcontent",
+        component: () =>
+          import(
+            /* webpackChunkName: "compresspdf" */ "@/pages/admin/BlogContent.vue"
+          ),
+      },
+      {
+        path: "serverstatus",
+        name: "serverstatus",
+        component: () =>
+          import(
+            /* webpackChunkName: "compresspdf" */ "@/pages/admin/ServerStatus.vue"
+          ),
+      },
+    ],
+  },
   {
     path: "/profile",
     component: DashboardLayout,

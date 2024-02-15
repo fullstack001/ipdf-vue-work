@@ -94,6 +94,7 @@
       @upload="upload_png"
       @edit_start="page_load = 'processing'"
       v-if="file"
+      v-show="page_load == 'default'"
     />
   </div>
 </template>

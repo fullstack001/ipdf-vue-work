@@ -271,6 +271,7 @@ export default {
   mounted() {
     this.checkFile();
     // Make a GET request to the server endpoint to download the file
+    console.log(this.$router.url);
   },
   methods: {
     checkFile() {
@@ -313,6 +314,7 @@ export default {
           const link = document.getElementById("link");
           link.download = this.down_name;
           link.href = url;
+          this.saveClient();
           if (this.file_type == "application/pdf") {
             this.files = [
               {
@@ -461,6 +463,49 @@ export default {
 
       // Generate a URL representing the file content
       return URL.createObjectURL(blob);
+    },
+    async saveClient() {
+      let ipAddress = await fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => {
+          return data.ip.split(" ")[0];
+        });
+
+      // Get user's browser information
+      let browserName = "";
+      const userAgent = navigator.userAgent;
+      if (userAgent.indexOf("Firefox") > -1) {
+        browserName = "Mozilla Firefox";
+      } else if (userAgent.indexOf("Chrome") > -1) {
+        browserName = "Google Chrome";
+      } else if (userAgent.indexOf("Safari") > -1) {
+        browserName = "Safari";
+      } else if (
+        userAgent.indexOf("MSIE") > -1 ||
+        userAgent.indexOf("Trident/") > -1
+      ) {
+        browserName = "Internet Explorer";
+      } else {
+        browserName = "Unknown";
+      }
+      const userDownUrl = "https://pdfden.com" + this.$route.fullPath;
+      const locale = this.$route.params.locale;
+      const userWorkUrl = locale
+        ? `https://pdfden.com/${locale}/${this.before}`
+        : `https://pdfden.com/${this.before}`;
+      const client = {
+        ip: ipAddress,
+        browser: browserName,
+        downUrl: userDownUrl,
+        workUrl: userWorkUrl,
+        file: this.id,
+      };
+      this.$axios
+        .post("/admin/client", client)
+        .then((res) => {
+          console.log("cleint info saved");
+        })
+        .catch((err) => console.log(err));
     },
   },
 };

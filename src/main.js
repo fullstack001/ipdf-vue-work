@@ -6,6 +6,7 @@ import "vue-css-donut-chart/dist/vcdonut.css";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import Vuelidate from "vuelidate";
+import CKEditor from "@ckeditor/ckeditor5-vue2";
 
 import i18n from "./i18n";
 
@@ -26,6 +27,7 @@ import Notifications from "./components/NotificationPlugin";
 import MaterialDashboard from "./material-dashboard";
 
 import Chartist from "chartist";
+Vue.use(CKEditor);
 
 Vue.prototype.$Chartist = Chartist;
 

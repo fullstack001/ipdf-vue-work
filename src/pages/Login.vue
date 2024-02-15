@@ -2,15 +2,15 @@
   <div class="row">
     <div class="col-md-7 sign_panel">
       <h1 class="text-center">PDFDEN</h1>
-      <h4 class="card-title mt-3 text-center">Create new account</h4>
-      <p>
+      <h4 class="card-title mt-3 text-center">Login to your account</h4>
+      <!-- <p>
         <a href="" class="btn btn-block btn-twitter">
           <i class="fab fa-twitter"></i>   Login via Twitter</a
         >
         <a href="" class="btn btn-block btn-facebook text-white">
           <i class="fab fa-google"></i>   Login via Google</a
         >
-      </p>
+      </p> -->
       <form @submit.prevent="handleSubmit">
         <div class="form-group input-group">
           <div class="input-group-prepend">
@@ -107,11 +107,10 @@
     </div>
     <div class="sign-right col-md-5 padding-auto" p-5>
       <img src="@/assets/img/pdfden.png" class="m-5" width="400px" />
-      <div class="title mt-2 mb-2">PDF tools for productive people</div>
+      <div class="title mt-2 mb-2">Log in to your workspace</div>
       <div style="font-size: 20px; margin-top: 40px">
-        iLovePDF helps you convert, edit, e-sign, and protect PDF files quickly
-        and easily. Enjoy a full suite of tools to effectively manage documents
-        —no matter where you’re working.
+        Enter your email and password to access your iLovePDF account. You are
+        one step closer to boosting your document productivity.
       </div>
     </div>
   </div>
