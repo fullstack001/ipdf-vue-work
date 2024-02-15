@@ -241,6 +241,7 @@ router.beforeEach((to, from, next) => {
   }
   // console.log(to.params.locale);
   let { locale } = to.params;
+
   // if (locale === "en") {
   //   // Redirect to the same route without the 'en' prefix
   //   const pathWithoutLocale = to.fullPath.replace(/^\/en/, "");
