@@ -1,7 +1,9 @@
 <template>
-  <div class="text-center blog-container">
-    <h2>Blog Contents</h2>
-    <div class="btn btn-success" @click="newBlog">New Blog</div>
+  <div class="blog-container">
+    <h3>Blog Contents</h3>
+    <div class="new-blog-wrapper" style="width: 100%">
+      <div class="btn btn-success new-blog" @click="newBlog">New Blog</div>
+    </div>
     <div class="blog-wrapper" v-if="disBlogs.length > 0">
       <div v-for="blog in disBlogs" :key="blog._id" class="blog-item">
         <img :src="blog.img" alt="" class="blog-img" />
@@ -22,14 +24,21 @@
       @saveBlog="createBlog"
       @updateBlog="updateBlog"
     />
+    <Pagination
+      :max="(blogs.length / 5).toFixed(0) + 1"
+      @setPage="(data) => (page = data)"
+    />
   </div>
 </template>
 <script>
 import Vue from "vue";
 import BlogModal from "./BlogModal.vue";
+import Pagination from "./Pagination.vue";
+
 export default {
   components: {
     BlogModal,
+    Pagination,
   },
   data() {
     return {
@@ -42,7 +51,13 @@ export default {
       editBlog: null,
     };
   },
+  watch: {
+    page(newValue) {
+      this.pagination();
+    },
+  },
   created() {
+    console.log(this.$route.path);
     this.fetchDatas();
   },
   methods: {
@@ -97,7 +112,7 @@ export default {
     pagination() {
       const start = (this.page - 1) * 5;
       const length =
-        this.blogs.lenght > this.page * 5
+        this.blogs.length > this.page * 5
           ? 5
           : this.blogs.length - (this.page - 1) * 5 + 1;
       this.disBlogs =
@@ -124,11 +139,17 @@ export default {
 
 <style scoped>
 .blog-container {
+  margin: auto;
   width: 80%;
+  margin-top: 50px;
+}
+.new-blog-wrapper {
+  width: 100%;
+  text-align: right;
 }
 .blog-item {
   display: flex;
-  width: 70%;
+  width: 100%;
   margin: auto;
   margin-top: 20px;
   background-color: #fff;
@@ -141,10 +162,9 @@ export default {
   font-size: 25px;
   font-weight: 400;
   margin: auto;
-  margin-top: 40px;
 }
 .blog-btn {
-  font-size: 25px;
+  font-size: 20px;
   margin-top: 35px;
   margin-right: 15px;
 }

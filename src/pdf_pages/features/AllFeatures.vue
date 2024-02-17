@@ -15,20 +15,25 @@
       </div>
       <!-- section 1 -->
     </div>
+    <BlogThumbnail :routing="true" />
 
-    <div class="solution">
+    <!-- <div class="solution">
       <div class="block__container">
         <div class="solution-header">
           {{ $t("page_titles.landing.section1.title") }}
         </div>
         <div class="md-layout">
-          <div class="md-layout-item">
+          <div class="md-layout-item" v-for="blog in blogs" :key="blog._id">
             <md-card>
               <md-card-media>
-                <img src="@/assets/img/solution1.png" alt="People" />
+                <img :src="blog.img" alt="People" />
                 <div class="card-tip">
-                  <div class="card-tip-date">10</div>
-                  <div class="card-tip-month">NOV</div>
+                  <div class="card-tip-date">
+                    {{ setMonth(blog.uploadTime) }}
+                  </div>
+                  <div class="card-tip-month">
+                    {{ setDate(blog.uploadTime) }}
+                  </div>
                 </div>
               </md-card-media>
 
@@ -42,49 +47,9 @@
               </md-card-header>
             </md-card>
           </div>
-          <div class="md-layout-item">
-            <md-card>
-              <md-card-media>
-                <img src="@/assets/img/solution2.png" alt="People" />
-                <div class="card-tip">
-                  <div class="card-tip-date">10</div>
-                  <div class="card-tip-month">NOV</div>
-                </div>
-              </md-card-media>
-
-              <md-card-header>
-                <div class="md-title">
-                  {{ $t("page_titles.landing.section1.title2") }}
-                </div>
-                <div class="md-subhead">
-                  {{ $t("page_titles.landing.section1.text2") }}
-                </div>
-              </md-card-header>
-            </md-card>
-          </div>
-          <div class="md-layout-item">
-            <md-card>
-              <md-card-media>
-                <img src="@/assets/img/solution3.png" alt="People" />
-                <div class="card-tip">
-                  <div class="card-tip-date">10</div>
-                  <div class="card-tip-month">NOV</div>
-                </div>
-              </md-card-media>
-
-              <md-card-header>
-                <div class="md-title">
-                  {{ $t("page_titles.landing.section1.title3") }}
-                </div>
-                <div class="md-subhead">
-                  {{ $t("page_titles.landing.section1.text3") }}
-                </div>
-              </md-card-header>
-            </md-card>
-          </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="premium">
       <div class="block__container">
@@ -133,15 +98,39 @@
 <script>
 import FeatureTitle from "./components/FeatureTitle.vue";
 import { feature_names } from "../services/feature_name";
+import { getDate, getMonth } from "../services/getDateMonth";
+import BlogThumbnail from "./components/BlogThumbnail.vue";
 
 export default {
   components: {
     FeatureTitle,
+    BlogThumbnail,
   },
   data() {
     return {
       features: feature_names,
+      blogs: null,
     };
+  },
+  created() {
+    this.fetchBlog();
+  },
+  methods: {
+    setMonth(data) {
+      return getMonth(data);
+    },
+    setDate(data) {
+      return getDate(data);
+    },
+    fetchBlog() {
+      this.$axios
+        .get("/pdf/latestBlogs")
+        .then((res) => {
+          this.blogs = res.data;
+          console.log(this.blogs);
+        })
+        .catch((err) => console.log(err));
+    },
   },
 };
 </script>

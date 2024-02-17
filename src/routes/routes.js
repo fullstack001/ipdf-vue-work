@@ -46,6 +46,14 @@ const children = (hasLocale = true) => [
   //   name: "en_login",
   // },
   {
+    path: (hasLocale ? "/:locale" : "") + `/blog`,
+    component: () =>
+      import(
+        /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/Blog.vue"
+      ),
+    name: hasLocale ? "en_blog" : "blog",
+  },
+  {
     path: (hasLocale ? "/:locale" : "") + "/mergepdf",
     component: () =>
       import(

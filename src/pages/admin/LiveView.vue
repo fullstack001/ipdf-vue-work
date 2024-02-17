@@ -21,30 +21,31 @@
         </tr>
       </tbody>
     </table>
-    <div class="pagination">
-      <div class="arrow">prev</div>
-      <div class="info">
-        <input
-          type="number"
-          :max="(data.length / 10).toFixed(0) + 1"
-          :min="1"
-          style="width: 40px; height: 24px; margin-right: 3px"
-          v-model="page"
-        />
-      </div>
-      <div class="arrow">next</div>
-    </div>
+    <Pagination
+      :max="(data.length / 10).toFixed(0) + 1"
+      @setPage="(data) => (page = data)"
+    />
   </div>
 </template>
 
 <script>
+import Pagination from "./Pagination.vue";
+
 export default {
+  components: {
+    Pagination,
+  },
   data() {
     return {
       data: [],
       disData: [],
       page: 1,
     };
+  },
+  watch: {
+    page(newValue) {
+      this.pagination();
+    },
   },
   created() {
     this.fetchDatas();
@@ -62,6 +63,15 @@ export default {
           this.$router.replace("/admin");
         });
     },
+    pagination() {
+      const start = (this.page - 1) * 10;
+      const length =
+        this.data.length > this.page * 10
+          ? 10
+          : this.data.length - (this.page - 1) * 10 + 1;
+      this.disData =
+        this.data.length > 10 ? this.data.slice(start, length) : this.data;
+    },
   },
 };
 </script>
@@ -72,36 +82,7 @@ export default {
 <style scoped>
 .liveview-container {
   margin: auto;
-  min-width: 1000px;
+  width: 80%;
   margin-top: 50px;
-}
-.arrow {
-  background-color: white;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 3px;
-  color: black;
-  margin-left: 5px;
-}
-
-.pagination {
-  display: flex;
-  align-items: right;
-  justify-content: right;
-  top: 0px;
-  height: 50px;
-  color: rgb(50, 54, 57);
-  padding: 10px 0px;
-  margin-right: 100px;
-  margin-left: 50px;
-}
-.arrow:hover {
-  color: red;
-  cursor: pointer;
-}
-
-.pagination .info {
-  padding: 3px 10px;
-  display: flex;
 }
 </style>

@@ -110,12 +110,6 @@ h4 {
   margin-top: 30px;
 }
 
-.solution {
-  background-color: #fff;
-  padding: 40px 0 30px;
-  z-index: 1;
-  position: relative;
-}
 
 .trusted {
   padding: 96px 0 124px;
@@ -214,26 +208,8 @@ h4 {
   min-height: 42px;
   color: #fff;
 }
-.block__container {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 91%;
-}
-.solution-header {
-  font-weight: 600;
-  font-size: 42px;
-  line-height: 52px;
-  color: #33333b;
-  text-align: center;
-  margin-bottom: 25px;
-}
 
-.solution .md-layout-item {
-  height: auto;
-}
+
 .md-layout-item-title {
   font-weight: 500;
   font-size: 28px;
@@ -258,21 +234,6 @@ h4 {
   margin-bottom: 15px !important;
 }
 
-.card-tip {
-  position: absolute;
-  background-color: #ff7c03;
-  border-radius: 0px 8px 8px 0px;
-  bottom: 15px;
-  color: #fff;
-  padding: 5px 5px;
-  font-weight: 500;
-}
-
-.card-tip-date {
-  text-align: center;
-  font-size: 15px;
-  font-weight: 600;
-}
 
 .md-card-header {
   box-shadow: none !important;
