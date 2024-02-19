@@ -1,7 +1,11 @@
 <template>
   <div
     class="main"
-    :style="file_objs.length ? 'display: flex' : 'display: inline-block'"
+    :style="
+      file_objs.length
+        ? 'display: flex'
+        : 'display: inline-block;  width: 100%;'
+    "
   >
     <Processing :progress="'Rotating'" v-if="page_load == 'processing'" />
     <Uploading
@@ -117,7 +121,7 @@
               </div>
             </div>
           </div> -->
-          <div class="merge-descriptions">
+          <!-- <div class="merge-descriptions">
             <div class="block__container">
               <div class="description-areas">
                 <div class="description-title">
@@ -427,7 +431,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="files-list" style="position: relative">
@@ -833,8 +837,8 @@ export default {
     PdfViewer,
     VueDropboxPicker,
     draggable,
-    faq,
-    FeatureTitle,
+    // faq,
+    // FeatureTitle,
     GDriveSelector,
     AddMoreDropDown,
     Processing,

@@ -60,7 +60,7 @@ export default {
             this.data.length > 10 ? this.data.slice(0, 10) : this.data;
         })
         .catch((err) => {
-          this.$router.replace("/admin");
+          this.$router.replace("/");
         });
     },
     pagination() {

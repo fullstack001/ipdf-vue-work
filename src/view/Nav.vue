@@ -94,30 +94,49 @@
                       {{ $t("features.pdf_word.title") }}
                     </LocalizedLink>
                   </md-button>
-                  <!-- <md-menu-item>
-                    <LocalizedLink to="signpdf">
-                      {{ $t("features.sign.title") }}
-                    </LocalizedLink>
-                  </md-menu-item>
-                  <md-menu-item>
-                    <LocalizedLink to="editpdf">
-                      {{ $t("features.edit.title") }}
-                    </LocalizedLink>
-                  </md-menu-item> -->
                 </md-speed-dial-content>
               </md-speed-dial>
             </li>
           </ul>
         </li>
         <li class="nav-item">
-          <img class="user_avatar" :src="user.avatar" alt="" v-if="user" />
+          <img
+            class="user_avatar"
+            :src="user.avatar"
+            alt=""
+            v-if="user"
+            @click="showUserPanel = true"
+          />
+          <div
+            class="user-panel"
+            v-if="showUserPanel"
+            @mouseleave="showUserPanel = false"
+          >
+            <div
+              class="user-panel-item"
+              @click="$router.push('/admin_dashboard')"
+              v-if="user.isAdmin"
+            >
+              Admin Panel
+            </div>
+            <div class="user-panel-item" @click="changePassword">
+              Change Password
+            </div>
+            <div class="user-panel-item" @click="logout">Log Out</div>
+          </div>
           <ul class="nav-list" v-if="!user">
-            <li class="md-list-item login-btn">
-              <LocalizedLink to="login">
+            <li
+              class="md-list-item auth-btn login-btn"
+              :class="{ 'active-auth': isActive('/log_in') }"
+            >
+              <LocalizedLink to="log_in">
                 {{ $t("nav-links.login") }}
               </LocalizedLink>
             </li>
-            <li class="md-list-item signup-btn">
+            <li
+              class="md-list-item auth-btn signup-btn"
+              :class="{ 'active-auth': !isActive('/log_in') }"
+            >
               <LocalizedLink to="signup">
                 {{ $t("nav-links.signup") }}
               </LocalizedLink>
@@ -152,7 +171,7 @@
             </LocalizedLink>
           </li>
           <li>
-            <LocalizedLink to="login">
+            <LocalizedLink to="log_in">
               {{ $t("nav-links.login") }}
             </LocalizedLink>
           </li>
@@ -174,6 +193,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      showUserPanel: false,
     };
   },
 
@@ -184,26 +204,60 @@ export default {
     },
   },
   methods: {
+    setUser(user) {
+      store.commit("setUser", user);
+    },
     toggleNavbar() {
       this.isOpen = !this.isOpen;
     },
     isActive(route) {
       return this.$route.path === route;
     },
+    logout() {
+      this.showUserPanel = false;
+      localStorage.removeItem("token");
+      this.setUser(null);
+      this.$router.push("/");
+    },
+    changePassword() {
+      if (this.user.isAdmin) {
+        this.$router.push("/admin_dashboard/changepassword");
+      }
+    },
   },
 };
 </script>
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
-html,
-body {
-  font-family: "Montserrat", sans-serif;
-}
 .user_avatar {
   width: 40px;
   position: absolute;
   right: 15%;
   top: 15%;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.user-panel {
+  position: absolute;
+  border-radius: 10px;
+  z-index: 500;
+  background: #fefefe;
+  -webkit-box-shadow: 0 5px 5px 2px #6e6c6c;
+  box-shadow: 0 5px 5px 2px #6e6c6c;
+  min-width: 143px;
+  font-size: 15px;
+  font-weight: 500;
+  right: 182px;
+  top: 56px;
+  padding: 10px;
+}
+.user-panel-item {
+  padding-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 5px;
+}
+.user-panel-item:hover {
+  background-color: #ff7c03;
 }
 .block__container {
   width: 100%;
@@ -238,6 +292,7 @@ body {
   background-color: #fff; /* Material Design Blue */
   z-index: 11;
   position: relative;
+  height: 60px !important;
 
   box-shadow: 0px 4px 17px 0px rgb(81 65 65 / 38%);
 }
@@ -304,22 +359,18 @@ a:hover {
   color: #ff7c03;
 }
 
-.login-btn,
-.signup-btn {
+.auth-btn {
   font-size: 12px !important;
   font-weight: 600 !important;
-}
-.login-btn {
   cursor: pointer;
 }
 
-.signup-btn {
+.active-auth {
   border-radius: 8px !important;
   background: #ff7c03 !important;
   padding: 10px 15px;
   color: #fff;
   border: none;
-  cursor: pointer;
   margin-top: -10px !important;
 }
 
@@ -399,7 +450,7 @@ a:hover {
     border: none;
   }
 
-  .signup-btn {
+  .auth-btn {
     width: fit-content;
   }
 }

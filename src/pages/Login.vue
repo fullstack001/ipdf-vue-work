@@ -3,35 +3,7 @@
     <div class="col-md-7 sign_panel">
       <h1 class="text-center">PDFDEN</h1>
       <h4 class="card-title mt-3 text-center">Login to your account</h4>
-      <!-- <p>
-        <a href="" class="btn btn-block btn-twitter">
-          <i class="fab fa-twitter"></i>   Login via Twitter</a
-        >
-        <a href="" class="btn btn-block btn-facebook text-white">
-          <i class="fab fa-google"></i>   Login via Google</a
-        >
-      </p> -->
       <form @submit.prevent="handleSubmit">
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-          </div>
-          <input
-            class="form-control"
-            placeholder="Full name"
-            type="text"
-            v-model="userForm.name"
-            id="name"
-            name="name"
-            :class="{ 'is-invalid': isSubmitted && $v.userForm.name.$error }"
-          />
-          <div
-            v-if="isSubmitted && !$v.userForm.name.required"
-            class="invalid-feedback"
-          >
-            Name field is required
-          </div>
-        </div>
         <!-- form-group// -->
         <div class="form-group input-group">
           <div class="input-group-prepend">
@@ -47,8 +19,7 @@
             placeholder="Email address"
             type="text"
             :class="{
-              'is-invalid':
-                (isSubmitted && $v.userForm.email.$error) || userExit,
+              'is-invalid': (isSubmitted && $v.userForm.email.$error) || errMsg,
             }"
           />
           <div
@@ -62,8 +33,8 @@
               >Please provide valid email</span
             >
           </div>
-          <div v-if="userExit" class="invalid-feedback">
-            <span>User already Exist</span>
+          <div v-if="emailErr" class="invalid-feedback">
+            <span>{{ errMsg }}</span>
           </div>
         </div>
 
@@ -79,11 +50,12 @@
             id="password"
             name="password"
             :class="{
-              'is-invalid': isSubmitted && $v.userForm.password.$error,
+              'is-invalid':
+                (isSubmitted && $v.userForm.password.$error) || passErr,
             }"
           />
           <div
-            v-if="isSubmitted && $v.userForm.password.$error"
+            v-if="(isSubmitted && $v.userForm.password.$error) || passErr"
             class="invalid-feedback"
           >
             <span v-if="!$v.userForm.password.required"
@@ -93,12 +65,15 @@
               >Password should be at least 5 characters long</span
             >
           </div>
+          <div v-if="passErr" class="invalid-feedback">
+            <span>{{ errMsg }}</span>
+          </div>
         </div>
 
         <!-- form-group// -->
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">
-            Create New Account
+            Log in
           </button>
         </div>
         <!-- form-group// -->
@@ -124,12 +99,13 @@ export default {
   data() {
     return {
       userForm: {
-        name: "",
         email: "",
         password: "",
       },
       isSubmitted: false,
-      userExit: false,
+      emailErr: false,
+      passErr: false,
+      errMsg: "",
     };
   },
   computed: {
@@ -139,9 +115,6 @@ export default {
   },
   validations: {
     userForm: {
-      name: {
-        required,
-      },
       email: {
         required,
         email,
@@ -163,7 +136,7 @@ export default {
         return;
       }
       this.$axios
-        .post("/users/", this.userForm)
+        .post("/auth/", this.userForm)
         .then((res) => {
           // Decode the JWT
 
@@ -171,18 +144,35 @@ export default {
 
           const decoded = VueJwtDecode.decode(res.data.token);
           const user = decoded.user;
-
-          console.log(user);
           this.setUser(user);
-          this.$router.push("/");
+          if (user.isAdmin == 1) {
+            this.$router.push("/admin_dashboard");
+          } else {
+            this.$router.push("/");
+          }
         })
         .catch((err) => {
-          this.userExit = true;
+          switch (err.response.data.msg) {
+            case "Invalid Credentials":
+              this.errMsg = err.response.data.msg;
+              this.emailErr = true;
+              break;
+            case "Invalid Password":
+              this.errMsg = err.response.data.msg;
+              this.passErr = true;
+              this.emailErr = false;
+              break;
+            default:
+              break;
+          }
         });
     },
   },
 };
 </script>
+<style lang="scss" scoped>
+@import "~bootstrap/scss/bootstrap";
+</style>
 <style scoped>
 .form-group {
   margin-top: 30px;

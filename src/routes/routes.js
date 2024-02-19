@@ -39,12 +39,12 @@ const children = (hasLocale = true) => [
       import(/* webpackChunkName: "login" */ "@/pages/SignUp.vue"),
     name: hasLocale ? "en_signup" : "signup",
   },
-  // {
-  //   path: "/:locale/login",
-  //   component: () =>
-  //     import(/* webpackChunkName: "login" */ "@/pages/Login.vue"),
-  //   name: "en_login",
-  // },
+  {
+    path: (hasLocale ? "/:locale" : "") + "/log_in",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "@/pages/Login.vue"),
+    name: hasLocale ? "en_login" : "login",
+  },
   {
     path: (hasLocale ? "/:locale" : "") + `/blog`,
     component: () =>
@@ -152,8 +152,9 @@ const routes = [
   },
   ...children(false),
   {
-    path: "/admin",
+    path: "/admin_dashboard",
     component: Admin,
+    redirect: "admin_dashboard/liveview",
     children: [
       {
         path: "liveview",
@@ -185,6 +186,14 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "compresspdf" */ "@/pages/admin/ServerStatus.vue"
+          ),
+      },
+      {
+        path: "changepassword",
+        name: "changepassword",
+        component: () =>
+          import(
+            /* webpackChunkName: "compresspdf" */ "@/pages/admin/ChangePassword.vue"
           ),
       },
     ],

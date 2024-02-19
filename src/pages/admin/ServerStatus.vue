@@ -26,7 +26,10 @@ export default {
         console.log(res.data);
         this.serverStatus = res.data;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        this.$router.push("/");
+      });
   },
 };
 </script>

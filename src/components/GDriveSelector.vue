@@ -259,7 +259,7 @@ export default {
   color: #000 !important;
 }
 
-.gdrive_btn:hover{
+.gdrive_btn:hover {
   background-color: #ff7c03;
 }
 </style>

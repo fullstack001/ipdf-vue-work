@@ -54,7 +54,7 @@
                   class="cloud dropbox"
                   link-type="direct"
                   :multiselect="false"
-                  :extensions="['.pdf', '.doc']"
+                  :extensions="['.pdf']"
                   :folderselect="false"
                   @picked="onPickedDropbox"
                 />
