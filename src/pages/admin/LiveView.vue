@@ -8,16 +8,14 @@
           <th scope="col">Ip Address</th>
           <th scope="col">URL</th>
           <th scope="col">Browser</th>
-          <th scope="col">Time</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="disData.length > 0">
         <tr v-for="(item, index) in disData" :key="index">
           <th scope="row">{{ index + 1 }}</th>
-          <td>{{ item.ip }}</td>
-          <td>{{ item.workUrl }}</td>
-          <td>{{ item.browser }}</td>
-          <td>{{ item.timestamp }}</td>
+          <td>{{ item.ipAddress }}</td>
+          <td class="address_td">{{ item.currentURL }}</td>
+          <td>{{ item.browserName }}</td>
         </tr>
       </tbody>
     </table>
@@ -40,6 +38,7 @@ export default {
       data: [],
       disData: [],
       page: 1,
+      intervalId: null,
     };
   },
   watch: {
@@ -50,27 +49,31 @@ export default {
   created() {
     this.fetchDatas();
   },
+  beforeDestroy() {
+    clearInterval(this.intervalId);
+  },
   methods: {
     fetchDatas() {
-      this.$axios
-        .get("/admin/liveviews")
-        .then((res) => {
-          this.data = res.data.data;
-          this.disData =
-            this.data.length > 10 ? this.data.slice(0, 10) : this.data;
-        })
-        .catch((err) => {
-          this.$router.replace("/");
-        });
+      this.intervalId = setInterval(() => {
+        this.$axios
+          .get("/client_data")
+          .then((res) => {
+            const data = res.data;
+            const temp = data.map((item) => {
+              return item.data;
+            });
+            this.data = temp;
+            this.disData =
+              this.data.length > 10 ? this.data.slice(0, 10) : this.data;
+          })
+          .catch((err) => console.log(err));
+      }, 1000);
     },
     pagination() {
       const start = (this.page - 1) * 10;
       const length =
-        this.data.length > this.page * 10
-          ? 10
-          : this.data.length - (this.page - 1) * 10 + 1;
-      this.disData =
-        this.data.length > 10 ? this.data.slice(start, length) : this.data;
+        this.data.length > this.page * 10 ? this.page * 10 : this.data.length;
+      this.disData = this.data.slice(start, length);
     },
   },
 };
@@ -84,5 +87,9 @@ export default {
   margin: auto;
   width: 80%;
   margin-top: 50px;
+}
+.address_td {
+  word-wrap: break-word;
+  max-width: 500px;
 }
 </style>

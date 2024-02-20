@@ -43,7 +43,9 @@
         Change Password
       </router-link>
     </nav>
-    <router-view></router-view>
+    <div class="router-view-div">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 <script>
@@ -82,5 +84,10 @@ nav {
 }
 .admin-nav:hover {
   cursor: pointer;
+}
+.router-view-div {
+  max-height: 100vh;
+  overflow-y: auto;
+  width: 100%;
 }
 </style>

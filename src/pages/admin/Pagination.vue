@@ -31,7 +31,7 @@ export default {
     },
     prev() {
       if (this.page > 1) {
-        this.page = this.page + 1;
+        this.page = this.page - 1;
         this.$emit("setPage", this.page);
       }
     },

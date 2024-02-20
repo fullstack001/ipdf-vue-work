@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import VueMeta from "vue-meta";
 
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
@@ -46,11 +47,17 @@ const children = (hasLocale = true) => [
     name: hasLocale ? "en_login" : "login",
   },
   {
-    path: (hasLocale ? "/:locale" : "") + `/blog`,
+    path: (hasLocale ? "/:locale" : "") + `/blog/:title`,
     component: () =>
       import(
-        /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/Blog.vue"
+        /* webpackChunkName: "mergepdf" */ "@/pdf_pages/features/BlogDetail.vue"
       ),
+    name: hasLocale ? "en_blogDetail" : "blogDetail",
+  },
+  {
+    path: (hasLocale ? "/:locale" : "") + `/blog`,
+    component: () =>
+      import(/* webpackChunkName: "mergepdf" */ "@/pdf_pages/Blog.vue"),
     name: hasLocale ? "en_blog" : "blog",
   },
   {
@@ -181,6 +188,14 @@ const routes = [
           ),
       },
       {
+        path: "blogediter",
+        name: "blogediter",
+        component: () =>
+          import(
+            /* webpackChunkName: "compresspdf" */ "@/pages/admin/BlogEditer.vue"
+          ),
+      },
+      {
         path: "serverstatus",
         name: "serverstatus",
         component: () =>
@@ -244,7 +259,7 @@ const routes = [
     ],
   },
 ];
-
+Vue.use(VueMeta);
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,

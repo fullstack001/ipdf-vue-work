@@ -1,17 +1,15 @@
 <template>
   <div class="solution">
     <div class="block__container">
-      <div class="solution-header">
-        {{ $t("page_titles.landing.section1.title") }}
-      </div>
+      <div class="solution-header">Blog</div>
       <div class="md-layout">
         <div
-          class="md-layout-item"
+          class="blog-item md-layout-item"
           v-for="blog in blogs"
           :key="blog._id"
           @click="goBlogDetail(blog.title, blog._id)"
         >
-          <md-card class="blog-body">
+          <div class="blog-body">
             <md-card-media>
               <img class="blog_img" :src="blog.img" alt="People" />
               <div class="card-tip">
@@ -30,10 +28,10 @@
               </div>
               <div
                 class="md-subhead"
-                v-html="blog.content.substring(0, 120)"
+                v-html="blog.content.substring(0, 500)"
               ></div>
             </md-card-header>
-          </md-card>
+          </div>
         </div>
       </div>
     </div>
@@ -41,7 +39,7 @@
 </template>
 
 <script>
-import { getDate, getMonth } from "../../services/getDateMonth";
+import { getDate, getMonth } from "./services/getDateMonth";
 export default {
   props: ["routing"],
   data() {
@@ -61,7 +59,7 @@ export default {
     },
     fetchBlog() {
       this.$axios
-        .get("/pdf/latestBlogs")
+        .get("/pdf/allBlogs")
         .then((res) => {
           this.blogs = res.data;
         })
@@ -99,6 +97,7 @@ export default {
   margin-left: auto;
   max-width: 91%;
 }
+
 .solution-header {
   font-weight: 600;
   font-size: 42px;
@@ -108,22 +107,11 @@ export default {
   margin-bottom: 25px;
 }
 
-.solution .md-layout-item {
-  height: auto;
-}
 .blog-body:hover {
   border: solid 1px #ff7c03;
   cursor: pointer;
   border-radius: 5px;
 }
-/* .md-card-media {
-  padding: 15px;
-}
-
-.md-card-header {
-  background-color: #fff !important;
-  margin-bottom: 15px !important;
-} */
 
 .card-tip {
   position: absolute;
@@ -148,7 +136,7 @@ export default {
 }
 .blog-body {
   width: 510px;
-  height: 450px;
+  height: 600px;
 }
 img {
   width: 480px;
@@ -157,7 +145,7 @@ img {
 @media only screen and (max-width: 1870px) {
   .blog-body {
     width: 400px;
-    height: 350px;
+    height: 550px;
   }
   .blog_img {
     width: 380px;
@@ -170,7 +158,7 @@ img {
 @media only screen and (max-width: 1470px) {
   .blog-body {
     width: 350px;
-    height: 350px;
+    height: 550px;
   }
   .blog_img {
     width: 330px;

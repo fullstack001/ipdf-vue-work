@@ -141,6 +141,7 @@ export default {
           // Decode the JWT
 
           localStorage.setItem("token", res.data.token);
+          sessionStorage.setItem("token", res.data.token);
 
           const decoded = VueJwtDecode.decode(res.data.token);
           const user = decoded.user;

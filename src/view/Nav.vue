@@ -216,6 +216,7 @@ export default {
     logout() {
       this.showUserPanel = false;
       localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       this.setUser(null);
       this.$router.push("/");
     },
@@ -389,6 +390,17 @@ a:hover {
   .block__container {
     max-width: 100%;
   }
+  .user_avatar {
+    right: 10%;
+  }
+}
+@media (max-width: 1710px) {
+  .user_avatar {
+    right: 12%;
+  }
+  .user-panel {
+    right: 60px;
+  }
 }
 
 @media only screen and (max-width: 991px) {
@@ -452,6 +464,12 @@ a:hover {
 
   .auth-btn {
     width: fit-content;
+  }
+  .user_avatar {
+    right: 8%;
+  }
+  .user-panel {
+    right: 20px;
   }
 }
 </style>

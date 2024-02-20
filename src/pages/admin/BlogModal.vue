@@ -109,8 +109,7 @@ export default {
     async onChange() {
       this.img = document.getElementById("file").files[0];
       var blog = this;
-      //   this.generateURL(this.img);
-      // Initialize a new FileReader object
+
       var reader = new FileReader();
 
       // Set up an event listener for when the file is loaded
@@ -169,6 +168,10 @@ export default {
 .modal-leave-active .modal-content {
   transform: scale(1.2);
 }
+// .modal-content {
+//   width: 100vh;
+//   overflow-y: auto;
+// }
 .apply-btn {
   width: -webkit-fit-content;
   width: -moz-fit-content;

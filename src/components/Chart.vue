@@ -11,10 +11,12 @@
       :inner-stroke-width="20"
       style="margin: auto"
     >
-      <h2 style="margin-bottom: 0">
+      <h2>
         <b>{{ disRate }} %</b>
       </h2>
-      <h2 style="margin-top: -10px; margin-bottom: 20px"><b>Saved</b></h2>
+      <h2 style="margin-top: -93px !important; margin-bottom: 70px">
+        <b>Saved</b>
+      </h2>
     </radial-progress-bar>
     <p>
       Origin Size:

@@ -46,7 +46,9 @@
             </LocalizedLink>
           </div>
           <div class="footer-link">
-            <router-link to="/"> {{ $t("nav-links.blog") }} </router-link>
+            <LocalizedLink to="blog" class="nav-btn">
+              {{ $t("nav-links.blog") }}
+            </LocalizedLink>
           </div>
         </div>
       </div>

@@ -16,6 +16,17 @@ import EventBus from "@/EventBus";
 
 export default {
   name: "app",
+  metaInfo: {
+    title: "PDFden ",
+    titleTemplate: "%s | Online PDF Tools",
+    meta: [
+      {
+        vmid: "description",
+        name: "description",
+        content: "Parent description.",
+      },
+    ],
+  },
   components: {
     Nav,
     Footer,

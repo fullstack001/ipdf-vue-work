@@ -16,14 +16,7 @@
         </div>
       </div>
     </div>
-    <BlogModal
-      :title="title"
-      :oldBlog="editBlog"
-      v-if="modalValidate"
-      @close="modalValidate = false"
-      @saveBlog="createBlog"
-      @updateBlog="updateBlog"
-    />
+
     <Pagination
       :max="(blogs.length / 5).toFixed(0) + 1"
       @setPage="(data) => (page = data)"
@@ -32,12 +25,10 @@
 </template>
 <script>
 import Vue from "vue";
-import BlogModal from "./BlogModal.vue";
 import Pagination from "./Pagination.vue";
 
 export default {
   components: {
-    BlogModal,
     Pagination,
   },
   data() {
@@ -75,48 +66,33 @@ export default {
         });
     },
     newBlog() {
-      this.title = "New Blog";
-      this.modalValidate = true;
-      this.saveType = "new";
+      this.$router.push({
+        name: "blogediter",
+        params: {
+          title: "New Blog",
+          saveType: "new",
+        },
+      });
     },
     editItem(blog) {
+      this.$router.push({
+        name: "blogediter",
+        params: {
+          title: "Edit Blog",
+          saveType: "update",
+          id: blog._id,
+        },
+      });
       this.title = "Edit Blog";
       this.editBlog = blog;
       this.saveType = "update";
       this.modalValidate = true;
     },
-    createBlog(data) {
-      console.log(data);
-      this.$axios
-        .post("/admin/blog", data)
-        .then((res) => {
-          this.blogs = res.data;
-          this.pagination();
-        })
-        .catch((err) => this.$router.replace("/admin"));
-      this.modalValidate = false;
-    },
-    updateBlog(data) {
-      console.log(data);
-      data.uploadTime = Date.now();
-      this.$axios
-        .put(`admin/blog/${this.editBlog._id}`, data)
-        .then((res) => {
-          const index = this.blogs.indexOf(this.editBlog);
-          Vue.set(this.blogs, index, res.data);
-          this.pagination();
-        })
-        .catch((err) => console.log(err));
-      this.modalValidate = false;
-    },
     pagination() {
       const start = (this.page - 1) * 5;
       const length =
-        this.blogs.length > this.page * 5
-          ? 5
-          : this.blogs.length - (this.page - 1) * 5 + 1;
-      this.disBlogs =
-        this.blogs.length > 5 ? this.blogs.slice(start, length) : this.blogs;
+        this.blogs.length > this.page * 5 ? this.page * 5 : this.blogs.length;
+      this.disBlogs = this.blog.slice(start, length);
     },
     removeItem(blog) {
       this.$axios

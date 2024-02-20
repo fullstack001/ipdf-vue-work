@@ -58,20 +58,17 @@ export default {
         .then((res) => {
           this.data = res.data.data;
           this.disData =
-            this.data.length > 10 ? this.data.slice(0, 10) : this.data;
+            this.data.length > 5 ? this.data.slice(0, 5) : this.data;
         })
         .catch((err) => {
           this.$router.replace("/");
         });
     },
     pagination() {
-      const start = (this.page - 1) * 10;
+      const start = (this.page - 1) * 5;
       const length =
-        this.data.length > this.page * 10
-          ? 10
-          : this.data.length - (this.page - 1) * 10 + 1;
-      this.disData =
-        this.data.length > 10 ? this.data.slice(start, length) : this.data;
+        this.data.length > this.page * 5 ? this.page * 5 : this.data.length;
+      this.disData = this.data.slice(start, length);
     },
   },
 };

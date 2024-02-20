@@ -1,4 +1,5 @@
 import Vue from "vue";
+import VueMeta from "vue-meta";
 import App from "./App";
 import loading from "vuejs-loading-screen";
 import Donut from "vue-css-donut-chart";
@@ -15,6 +16,14 @@ import router from "./routes/routes";
 
 //vuex setup
 import store from "./store/index.js";
+
+//check token
+import checkToken from "./checkToken";
+checkToken();
+
+//get accessed client
+import "./clientSocket.js";
+
 // Plugins
 import axios from "./plugins/axios";
 import CryptoPlugin from "./plugins/cryptoPlugin.js";
@@ -31,6 +40,7 @@ Vue.use(CKEditor);
 
 Vue.prototype.$Chartist = Chartist;
 
+Vue.use(VueMeta);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
@@ -46,6 +56,10 @@ Vue.config.productionTip = false;
 Vue.use(loading, {
   size: 5,
   icon_color: "white",
+});
+
+Vue.use(VueMeta, {
+  keyName: "head",
 });
 
 /* eslint-disable no-new */

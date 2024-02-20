@@ -1,13 +1,6 @@
 <template>
   <div class="blog-detail" v-if="blog">
     <div class="blog-title-area">
-      <div class="blog-address">
-        <span class="ad-span">Home </span>
-        <span> > </span>
-        <span class="ad-span">Blog</span>
-        <span> ></span>
-        <span>&nbsp;&nbsp;&nbsp;{{ blog.title }}</span>
-      </div>
       <div class="blog-date">
         {{ formatDate(blog.uploadTime) }}
       </div>
@@ -64,46 +57,91 @@ function getDaySuffix(day) {
 }
 
 export default {
+  // metaInfo: {
+  //   meta: [
+  //     {
+  //       vmid: "description",
+  //       name: "description",
+  //       content: "Child description.",
+  //     },
+  //     {
+  //       vmid: "description1",
+  //       name: "description1",
+  //       content: "Child description1.",
+  //     },
+  //   ],
+  // },
+  metaInfo() {
+    return this.setMetaData();
+  },
   components: {
     BlogThumbnail,
   },
   created() {
-    this.fetchBlogs(this.$route.params.id);
+    if (this.$route.params.id) {
+      this.fetchBlogs(this.$route.params.id);
+    } else {
+      this.$router.push("/");
+    }
   },
   data() {
     return {
+      metaTitle: "New description",
       blog: null,
+      titles: [],
     };
+  },
+  watch: {
+    "$route.params.title": function (newTitle, oldTitle) {
+      // Handle the change of params.title here
+      this.fetchBlogs(this.$route.params.id);
+    },
   },
   methods: {
     fetchBlogs(id) {
       this.$axios
         .get(`/pdf/blog/${id}`)
         .then((res) => {
-          console.log(res.data);
-          this.blog = res.data;
+          this.blog = res.data.blog;
+          this.titles = res.data.titles;
         })
         .catch((err) => console.log(err));
     },
     getPrevBlog(id) {
-      console.log(id);
-      this.$axios
-        .get(`/pdf/prevBlog/${id}`)
-        .then((res) => {
-          console.log(res.data);
-          this.blog = res.data;
-        })
-        .catch((err) => console.log(err));
+      const index = this.titles.findIndex((item) => item._id === id);
+      if (index == 0) {
+        return;
+      }
+      const newItem = this.titles[index - 1];
+      const modifiedTitle = newItem.title.replace(/ /g, "-");
+      this.$router.replace({
+        name:
+          this.$route.params.locale == undefined
+            ? "blogDetail"
+            : "en_blogDetail",
+        params: {
+          title: modifiedTitle,
+          id: newItem._id,
+        },
+      });
     },
     getNextBlog(id) {
-      console.log(id);
-      this.$axios
-        .get(`/pdf/nextBlog/${id}`)
-        .then((res) => {
-          console.log(res.data);
-          this.blog = res.data;
-        })
-        .catch((err) => console.log(err));
+      const index = this.titles.findIndex((item) => item._id === id);
+      if (index == this.titles.length - 1) {
+        return;
+      }
+      const newItem = this.titles[index + 1];
+      const modifiedTitle = newItem.title.replace(/ /g, "-");
+      this.$router.replace({
+        name:
+          this.$route.params.locale == undefined
+            ? "blogDetail"
+            : "en_blogDetail",
+        params: {
+          title: modifiedTitle,
+          id: newItem._id,
+        },
+      });
     },
     formatDate(dateString) {
       const date = new Date(dateString);
@@ -114,6 +152,26 @@ export default {
       const daySuffix = getDaySuffix(day);
 
       return `${day}${daySuffix} ${month}, ${year}`;
+    },
+    setMetaData() {
+      if (this.blog) {
+        if (this.blog.metaData.length > 0) {
+          const metaArray = [];
+          this.blog.metaData.forEach((data) => {
+            metaArray.push({
+              vmid: data.title,
+              name: data.title,
+              content: data.content, // Bind meta content to the data property metaTitle
+            });
+          });
+
+          return {
+            meta: metaArray,
+          };
+        } else {
+          return { meta: [] };
+        }
+      }
     },
   },
 };
