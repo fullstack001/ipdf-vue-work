@@ -364,6 +364,7 @@ a:hover {
   font-size: 12px !important;
   font-weight: 600 !important;
   cursor: pointer;
+  display: none;
 }
 
 .active-auth {
@@ -464,6 +465,7 @@ a:hover {
 
   .auth-btn {
     width: fit-content;
+    display: none;
   }
   .user_avatar {
     right: 8%;
