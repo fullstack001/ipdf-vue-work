@@ -2,10 +2,12 @@
 import io from "socket.io-client";
 
 // Client-side code (for clients)
-const socket = io("http://localhost:5000", {
+// const socket = io("http://127.0.0.1:5000", {
+//   transports: ["websocket", "polling"],
+// });
+const socket = io("https://api.pdfdne.com", {
   transports: ["websocket", "polling"],
 });
-// const socket = io("https://api.pdfden.com");
 
 // Listen for request from server
 socket.on("requestData", () => {
