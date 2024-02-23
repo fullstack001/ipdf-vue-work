@@ -14,77 +14,34 @@
       :file_name="file_name"
       v-if="page_load == 'uploading'"
     />
-    <div
-      class="dropzone-container"
-      @dragover.prevent
-      @drop="handleDrop"
+    <input
+      type="file"
+      multiple
+      hidden
+      name="file"
+      id="fileInput"
+      class="hidden-input"
+      @change="onChange"
+      ref="file"
+      accept=".pdf"
+    />
+    <SelectFileComponent
       v-if="page_load == 'default'"
-    >
-      <div class="upload_btn_area">
-        <div v-show="!file_objs.length" class="upload-buttons">
-          <div class="page-title">
-            {{ $t("page_titles.compress_page.title") }}
-          </div>
-          <div class="page-description">
-            {{ $t("page_titles.compress_page.description") }}
-          </div>
-          <div class="drop-area">
-            <div class="drop-img">
-              <img src="@/assets/feature_img/compress_pdf.svg" alt="" />
-            </div>
-            <div class="upload_btn">
-              <label for="fileInput" class="uploader__btn md-raised md-danger">
-                {{ $t("page_titles.compress_page.selectBtn") }}
-              </label>
-              <input
-                type="file"
-                multiple
-                name="file"
-                id="fileInput"
-                class="hidden-input"
-                @change="onChange"
-                ref="file"
-                accept=".pdf"
-              />
-              <div
-                class="add-more"
-                v-bind:style="'position: absolute; margin: auto; right: -50px; top: -5px;'"
-              >
-                <md-button
-                  v-show="file_objs.length"
-                  class="md-icon-button"
-                  @click="open_add_local"
-                >
-                  <md-icon>computer</md-icon>
-                  <md-tooltip md-direction="bottom">{{
-                    $t("toolTip.upload_local")
-                  }}</md-tooltip>
-                </md-button>
-                <GDriveSelector
-                  @picked="onPickedGoogleDriver"
-                  :buttonStyle="'download'"
-                />
+      v-show="!file_objs.length"
+      @open_add_local="open_add_local"
+      @onPickedDropbox="onPickedDropbox"
+      @onPickedGoogleDriver="onPickedGoogleDriver"
+      @handleFile="handleFiles"
+      :title="$t('page_titles.compress_page.title')"
+      :description="$t('page_titles.compress_page.description')"
+      :featureImgUrl="svgUrl"
+    />
 
-                <VueDropboxPicker
-                  class="cloud dropbox"
-                  link-type="direct"
-                  :multiselect="true"
-                  :extensions="['.pdf', '.doc']"
-                  :folderselect="false"
-                  v-bind:style="
-                    file_objs.length > 0
-                      ? 'display: block; margin-top: 5px;'
-                      : 'display: inline-block;'
-                  "
-                  @picked="onPickedDropbox"
-                />
-              </div>
-            </div>
-            <div>{{ $t("page_titles.compress_page.dropFiles") }}</div>
-          </div>
-        </div>
-      </div>
-      <div class="files-list">
+    <div
+      v-if="file_objs.length > 0 && page_load == 'default'"
+      style="display: contents"
+    >
+      <div class="compress-files-list">
         <div class="preview-container mt-4" v-if="file_objs.length">
           <draggable
             v-model="file_objs"
@@ -142,11 +99,7 @@
           </draggable>
           <div
             class="add-more"
-            v-bind:style="
-              file_objs.length
-                ? 'position: absolute; top: 0px; right: 80px'
-                : 'position: relative; margin: auto; right: 0; top: 0;'
-            "
+            style="position: absolute; top: 0px; right: 120px"
           >
             <AddMoreDropDown
               :pdfCounts="this.file_objs.length"
@@ -157,10 +110,7 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div v-show="file_objs.length > 0" v-if="page_load == 'default'">
-      <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
+      <div class="compress_tool_sidebar" style="overflow-y: auto">
         <h3 class="text-center">{{ $t("page_titles.compress_page.level") }}</h3>
         <div class="tool__sidebar__inactive">
           <md-radio
@@ -196,42 +146,83 @@
             </p>
           </md-radio>
         </div>
-        <div class="option__panel option__panel--active" id="merge-options">
-          <button class="option__panel__title" @click="expressPDFs">
+        <div class="option__panel option__panel--active">
+          <button class="compress_btn" @click="expressPDFs">
             {{ $t("page_titles.compress_page.actionBtn") }}
           </button>
         </div>
       </div>
+      <div
+        class="responsive-setting"
+        @click="show_sidebar = !show_sidebar"
+        :style="show_sidebar ? 'left:30px' : 'right:40px'"
+      >
+        <i class="fa-solid fa-gear"></i>
+      </div>
+      <div class="compress_responsive__sidebar" v-show="show_sidebar">
+        <h3 class="text-center">{{ $t("page_titles.compress_page.level") }}</h3>
+        <div class="tool__sidebar__inactive">
+          <md-radio
+            v-model="radio"
+            value="50"
+            class="split_option"
+            :class="radio == 50 ? 'md-checked' : ''"
+            >{{ $t("page_titles.compress_page.extreme") }}
+            <p>
+              <small>{{ $t("page_titles.compress_page.extreme_des") }}</small>
+            </p>
+          </md-radio>
+          <md-radio
+            v-model="radio"
+            value="100"
+            class="split_option"
+            :class="radio == 100 ? 'md-checked' : ''"
+            >{{ $t("page_titles.compress_page.recommended") }}
+            <p>
+              <small>{{
+                $t("page_titles.compress_page.recommended_des")
+              }}</small>
+            </p>
+          </md-radio>
+          <md-radio
+            v-model="radio"
+            value="150"
+            class="split_option"
+            :class="radio == 150 ? 'md-checked' : ''"
+            >{{ $t("page_titles.compress_page.less") }}
+            <p>
+              <small>{{ $t("page_titles.compress_page.less_des") }}</small>
+            </p>
+          </md-radio>
+        </div>
+      </div>
+      <button class="compress_responsive_btn" @click="expressPDFs">
+        {{ $t("page_titles.compress_page.actionBtn") }}
+      </button>
     </div>
-    <md-dialog-alert
-      :md-active.sync="second"
-      md-title="Select Level!"
-      md-content="Your have to select level and compress the PDF"
-    />
   </div>
 </template>
 
 <script>
 import PdfViewer from "@/components/PdfViewer.vue";
-import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import generateURL from "@/pdf_pages/services/generateURL";
-import GDriveSelector from "@/components/GDriveSelector.vue";
 import AddMoreDropDown from "@/pdf_pages/features/components/AddMoreDropDown.vue";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
-import { fileHandlingMixin } from "@/fileHandlingMixin.js";
+import { fileHandlingMixin } from "@/globalMixin.js";
+import SelectFileComponent from "./components/SelectFileComponent.vue";
+import SvgImage from "@/assets/feature_img/compress_pdf.svg";
 
 export default {
   mixins: [fileHandlingMixin],
   components: {
     PdfViewer,
-    VueDropboxPicker,
     draggable,
-    GDriveSelector,
     AddMoreDropDown,
     Processing,
     Uploading,
+    SelectFileComponent,
   },
   data() {
     return {
@@ -246,6 +237,8 @@ export default {
       size: 0,
       file_name: "",
       first_file: 0,
+      svgUrl: SvgImage,
+      show_sidebar: false,
     };
   },
 
@@ -393,5 +386,196 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/compress.css";
+.preview-container {
+  position: relative;
+  padding-left: 15px;
+  margin-right: 20px;
+}
+
+.preview_area {
+  display: flex;
+}
+.md-layout {
+  max-height: 95vh;
+  overflow-y: auto;
+}
+.compress-files-list {
+  width: 80%;
+  margin-top: 30px;
+  text-align: center;
+}
+.preview-card {
+  cursor: grab;
+  flex: 1 1;
+  margin: 4px;
+  max-width: 215px;
+  min-width: 215px;
+  min-height: 230px;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: #fdfdfd;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+  padding-bottom: 10px;
+}
+
+.preview-card:focus,
+.preview-card:active,
+.preview-card:visited {
+  border: dotted 2px #e76d26;
+}
+.preview_img {
+  margin-top: 40px;
+}
+.preview-img {
+  width: 140px;
+  height: 180px;
+  border-radius: 5px;
+  border: 1px solid #a2a2a2;
+  background-color: #a2a2a2;
+}
+
+.file__actions {
+  top: 8px;
+  right: 8px;
+  position: absolute;
+  display: inline-flex;
+  /* display: none; */
+  z-index: 100;
+}
+.file__btn {
+  padding: 3px;
+  width: 24px;
+  height: 24px;
+  -ms-flex: 0 0 24px;
+  flex: 0 0 24px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  background: #ff7c03;
+  margin-left: 4px;
+  z-index: 1030;
+  border-radius: 100%;
+  cursor: pointer;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.sidebar-active .tool__sidebar {
+  -ms-flex-preferred-size: 440px;
+  flex-basis: 440px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0 0 120px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+.compress_tool_sidebar {
+  height: 100vh;
+  width: 20%;
+  background-color: #fff;
+}
+
+.compress_btn,
+.compress_responsive_btn {
+  font-size: 22px;
+  line-height: 26px;
+  min-height: 48px;
+  padding: 8px 12px;
+  color: #fff;
+  background-color: #ff7c03;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin: 17%;
+}
+
+.compress_responsive_btn,
+.responsive-setting,
+.compress_responsive__sidebar {
+  display: none;
+}
+.tool__sidebar__inactive {
+  padding: 10px;
+}
+
+.split_option {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.md-radio-label {
+  font-weight: 500 !important;
+}
+@media (max-width: 640px) {
+  .uploader__btn {
+    min-width: auto;
+  }
+  .drop-area {
+    width: 100%;
+  }
+
+  .md-layout {
+    max-height: unset;
+    overflow-y: auto;
+  }
+
+  .compress_tool_sidebar {
+    display: none;
+  }
+
+  .compress-files-list {
+    width: 100%;
+    min-height: 80vh;
+    padding-left: 17%;
+  }
+
+  .responsive-setting {
+    display: block;
+    position: absolute;
+    font-size: 26px;
+    background-color: #fff;
+    color: #ff7c03;
+    border-radius: 50%;
+    padding: 6px;
+    top: 72px;
+  }
+  .compress_responsive__sidebar {
+    display: block;
+    height: 350px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 999;
+    width: 80%;
+    right: 0px;
+    top: 65px;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+  }
+  .tool__sidebar__inactive[data-v-5b5109a2] {
+    padding: 30px;
+    text-align: left;
+  }
+  .compress_responsive_btn {
+    display: block;
+    position: absolute;
+    top: 80vh;
+    right: -30px;
+    font-size: 20px;
+  }
+  .add-more {
+    top: 15px;
+  }
+}
 </style>

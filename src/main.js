@@ -35,6 +35,10 @@ import Notifications from "./components/NotificationPlugin";
 // MaterialDashboard plugin
 import MaterialDashboard from "./material-dashboard";
 
+import { metaTagMixin } from "./globalMixin.js";
+
+Vue.mixin(metaTagMixin);
+
 import Chartist from "chartist";
 Vue.use(CKEditor);
 

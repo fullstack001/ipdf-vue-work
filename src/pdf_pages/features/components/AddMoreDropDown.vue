@@ -42,6 +42,7 @@
             class="cloud dropbox"
             link-type="direct"
             :buttonType="'chooser'"
+            :position="'addMore'"
             :multiselect="true"
             :extensions="['.pdf', '.doc']"
             :folderselect="false"
@@ -97,7 +98,7 @@ h3 {
 .badge[data-v-43894eff] {
   position: absolute;
   top: -10px;
-  right: 55px;
+  right: 65px;
   background-color: rgb(10, 10, 10);
   color: white;
   border-radius: 100%;

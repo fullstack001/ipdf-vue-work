@@ -15,7 +15,9 @@
       <tbody>
         <tr v-for="(item, index) in disData" :key="index">
           <th scope="row">{{ index + 1 }}</th>
-          <td class="down-cell">{{ item.downUrl }}</td>
+          <td class="down-cell">
+            <a :href="item.downUrl" target="_blank">{{ item.downUrl }}</a>
+          </td>
           <td class="text-danger">{{ item.deleted ? "Deleted" : "" }}</td>
           <td>{{ item.workUrl }}</td>
           <td>{{ item.ip }}</td>

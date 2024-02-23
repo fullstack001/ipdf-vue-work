@@ -21,7 +21,7 @@ export default {
   tr: "Türkçe",
   uk: "Українська",
   vi: "Tiếng Việt",
-  zh_cn: "中文(简体)",
-  zh_tw: "中文(繁體)",
+  zh_c: "中文(简体)",
+  zh_t: "中文(繁體)",
   bg: "Български",
 };

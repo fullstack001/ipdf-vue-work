@@ -155,8 +155,17 @@ export default {
     },
     setMetaData() {
       if (this.blog) {
+        let metaArray = [
+          {
+            property: "article:modified_time",
+            content: this.blog.uploadTime,
+          },
+          {
+            property: "og:type",
+            content: "article",
+          },
+        ];
         if (this.blog.metaData.length > 0) {
-          const metaArray = [];
           this.blog.metaData.forEach((data) => {
             metaArray.push({
               vmid: data.title,
@@ -164,13 +173,8 @@ export default {
               content: data.content, // Bind meta content to the data property metaTitle
             });
           });
-
-          return {
-            meta: metaArray,
-          };
-        } else {
-          return { meta: [] };
         }
+        return { meta: metaArray };
       }
     },
   },

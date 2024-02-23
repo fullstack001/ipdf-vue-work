@@ -56,6 +56,7 @@
             class="cloud dropbox"
             link-type="direct"
             :multiselect="true"
+            :position="'addMore'"
             :extensions="['.pdf', '.doc']"
             :folderselect="false"
             :uploadFiles="[id]"
@@ -532,27 +533,20 @@ export default {
 </style>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
-html,
-body {
-  font-family: "Montserrat", sans-serif;
-}
 .download-page {
   text-align: center;
 }
 
 .download__btn {
   cursor: pointer;
-  display: -ms-inline-flexbox;
   display: inline-flex;
-  -ms-flex-align: center;
+
   align-items: center;
-  -ms-flex-pack: center;
+
   justify-content: center;
   min-height: 80px;
   min-width: 330px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+
   padding: 24px 48px;
   font-weight: 500;
   font-size: 24px;
@@ -562,16 +556,14 @@ body {
   color: #fff !important;
   text-decoration: none;
   margin-bottom: 12px;
-  -webkit-transition: background-color 0.1s linear;
-  -o-transition: background-color 0.1s linear;
-  transition: background-color 0.1s linear;
+
   border: 0;
   border-radius: 12px;
-  -webkit-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.14);
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.14);
   -ms-flex-order: 1;
   order: 1;
   max-width: 60vw;
+  width: auto;
 }
 
 .download__btn:hover {
@@ -588,6 +580,7 @@ body {
   position: relative;
   width: fit-content;
   margin: auto;
+  width: auto;
 }
 
 .continue {
@@ -766,37 +759,47 @@ body {
   font-size: 18px;
 }
 .md-badge {
-  left: -63px;
+  left: -56px;
   position: absolute;
-  -webkit-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  /* -webkit-box-align: center; */
-  -ms-flex-align: center;
-  -webkit-box-align: center;
   align-items: center;
-  /* -webkit-box-pack: center; */
-  -ms-flex-pack: center;
-  -webkit-box-pack: center;
   justify-content: center;
-  /* left: 9px; */
-  /* top: 5px; */
-  font-size: 35px;
-  font-style: revert;
+  top: 5px;
+  font-size: 29px;
   font-weight: bold;
-  width: 48px;
-  height: 48px;
+  width: 43px;
+  height: 42px;
   border-radius: 50%;
   color: #fff;
   pointer-events: none;
   background: #8ac823 !important;
 }
-
+@media (max-width: 991px) {
+  .page-title {
+    font-size: 26px;
+  }
+  .download-more-title {
+    font-size: 17px;
+  }
+}
 @media (max-width: 640px) {
   .page-title {
     font-size: 26px !important;
+  }
+  .md-badge {
+    font-size: 22px;
+    font-weight: bold;
+    width: 34px;
+    height: 33px;
+    top: 10px;
+    left: -38px;
+  }
+  .download-more {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+  .page-title {
+    font-size: 20px !important;
   }
 }
 </style>

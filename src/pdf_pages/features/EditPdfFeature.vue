@@ -107,7 +107,7 @@ import EditPdfContent from "./components/EditPdfContent.vue";
 import addImagesToPDF2 from "../services/add_img_to_pdf2";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
-import { fileHandlingMixin } from "@/fileHandlingMixin.js";
+import { fileHandlingMixin } from "@/globalMixin.js";
 import getPageNumber from "../services/getPageNumber";
 
 export default {

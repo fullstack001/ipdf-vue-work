@@ -41,7 +41,7 @@ const children = (hasLocale = true) => [
     name: hasLocale ? "en_signup" : "signup",
   },
   {
-    path: (hasLocale ? "/:locale" : "") + "/log_in",
+    path: (hasLocale ? "/:locale" : "") + "/login",
     component: () =>
       import(/* webpackChunkName: "login" */ "@/pages/Login.vue"),
     name: hasLocale ? "en_login" : "login",
@@ -146,9 +146,9 @@ const routes = [
         redirect: locale,
       },
   {
-    path: "/:locale([a-zA-Z]{2}|[a-zA-Z]{2}_[a-zA-Z]{2})",
+    path: "/:locale([a-zA-Z]{2}|[a-zA-Z]{2}_[a-zA-Z]{1})",
     beforeEnter: (to, from, next) => {
-      if (to.params.locale.length === 2 || to.params.locale.length === 5) {
+      if (to.params.locale.length === 2 || to.params.locale.length === 4) {
         next();
       } else {
         next(false);

@@ -42,4 +42,10 @@ export default {
   font-size: 25px;
   font-weight: 500;
 }
+@media (max-width: 640px) {
+  .progress-des {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
 </style>

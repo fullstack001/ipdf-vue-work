@@ -1,7 +1,14 @@
 <template>
   <div>
     <div v-if="scriptLoaded && dropboxChooserIsSupported" @click="clickButton">
-      <a class="dropbox-icon">
+      <a
+        class="dropbox-icon"
+        :style="
+          position != 'addMore'
+            ? 'padding: 4px 10px 5px 10px;'
+            : 'padding: 12px 10px 9px 10px;'
+        "
+      >
         <i class="fa-brands fa-dropbox"></i>
       </a>
       <md-tooltip md-direction="right" v-show="buttonType == 'chooser'">
@@ -49,6 +56,10 @@ export default {
       default: function () {
         return [];
       },
+    },
+    position: {
+      type: String,
+      require: false,
     },
   },
   data: () => ({
@@ -168,7 +179,7 @@ body {
   background-color: transparent;
   opacity: 1;
   border-radius: 50%;
-  padding: 10px 10px 8px 10px;
+
   cursor: pointer;
 }
 

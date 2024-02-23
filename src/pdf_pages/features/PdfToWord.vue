@@ -1,9 +1,7 @@
 <template>
   <div
     class="main"
-    :style="
-      file_objs.length ? 'display: flex' : 'display: inline-block; width: 100%;'
-    "
+    :style="file_objs.length ? 'display: flex; width: 100%' : ''"
   >
     <Processing :progress="'Converting'" v-if="page_load == 'processing'" />
     <Uploading
@@ -14,136 +12,87 @@
       :file_name="file_name"
       v-if="page_load == 'uploading'"
     />
+    <input
+      type="file"
+      multiple
+      hidden
+      name="file"
+      id="fileInput"
+      class="hidden-input"
+      @change="onChange"
+      ref="file"
+      accept=".pdf"
+    />
+    <SelectFileComponent
+      v-if="page_load == 'default' && !file_objs.length"
+      @open_add_local="open_add_local"
+      @onPickedDropbox="onPickedDropbox"
+      @onPickedGoogleDriver="onPickedGoogleDriver"
+      @handleFile="handleFiles"
+      :title="$t('page_titles.pdf_word.title')"
+      :description="$t('page_titles.pdf_word.description')"
+      :featureImgUrl="svgUrl"
+    />
     <div
-      class="dropzone-container"
-      @dragover.prevent
-      @drop="handleDrop"
-      v-if="page_load == 'default'"
+      class="pw-files-list"
+      v-if="page_load == 'default' && file_objs.length"
     >
-      <div class="upload_btn_area">
-        <div v-show="!file_objs.length" class="upload-buttons">
-          <div class="page-title">
-            {{ $t("page_titles.pdf_word.title") }}
-          </div>
-          <div class="page-description">
-            {{ $t("page_titles.pdf_word.description") }}
-          </div>
-          <div class="drop-area">
-            <div class="drop-img">
-              <img src="@/assets/feature_img/pdf_word.svg" alt="" />
-            </div>
-            <div class="upload_btn">
-              <label for="fileInput" class="uploader__btn md-raised md-danger">
-                {{ $t("page_titles.pdf_word.selectBtn") }}
-              </label>
-              <input
-                type="file"
-                multiple
-                name="file"
-                id="fileInput"
-                class="hidden-input"
-                @change="onChange"
-                ref="file"
-                accept=".pdf"
-              />
-              <div
-                class="add-more"
-                v-bind:style="'position: absolute; margin: auto; right: -50px; top: -5px;'"
-              >
-                <md-button
-                  v-show="file_objs.length"
-                  class="md-icon-button"
-                  @click="open_add_local"
-                >
-                  <md-icon>computer</md-icon>
-                  <md-tooltip md-direction="bottom">{{
-                    $t("toolTip.upload_local")
-                  }}</md-tooltip>
-                </md-button>
-                <GDriveSelector
-                  @picked="onPickedGoogleDriver"
-                  :buttonStyle="'download'"
-                />
-
-                <VueDropboxPicker
-                  class="cloud dropbox"
-                  link-type="direct"
-                  :multiselect="true"
-                  :extensions="['.pdf', '.doc']"
-                  :folderselect="false"
-                  v-bind:style="
-                    file_objs.length > 0
-                      ? 'display: block; margin-top: 5px;'
-                      : 'display: inline-block;'
-                  "
-                  @picked="onPickedDropbox"
-                />
-              </div>
-            </div>
-            <div>{{ $t("page_titles.pdf_word.dropFiles") }}</div>
-          </div>
-        </div>
-      </div>
-      <div class="files-list">
-        <div class="preview-container mt-4" v-if="file_objs.length">
-          <draggable
-            v-model="file_objs"
-            :options="{ animation: 150 }"
-            class="md-layout"
+      <div class="preview-container mt-4">
+        <draggable
+          v-model="file_objs"
+          :options="{ animation: 150 }"
+          class="md-layout"
+        >
+          <div
+            class="preview-card md-layout-item"
+            v-for="(file_obj, index) in file_objs"
+            :key="file_obj.file.name + index"
+            @mouseover="show_file_action = file_obj.file.name + index"
+            @mouseleave="show_file_action = null"
           >
             <div
-              class="preview-card md-layout-item"
-              v-for="(file_obj, index) in file_objs"
-              :key="file_obj.file.name + index"
-              @mouseover="show_file_action = file_obj.file.name + index"
-              @mouseleave="show_file_action = null"
+              class="file__actions"
+              v-show="show_file_action == file_obj.file.name + index"
             >
-              <div
-                class="file__actions"
-                v-show="show_file_action == file_obj.file.name + index"
+              <a
+                class="file__btn remove tooltip--top tooltip"
+                title="Remove this file"
+                data-title="Remove this file"
+                @click="remove(file_objs.indexOf(file_obj))"
               >
-                <a
-                  class="file__btn remove tooltip--top tooltip"
-                  title="Remove this file"
-                  data-title="Remove this file"
-                  @click="remove(file_objs.indexOf(file_obj))"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                  >
-                    <polygon
-                      fill="#fff"
-                      fill-rule="evenodd"
-                      points="12 1.208 10.79 0 6 4.792 1.21 0 0 1.208 4.79 6 0 10.792 1.21 12 6 7.208 10.79 12 12 10.792 7.21 6"
-                    ></polygon>
-                  </svg>
-                </a>
-              </div>
-              <div :id="'id' + index" :style="'id' + index">
-                <PdfViewer :fileUrl="getURL(file_obj)" />
-              </div>
-              <div class="prew_title">
-                {{
-                  file_obj.file.name.length > 19
-                    ? file_obj.file.name.substring(0, 20) + "..."
-                    : file_obj.file.name
-                }}
-                <!-- <md-tooltip md-direction="bottom"
-                  >{{ file_obj.file.name }}
-                </md-tooltip> -->
-              </div>
+                  <polygon
+                    fill="#fff"
+                    fill-rule="evenodd"
+                    points="12 1.208 10.79 0 6 4.792 1.21 0 0 1.208 4.79 6 0 10.792 1.21 12 6 7.208 10.79 12 12 10.792 7.21 6"
+                  ></polygon>
+                </svg>
+              </a>
             </div>
-          </draggable>
+            <div :id="'id' + index" :style="'id' + index">
+              <PdfViewer :fileUrl="getURL(file_obj)" />
+            </div>
+            <div class="prew_title">
+              {{
+                file_obj.file.name.length > 19
+                  ? file_obj.file.name.substring(0, 20) + "..."
+                  : file_obj.file.name
+              }}
+            </div>
+          </div>
+        </draggable>
+      </div>
+      <div class="add-more">
+        <div class="add-more-area">
           <div
-            class="add-more"
-            v-bind:style="
-              file_objs.length
-                ? 'position: absolute; top: 00px; right: 80px'
-                : 'position: relative; margin: auto; right: 0; top: 0;'
-            "
+            class="badge-container md-primary"
+            md-content="4"
+            v-if="file_objs.length"
           >
             <AddMoreDropDown
               :pdfCounts="this.file_objs.length"
@@ -156,37 +105,43 @@
       </div>
     </div>
 
-    <div v-show="file_objs.length > 0" v-if="page_load == 'default'">
-      <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3 class="text-center">PDF to Word</h3>
-        <div class="option__panel option__panel--active" id="convert-options">
-          <button class="option__panel__title" @click="convertToWord">
-            {{ $t("page_titles.pdf_word.actionBtn") }}
-          </button>
-        </div>
-      </div>
+    <div
+      class="pw_tool__sidebar"
+      style="overflow-y: auto"
+      v-if="page_load == 'default' && file_objs.length > 0"
+    >
+      <h3 class="text-center">PDF to Word</h3>
+      <button class="pw-btn" @click="convertToWord">
+        {{ $t("page_titles.pdf_word.actionBtn") }}
+      </button>
     </div>
+    <button
+      v-show="file_objs.length > 0 && page_load == 'default'"
+      class="pw_responsive_btn"
+      @click="convertToWord"
+    >
+      {{ $t("page_titles.pdf_word.actionBtn") }}
+    </button>
   </div>
 </template>
 
 <script>
 import PdfViewer from "@/components/PdfViewer.vue";
-import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
 import generateURL from "@/pdf_pages/services/generateURL";
-import GDriveSelector from "@/components/GDriveSelector.vue";
 import AddMoreDropDown from "./components/AddMoreDropDown.vue";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
-import { fileHandlingMixin } from "@/fileHandlingMixin.js";
+import { fileHandlingMixin } from "@/globalMixin.js";
+import SelectFileComponent from "./components/SelectFileComponent.vue";
+import SvgImage from "@/assets/feature_img/pdf_word.svg";
 
 export default {
   mixins: [fileHandlingMixin],
   components: {
     PdfViewer,
-    VueDropboxPicker,
     draggable,
-    GDriveSelector,
+    SelectFileComponent,
     AddMoreDropDown,
     Processing,
     Uploading,
@@ -203,6 +158,7 @@ export default {
       size: 0,
       file_name: "",
       first_file: 0,
+      svgUrl: SvgImage,
     };
   },
 
@@ -333,5 +289,150 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/pdfToWord.css";
+.pw-files-list {
+  width: 80%;
+  text-align: center;
+  position: relative;
+  padding: 20px;
+  height: 100vh;
+}
+.pw_tool__sidebar {
+  width: 20%;
+  background-color: #fff;
+  width: 20%;
+  height: 100vh;
+  text-align: center;
+}
+.file-label {
+  font-size: 20px;
+  display: block;
+  cursor: pointer;
+}
+.preview-container {
+  position: relative;
+  margin-top: 2rem;
+  margin-right: 20px;
+}
+.md-layout {
+  max-height: 95vh;
+  overflow-y: auto;
+}
+.preview_area {
+  display: flex;
+}
+.preview-card {
+  cursor: grab;
+  flex: 1 1;
+  margin: 4px;
+  max-width: 215px;
+  min-width: 215px;
+  height: 250px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: distribute;
+  align-content: space-around;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: #fdfdfd;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+}
+
+.preview-img {
+  width: 140px;
+  height: 180px;
+  border-radius: 5px;
+  border: 1px solid #a2a2a2;
+  background-color: #a2a2a2;
+}
+
+.file__actions {
+  top: 8px;
+  right: 8px;
+  position: absolute;
+  display: inline-flex;
+  /* display: none; */
+  z-index: 100;
+}
+.file__btn {
+  padding: 3px;
+  width: 24px;
+  height: 24px;
+  -ms-flex: 0 0 24px;
+  flex: 0 0 24px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  background: #ff7c03;
+  margin-left: 4px;
+  z-index: 1030;
+  border-radius: 100%;
+  cursor: pointer;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.add-more {
+  width: fit-content;
+  position: absolute;
+  margin: auto;
+  right: 120px;
+  top: 30px;
+}
+
+.add-more-area {
+  position: relative;
+  display: block;
+}
+
+.pw-btn,
+.pw_responsive_btn {
+  font-size: 22px;
+  line-height: 26px;
+  min-height: 48px;
+  padding: 8px 12px;
+  color: #fff;
+  background-color: #ff7c03;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-top: 100%;
+}
+.pw_responsive_btn {
+  display: none;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .pw_tool__sidebar {
+    display: none;
+  }
+  .pw-files-list {
+    width: 100%;
+    padding-left: 17%;
+    min-height: 80vh;
+  }
+
+  .pw_responsive_btn {
+    display: block;
+    position: absolute;
+    top: 200px;
+    right: 10px;
+  }
+}
 </style>

@@ -50,6 +50,7 @@ export default {
   created() {
     this.fetchBlog();
   },
+
   methods: {
     setMonth(data) {
       return getMonth(data);
@@ -91,8 +92,6 @@ export default {
 }
 .block__container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
   max-width: 91%;
@@ -128,6 +127,9 @@ export default {
   font-size: 15px;
   font-weight: 600;
 }
+.md-card-header {
+  padding: 10px;
+}
 
 .md-card-header .md-title {
   font-weight: 600;
@@ -137,6 +139,7 @@ export default {
 .blog-body {
   width: 510px;
   height: 600px;
+  overflow: hidden;
 }
 img {
   width: 480px;
@@ -145,7 +148,8 @@ img {
 @media only screen and (max-width: 1870px) {
   .blog-body {
     width: 400px;
-    height: 550px;
+    height: 600px;
+    overflow: hidden;
   }
   .blog_img {
     width: 380px;
@@ -158,7 +162,8 @@ img {
 @media only screen and (max-width: 1470px) {
   .blog-body {
     width: 350px;
-    height: 550px;
+    height: 600px;
+    overflow: hidden;
   }
   .blog_img {
     width: 330px;

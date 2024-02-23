@@ -127,15 +127,15 @@
           <ul class="nav-list" v-if="!user">
             <li
               class="md-list-item auth-btn login-btn"
-              :class="{ 'active-auth': isActive('/log_in') }"
+              :class="{ 'active-auth': isActive('/login') }"
             >
-              <LocalizedLink to="log_in">
+              <LocalizedLink to="login">
                 {{ $t("nav-links.login") }}
               </LocalizedLink>
             </li>
             <li
               class="md-list-item auth-btn signup-btn"
-              :class="{ 'active-auth': !isActive('/log_in') }"
+              :class="{ 'active-auth': !isActive('/login') }"
             >
               <LocalizedLink to="signup">
                 {{ $t("nav-links.signup") }}
@@ -146,9 +146,6 @@
       </ul>
       <div :class="{ 'navbar-open': isOpen }">
         <ul class="mobile-nav-list" @mouseleave="isOpen = false">
-          <li>
-            <LocalizedLink to="/"> HOME </LocalizedLink>
-          </li>
           <li>
             <LocalizedLink to="/mergepdf">
               {{ $t("features.merge.title") }}
@@ -171,7 +168,7 @@
             </LocalizedLink>
           </li>
           <li>
-            <LocalizedLink to="log_in">
+            <LocalizedLink to="login">
               {{ $t("nav-links.login") }}
             </LocalizedLink>
           </li>
@@ -405,6 +402,9 @@ a:hover {
 }
 
 @media only screen and (max-width: 991px) {
+  .navbar {
+    padding-top: 15px;
+  }
   .navbar-toggle {
     display: flex;
     position: absolute;

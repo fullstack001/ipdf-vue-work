@@ -5,15 +5,15 @@ import io from "socket.io-client";
 // const socket = io("http://127.0.0.1:5000", {
 //   transports: ["websocket", "polling"],
 // });
-const socket = io("https://api.pdfdne.com", {
+const socket = io("https://api.pdfden.com", {
   transports: ["websocket", "polling"],
 });
 
 // Listen for request from server
-socket.on("requestData", () => {
+socket.on("requestData", async () => {
   // Fetch client data
-  const clientData = {
-    ipAddress: getIPAddress(),
+  const clientData = await {
+    ipAddress: await getIPAddress(),
     currentURL: window.location.href,
     browserName: getBrowserName(),
   };
@@ -23,9 +23,14 @@ socket.on("requestData", () => {
 });
 
 // Function to get IP address
-function getIPAddress() {
+async function getIPAddress() {
   // This won't give the public IP but the local IP address.
-  return window.location.hostname;
+  let ipAddress = await fetch("https://api.ipify.org?format=json")
+    .then((response) => response.json())
+    .then((data) => {
+      return data.ip.split(" ")[0];
+    });
+  return ipAddress;
 }
 
 // Function to get browser name

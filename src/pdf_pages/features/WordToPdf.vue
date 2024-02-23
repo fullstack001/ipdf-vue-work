@@ -1,11 +1,7 @@
 <template>
   <div
     class="main"
-    :style="
-      file_objs.length > 0
-        ? 'display: flex'
-        : 'display: inline-block; width: 100%;'
-    "
+    :style="file_objs.length ? 'display: flex; width: 100%' : ''"
   >
     <Processing :progress="'Converting'" v-if="page_load == 'processing'" />
     <Uploading
@@ -16,83 +12,34 @@
       :file_name="file_name"
       v-if="page_load == 'uploading'"
     />
-    <div
-      class="dropzone-container"
-      @dragover.prevent
-      @drop="handleDrop"
-      v-if="page_load == 'default'"
-    >
-      <div class="upload_btn_area">
-        <div v-show="!file_objs.length" class="upload-buttons">
-          <div class="page-title">
-            {{ $t("page_titles.word_pdf.title") }}
-          </div>
-          <div class="page-description">
-            {{ $t("page_titles.word_pdf.description") }}
-          </div>
-          <div class="drop-area">
-            <div class="drop-img">
-              <img src="@/assets/feature_img/word_pdf.svg" alt="" />
-            </div>
-            <div class="upload_btn">
-              <label for="fileInput" class="uploader__btn md-raised md-danger">
-                {{ $t("page_titles.word_pdf.selectBtn") }}
-              </label>
-              <input
-                type="file"
-                multiple
-                name="file"
-                id="fileInput"
-                class="hidden-input"
-                @change="onChange"
-                ref="file"
-                accept=".doc, .docx"
-              />
-              <div
-                class="add-more"
-                v-bind:style="'position: absolute; margin: auto; right: -50px; top: -5px;'"
-              >
-                <div
-                  class="badge-container md-primary"
-                  md-content="4"
-                  v-if="file_objs.length"
-                >
-                  <md-button class="md-icon-button" @click="open_add_local">
-                    <md-icon>computer</md-icon>
-                    <md-tooltip md-direction="right"
-                      >{{ $t("toolTip.upload_local") }}
-                    </md-tooltip>
-                  </md-button>
-                  <div class="badge">
-                    {{ file_objs.length }}
-                  </div>
-                </div>
-                <GDriveSelector
-                  @picked="onPickedGoogleDriver"
-                  :buttonStyle="'download'"
-                />
+    <input
+      type="file"
+      multiple
+      hidden
+      name="file"
+      id="fileInput"
+      class="hidden-input"
+      @change="onChange"
+      ref="file"
+      accept=".doc, .docx"
+    />
+    <SelectFileComponent
+      v-if="page_load == 'default' && !file_objs.length"
+      @open_add_local="open_add_local"
+      @onPickedDropbox="onPickedDropbox"
+      @onPickedGoogleDriver="onPickedGoogleDriver"
+      @handleFile="handleFiles"
+      :title="$t('page_titles.word_pdf.title')"
+      :description="$t('page_titles.word_pdf.description')"
+      :featureImgUrl="svgUrl"
+    />
 
-                <VueDropboxPicker
-                  class="cloud dropbox"
-                  link-type="direct"
-                  :multiselect="true"
-                  :extensions="['.docx', '.doc']"
-                  :folderselect="false"
-                  v-bind:style="
-                    file_objs.length > 0
-                      ? 'display: block; margin-top: 5px;'
-                      : 'display: inline-block;'
-                  "
-                  @picked="onPickedDropbox"
-                />
-              </div>
-            </div>
-            <div>{{ $t("page_titles.word_pdf.dropFiles") }}</div>
-          </div>
-        </div>
-      </div>
-      <div class="files-list">
-        <div class="preview-container mt-4" v-if="file_objs.length">
+    <div
+      class="wp-files-list"
+      v-show="page_load == 'default' && file_objs.length"
+    >
+      <div class="preview-container mt-4" v-if="file_objs.length">
+        <div class="badge-container md-primary" md-content="4">
           <draggable
             v-model="file_objs"
             :options="{ animation: 150 }"
@@ -146,61 +93,62 @@
               </div>
             </div>
           </draggable>
+        </div>
+      </div>
+      <div class="add-more">
+        <div class="add-more-area">
           <div
-            class="add-more"
-            v-bind:style="
-              file_objs.length
-                ? 'position: absolute; top: 0px; right: 80px'
-                : 'position: relative; margin: auto; right: 0; top: 0;'
-            "
+            class="badge-container md-primary"
+            md-content="4"
+            v-if="file_objs.length"
           >
-            <div
-              class="badge-container md-primary"
-              md-content="4"
-              v-if="file_objs.length"
-            >
-              <AddMoreDropDown
-                :pdfCounts="this.file_objs.length"
-                @open_add_local="open_add_local"
-                @onPickedDropbox="onPickedDropbox"
-                @onPickedGoogleDriver="onPickedGoogleDriver"
-              />
-            </div>
+            <AddMoreDropDown
+              :pdfCounts="this.file_objs.length"
+              @open_add_local="open_add_local"
+              @onPickedDropbox="onPickedDropbox"
+              @onPickedGoogleDriver="onPickedGoogleDriver"
+            />
           </div>
         </div>
       </div>
     </div>
-
-    <div v-show="file_objs.length > 0" v-if="page_load == 'default'">
-      <div id="sidebar" class="tool__sidebar" style="overflow-y: auto">
-        <h3 class="text-center">Word to PDF</h3>
-        <div class="option__panel option__panel--active" id="convert-options">
-          <button class="option__panel__title" @click="convertToPdf">
-            {{ $t("page_titles.word_pdf.actionBtn") }}
-          </button>
-        </div>
+    <div
+      class="wp_sidebar"
+      v-show="file_objs.length > 0 && page_load == 'default'"
+    >
+      <h3 class="text-center">Word to PDF</h3>
+      <div class="option__panel option__panel--active">
+        <button class="wp_btn" @click="convertToPdf">
+          {{ $t("page_titles.word_pdf.actionBtn") }}
+        </button>
       </div>
     </div>
+    <button
+      v-show="file_objs.length > 0 && page_load == 'default'"
+      class="wp_responsive_btn"
+      @click="convertToPdf"
+    >
+      {{ $t("page_titles.word_pdf.actionBtn") }}
+    </button>
   </div>
 </template>
 
 <script>
-import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import draggable from "vuedraggable";
-import GDriveSelector from "@/components/GDriveSelector.vue";
 import AddMoreDropDown from "./components/AddMoreDropDown.vue";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
-import { fileHandlingMixin } from "@/fileHandlingMixin.js";
+import { fileHandlingMixin } from "@/globalMixin.js";
+import SvgImage from "@/assets/feature_img/word_pdf.svg";
+import SelectFileComponent from "./components/SelectFileComponent.vue";
 
 export default {
   mixins: [fileHandlingMixin],
   components: {
-    VueDropboxPicker,
     draggable,
-    GDriveSelector,
     AddMoreDropDown,
     Processing,
+    SelectFileComponent,
     Uploading,
   },
   data() {
@@ -215,6 +163,7 @@ export default {
       size: 0,
       file_name: "",
       first_file: 0,
+      svgUrl: SvgImage,
     };
   },
 

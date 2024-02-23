@@ -98,7 +98,7 @@ import SignComponent from "./components/SignComponent.vue";
 import addImagesToPDF1 from "../services/add_img_to_pdf1";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
-import { fileHandlingMixin } from "@/fileHandlingMixin.js";
+import { fileHandlingMixin } from "@/globalMixin.js";
 import getPageNumber from "../services/getPageNumber";
 
 export default {

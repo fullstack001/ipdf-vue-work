@@ -106,7 +106,7 @@ export default {
 
 #rateSection textarea {
   height: 90px;
-  width: 90%;
+  width: 88%;
   max-width: 800px;
   font-size: 15px;
   font-family: inherit;

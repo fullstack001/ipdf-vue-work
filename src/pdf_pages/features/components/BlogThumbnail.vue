@@ -93,8 +93,6 @@ export default {
 }
 .block__container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
   max-width: 91%;
@@ -148,7 +146,7 @@ export default {
 }
 .blog-body {
   width: 510px;
-  height: 450px;
+  height: 500px;
 }
 img {
   width: 480px;
@@ -157,7 +155,7 @@ img {
 @media only screen and (max-width: 1870px) {
   .blog-body {
     width: 400px;
-    height: 350px;
+    height: 400px;
   }
   .blog_img {
     width: 380px;
@@ -170,7 +168,7 @@ img {
 @media only screen and (max-width: 1470px) {
   .blog-body {
     width: 350px;
-    height: 350px;
+    height: 400px;
   }
   .blog_img {
     width: 330px;

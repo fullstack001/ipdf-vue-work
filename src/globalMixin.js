@@ -23,3 +23,17 @@ export const fileHandlingMixin = {
     },
   },
 };
+
+export const metaTagMixin = {
+  mounted() {
+    this.moveMetaTagToTop();
+  },
+  methods: {
+    moveMetaTagToTop() {
+      const metaTags = document.querySelectorAll("meta");
+      metaTags.forEach((tag) => {
+        document.head.insertBefore(tag, document.head.firstElementChild);
+      });
+    },
+  },
+};

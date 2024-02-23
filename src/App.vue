@@ -16,16 +16,40 @@ import EventBus from "@/EventBus";
 
 export default {
   name: "app",
-  metaInfo: {
-    title: "PDFden ",
-    titleTemplate: "%s | Online PDF Tools",
-    meta: [
-      {
-        vmid: "description",
-        name: "description",
-        content: "Parent description.",
-      },
-    ],
+  computed: {
+    locale() {
+      return this.$route.params && this.$route.params.locale
+        ? this.$route.params.locale
+        : "en";
+    },
+    metaTags() {
+      return [
+        {
+          vmid: "description",
+          name: "description",
+          content: "Parent description.",
+        },
+        {
+          property: "og:url",
+          content: window.location.href,
+        },
+        {
+          property: "og:site_name",
+          content: "pdfden",
+        },
+        {
+          property: "og:locale",
+          content: this.locale,
+        },
+      ];
+    },
+  },
+  metaInfo() {
+    return {
+      title: "PDFden ",
+      titleTemplate: "%s | Online PDF Tools",
+      meta: this.metaTags,
+    };
   },
   components: {
     Nav,
@@ -48,6 +72,44 @@ export default {
     handleBeforeUnload() {
       // Remove the localStorage item when the website is closed
       localStorage.removeItem("token");
+    },
+
+    localeProperty() {
+      const locale = {
+        property: locale,
+        content: this.$route.params.locale ? this.$route.params.locale : "en",
+      };
+
+      return locale;
+    },
+    setMetaData() {
+      const metaInfo = {
+        title: "PDFden ",
+        titleTemplate: "%s | Online PDF Tools",
+        meta: [
+          {
+            vmid: "description",
+            name: "description",
+            content: "Parent description.",
+          },
+          {
+            property: "og:url",
+            content: window.location.href,
+          },
+          {
+            property: "og:site_name",
+            content: "pdfden",
+          },
+          {
+            property: locale,
+            content: this.$route.params.locale
+              ? this.$route.params.locale
+              : "en",
+          },
+        ],
+      };
+
+      return metaInfo;
     },
   },
 };
