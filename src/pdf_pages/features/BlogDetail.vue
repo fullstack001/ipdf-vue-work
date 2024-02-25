@@ -253,8 +253,7 @@ export default {
   margin-bottom: 30px;
 }
 .blog-img {
-  min-width: 600px;
-  max-width: 600px;
+  width: 600px;
 }
 .blog-content-area {
   background-color: #fff;
@@ -313,5 +312,30 @@ export default {
 }
 .face-social {
   background-color: #6eabe7 !important;
+}
+@media (max-width: 640px) {
+  .blog-title-area {
+    padding: 20px;
+    height: 371px;
+  }
+  .blog-date {
+    font-size: 19px;
+  }
+  .blog-title {
+    font-size: 26px;
+  }
+  .blog-img {
+    width: 310px;
+  }
+  .blog-social {
+    left: 320px;
+  }
+  .blog-content-area {
+    padding: 15px;
+  }
+  .blog-pagination {
+    margin-top: 23px;
+    margin-bottom: 70px;
+  }
 }
 </style>

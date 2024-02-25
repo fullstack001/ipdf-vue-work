@@ -379,7 +379,11 @@
         </button>
       </div>
     </div>
-    <button class="rotate_responsive_btn" @click="rotatePdfs">
+    <button
+      class="rotate_responsive_btn"
+      @click="rotatePdfs"
+      v-if="page_load == 'default' && file_objs.length"
+    >
       {{ $t("page_titles.rotate_page.actionBtn") }}
     </button>
     <div

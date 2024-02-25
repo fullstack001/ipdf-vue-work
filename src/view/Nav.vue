@@ -161,13 +161,23 @@
               {{ $t("features.compress.title") }}
             </LocalizedLink>
           </li>
+          <li>
+            <LocalizedLink to="/rotatepdf">
+              {{ $t("features.rotate.title") }}
+            </LocalizedLink>
+          </li>
 
           <li>
-            <LocalizedLink to="wordtopdf">
-              {{ $t("other_features.convert_pdf.title") }}
+            <LocalizedLink to="/wordtopdf">
+              {{ $t("features.word_pdf.title") }}
             </LocalizedLink>
           </li>
           <li>
+            <LocalizedLink to="/pdftoword">
+              {{ $t("features.pdf_word.title") }}
+            </LocalizedLink>
+          </li>
+          <!-- <li>
             <LocalizedLink to="login">
               {{ $t("nav-links.login") }}
             </LocalizedLink>
@@ -176,7 +186,7 @@
             <LocalizedLink to="signup">
               {{ $t("nav-links.signup") }}
             </LocalizedLink>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -301,9 +311,6 @@ button {
   font-weight: 600;
 }
 a {
-  color: #000000 !important;
-}
-a:hover {
   color: #000000 !important;
 }
 
@@ -447,11 +454,17 @@ a:hover {
     -ms-flex-direction: column;
     flex-direction: column;
     position: absolute;
-    top: 20px;
+    top: 30px;
     right: 0;
-    width: 40%;
+    width: 51%;
     background-color: #fff;
     list-style: none;
+    font-size: 17px;
+    border-radius: 7px;
+    box-shadow: 0px 1px 2px 2px #28212145;
+    padding: 10px 20px;
+    font-weight: 500;
+    z-index: 999;
   }
   .mobile-nav-list li {
     margin: 15px 0;
@@ -472,6 +485,11 @@ a:hover {
   }
   .user-panel {
     right: 20px;
+  }
+  .router-link-active,
+  .router-link-exact-active {
+    background-color: #fff !important;
+    color: #ff7c03 !important;
   }
 }
 </style>

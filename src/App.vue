@@ -211,5 +211,9 @@ body {
     margin-left: 0;
     padding-left: 5px;
   }
+  .tab-area .md-button-content .md-tab-label {
+    color: #333 !important;
+    font-size: 14px;
+  }
 }
 </style>

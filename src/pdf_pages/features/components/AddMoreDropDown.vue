@@ -98,13 +98,13 @@ h3 {
 .badge[data-v-43894eff] {
   position: absolute;
   top: -10px;
-  right: 65px;
+  right: 60px;
   background-color: rgb(10, 10, 10);
   color: white;
   border-radius: 100%;
   padding: 0px 8px;
   font-size: 10px;
-  z-index: 500;
+  z-index: 9;
   border: solid 2px #ff7c03;
 }
 

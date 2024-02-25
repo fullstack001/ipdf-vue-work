@@ -641,7 +641,7 @@ h3 {
 }
 @media only screen and (max-width: 991px) {
   .select-wrapper {
-    padding-right: 20px;
+    padding-right: 45px;
   }
   .merge__sidebar {
     display: none;
