@@ -74,6 +74,24 @@ export default {
   metaInfo() {
     return this.setMetaData();
   },
+  // metaInfo() {
+  //   return new Promise((resolve, reject) => {
+  //     this.setMetaData()
+  //       .then(() => {
+  //         this.moveMetaTagToTop();
+  //         resolve();
+  //       })
+  //       .catch((error) => {
+  //         reject(error);
+  //       });
+  //   });
+  // },
+  mounted() {
+    this.moveMetaTagToTop();
+  },
+  onUpdated() {
+    this.moveMetaTagToTop();
+  },
   components: {
     BlogThumbnail,
   },
@@ -114,7 +132,7 @@ export default {
       }
       const newItem = this.titles[index - 1];
       const modifiedTitle = newItem.title.replace(/ /g, "-");
-      this.$router.replace({
+      this.$router.push({
         name:
           this.$route.params.locale == undefined
             ? "blogDetail"
@@ -132,7 +150,7 @@ export default {
       }
       const newItem = this.titles[index + 1];
       const modifiedTitle = newItem.title.replace(/ /g, "-");
-      this.$router.replace({
+      this.$router.push({
         name:
           this.$route.params.locale == undefined
             ? "blogDetail"
@@ -164,18 +182,37 @@ export default {
             property: "og:type",
             content: "article",
           },
+          {
+            name: "Keywords",
+            content:
+              "PDF tools, online PDF editor, PDF converter, merge PDF, split PDF, compress PDF, edit PDF, convert to PDF, PDF merge, PDF split, PDF compression, editable PDF, online PDF suite, PDF utility",
+          },
+          {
+            property: "og:title",
+            content: this.blog.title,
+          },
         ];
         if (this.blog.metaData.length > 0) {
           this.blog.metaData.forEach((data) => {
-            metaArray.push({
-              vmid: data.title,
-              name: data.title,
-              content: data.content, // Bind meta content to the data property metaTitle
-            });
+            if (data.title.length > 0 && data.content.length) {
+              metaArray.push({
+                vmid: data.title,
+                name: data.title,
+                content: data.content, // Bind meta content to the data property metaTitle
+              });
+            }
           });
         }
-        return { meta: metaArray };
+        return { title: this.blog.title, meta: metaArray };
       }
+    },
+    moveMetaTagToTop() {
+      setTimeout(() => {
+        const metaTags = document.querySelectorAll("meta");
+        metaTags.forEach((tag) => {
+          document.head.insertBefore(tag, document.head.firstElementChild);
+        });
+      }, 500);
     },
   },
 };

@@ -18,75 +18,26 @@
       "
       v-if="page_load == 'default'"
     >
-      <div
-        v-show="!file"
-        class="dropzone-container"
-        @dragover.prevent
-        @drop="handleDrop"
-      >
-        <div class="upload_btn_area">
-          <div class="upload-buttons">
-            <div class="page-title">
-              {{ $t("page_titles.edit_page.title") }}
-            </div>
-            <div class="page-description">
-              {{ $t("page_titles.edit_page.description") }}
-            </div>
-            <div class="drop-area">
-              <div class="drop-img">
-                <img src="@/assets/feature_img/edit_pdf.svg" alt="" />
-              </div>
-              <div class="upload_btn">
-                <label
-                  for="fileInput"
-                  class="uploader__btn md-raised md-danger"
-                >
-                  {{ $t("page_titles.edit_page.selectBtn") }}
-                </label>
-                <input
-                  type="file"
-                  name="file"
-                  id="fileInput"
-                  class="hidden-input"
-                  @change="onChange"
-                  ref="file"
-                  accept=".pdf"
-                />
-                <div
-                  class="add-more"
-                  v-bind:style="'position: absolute; margin: auto; right: -50px; top: -5px;'"
-                >
-                  <md-button
-                    v-show="file"
-                    class="md-icon-button"
-                    @click="open_add_local"
-                  >
-                    <md-icon>computer</md-icon>
-                    <md-tooltip md-direction="bottom">{{
-                      $t("toolTip.upload_local")
-                    }}</md-tooltip>
-                  </md-button>
-                  <GDriveSelector
-                    @picked="onPickedGoogleDriver"
-                    :buttonStyle="'download'"
-                  />
-
-                  <VueDropboxPicker
-                    class="cloud dropbox"
-                    link-type="direct"
-                    :multiselect="true"
-                    :extensions="['.pdf', '.doc']"
-                    :folderselect="false"
-                    style="'display: block; margin-top: 5px;'"
-                    @picked="onPickedDropbox"
-                  />
-                </div>
-              </div>
-              <div>{{ $t("page_titles.edit_page.dropFiles") }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <input
+        hidden
+        type="file"
+        name="file"
+        id="fileInput"
+        class="hidden-input"
+        @change="onChange"
+        ref="file"
+        accept=".pdf"
+      />
+      <SelectFileComponent
+        v-if="!file && page_load == 'default'"
+        @open_add_local="open_add_local"
+        @onPickedDropbox="onPickedDropbox"
+        @onPickedGoogleDriver="onPickedGoogleDriver"
+        @handleFile="handleFiles"
+        :title="$t('page_titles.edit_page.title')"
+        :description="$t('page_titles.edit_page.description')"
+        :featureImgUrl="svgUrl"
+      />
     </div>
     <EditPdfContent
       :pdfUrl="getURL(file)"
@@ -100,23 +51,49 @@
 </template>
 
 <script>
-import VueDropboxPicker from "@/components/DropboxPicker.vue";
 import generateURL from "@/pdf_pages/services/generateURL";
-import GDriveSelector from "@/components/GDriveSelector.vue";
 import EditPdfContent from "./components/EditPdfContent.vue";
 import addImagesToPDF2 from "../services/add_img_to_pdf2";
 import Processing from "./components/Processing.vue";
 import Uploading from "./components/Uploading.vue";
 import { fileHandlingMixin } from "@/globalMixin.js";
 import getPageNumber from "../services/getPageNumber";
-
+import SelectFileComponent from "./components/SelectFileComponent.vue";
+import SvgImage from "@/assets/feature_img/edit_pdf.svg";
 export default {
+  metaInfo: {
+    title:
+      "Edit PDF – Easily Edit your PDF Files for Free | Online PDF Editor & Form Filler",
+
+    meta: [
+      {
+        name: "Keywords",
+        content:
+          "Edit PDF, online PDF editor, PDF editing tool, modify PDF, edit text in PDF, add images to PDF, PDF document editor, pdf form filler, pdf filler",
+      },
+      {
+        name: "description",
+        content:
+          "Edit PDF documents easily with our PDF editor. This online PDF editing tool provides a user-friendly and intuitive platform to make changes to your PDF files.",
+      },
+      {
+        property: "og:description",
+        content:
+          "Edit PDF documents easily with our PDF editor. This online PDF editing tool provides a user-friendly and intuitive platform to make changes to your PDF files.",
+      },
+      {
+        property: "og:title",
+        content:
+          "Edit PDF – Easily Edit your PDF Files for Free | Online PDF Editor & Form Filler",
+      },
+    ],
+  },
+
   mixins: [fileHandlingMixin],
   components: {
-    VueDropboxPicker,
-    GDriveSelector,
     EditPdfContent,
     Processing,
+    SelectFileComponent,
     Uploading,
   },
   data() {
@@ -127,6 +104,7 @@ export default {
       page_load: "default",
       pdfPage: null,
       size: 0,
+      svgUrl: SvgImage,
       progress: 0,
     };
   },
@@ -206,5 +184,84 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/editFuture.css";
+.md-radio {
+  display: flex;
+}
+
+.edit-title {
+  margin-top: 50px;
+  border-bottom: solid 1px #eee;
+}
+
+.edit-desc-title {
+  text-align: left;
+  font-size: 24px;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.edit-desc-detail {
+  background-color: #def2ff;
+  padding: 24px;
+  color: #161616;
+  margin: 30px;
+  border-radius: 5px;
+}
+
+.upload_btn {
+  width: fit-content;
+  display: flex;
+  text-align: center;
+  margin: auto;
+  position: relative;
+  cursor: pointer;
+}
+
+.upload_btn .md-button-content {
+  font-size: 22px;
+  font-weight: 600;
+  padding: 0 30px;
+}
+
+.option__panel__content {
+  margin: 10px;
+  background: #def2ff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.edit-btn {
+  font-size: 22px;
+  line-height: 26px;
+  min-height: 48px;
+  padding: 8px 12px;
+  color: #fff;
+  background-color: #ff7c03;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-left: 100px;
+  margin-top: 100px;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .drop-area {
+    width: 100%;
+  }
+
+  .uploader__btn {
+    min-width: auto;
+  }
+
+  .page-title {
+    font-size: 26px !important;
+  }
+}
 </style>

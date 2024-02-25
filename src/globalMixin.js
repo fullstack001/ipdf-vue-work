@@ -1,3 +1,5 @@
+import { setTimeout } from "core-js/web";
+
 export const fileHandlingMixin = {
   methods: {
     open_add_local() {
@@ -28,12 +30,17 @@ export const metaTagMixin = {
   mounted() {
     this.moveMetaTagToTop();
   },
+  onUpdated() {
+    this.moveMetaTagToTop();
+  },
   methods: {
     moveMetaTagToTop() {
-      const metaTags = document.querySelectorAll("meta");
-      metaTags.forEach((tag) => {
-        document.head.insertBefore(tag, document.head.firstElementChild);
-      });
+      setTimeout(() => {
+        const metaTags = document.querySelectorAll("meta");
+        metaTags.forEach((tag) => {
+          document.head.insertBefore(tag, document.head.firstElementChild);
+        });
+      }, 500);
     },
   },
 };

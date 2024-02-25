@@ -137,6 +137,30 @@ import SelectFileComponent from "./components/SelectFileComponent.vue";
 import SvgImage from "@/assets/feature_img/pdf_word.svg";
 
 export default {
+  metaInfo: {
+    title: "Convert PDF to Word – Free PDF to Word Converter",
+    meta: [
+      {
+        name: "Keywords",
+        content:
+          "PDF to Word, convert PDF to Word, PDF to Word online, PDF to DOCX converter, extract text from PDF, online document conversion",
+      },
+      {
+        name: "description",
+        content:
+          "Convert PDF to Word documents with precision. Our online PDF to Word converter ensures accurate and efficient conversion, retaining the original formatting.",
+      },
+      {
+        property: "og:description",
+        content:
+          "Convert PDF to Word documents with precision. Our online PDF to Word converter ensures accurate and efficient conversion, retaining the original formatting.",
+      },
+      {
+        property: "og:title",
+        content: "Convert PDF to Word – Free PDF to Word Converter",
+      },
+    ],
+  },
   mixins: [fileHandlingMixin],
   components: {
     PdfViewer,

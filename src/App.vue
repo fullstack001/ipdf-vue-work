@@ -25,17 +25,16 @@ export default {
     metaTags() {
       return [
         {
-          vmid: "description",
-          name: "description",
-          content: "Parent description.",
-        },
-        {
           property: "og:url",
           content: window.location.href,
         },
         {
           property: "og:site_name",
-          content: "pdfden",
+          content: "pdfden - Online tools for PDF",
+        },
+        {
+          property: "og:type",
+          content: "website",
         },
         {
           property: "og:locale",

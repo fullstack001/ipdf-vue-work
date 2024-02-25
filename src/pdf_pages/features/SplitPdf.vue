@@ -234,6 +234,31 @@ import SelectFileComponent from "./components/SelectFileComponent.vue";
 import SvgImage from "@/assets/feature_img/split_pdf.svg";
 
 export default {
+  metaInfo: {
+    title: "Split PDF – Separate Pages in your PDF File for Free",
+
+    meta: [
+      {
+        name: "Keywords",
+        content:
+          "Split PDF, PDF split, split PDF online, divide PDF files, PDF splitter, online PDF split, extract PDF pages, split PDF documents, split PDF pages, PDF file split",
+      },
+      {
+        name: "description",
+        content:
+          "Split PDF files effortlessly with our PDF splitter. Divide and extract pages from your PDFs online. Enjoy a simple, secure, and user-friendly PDF split tool.",
+      },
+      {
+        property: "og:description",
+        content:
+          "Split PDF files effortlessly with our PDF splitter. Divide and extract pages from your PDFs online. Enjoy a simple, secure, and user-friendly PDF split tool.",
+      },
+      {
+        property: "og:title",
+        content: "Split PDF – Separate Pages in your PDF File for Free",
+      },
+    ],
+  },
   mixins: [fileHandlingMixin],
   components: {
     PdfViewer,

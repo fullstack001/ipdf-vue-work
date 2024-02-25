@@ -41,6 +41,30 @@
 <script>
 import { getDate, getMonth } from "./services/getDateMonth";
 export default {
+  metaInfo: {
+    title: "PDFden Blog: Explore Insights on PDF Tools, Tips, and More",
+    meta: [
+      {
+        name: "Keywords",
+        content:
+          "PDFden Blog, PDF tools, PDF tips, PDF insights, document management, PDF conversion, PDF editing, PDF compression, online tools, technology blog",
+      },
+      {
+        name: "description",
+        content:
+          "Discover the latest insights, tips, and news on PDF tools at our blog. Explore a variety of articles covering PDF merge, splitting, conversion, editing, compression, and other helpful topics. ",
+      },
+      {
+        property: "og:description",
+        content:
+          "Discover the latest insights, tips, and news on PDF tools at our blog. Explore a variety of articles covering PDF merge, splitting, conversion, editing, compression, and other helpful topics.",
+      },
+      {
+        property: "og:title",
+        content: "PDFden Blog: Explore Insights on PDF Tools, Tips, and More",
+      },
+    ],
+  },
   props: ["routing"],
   data() {
     return {

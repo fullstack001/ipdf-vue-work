@@ -591,6 +591,30 @@ import SvgImage from "@/assets/feature_img/rotate_pdf.svg";
 import SelectFileComponent from "./components/SelectFileComponent.vue";
 
 export default {
+  metaInfo: {
+    title: "Rotate PDF – Rotate PDF Pages for Free | Online PDF Rotator ",
+    meta: [
+      {
+        name: "Keywords",
+        content:
+          "Rotate PDF, rotate PDF pages, online PDF rotation, adjust PDF orientation, rotate PDF online, PDF page rotation",
+      },
+      {
+        name: "description",
+        content:
+          "Rotate PDF pages effortlessly with our PDF rotator. This online PDF rotation tool provides a quick and easy way to adjust the orientation of pages in your PDF files.",
+      },
+      {
+        property: "og:description",
+        content:
+          "Rotate PDF pages effortlessly with our PDF rotator. This online PDF rotation tool provides a quick and easy way to adjust the orientation of pages in your PDF files.",
+      },
+      {
+        property: "og:title",
+        content: "Rotate PDF – Rotate PDF Pages for Free | Online PDF Rotator",
+      },
+    ],
+  },
   mixins: [fileHandlingMixin],
   components: {
     PdfViewer,
@@ -1232,7 +1256,8 @@ h3 {
   cursor: pointer;
   margin-top: 150px;
 }
-.rotate_responsive_btn {
+.rotate_responsive_btn,
+.rotate_responsive__sidebar {
   display: none;
 }
 .tools__item {

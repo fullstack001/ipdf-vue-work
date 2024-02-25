@@ -489,7 +489,7 @@ export default {
       } else {
         browserName = "Unknown";
       }
-      const userDownUrl = "https://pdfden.com" + this.$route.fullPath;
+      const userDownUrl = window.location.href;
       const locale = this.$route.params.locale;
       const userWorkUrl = locale
         ? `https://pdfden.com/${locale}/${this.before}`

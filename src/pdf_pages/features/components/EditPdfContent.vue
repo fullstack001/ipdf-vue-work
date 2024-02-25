@@ -307,4 +307,27 @@ export default {
   height: 100vh;
   background-color: #fff;
 }
+.option__panel__content {
+  margin: 10px;
+  background: #def2ff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.edit-btn {
+  font-size: 22px;
+  line-height: 26px;
+  min-height: 48px;
+  padding: 8px 12px;
+  color: #fff;
+  background-color: #ff7c03;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-left: 100px;
+  margin-top: 100px;
+}
 </style>

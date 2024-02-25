@@ -215,6 +215,30 @@ import SelectFileComponent from "./components/SelectFileComponent.vue";
 import SvgImage from "@/assets/feature_img/compress_pdf.svg";
 
 export default {
+  metaInfo: {
+    title: "Compress PDF - Reduce PDF File Size for Free ",
+    meta: [
+      {
+        name: "Keywords",
+        content:
+          "Compress PDF, PDF compression, compress PDF online, reduce PDF file size, PDF compressor, online PDF compression, shrink PDF, compress PDF documents, optimize PDF size, compress PDF files, PDF size reduction",
+      },
+      {
+        name: "description",
+        content:
+          "Compress PDF file size effortlessly with the PDF compressor. Our online PDF compression tool provides efficient and secure compression, allowing you to shrink your PDFs without compromising quality.",
+      },
+      {
+        property: "og:description",
+        content:
+          "Compress PDF file size effortlessly with the PDF compressor. Our online PDF compression tool provides efficient and secure compression, allowing you to shrink your PDFs without compromising quality.",
+      },
+      {
+        property: "og:title",
+        content: "Compress PDF - Reduce PDF File Size for Free",
+      },
+    ],
+  },
   mixins: [fileHandlingMixin],
   components: {
     PdfViewer,

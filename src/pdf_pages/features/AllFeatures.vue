@@ -102,6 +102,33 @@ import { getDate, getMonth } from "../services/getDateMonth";
 import BlogThumbnail from "./components/BlogThumbnail.vue";
 
 export default {
+  metaInfo: {
+    title:
+      "PDFden.com - Free Online PDF Tools - Merge, Split, Compress, and More!",
+
+    meta: [
+      {
+        name: "Keywords",
+        content:
+          "PDF tools, online PDF editor, PDF converter, merge PDF, split PDF, compress PDF, edit PDF, convert to PDF, PDF merge, PDF split, PDF compression, editable PDF, online PDF suite, PDF utility",
+      },
+      {
+        name: "description",
+        content:
+          "Unlock the full potential of your PDFs with PDFden. Merge, split, convert, and edit your PDF files online with ease. Your go-to solution for all PDF-related tasks.",
+      },
+      {
+        property: "og:description",
+        content:
+          "Unlock the full potential of your PDFs with PDFden. Merge, split, convert, and edit your PDF files online with ease. Your go-to solution for all PDF-related tasks.",
+      },
+      {
+        property: "og:title",
+        content:
+          "PDFden.com - Free Online PDF Tools - Merge, Split, Compress, and More!",
+      },
+    ],
+  },
   components: {
     FeatureTitle,
     BlogThumbnail,

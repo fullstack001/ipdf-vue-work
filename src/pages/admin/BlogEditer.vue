@@ -48,32 +48,18 @@
       </div>
       <div class="blog-item">
         <span>Search Keys:</span>
+        <div v-for="(meta, index) in metas" :key="index">
+          <div class="ml-3 meta-item">
+            <div class="meta-info">Meta Title{{ index + 1 }}</div>
+            <input type="text" v-model="meta.title" />
+          </div>
+          <div class="ml-3 meta-item">
+            <div class="meta-info">Meta Content{{ index + 1 }}</div>
+            <input type="text" v-model="meta.content" />
+          </div>
+        </div>
+      </div>
 
-        <div class="ml-3">
-          <div class="meta-info">Meta Title</div>
-          <input type="text" v-model="metaTitle" />
-        </div>
-        <div class="ml-3">
-          <div class="meta-info">Meta Content</div>
-          <input type="text" v-model="metaContent" />
-          <button class="btn btn-info ml-5" @click="addMeta">Add</button>
-        </div>
-      </div>
-      <div class="blog-item meta-preview" v-if="metas.length > 0">
-        <div class="meta-item" v-for="(meta, index) in metas" :key="meta.title">
-          {{
-            `${index + 1}. MetaName = ${meta.title} : MetaContent = ${
-              meta.content
-            }`
-          }}
-          <div class="meta-edit meta-btn" @click="editMeta(meta)">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </div>
-          <div class="meta-remove meta-btn" @click="removeMeta(meta)">
-            <i class="fa fa-trash"></i>
-          </div>
-        </div>
-      </div>
       <div class="blog-item">
         <span>Favorite:</span>
         <div style="margin-left: 30px">
@@ -114,7 +100,11 @@ export default {
       title: "",
       metaTitle: "",
       metaContent: "",
-      metas: [],
+      metas: [
+        { title: "", content: "" },
+        { title: "", content: "" },
+        { title: "", content: "" },
+      ],
       blogAvail: true,
     };
   },
@@ -139,6 +129,27 @@ export default {
           this.blogTitle = blog.title;
           this.editorData = blog.content;
           this.metas = blog.metaData;
+          switch (this.metas.length) {
+            case 0:
+              this.metas = [
+                { title: "", content: "" },
+                { title: "", content: "" },
+                { title: "", content: "" },
+              ];
+              break;
+            case 1:
+              this.metas.push(
+                { title: "", content: "" },
+                { title: "", content: "" }
+              );
+              break;
+            case 2:
+              this.metas.push({ title: "", content: "" });
+              break;
+
+            default:
+              break;
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -179,20 +190,11 @@ export default {
     remove() {
       this.imgURL = null;
     },
-    editMeta(data) {
-      this.metaTitle = data.title;
-      this.metaContent = data.content;
-      this.metas = this.metas.filter((item) => item != data);
-    },
+
     removeMeta(data) {
       this.metas = this.metas.filter((item) => item != data);
     },
-    addMeta() {
-      if (this.metaTitle !== "" && this.metaContent !== "") {
-        this.metas.push({ title: this.metaTitle, content: this.metaContent });
-        this.metaTitle = this.metaContent = "";
-      }
-    },
+
     saveBlog() {
       const blog = {
         title: this.blogTitle,
@@ -325,6 +327,14 @@ export default {
 .meta-btn {
   margin: 0 20px;
   cursor: pointer;
+}
+.meta-info {
+  width: 115px;
+  margin-right: 20px;
+}
+.meta-item {
+  display: flex;
+  margin-bottom: 5px;
 }
 .meta-btn:hover {
   color: #f00;

@@ -4,12 +4,7 @@
 .md-radio {
   display: flex;
 }
-.main {
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+
 
 .page-title {
   margin-top: 50px;
