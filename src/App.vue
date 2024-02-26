@@ -45,8 +45,7 @@ export default {
   },
   metaInfo() {
     return {
-      title: "PDFden ",
-      titleTemplate: "%s | Online PDF Tools",
+      title: "PDFden | Online PDF Tools",
       meta: this.metaTags,
     };
   },
