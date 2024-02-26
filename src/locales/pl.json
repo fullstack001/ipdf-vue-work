@@ -202,7 +202,7 @@
       },
       "sign_page": {
         "title": "Podpisz PDF",
-        "des": "Twoje narzędzie do elektronicznego podpisywania dokumentów. Podpisz dokument samodzielnie lub wyślij prośbę o podpis innym.",
+        "description": "Twoje narzędzie do elektronicznego podpisywania dokumentów. Podpisz dokument samodzielnie lub wyślij prośbę o podpis innym.",
         "selectBtn": "Wybierz pliki PDF",
         "dropFiles": "Lub upuść tutaj pliki PDF",
         "sign_options": "Opcje podpisywania",

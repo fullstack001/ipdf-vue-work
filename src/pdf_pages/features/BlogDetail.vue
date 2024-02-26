@@ -322,7 +322,8 @@ export default {
     font-size: 19px;
   }
   .blog-title {
-    font-size: 26px;
+    font-size: 25px;
+    line-height: normal;
   }
   .blog-img {
     width: 310px;

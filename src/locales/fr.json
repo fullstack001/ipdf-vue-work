@@ -171,7 +171,7 @@
     },
     "sign_page": {
        "title": "Signer le PDF",
-       "des": "Votre outil pour signer électroniquement des documents. Signez vous-même un document ou envoyez une demande de signature à d'autres.",
+       "description": "Votre outil pour signer électroniquement des documents. Signez vous-même un document ou envoyez une demande de signature à d'autres.",
        "selectBtn": "Sélectionner les fichiers PDF",
        "dropFiles": "Ou déposez les PDF ici",
        "sign_options": "Options de signature",

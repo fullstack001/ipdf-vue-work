@@ -202,7 +202,7 @@
       },
       "sign_page": {
         "title": "Skriv under PDF",
-        "des": "Ditt verktyg för att e-signera dokument. Signera ett dokument själv eller skicka en signaturförfrågan till andra.",
+        "description": "Ditt verktyg för att e-signera dokument. Signera ett dokument själv eller skicka en signaturförfrågan till andra.",
         "selectBtn": "Välj PDF-filer",
         "dropFiles": "Eller släpp PDF-filer här",
         "sign_options": "Signeringsalternativ",

@@ -152,26 +152,32 @@ export default {
 
 @media only screen and (max-width: 991px) {
   .dropzone-container {
-    min-height: 63vh;
+    min-height: 55vh;
   }
 
   .page-title {
-    font-size: 32px;
-    margin-top: 20px;
+    font-size: 25px;
+    margin-top: 0px;
   }
   .page-description {
-    font-size: 18px;
+    font-size: 15px;
     line-height: 1.5;
-    width: 64%;
+    width: 95%;
     margin: auto;
   }
   .drop-area {
     width: 95%;
     margin-left: 8px !important;
     margin-right: 8px !important;
+    padding: 20px;
   }
   .upload_btn {
     display: contents;
+  }
+  .drop-img {
+    width: 60px;
+    margin: auto;
+    margin-bottom: 12px;
   }
   .cloud-upload {
     display: inline-flex;

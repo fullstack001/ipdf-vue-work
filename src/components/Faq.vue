@@ -1,7 +1,9 @@
 <template>
   <div class="each-question">
     <div class="question" @click="faqItem.active = !faqItem.active">
-      {{ faqItem.q }}
+      <div>
+        {{ faqItem.q }}
+      </div>
       <div class="indicator">
         {{ faqItem.active ? "-" : "+" }}
       </div>
@@ -54,10 +56,8 @@ export default {
 
 .answer {
   transition: 0.25s; /* smooth slide-in */
-  height: 0; /* starts collapsed */
   overflow: hidden;
   line-height: 1.5;
-  height: 30px;
   margin-top: 22px;
   margin-bottom: 10px;
 }
@@ -89,5 +89,14 @@ export default {
   padding-bottom: 10px;
   font-size: 20px;
   border-bottom: solid 1px #88888855;
+}
+@media (max-width: 640px) {
+  .description-title {
+    font-size: 20px;
+  }
+  .each-question {
+    padding-top: 5px;
+    font-size: 15px;
+  }
 }
 </style>

@@ -32,7 +32,11 @@
             </div>
             <div class="premium-list">
               <div class="premium-img">
-                <img src="@/assets/img/icons/round3.png" alt="" />
+                <img
+                  class="large-img"
+                  src="@/assets/img/icons/round3.png"
+                  alt=""
+                />
               </div>
               <div class="premium-text">
                 {{ $t("page_titles.merge_page.howSection.list3") }}
@@ -40,7 +44,11 @@
             </div>
             <div class="premium-list">
               <div class="premium-img">
-                <img src="@/assets/img/icons/round4.png" alt="" />
+                <img
+                  class="large-img"
+                  src="@/assets/img/icons/round4.png"
+                  alt=""
+                />
               </div>
               <div class="premium-text">
                 {{ $t("page_titles.merge_page.howSection.list4") }}
@@ -462,22 +470,13 @@ export default {
   flex-grow: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  -ms-flex-preferred-size: calc(25% - 30px);
   flex-basis: calc(25% - 30px);
   border: 1px solid #f5f5fa;
   margin: 15px;
   position: relative;
   overflow: hidden;
-  -webkit-transition: background-color 0.4s ease-out,
-    -webkit-box-shadow 0.4s ease-out;
-  transition: background-color 0.4s ease-out, -webkit-box-shadow 0.4s ease-out;
-  -o-transition: box-shadow 0.4s ease-out, background-color 0.4s ease-out;
-  transition: box-shadow 0.4s ease-out, background-color 0.4s ease-out;
-  transition: box-shadow 0.4s ease-out, background-color 0.4s ease-out,
-    -webkit-box-shadow 0.4s ease-out;
   z-index: 1;
   border-radius: 4px;
-  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
 }
 .block__container {
@@ -550,6 +549,12 @@ export default {
   }
 }
 @media (max-width: 640px) {
+  .tools_container {
+    display: block;
+  }
+  .merge-descriptions {
+    display: grid;
+  }
   .tools__item {
     -ms-flex-positive: 0;
     flex-grow: 0;
@@ -559,7 +564,7 @@ export default {
     flex-basis: calc(50% - 4px);
   }
   .block__container {
-    max-width: 84%;
+    max-width: 100%;
     margin-left: 5px;
     padding-left: 0px;
   }
@@ -581,35 +586,22 @@ export default {
     max-height: unset;
     overflow-y: auto;
   }
+  .description-title {
+    font-size: 20px;
+    font-weight: 600;
+  }
   .page-title {
     font-size: 26px !important;
   }
-}
-@media (max-width: 440px) {
-  .tools__item {
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-    -ms-flex-preferred-size: calc(100% - 4px);
-    flex-basis: calc(100% - 4px);
+  .large-img {
+    width: 24px !important;
   }
-  .block__container {
-    max-width: 84%;
-    margin-left: 5px;
-    padding-left: 0px;
+  .free-img img[data-v-7651ee6a] {
+    max-width: 150px;
+    margin: 0px;
   }
-
-  .page-title {
-    max-width: 300px;
-    margin: 8px auto 0;
-    margin-left: 15%;
-  }
-
-  .page-description {
-    max-width: 300px;
-    margin: 8px auto 0;
-    margin-left: 15%;
+  .md-card {
+    margin: 0;
   }
 }
 </style>

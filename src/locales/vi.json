@@ -202,7 +202,7 @@
       },
       "sign_page": {
         "title": "Ký PDF",
-         "des": "Công cụ ký điện tử cho tài liệu của bạn. Tự ký vào tài liệu hoặc gửi yêu cầu chữ ký cho người khác.",
+         "description": "Công cụ ký điện tử cho tài liệu của bạn. Tự ký vào tài liệu hoặc gửi yêu cầu chữ ký cho người khác.",
          "selectBtn": "Chọn tập tin PDF",
          "dropFiles": "Hoặc thả tệp PDF vào đây",
          "sign_options": "Tùy chọn ký",

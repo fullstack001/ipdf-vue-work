@@ -6,7 +6,7 @@
       </div>
       <div class="md-layout">
         <div
-          class="md-layout-item"
+          class="md-layout-item blog-panel"
           v-for="blog in blogs"
           :key="blog._id"
           @click="goBlogDetail(blog.title, blog._id)"
@@ -114,14 +114,6 @@ export default {
   cursor: pointer;
   border-radius: 5px;
 }
-/* .md-card-media {
-  padding: 15px;
-}
-
-.md-card-header {
-  background-color: #fff !important;
-  margin-bottom: 15px !important;
-} */
 
 .card-tip {
   position: absolute;
@@ -138,7 +130,11 @@ export default {
   font-size: 15px;
   font-weight: 600;
 }
-
+.md-card .md-card-header {
+  margin: -20px 15px 0;
+  border-radius: 3px;
+  padding: 15px;
+}
 .md-card-header .md-title {
   font-weight: 600;
   color: #575757;
@@ -176,6 +172,25 @@ img {
   }
   .md-title {
     font-size: 15px;
+  }
+}
+@media (max-width: 640px) {
+  .solution {
+    padding: 15px 0 15px;
+  }
+  .blog-panel {
+    margin-top: 0px;
+    padding-left: 0px;
+  }
+  .solution-header {
+    font-size: 20px;
+  }
+  .blog-body {
+    height: 289px;
+    overflow: hidden;
+  }
+  .md-card-header .md-title {
+    line-height: 1.05;
   }
 }
 </style>

@@ -202,7 +202,7 @@
     },
     "sign_page": {
       "title": "Sign PDF",
-      "des": "Your tool to eSign documents. Sign a document yourself or send a signature request to others.",
+      "description": "Your tool to eSign documents. Sign a document yourself or send a signature request to others.",
       "selectBtn": "Select PDF Files",
       "dropFiles": "Or Drop PDFs Here",
       "sign_options": "Signing options",

@@ -202,7 +202,7 @@
       },
       "sign_page": {
         "title": "簽署 PDF",
-         "des": "您的電子簽名文件工具。您自己簽署文件或向其他人發送簽名請求。",
+         "description": "您的電子簽名文件工具。您自己簽署文件或向其他人發送簽名請求。",
          "selectBtn": "選擇 PDF 檔案",
          "dropFiles": "或在此處放置 PDF",
          "sign_options": "簽章選項",

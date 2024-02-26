@@ -1,7 +1,11 @@
 <template>
   <div
     class="main"
-    :style="file_objs.length ? 'display: flex' : 'display: inline-block'"
+    :style="
+      file_objs.length
+        ? 'display: flex;'
+        : 'display: inline-block;  width: 100%;'
+    "
   >
     <Processing :progress="'Merging'" v-if="page_load == 'processing'" />
     <Uploading
@@ -12,20 +16,17 @@
       :file_name="'pdfden_merged.pdf'"
       v-if="page_load == 'uploading'"
     />
-    <div
-      class="select-wrapper"
+
+    <SelectFileComponent
       v-if="page_load == 'default' && !file_objs.length"
-    >
-      <SelectFileComponent
-        @open_add_local="open_add_local"
-        @onPickedDropbox="onPickedDropbox"
-        @onPickedGoogleDriver="onPickedGoogleDriver"
-        @handleFile="handleFiles"
-        :title="$t('page_titles.merge_page.title')"
-        :description="$t('page_titles.merge_page.description')"
-        :featureImgUrl="svgUrl"
-      />
-    </div>
+      @open_add_local="open_add_local"
+      @onPickedDropbox="onPickedDropbox"
+      @onPickedGoogleDriver="onPickedGoogleDriver"
+      @handleFile="handleFiles"
+      :title="$t('page_titles.merge_page.title')"
+      :description="$t('page_titles.merge_page.description')"
+      :featureImgUrl="svgUrl"
+    />
     <input
       type="file"
       multiple
@@ -614,7 +615,7 @@ export default {
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  margin-left: 50px;
+  margin-left: 58px;
 }
 
 .prew_title {
@@ -641,7 +642,7 @@ h3 {
 }
 @media only screen and (max-width: 991px) {
   .select-wrapper {
-    padding-right: 45px;
+    padding-right: 60px;
   }
   .merge__sidebar {
     display: none;

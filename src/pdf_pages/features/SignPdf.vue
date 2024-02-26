@@ -115,8 +115,28 @@ export default {
       svgUrl: SvgImage,
     };
   },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
+  },
 
   methods: {
+    handleResize() {
+      if (window.innerWidth <= 640) {
+        this.$swal(
+          "Warning!",
+          "This feature is not available in this region.  Please use a device with a resolution of 920px or higher.",
+          "warning"
+        );
+        this.$nextTick().then(() => {
+          // Now, the DOM has been updated, and you can safely execute the next statement
+          this.$router.push("/");
+        });
+      }
+    },
     set_sign_items(data) {
       this.modalValidate = false;
       this.sign_obj = data;

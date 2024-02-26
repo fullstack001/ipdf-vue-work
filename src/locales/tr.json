@@ -202,7 +202,7 @@
       },
       "sign_page": {
         "title": "PDF'yi İmzala",
-         "des": "Belgeleri e-İmzalama aracınız. Bir belgeyi kendiniz imzalayın veya başkalarına imza isteği gönderin.",
+         "description": "Belgeleri e-İmzalama aracınız. Bir belgeyi kendiniz imzalayın veya başkalarına imza isteği gönderin.",
          "selectBtn": "PDF Dosyalarını Seç",
          "dropFiles": "Veya PDF'leri Buraya Bırakın",
          "sign_options": "İmzalama seçenekleri",

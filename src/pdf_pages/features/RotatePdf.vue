@@ -1327,6 +1327,7 @@ h3 {
     display: none;
   }
   .rotate_responsive__sidebar {
+    display: block;
     position: absolute;
     z-index: 999;
     width: 85% !important;

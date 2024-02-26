@@ -17,40 +17,6 @@
     </div>
     <BlogThumbnail :routing="true" />
 
-    <!-- <div class="solution">
-      <div class="block__container">
-        <div class="solution-header">
-          {{ $t("page_titles.landing.section1.title") }}
-        </div>
-        <div class="md-layout">
-          <div class="md-layout-item" v-for="blog in blogs" :key="blog._id">
-            <md-card>
-              <md-card-media>
-                <img :src="blog.img" alt="People" />
-                <div class="card-tip">
-                  <div class="card-tip-date">
-                    {{ setMonth(blog.uploadTime) }}
-                  </div>
-                  <div class="card-tip-month">
-                    {{ setDate(blog.uploadTime) }}
-                  </div>
-                </div>
-              </md-card-media>
-
-              <md-card-header>
-                <div class="md-title">
-                  {{ $t("page_titles.landing.section1.title1") }}
-                </div>
-                <div class="md-subhead">
-                  {{ $t("page_titles.landing.section1.text1") }}
-                </div>
-              </md-card-header>
-            </md-card>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <div class="premium">
       <div class="block__container">
         <div class="md-layout">

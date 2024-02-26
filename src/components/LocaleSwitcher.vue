@@ -16,7 +16,11 @@
     <div @mouseover="showLan = true" class="current_language">
       {{ getName($i18n.locale) }}
     </div>
-    <div class="md-layout" v-show="showLan" @mouseleave="showLan = false">
+    <div
+      class="md-layout language-panel"
+      v-show="showLan"
+      @mouseleave="showLan = false"
+    >
       <div class="md-layout-item">
         <div
           v-for="number in 9"
@@ -131,5 +135,14 @@ export default {
 }
 .active {
   color: #ff7c03;
+}
+@media (max-width: 640px) {
+  .language-panel {
+    width: 324px;
+    top: -264px;
+  }
+  .language-panel .md-layout-item {
+    padding: 10px;
+  }
 }
 </style>

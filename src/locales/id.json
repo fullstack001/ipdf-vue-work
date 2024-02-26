@@ -202,7 +202,7 @@
       },
       "sign_page": {
         "title": "Tanda tangan PDF",
-         "des": "Alat Anda untuk menandatangani dokumen secara elektronik. Tanda tangani sendiri dokumen atau kirimkan permintaan tanda tangan kepada orang lain.",
+         "description": "Alat Anda untuk menandatangani dokumen secara elektronik. Tanda tangani sendiri dokumen atau kirimkan permintaan tanda tangan kepada orang lain.",
          "selectBtn": "Pilih File PDF",
          "dropFiles": "Atau Letakkan PDF di Sini",
          "sign_options": "Opsi penandatanganan",

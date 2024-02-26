@@ -108,7 +108,27 @@ export default {
       progress: 0,
     };
   },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
+  },
   methods: {
+    handleResize() {
+      if (window.innerWidth <= 640) {
+        this.$swal(
+          "Warning!",
+          "This feature is not available in this region.  Please use a device with a resolution of 920px or higher.",
+          "warning"
+        );
+        this.$nextTick().then(() => {
+          // Now, the DOM has been updated, and you can safely execute the next statement
+          this.$router.push("/");
+        });
+      }
+    },
     async handleFiles(files) {
       if (files.length > 1) {
         this.$swal(

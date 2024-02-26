@@ -1,17 +1,15 @@
 <template>
   <md-content class="">
     <LocalizedLink :to="item.item.name">
-      <div>
+      <div class="item-header">
         <img :src="require(`@/assets/feature_img/${item.item.file}`)" />
-      </div>
-      <div>
-        <h3>
+        <div class="item-title">
           {{ item.item.title }}
-        </h3>
-        <p>
-          {{ item.item.description }}
-        </p>
+        </div>
       </div>
+      <p>
+        {{ item.item.description }}
+      </p>
     </LocalizedLink>
   </md-content>
 </template>
@@ -40,29 +38,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
-html,
-body {
-  font-family: "Montserrat", sans-serif;
-}
 .md-content {
   padding: 24px;
   text-align: center;
 }
+a {
+  .item-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #33333b;
+    margin: 20px;
+  }
 
-a h3 {
-  font-size: 20px;
-  font-weight: 500;
-  color: #33333b;
-}
-
-a p {
-  color: #33333b;
+  p {
+    font-size: 14px;
+    margin: 20px 0;
+    color: #33333b;
+  }
 }
 
 img {
   width: 42px;
   height: 42px;
   margin: auto;
+}
+@media (max-width: 640px) {
+  .md-content {
+    padding: 9px;
+    text-align: left;
+  }
+  .item-header {
+    display: flex;
+    img {
+      margin: 0px;
+      width: 34px;
+    }
+    .item-title {
+      font-size: 15px;
+    }
+  }
+  a p {
+    margin: 0px;
+    width: 34px;
+    width: 100%;
+  }
 }
 </style>

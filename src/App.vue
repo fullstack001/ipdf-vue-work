@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isLoading">Loading...</div>
+    <div v-if="isLoading"></div>
     <div v-else>
       <Nav />
       <router-view></router-view>

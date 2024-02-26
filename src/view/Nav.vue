@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" @mouseleave="isOpen = false">
     <div class="block__container">
       <LocalizedLink to="/" style="background-color: #fff !important">
         <img src="@/assets/img/vue-logo.png" width="160" srcset="" />
@@ -175,6 +175,16 @@
           <li>
             <LocalizedLink to="/pdftoword">
               {{ $t("features.pdf_word.title") }}
+            </LocalizedLink>
+          </li>
+          <li>
+            <LocalizedLink to="/signpdf">
+              {{ $t("features.sign.title") }}
+            </LocalizedLink>
+          </li>
+          <li>
+            <LocalizedLink to="/editpdf">
+              {{ $t("features.edit.title") }}
             </LocalizedLink>
           </li>
           <!-- <li>

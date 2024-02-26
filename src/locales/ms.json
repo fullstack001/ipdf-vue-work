@@ -202,7 +202,7 @@
       },
       "sign_page": {
         "title": "Tandatangan PDF",
-        "des": "Alat anda untuk eSign dokumen. Tandatangan dokumen sendiri atau hantar permintaan tandatangan kepada orang lain.",
+        "description": "Alat anda untuk eSign dokumen. Tandatangan dokumen sendiri atau hantar permintaan tandatangan kepada orang lain.",
         "selectBtn": "Pilih Fail PDF",
         "dropFiles": "Atau Lepaskan PDF Di Sini",
         "sign_options": "Pilihan menandatangani",

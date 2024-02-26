@@ -201,7 +201,7 @@
     },
     "sign_page": {
       "title": "Firma PDF",
-      "des": "Il tuo strumento per firmare elettronicamente i documenti. Firma tu stesso un documento o invia una richiesta di firma ad altri.",
+      "description": "Il tuo strumento per firmare elettronicamente i documenti. Firma tu stesso un documento o invia una richiesta di firma ad altri.",
       "selectBtn": "Seleziona file PDF",
       "dropFiles": "Oppure rilascia i PDF qui",
       "sign_options": "Opzioni di firma",

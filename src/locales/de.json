@@ -202,7 +202,7 @@
     },
     "sign_page": {
       "title": "PDF signieren",
-      "des": "Ihr Tool zum elektronischen Signieren von Dokumenten. Signieren Sie ein Dokument selbst oder senden Sie eine Signaturanfrage an andere.",
+      "description": "Ihr Tool zum elektronischen Signieren von Dokumenten. Signieren Sie ein Dokument selbst oder senden Sie eine Signaturanfrage an andere.",
       "selectBtn": "PDF-Dateien auswählen",
       "dropFiles": "Oder PDFs hier ablegen",
       "sign_options": "Signaturoptionen",

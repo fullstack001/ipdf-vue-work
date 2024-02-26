@@ -202,7 +202,7 @@
       },
       "sign_page": {
         "title": "PDF ondertekenen",
-         "des": "Uw hulpmiddel om documenten elektronisch te ondertekenen. Onderteken zelf een document of stuur een handtekeningverzoek naar anderen.",
+         "description": "Uw hulpmiddel om documenten elektronisch te ondertekenen. Onderteken zelf een document of stuur een handtekeningverzoek naar anderen.",
          "selectBtn": "Selecteer PDF-bestanden",
          "dropFiles": "Of zet hier PDF's neer",
          "sign_options": "Ondertekenopties",
