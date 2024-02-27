@@ -549,6 +549,9 @@ export default {
   }
 }
 @media (max-width: 640px) {
+  .solution {
+    margin-block: 15px;
+  }
   .tools_container {
     display: block;
   }

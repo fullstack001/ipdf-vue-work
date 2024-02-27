@@ -139,11 +139,14 @@ export default {
 @media (max-width: 640px) {
   .language-panel {
     width: 324px;
-    top: -235px;
+    top: -210px;
   }
   .language-panel .md-layout-item {
     padding: 10px;
     margin-top: 0;
+  }
+  .locale-switcher {
+    margin-top: 29px;
   }
 }
 </style>

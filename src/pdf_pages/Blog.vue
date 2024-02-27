@@ -161,15 +161,15 @@ export default {
   font-size: 20px;
 }
 .blog-body {
-  width: 510px;
+  width: 100%;
   height: 600px;
   overflow: hidden;
 }
 img {
-  width: 480px;
+  /* width: 480px; */
   height: 280px;
 }
-@media only screen and (max-width: 1870px) {
+/* @media only screen and (max-width: 1870px) {
   .blog-body {
     width: 400px;
     height: 600px;
@@ -182,8 +182,8 @@ img {
   .md-title {
     font-size: 20px;
   }
-}
-@media only screen and (max-width: 1470px) {
+} */
+/* @media only screen and (max-width: 1470px) {
   .blog-body {
     width: 350px;
     height: 600px;
@@ -195,6 +195,20 @@ img {
   }
   .md-title {
     font-size: 15px;
+  }
+} */
+@media only screen and (max-width: 640px) {
+  .blog-item {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+  .blog-body {
+    width: 100%;
+  }
+  img {
+    /* width: 480px; */
+    height: 180px;
   }
 }
 </style>

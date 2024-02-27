@@ -5,7 +5,7 @@
       <div class="footer_menus">
         <LocaleSwitcher />
         <div class="footer-links">
-          <div class="footer-link">
+          <div class="footer-link footer-logo">
             <LocalizedLink to="/">
               <img src="@/assets/img/vue-logo.png" width="100" srcset="" />
             </LocalizedLink>
@@ -186,6 +186,20 @@ export default {
 @media (min-width: 1366px) {
   .block__container {
     max-width: 84%;
+  }
+}
+@media (max-width: 640px) {
+  .footer-links {
+    display: flex;
+  }
+  .footer-link {
+    font-size: 12px !important;
+    margin: 5px -4px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    display: none;
   }
 }
 </style>
