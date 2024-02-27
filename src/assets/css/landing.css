@@ -9,6 +9,10 @@
   background-size: cover;
   background-image: url("../../assets/img/background.svg");
 }
+.block__container {
+    max-width: 84%;
+    margin:auto
+  }
 
 .tools h2,
 .tools h4 {
@@ -289,7 +293,7 @@ h4 {
   }
 
   .premium_text{
-    font-size: 22px !important;
+    font-size: 20px !important;
     line-height: 1.1;
   }
 

@@ -129,8 +129,7 @@
           href="javascript:;"
           title="Order files by name"
           data-title="Order files by name"
-          style="display: flex"
-          v-show="file_objs.length > 1"
+          :style="file_objs.length > 1 ? 'display: flex' : 'display:none'"
           @click="sort_pdf"
         >
           <svg
@@ -640,7 +639,7 @@ h3 {
   z-index: 1000;
   border: solid 2px #ff7c03;
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 640px) {
   .select-wrapper {
     padding-right: 60px;
   }
