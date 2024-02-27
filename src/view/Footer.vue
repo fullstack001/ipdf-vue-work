@@ -42,7 +42,17 @@
           </div>
           <div class="footer-link border-right">
             <LocalizedLink to="wordtopdf" class="nav-btn">
-              {{ $t("other_features.convert_pdf.title") }}
+              {{ $t("features.word_pdf.title") }}
+            </LocalizedLink>
+          </div>
+          <div class="footer-link border-right">
+            <LocalizedLink to="pdftoword" class="nav-btn">
+              {{ $t("features.pdf_word.title") }}
+            </LocalizedLink>
+          </div>
+          <div class="footer-link border-right">
+            <LocalizedLink to="rotatepdf" class="nav-btn">
+              {{ $t("features.rotate.title") }}
             </LocalizedLink>
           </div>
           <div class="footer-link">
@@ -164,14 +174,6 @@ export default {
     display: flow;
   }
 
-  .footer-links {
-    display: block;
-  }
-
-  .border-right {
-    border-right: none;
-  }
-
   .footer-social {
     top: 20px;
   }
@@ -190,11 +192,16 @@ export default {
 }
 @media (max-width: 640px) {
   .footer-links {
-    display: flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: inline-flex;
+    width: 100%;
+    flex-wrap: wrap;
+    text-align: center;
   }
   .footer-link {
     font-size: 12px !important;
-    margin: 5px -4px;
+    margin: 5px 0px;
     text-align: center;
   }
 
