@@ -73,6 +73,9 @@ h4 {
     margin-right: 15px;
     margin-top: 30px;
 }
+.free-img{
+  margin-left: 50%;
+}
 
 
 .trusted {
@@ -111,7 +114,7 @@ h4 {
   position: relative;
   background: #47474f;
   color: #f5f5fa;
-  padding: 64px 0 30px;
+  padding: 64px 100px 30px;
   z-index: 1;
   background-position: center center;
   background-size: cover;
@@ -259,6 +262,12 @@ h4 {
     margin-right: 5px;
     margin-top: 20px;
   }
+  .premium{
+    padding: 0 0 10px;
+  }
+  .free-img{
+  margin-left: 10% !important;
+}
   
 
   .md-layout-item {
@@ -272,15 +281,16 @@ h4 {
   .premium_title{
     font-size: 20px !important;
     font-weight: 600;
-    padding:15px 0
+    padding:10px 0
   }
   .tools h4{
-    font-size: 15px;
+    font-size: 10px;
     font-weight: 400;
   }
 
   .premium_text{
     font-size: 22px !important;
+    line-height: 1.1;
   }
 
 

@@ -208,7 +208,6 @@ body {
 
   .block__container {
     margin-left: 0;
-    padding-left: 5px;
   }
   .tab-area .md-button-content .md-tab-label {
     color: #333 !important;

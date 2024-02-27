@@ -1,5 +1,5 @@
 <template>
-  <div class="locale-switcher">
+  <div class="locale-switcher" @mouseleave="showLan = false">
     <div>
       <img
         src="@/assets/img/globe16.png"
@@ -139,10 +139,11 @@ export default {
 @media (max-width: 640px) {
   .language-panel {
     width: 324px;
-    top: -264px;
+    top: -235px;
   }
   .language-panel .md-layout-item {
     padding: 10px;
+    margin-top: 0;
   }
 }
 </style>

@@ -96,11 +96,7 @@ export default {
     BlogThumbnail,
   },
   created() {
-    if (this.$route.params.id) {
-      this.fetchBlogs(this.$route.params.id);
-    } else {
-      this.$router.push("/");
-    }
+    this.fetchBlogs(this.$route.params.title);
   },
   data() {
     return {
@@ -112,13 +108,13 @@ export default {
   watch: {
     "$route.params.title": function (newTitle, oldTitle) {
       // Handle the change of params.title here
-      this.fetchBlogs(this.$route.params.id);
+      this.fetchBlogs(newTitle);
     },
   },
   methods: {
-    fetchBlogs(id) {
+    fetchBlogs(title) {
       this.$axios
-        .get(`/pdf/blog/${id}`)
+        .get(`/pdf/blog/${title}`)
         .then((res) => {
           this.blog = res.data.blog;
           this.titles = res.data.titles;
@@ -139,7 +135,6 @@ export default {
             : "en_blogDetail",
         params: {
           title: modifiedTitle,
-          id: newItem._id,
         },
       });
     },
@@ -262,7 +257,7 @@ export default {
 }
 .blog-img-wrapper {
   position: relative;
-  min-height: 345px;
+  height: 345px;
 }
 .blog-img-wrapper img {
   position: absolute;
@@ -316,7 +311,10 @@ export default {
 @media (max-width: 640px) {
   .blog-title-area {
     padding: 20px;
-    height: 371px;
+  }
+  .blog-img-wrapper {
+    position: sticky;
+    height: 250px;
   }
   .blog-date {
     font-size: 19px;
@@ -326,10 +324,10 @@ export default {
     line-height: normal;
   }
   .blog-img {
-    width: 310px;
+    width: 89%;
   }
   .blog-social {
-    left: 320px;
+    left: 92%;
   }
   .blog-content-area {
     padding: 15px;

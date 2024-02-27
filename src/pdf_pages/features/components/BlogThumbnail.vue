@@ -92,10 +92,8 @@ export default {
   position: relative;
 }
 .block__container {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 91%;
+  margin: auto;
+  max-width: 90%;
 }
 .solution-header {
   font-weight: 600;
@@ -180,7 +178,10 @@ img {
   }
   .blog-panel {
     margin-top: 0px;
-    padding-left: 0px;
+    padding: 0px;
+    margin: auto;
+    width: 100%;
+    margin-bottom: 15px;
   }
   .solution-header {
     font-size: 20px;
@@ -188,6 +189,8 @@ img {
   .blog-body {
     height: 289px;
     overflow: hidden;
+    width: 100%;
+    margin: 0;
   }
   .md-card-header .md-title {
     line-height: 1.05;
