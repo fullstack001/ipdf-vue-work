@@ -272,5 +272,155 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/wordToPdf.css";
+.wp-files-list {
+  width: 80%;
+  text-align: center;
+  position: relative;
+  padding: 20px;
+}
+.wp_sidebar {
+  width: 20%;
+  background-color: #fff;
+  width: 20%;
+  height: 100vh;
+  text-align: center;
+}
+.file-label {
+  font-size: 20px;
+  display: block;
+  cursor: pointer;
+}
+.preview-container {
+  position: relative;
+  margin-top: 2rem;
+  margin-right: 20px;
+}
+.md-layout {
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+.preview_area {
+  display: flex;
+}
+.preview-card {
+  cursor: grab;
+  flex: 1 1;
+  margin: 4px;
+  max-width: 215px;
+  min-width: 215px;
+  height: 250px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: distribute;
+  align-content: space-around;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: #fdfdfd;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+}
+
+.preview-img {
+  width: 140px;
+  height: 180px;
+  border-radius: 5px;
+  border: 1px solid #a2a2a2;
+  background-color: #a2a2a2;
+}
+
+.file__actions {
+  top: 8px;
+  right: 8px;
+  position: absolute;
+  display: inline-flex;
+  /* display: none; */
+  z-index: 100;
+}
+.file__btn {
+  padding: 3px;
+  width: 24px;
+  height: 24px;
+  -ms-flex: 0 0 24px;
+  flex: 0 0 24px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  background: #ff7c03;
+  margin-left: 4px;
+  z-index: 1030;
+  border-radius: 100%;
+  cursor: pointer;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.word_preview_img {
+  width: 130px;
+}
+
+.add-more {
+  width: fit-content;
+  position: absolute;
+  margin: auto;
+  right: 120px;
+  top: 30px;
+}
+
+.add-more-area {
+  position: relative;
+  display: block;
+}
+
+.wp_btn,
+.wp_responsive_btn {
+  font-size: 22px;
+  line-height: 26px;
+  min-height: 48px;
+  padding: 8px 12px;
+  color: #fff;
+  background-color: #ff7c03;
+  padding: 15px 40px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-top: 100%;
+}
+.wp_responsive_btn {
+  display: none;
+}
+
+h3 {
+  font-weight: 500;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 640px) {
+  .wp_sidebar {
+    display: none;
+  }
+  .wp-files-list {
+    width: 100%;
+    padding-left: 17%;
+    min-height: 80vh;
+  }
+
+  .wp_responsive_btn {
+    display: block;
+    position: absolute;
+    top: 200px;
+    right: 10px;
+  }
+}
 </style>

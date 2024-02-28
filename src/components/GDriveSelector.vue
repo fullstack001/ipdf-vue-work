@@ -30,12 +30,7 @@ export default {
       selectedFile: null,
     };
   },
-  mounted() {
-    let gDrive = document.createElement("script");
-    gDrive.setAttribute("type", "text/javascript");
-    gDrive.setAttribute("src", "https://apis.google.com/js/api.js");
-    document.head.appendChild(gDrive);
-  },
+
   methods: {
     async driveIconClicked() {
       await gapi.load("client:auth2", () => {

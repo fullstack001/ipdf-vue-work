@@ -63,7 +63,8 @@ Vue.use(loading, {
 });
 
 Vue.use(VueMeta, {
-  keyName: "head",
+  // keyName: "head",
+  refreshOnceOnNavigation: true,
 });
 
 /* eslint-disable no-new */

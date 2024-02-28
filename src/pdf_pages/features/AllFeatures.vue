@@ -74,21 +74,31 @@ export default {
 
     meta: [
       {
+        vmid: "all_keys",
         name: "Keywords",
         content:
           "PDF tools, online PDF editor, PDF converter, merge PDF, split PDF, compress PDF, edit PDF, convert to PDF, PDF merge, PDF split, PDF compression, editable PDF, online PDF suite, PDF utility",
       },
       {
+        vmid: "all_description",
         name: "description",
         content:
           "Unlock the full potential of your PDFs with PDFden. Merge, split, convert, and edit your PDF files online with ease. Your go-to solution for all PDF-related tasks.",
       },
       {
+        vmid: "all_facebook_description",
         property: "og:description",
         content:
           "Unlock the full potential of your PDFs with PDFden. Merge, split, convert, and edit your PDF files online with ease. Your go-to solution for all PDF-related tasks.",
       },
       {
+        vmid: "all_title",
+        property: "title",
+        content:
+          "PDFden.com - Free Online PDF Tools - Merge, Split, Compress, and More!",
+      },
+      {
+        vmid: "all_facebook_title",
         property: "og:title",
         content:
           "PDFden.com - Free Online PDF Tools - Merge, Split, Compress, and More!",

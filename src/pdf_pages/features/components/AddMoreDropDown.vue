@@ -16,7 +16,7 @@
             >{{ $t("toolTip.add_more") }}
           </md-tooltip>
         </md-speed-dial-target>
-        <div class="badge">
+        <div class="add_badge">
           {{ pdfCounts }}
         </div>
       </div>
@@ -95,7 +95,7 @@ h3 {
   font-weight: 500;
   margin-bottom: 10px;
 }
-.badge[data-v-43894eff] {
+.add_badge {
   position: absolute;
   top: -10px;
   right: 60px;
